@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Spanish string file. -->
+
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    
+    <string name="welcomeActivityLabel">Bienvenido</string>
+    <string name="controlActivityLabel">Control de dispositivos</string>
+    <string name="settingsActivityLabel">Configuración</string>
+
+    <string name="startButton">Comenzar</string>
+    <string name="settingsButton">Configuración</string>
+    <string name="autostartText1">comenzará en</string>
+    <string name="autostartText2">segundos.</string>
+    
+    <string name="usersTab">Usuarios</string>
+    <string name="useProfilesTab">Perfiles de uso</string>
+    <string name="deviceProfilesTab">Perf. dispositivos</string>
+</resources>

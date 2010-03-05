@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="Personal data">
+        <EditTextPreference
+            android:key="userNamePref"
+            android:name="userNamePref"
+            android:defaultValue=""
+            android:title="Name"
+            android:summary="This is a second PreferenceScreen" />
+        <EditTextPreference
+            android:key="userSchoolPref"
+            android:name="userSchoolPref"
+            android:defaultValue=""
+            android:title="School" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="Profile data">
+        <ListPreference
+            android:key="userUseProfilePref"
+            android:title="Use profile"
+            android:defaultValue="Default" />
+        <ListPreference
+            android:key="userDeviceProfilePref"
+            android:title="Device profile"
+            android:defaultValue="Default" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="Autostart">
+        <CheckBoxPreference
+            android:key="userAutostartPref"
+            android:title="Enable autostart"
+            android:defaultValue="true"
+            />
+        <EditTextPreference
+            android:key="userAutostartSecondsPref"
+            android:name="Seconds"
+            android:defaultValue="5"
+            android:title="Seconds" 
+            
+            android:dependency="userAutostartPref"/>
+    </PreferenceCategory>
+    <Preference
+		android:title="Custom Preference"
+		android:summary="This works almost like a button"
+		android:key="customPref" />
+</PreferenceScreen>

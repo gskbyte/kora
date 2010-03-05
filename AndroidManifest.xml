@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="org.gskbyte.Kora"
+    android:versionCode="1" android:versionName="0.1">
+    
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    
+    <application android:label="@string/appName"
+    	android:icon="@drawable/icon" 
+		android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+        <activity android:name=".WelcomeActivity"
+              android:label="@string/appName">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        
+        <activity android:name=".ControlActivity"
+              android:label="@string/controlActivity">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        
+        <activity android:name=".SettingsActivity"
+              android:label="@string/settingsActivity">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        	<activity android:name=".SettingsActivities.UsersActivity"
+	              android:label="@string/usersActivity">
+        	</activity>
+        		<activity android:name=".SettingsActivities.UserPreferencesActivity"
+	              	android:label="userPreferencesActivity">
+        		</activity>
+        	<activity android:name=".SettingsActivities.UseProfilesActivity"
+	              android:label="@string/useProfilesActivity">
+        	</activity>
+        		<activity android:name=".SettingsActivities.UseProfilesPreferencesActivity">
+        		</activity>
+        	<activity android:name=".SettingsActivities.DeviceProfilesActivity"
+	              android:label="@string/deviceProfilesActivity">
+        	</activity>
+
+    </application>
+    <uses-sdk android:minSdkVersion="4" />
+</manifest> 

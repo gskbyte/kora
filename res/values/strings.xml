@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- English string file. -->
+
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+	<!-- Main strings. -->
+    <string name="appName">Kora</string>
+    <string name="title">Kora</string>
+    
+    <!-- Common actions -->
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="select">Select</string>
+    <string name="choose">Choose</string>
+    <string name="add">Add</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="ok">Ok</string>
+    <string name="cancel">Cancel</string>
+    <string name="return_">Return</string>
+    
+    
+    <!-- Activity Strings -->
+    <string name="welcomeActivity">Kora</string>
+    <string name="controlActivity">Device selection</string>
+    <string name="settingsActivity">Settings</string>
+    	<string name="usersActivity">Users</string>
+    	<string name="useProfilesActivity">Use profiles</string>
+    	<string name="deviceProfilesActivity">Device profiles</string>
+    
+    <!-- Welcome strings -->
+    <string name="startButton">Start</string>
+    <string name="settingsButton">Settings</string>
+    <string name="infoButton">Info</string>
+    <string name="autostartText1">will start on</string>
+    <string name="autostartText2">seconds.</string>
+    
+    <!-- Settings strings -->
+    <string name="usersTab">Users</string>
+    <string name="useProfilesTab">Use profiles</string>
+    <string name="deviceProfilesTab">Device profiles</string>
+    
+    	<!-- Common strings -->
+    	<string name="addButton">Add</string>
+    
+	    <!-- Users strings -->
+	    <string name="addUser">Add user</string>
+	    <string name="editUser">Edit user</string>
+	    <string name="user">User</string>
+	    <string name="currentUser">Current user:</string>
+	    <string name="customUsers">Custom users</string>
+	    <string name="defaultUsers">Default users</string>
+	    <string name="userDeletionQuestion">Are you sure you want to delete user</string>
+	    <string name="minimumTime">Minimum time is 5 seconds</string>
+	    <!-- Use profiles strings -->
+    	<string name="interaction">Interaction</string>
+    	<string name="visualization">Visualization</string>
+    	<string name="feedback">Feedback</string>
+    	<string name="soundVoice">Sound and voice</string>
+    		<!-- Interaction -->
+    		<string name="mainInteraction">Main interaction</string>
+    			<string name="touchInteraction">Touch interaction</string>
+    				<string name="multitouchInteraction">Multitouch</string>
+    				<string name="pressAndDragInteraction">Touch and drag</string>
+    				<string name="simpleTouchInteraction">Simple touch</string>
+    			<string name="BARRIDO">Interaction</string>
+    				<string name="BARRIDOtime">BARRIDO time</string>
+    		<string name="voiceInteraction">Voice interaction</string>
+    		<!-- Visualization -->
+    		<string name="lookAndFeel">Look and feel</string>
+    			<string name="defaultLAF">Default</string>
+    			<string name="plainColors">Plain color</string>
+    			<string name="differentPlainColor">Different plain colors</string>
+    			<string name="highContrastColor">High contrast</string>
+    			<string name="blackAndWhite">Black and white</string>
+    		<string name="disposition">Disposition</string>
+    			<string name="columns">Columns</string>
+    			<string name="rows">Rows</string>
+    		<string name="text">Text</string>
+    			<string name="textShow">Show</string>
+    			<string name="textSize">Size</string>
+    			<string name="textTypography">Typography</string>
+    				<string name="sans">Sans font</string>
+    				<string name="calligraphic">Calligraphic</string>
+    				<string name="comic">Comic</string>
+    			<string name="textEffects">Effects</string>
+    			<string name="textColor">Color</string>
+    		<string name="imagesAndIcons">Images and icons</string>
+    			<string name="icon">Icon</string>
+    			<string name="highContrastIcon">highContrastIcon</string>
+    			<string name="photo">Photo</string>
+    			<string name="animation">Animation</string>
+    		<string name="paging">Paging</string>
+    			<string name="standardPaging">Standard</string>
+    			<string name="automaticPaging">Automatic</string>
+    			<string name="firstAndLastButtons">First and last buttons</string>
+    		<!-- Feedback -->
+    		<!-- Sound & Voice -->
+    	
+	    <!-- Device profiles strings -->
+    
+</resources>
