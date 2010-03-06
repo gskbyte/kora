@@ -88,6 +88,7 @@ public final class R {
         /**  Users strings 
          */
         public static final int addUser=0x7f05001b;
+        public static final int airConditionated=0x7f05005b;
         public static final int animation=0x7f050045;
         /**  Main strings. 
          */
@@ -96,34 +97,49 @@ public final class R {
         public static final int autostartText1=0x7f050015;
         public static final int autostartText2=0x7f050016;
         public static final int blackAndWhite=0x7f050034;
+        public static final int boiler=0x7f05005d;
         public static final int calligraphic=0x7f05003d;
         public static final int cancel=0x7f05000a;
         public static final int choose=0x7f050005;
         public static final int columns=0x7f050036;
         public static final int comic=0x7f05003e;
+        public static final int confirmation=0x7f05004b;
         public static final int controlActivity=0x7f05000d;
-        public static final int controlActivityLabel=0x7f05004b;
+        public static final int controlActivityLabel=0x7f050067;
         public static final int currentUser=0x7f05001e;
         public static final int customUsers=0x7f05001f;
+        public static final int customVoice=0x7f050056;
         public static final int defaultLAF=0x7f050030;
         public static final int defaultUsers=0x7f050020;
+        public static final int defaultVoice=0x7f050055;
         public static final int delete=0x7f050008;
         public static final int deviceProfilesActivity=0x7f050011;
         public static final int deviceProfilesTab=0x7f050019;
         public static final int differentPlainColor=0x7f050032;
         public static final int disposition=0x7f050035;
+        public static final int done=0x7f050063;
+        public static final int door=0x7f050059;
         public static final int edit=0x7f050007;
         public static final int editUser=0x7f05001c;
         public static final int feedback=0x7f050025;
         public static final int firstAndLastButtons=0x7f050049;
+        public static final int heating=0x7f05005a;
         public static final int highContrastColor=0x7f050033;
         public static final int highContrastIcon=0x7f050043;
+        public static final int highlightContent=0x7f05004c;
+        public static final int hightlightBorder=0x7f05004f;
         public static final int icon=0x7f050042;
         public static final int imagesAndIcons=0x7f050041;
+        public static final int increaseBrightness=0x7f05004e;
         public static final int infoButton=0x7f050014;
         /**  Use profiles strings 
          */
         public static final int interaction=0x7f050023;
+        /**  Device profiles strings 
+  nothing yet 
+ Device strings 
+         */
+        public static final int light=0x7f050057;
         /**  Visualization 
          */
         public static final int lookAndFeel=0x7f05002f;
@@ -132,25 +148,41 @@ public final class R {
         public static final int mainInteraction=0x7f050027;
         public static final int minimumTime=0x7f050022;
         public static final int multitouchInteraction=0x7f050029;
+        public static final int música=0x7f05005c;
+        /**  Añadir resto de verbos aquí 
+ Please, translate this into english. I'll translate tags later.
+   		 Cosas como: "subido una persiana", "bajado una persiana", "subido una persiana del todo", "puesto agua a calentar"
+   		 "subido la temperatura", etc. Acciones básicas sobre los dispositivos de arriba. 
+ Feedback strings 
+         */
+        public static final int nice=0x7f050061;
         public static final int no=0x7f050003;
+        /**  Sound & Voice 
+         */
+        public static final int noSound=0x7f050050;
         public static final int ok=0x7f050009;
+        public static final int onAction=0x7f050053;
+        public static final int onItemSelection=0x7f050052;
         public static final int paging=0x7f050046;
         public static final int photo=0x7f050044;
         public static final int plainColors=0x7f050031;
         public static final int pressAndDragInteraction=0x7f05002a;
+        public static final int raise=0x7f050060;
         public static final int return_=0x7f05000b;
         public static final int rows=0x7f050037;
         public static final int sans=0x7f05003c;
         public static final int select=0x7f050004;
         public static final int settingsActivity=0x7f05000e;
-        public static final int settingsActivityLabel=0x7f05004c;
+        public static final int settingsActivityLabel=0x7f050068;
         public static final int settingsButton=0x7f050013;
+        public static final int simpleSounds=0x7f050051;
         public static final int simpleTouchInteraction=0x7f05002b;
         public static final int soundVoice=0x7f050026;
         public static final int standardPaging=0x7f050047;
         /**  Welcome strings 
          */
         public static final int startButton=0x7f050012;
+        public static final int sunblind=0x7f050058;
         public static final int text=0x7f050038;
         public static final int textColor=0x7f050040;
         public static final int textEffects=0x7f05003f;
@@ -159,6 +191,12 @@ public final class R {
         public static final int textTypography=0x7f05003b;
         public static final int title=0x7f050001;
         public static final int touchInteraction=0x7f050028;
+        public static final int turnOff=0x7f05005f;
+        /**  Device actions 
+         */
+        public static final int turnOn=0x7f05005e;
+        public static final int turnedOffLight=0x7f050065;
+        public static final int turnedOnLight=0x7f050064;
         public static final int useProfilesActivity=0x7f050010;
         public static final int useProfilesTab=0x7f050018;
         public static final int user=0x7f05001d;
@@ -167,15 +205,21 @@ public final class R {
         /**  Settings strings 
          */
         public static final int usersTab=0x7f050017;
+        /**  Feedback 
+         */
+        public static final int vibration=0x7f05004a;
         public static final int visualization=0x7f050024;
+        public static final int voice=0x7f050054;
         public static final int voiceInteraction=0x7f05002e;
         /**  Activity Strings 
          */
         public static final int welcomeActivity=0x7f05000c;
-        public static final int welcomeActivityLabel=0x7f05004a;
+        public static final int welcomeActivityLabel=0x7f050066;
         /**  Common actions 
          */
         public static final int yes=0x7f050002;
+        public static final int youHave=0x7f050062;
+        public static final int zoomIn=0x7f05004d;
     }
     public static final class xml {
         public static final int preferences_device_profile=0x7f040000;

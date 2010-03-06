@@ -94,8 +94,49 @@
     			<string name="automaticPaging">Automatic</string>
     			<string name="firstAndLastButtons">First and last buttons</string>
     		<!-- Feedback -->
+    		<string name="vibration"></string>
+    		<string name="confirmation"></string>
+    		<string name="highlightContent">Highlight content</string>
+    			<string name="zoomIn">Zoom in</string>
+    			<string name="increaseBrightness">Increase brightness</string>
+    		<string name="hightlightBorder">Highlight border</string>
+    		
     		<!-- Sound & Voice -->
+    		<string name="noSound">No sound</string>
+    		<string name="simpleSounds">Simple sounds</string>
+    			<string name="onItemSelection">When an item is selected</string>
+    			<string name="onAction">When an action is done</string>
+    		<string name="voice">Voice</string>
+    			<string name="defaultVoice">Default voice</string>
+    			<string name="customVoice">Custom voice</string>
     	
 	    <!-- Device profiles strings -->
-    
+	    
+	    	<!--  nothing yet -->
+	    	
+   	<!-- Device strings -->
+   	<string name="light">Light</string>
+   	<string name="sunblind">Sunblind</string>
+   	<string name="door">Door</string>
+   	<string name="heating">Heating</string>
+   	<string name="airConditionated">Air condicionated</string>
+   	<string name="música">Music</string>
+   	<string name="boiler">Boiler</string>
+   	
+   	<!-- Device actions -->
+   	<string name="turnOn">Turn on</string>
+   	<string name="turnOff">Turn off</string>
+   	<string name="raise">Raise</string>
+   	<!-- Añadir resto de verbos aquí -->
+   	
+   	<!-- Please, translate this into english. I'll translate tags later.
+   		 Cosas como: "subido una persiana", "bajado una persiana", "subido una persiana del todo", "puesto agua a calentar"
+   		 "subido la temperatura", etc. Acciones básicas sobre los dispositivos de arriba. -->
+   	<!-- Feedback strings -->
+   	<string name="nice">Nice!</string>
+   	<string name="youHave">You have</string>
+   	<string name="done">Done</string>
+   	<string name="turnedOnLight">turned on light</string>
+   	<string name="turnedOffLight">turned off light</string>
+   	<!-- Continuar aquí -->
 </resources>
