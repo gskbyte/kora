@@ -1,22 +1,18 @@
 package org.gskbyte.Kora;
 
 
-import org.gskbyte.Kora.R;
-import org.gskbyte.Kora.Settings.*;
-import org.gskbyte.Kora.Settings.SettingsManager.SettingsException;
-import org.gskbyte.Kora.SettingsActivities.AddEditUserDialog;
-import org.gskbyte.Kora.SettingsActivities.SelectUserDialog;
+import org.gskbyte.Kora.Settings.SettingsManager;
 
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class WelcomeActivity extends Activity
 {
@@ -57,23 +53,44 @@ public class WelcomeActivity extends Activity
         editor.commit();
         
         // Cargar estos datos de donde corresponde
-        String userName = nombre,
-            willStart = getResources().getString(R.string.autostartText1),
-            seconds = getResources().getString(R.string.autostartText2);
-        int seconds_left  = 10;
-        autostartText.setText(userName + " " + willStart + " " + seconds_left + " " + seconds);
+//        String userName = nombre,
+//            willStart = getResources().getString(R.string.autostartText1),
+//            seconds = getResources().getString(R.string.autostartText2);
+//        int seconds_left  = 10;
+//        autostartText.setText(userName + " " + willStart + " " + seconds_left + " " + seconds);
+    
         
+        //Start the ControlActivity after 10 seconds
+        CountDownTimer contador = new CountDownTimer(10000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+            	autostartText.setText("Empezando en " + millisUntilFinished / 1000 + " segundos");
+            }
+
+            public void onFinish() {
+            	//autostartText.setText("done!");
+            	startApplication();
+            }
+         };
+         
+         contador.start();
+
     }
     
-    //Listener del botón Start
+    //Load ControlActivity
+    private void startApplication(){
+    	Intent i = new Intent(WelcomeActivity.this, ControlActivity.class);
+        startActivity(i);
+    }
+    
+    //Listener del botï¿½n Start
     private OnClickListener startButtonListener = new OnClickListener() {
         public void onClick(View v) {
-            Intent i = new Intent(WelcomeActivity.this, ControlActivity.class);
-            startActivity(i);
+        	startApplication();
         }
     };
     
-    //Listener del botón Settings
+    //Listener del botï¿½n Settings
     private OnClickListener settingsButtonListener = new OnClickListener() {
         public void onClick(View v) {
             Intent i = new Intent(WelcomeActivity.this, SettingsActivity.class);
@@ -81,7 +98,7 @@ public class WelcomeActivity extends Activity
         }
     };
     
-    //Listener del botón Info
+    //Listener del botï¿½n Info
     private OnClickListener infoButtonListener = new OnClickListener() {
         public void onClick(View v) {
             showDialog(INFO_DIALOG_ID);
