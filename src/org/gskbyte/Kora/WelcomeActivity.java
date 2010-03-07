@@ -3,11 +3,12 @@ package org.gskbyte.Kora;
 
 import org.gskbyte.Kora.R;
 import org.gskbyte.Kora.Settings.*;
+import org.gskbyte.Kora.Settings.SettingsManager.SettingsException;
+import org.gskbyte.Kora.SettingsActivities.AddEditUserDialog;
+import org.gskbyte.Kora.SettingsActivities.SelectUserDialog;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -15,12 +16,13 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class WelcomeActivity extends Activity
 {
     private static final String TAG = "WelcomeActivity";
-
-    static final int ID_DIALOG_INFO = 1;
+    
+	private static final int INFO_DIALOG_ID = 0;
     
     private Button startButton, settingsButton, infoButton;
     private TextView autostartText;
@@ -63,38 +65,7 @@ public class WelcomeActivity extends Activity
         
     }
     
-    protected Dialog onCreateDialog(int id)
-    {
-        Dialog dialog;
-        switch(id)
-        {
-        case ID_DIALOG_INFO:
-        	String appName = getResources().getString(R.string.appName),
-        	ok = getResources().getString(R.string.ok),
-        	version = getResources().getString(R.string.version) + ": " +
-        	          getResources().getString(R.string.version_value),
-        	author = getResources().getString(R.string.author) + ": " +
-        	         getResources().getString(R.string.author_value),
-        	license = getResources().getString(R.string.license);
-        	
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage(version + "\n" + author + "\n" + license)
-                   .setIcon(getResources().getDrawable(R.drawable.icon_info))
-                   .setTitle(appName)
-                   .setNeutralButton(ok , new DialogInterface.OnClickListener() {
-                       public void onClick(DialogInterface dialog, int id) {
-                            dialog.cancel();
-                       }
-                   });
-            dialog = builder.create();
-            break;
-        default:
-            dialog = null;
-        }
-
-        return dialog;
-    }
-    
+    //Listener del botón Start
     private OnClickListener startButtonListener = new OnClickListener() {
         public void onClick(View v) {
             Intent i = new Intent(WelcomeActivity.this, ControlActivity.class);
@@ -102,6 +73,7 @@ public class WelcomeActivity extends Activity
         }
     };
     
+    //Listener del botón Settings
     private OnClickListener settingsButtonListener = new OnClickListener() {
         public void onClick(View v) {
             Intent i = new Intent(WelcomeActivity.this, SettingsActivity.class);
@@ -109,9 +81,39 @@ public class WelcomeActivity extends Activity
         }
     };
     
+    //Listener del botón Info
     private OnClickListener infoButtonListener = new OnClickListener() {
-    	public void onClick(View v){
-    		showDialog(WelcomeActivity.ID_DIALOG_INFO);
-    	}
+        public void onClick(View v) {
+            showDialog(INFO_DIALOG_ID);
+        }
     };
+    
+    //onCreateDialog
+    protected Dialog onCreateDialog(int id)
+    {
+        Dialog dialog=null;
+        
+        switch(id)
+        {
+	        case INFO_DIALOG_ID:
+	            dialog = new InfoDialog(this);
+	            break;
+	        default:
+	            dialog = null;
+        }
+
+        return dialog;
+    }
+    
+    //onPrepareDialog
+    protected void onPrepareDialog(int id, Dialog dialog)
+    {
+        switch(id)
+        {
+	        case INFO_DIALOG_ID:
+	            break;
+	        default:
+	            dialog = null;
+        }
+    }
 }
