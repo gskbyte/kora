@@ -12,15 +12,18 @@ public class InfoDialog extends AlertDialog {
 	private static final String TAG = "InfoDialog";
 		
 	private ImageView mImageView;
-	private TextView mTextView;
+	private TextView mProjectTextView, mVersionTextView, mAuthorTextView, mCollaboratorsTextView;
 	
 	//Constructor
 	public InfoDialog(Context context) {
 		super(context);
 		
 		View v = View.inflate(context, R.layout.info_dialog, null);
-		mImageView = (ImageView) v.findViewById(R.id.infoIcon);
-		mTextView = (TextView) v.findViewById(R.id.infoText);
+		//mImageView = (ImageView) v.findViewById(R.id.infoIcon);
+		//mProjectTextView = (TextView) v.findViewById(R.id.infoProjectText);
+		//mVersionTextView = (TextView) v.findViewById(R.id.infoVersionText);
+		//mAuthorTextView = (TextView) v.findViewById(R.id.infoAuthorText);
+		//mCollaboratorsTextView = (TextView) v.findViewById(R.id.infoCollaboratorsText);
 		
 		setView(v);
 		
