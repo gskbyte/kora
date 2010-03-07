@@ -17,14 +17,16 @@
 		
 		android:text="foto"
 		android:drawableTop="@drawable/icon_user"
-		/>
+	/>
+	
 	<EditText android:id="@+id/userNameEdit"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		android:layout_toRightOf="@id/photoButton"
 		
 		android:hint="Nombre"
-		android:singleLine="true"/>
+		android:singleLine="true"
+	/>
 	
 	<EditText android:id="@+id/userSchoolEdit"
 		android:layout_width="fill_parent"
@@ -32,7 +34,8 @@
 		android:layout_toRightOf="@id/photoButton"
 		android:layout_below="@id/userNameEdit"
 		android:hint="Centro"
-		android:singleLine="true"/>
+		android:singleLine="true"
+	/>
 
 	<Spinner android:id="@+id/useProfileSpinner"
 		android:layout_width="wrap_content"
@@ -41,7 +44,8 @@
 		android:layout_below="@id/userSchoolEdit"
 		android:minWidth="200dip"
 		
-		android:contentDescription="caca"/>
+		android:contentDescription="caca"
+	/>
 		
 	<TextView android:id="@+id/useProfileText" 
 		android:layout_width="wrap_content" 
@@ -50,8 +54,10 @@
 		android:layout_toLeftOf="@id/useProfileSpinner"
 		android:layout_alignParentLeft="true"
 		android:layout_alignBaseline="@id/useProfileSpinner"
+		android:layout_marginLeft="10dip"
 		
-		android:text="Perfil de\nuso" />
+		android:text="Perfil de\nuso"
+	/>
 		
 	<Spinner android:id="@+id/deviceProfileSpinner"
 		android:layout_width="wrap_content"
@@ -67,6 +73,7 @@
 		android:layout_toLeftOf="@id/deviceProfileSpinner"
 		android:layout_alignParentLeft="true"
 		android:layout_alignBaseline="@id/deviceProfileSpinner"
+		android:layout_marginLeft="10dip"
 		
 		android:text="Perfil de\ndispositivos" />
 		
@@ -75,7 +82,9 @@
 		android:layout_height="wrap_content"
 		android:layout_below="@id/deviceProfileSpinner"
 		
-		android:text="Entrada\nautomática"/>
+		android:text="Entrada\nautomática"
+	/>
+		
 	<EditText android:id="@+id/autoStartEdit"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
@@ -83,7 +92,8 @@
 		android:layout_below="@id/deviceProfileSpinner"
 		android:hint="segundos"
 		android:singleLine="true"
-		android:numeric="integer"/>
+		android:numeric="integer"
+	/>
 		
 </RelativeLayout>
 </ScrollView>

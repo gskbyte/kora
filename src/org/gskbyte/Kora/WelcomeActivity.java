@@ -36,7 +36,7 @@ public class WelcomeActivity extends Activity
         
         // Asociar eventos con botones
         startButton.setOnClickListener(startButtonListener);
-        settingsButton.setOnClickListener(configureButtonListener);
+        settingsButton.setOnClickListener(settingsButtonListener);
         
         // Cargar datos de programa (usuarios, perfiles, etc)
         init();
@@ -63,7 +63,7 @@ public class WelcomeActivity extends Activity
         }
     };
     
-    private OnClickListener configureButtonListener = new OnClickListener() {
+    private OnClickListener settingsButtonListener = new OnClickListener() {
         public void onClick(View v) {
             Intent i = new Intent(WelcomeActivity.this, SettingsActivity.class);
             startActivity(i);
