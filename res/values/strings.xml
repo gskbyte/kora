@@ -119,8 +119,8 @@
    	<string name="sunblind">Sunblind</string>
    	<string name="door">Door</string>
    	<string name="heating">Heating</string>
-   	<string name="airConditionated">Air condicionated</string>
-   	<string name="música">Music</string>
+   	<string name="airConditioner">Air conditioner</string>
+   	<string name="music">Music</string>
    	<string name="boiler">Boiler</string>
    	
    	<!-- Device actions -->
@@ -135,7 +135,7 @@
    	<!-- Feedback strings -->
    	<string name="nice">Nice!</string>
    	<string name="youHave">You have</string>
-   	<string name="done">Done</string>
+   	<string name="done">done</string>
    	<string name="turnedOnLight">turned on light</string>
    	<string name="turnedOffLight">turned off light</string>
    	<!-- Continuar aquí -->
