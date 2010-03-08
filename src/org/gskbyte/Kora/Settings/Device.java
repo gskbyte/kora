@@ -4,14 +4,21 @@ import android.graphics.drawable.Drawable;
 
 public class Device
 {
-	static final int ICON_NORMAL = 1,
-			   ICON_HIGH_CONTRAST = 2,
-			   ICON_ANIMATION = 3,
-			   ICON_PHOTO = 4;
+	public static final int ICON_NORMAL = 1,
+			   				ICON_HIGH_CONTRAST = 2,
+			   				ICON_ANIMATION = 3,
+			   				ICON_PHOTO = 4;
 	
 	private int id;
-	private String name, translatableName;
-	private Drawable normalIcon, highContrastIcon, animationIcon, photoIcon;
+	private String mTagName;
+	private Drawable mNormalIcon, mHighContrastIcon, mAnimationIcon, mPhotoIcon;
+	
+	/// COMPLETAR ESTE CONSTRUCTOR (provisional)
+	public Device(String name, Drawable icon)
+	{
+		mTagName = name;
+		mNormalIcon = icon;
+	}
 	
 	public int getId()
 	{
@@ -25,53 +32,43 @@ public class Device
 	
 	public String getName()
 	{
-		return name;
+		return mTagName;
 	}
 	
 	public void setName(String name)
 	{
-		this.name = name;
+		this.mTagName = name;
 	}
 	
-	public String getTranslatableName()
-	{
-		return translatableName;
-	}
-
-	public void setTranslatableName(String translatableName)
-	{
-		this.translatableName = translatableName;
-	}
-	
-	private Drawable getIcon(int which)
+	public Drawable getIcon(int which)
 	{
 		switch(which)
 		{
 		case ICON_NORMAL:
-			return normalIcon;
+			return mNormalIcon;
 		case ICON_HIGH_CONTRAST:
-			return highContrastIcon;
+			return mHighContrastIcon;
 		case ICON_ANIMATION:
-			return animationIcon;
+			return mAnimationIcon;
 		case ICON_PHOTO:
-			return photoIcon;
+			return mPhotoIcon;
 		default:
 				return null;
 		}
 	}
 	
-	private void setIcon(int which, Drawable icon)
+	public void setIcon(int which, Drawable icon)
 	{
 		switch(which)
 		{
 		case ICON_NORMAL:
-			normalIcon = icon;
+			mNormalIcon = icon;
 		case ICON_HIGH_CONTRAST:
-			highContrastIcon = icon;
+			mHighContrastIcon = icon;
 		case ICON_ANIMATION:
-			animationIcon = icon;
+			mAnimationIcon = icon;
 		case ICON_PHOTO:
-			photoIcon = icon;
+			mPhotoIcon = icon;
 		}
 	}
 }

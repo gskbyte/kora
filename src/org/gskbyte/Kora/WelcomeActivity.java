@@ -105,7 +105,7 @@ public class WelcomeActivity extends Activity {
 	// Load ControlActivity
 	private void startDeviceSelectionActivity() {
 		stopCountDown();
-		Intent i = new Intent(WelcomeActivity.this, ControlActivity.class);
+		Intent i = new Intent(WelcomeActivity.this, DeviceSelectionActivity.class);
 		startActivity(i);
 	}
 

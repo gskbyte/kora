@@ -6,7 +6,9 @@
     android:layout_height="wrap_content"
     android:gravity="center"
     android:orientation="vertical"
-    android:background="#FFFFFFFF">
+    android:background="#FFFFFFFF"
+    android:minHeight="200dip"
+    android:minWidth="200dip">
   
 	<ImageView android:id="@+id/deviceIcon"
 		android:layout_width="wrap_content"
@@ -14,10 +16,12 @@
 	 	android:src="@drawable/icon"
 	 	/>
 	 	
-	<TextView android:text="@+id/deviceName"
-		android:id="@+id/TextView01"
+	<TextView android:id="@+id/deviceName"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		/>
+		android:textColor="#FF000000"
+		android:text="&lt;device&gt;"
+		android:textSize="20dip"
+		android:layout_marginTop="10dip"/>
 		
 </LinearLayout>
