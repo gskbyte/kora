@@ -37,7 +37,7 @@
     <string name="autostartText2">segundos.</string>
     
         <!-- Information strings -->
-    	<string name="version">Version</string>
+    	<string name="version">Versión</string>
     	<string name="version_number">0.0.1</string>
     	<string name="author">Autor</string>
     	<string name="collaborators">Colaboradores</string>
@@ -112,8 +112,8 @@
             <!-- Sound & Voice -->
             <string name="noSound">Sin sonido</string>
             <string name="simpleSounds">Sonidos simples</string>
-                <string name="onItemSelection">Cuando un elemento está seleccionado</string>
-                <string name="onAction">Cuando la acción está realizada</string>
+                <string name="onItemSelection">Cuando un elemento sea seleccionado</string>
+                <string name="onAction">Cuando la acción sea realizada</string>
             <string name="voice">Voz</string>
                 <string name="defaultVoice">Voz por defecto</string>
                 <string name="customVoice">Voz personalizada</string>
