@@ -19,15 +19,10 @@ public class InfoDialog extends AlertDialog {
 		super(context);
 		
 		View v = View.inflate(context, R.layout.info_dialog, null);
-		//mImageView = (ImageView) v.findViewById(R.id.infoIcon);
-		//mProjectTextView = (TextView) v.findViewById(R.id.infoProjectText);
-		//mVersionTextView = (TextView) v.findViewById(R.id.infoVersionText);
-		//mAuthorTextView = (TextView) v.findViewById(R.id.infoAuthorText);
-		//mCollaboratorsTextView = (TextView) v.findViewById(R.id.infoCollaboratorsText);
 		
 		setView(v);
 		
-		setButton(AlertDialog.BUTTON_NEUTRAL, context.getResources().getString(R.string.return_), new DialogInterface.OnClickListener() {
+		setButton(AlertDialog.BUTTON_NEUTRAL, context.getResources().getString(R.string.close), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                  dismiss();
             }

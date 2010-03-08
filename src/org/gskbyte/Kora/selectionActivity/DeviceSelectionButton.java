@@ -22,7 +22,7 @@ public class DeviceSelectionButton extends FrameLayout
 		mImageView = (ImageView) findViewById(R.id.deviceIcon);
 		mTextView = (TextView) findViewById(R.id.deviceName);
 		
-		//mImageView.setImageDrawable(device.getIcon(Device.ICON_NORMAL));
+		mImageView.setImageDrawable(device.getIcon(Device.ICON_NORMAL));
 		// Cambiar por obtener el nombre TRADUCIBLE
 		mTextView.setText(device.getName());
 	}
