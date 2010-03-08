@@ -2,17 +2,150 @@
 <!-- Spanish string file. -->
 
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- Main strings. -->
+    <string name="appName">Kora</string>
+    <string name="title">Kora</string>
     
-    <string name="welcomeActivityLabel">Bienvenido</string>
-    <string name="controlActivityLabel">Control de dispositivos</string>
-    <string name="settingsActivityLabel">Configuración</string>
-
+    
+        <!-- Common actions -->
+    <string name="yes">Sí</string>
+    <string name="no">No</string>
+    <string name="select">Seleccionar</string>
+    <string name="choose">Elegir</string>
+    <string name="add">Añadir</string>
+    <string name="edit">Editar</string>
+    <string name="delete">Borrar</string>
+    <string name="ok">Ok</string>
+    <string name="cancel">Cancelar</string>
+    <string name="return_">Volver</string>
+    <string name="close">Cerrar</string>
+    
+    
+    <!-- Activity Strings -->
+    <string name="welcomeActivity">Kora</string>
+    <string name="controlActivity">Selección de dispositivo</string>
+    <string name="settingsActivity">Ajustes</string>
+        <string name="usersActivity">Usuarios</string>
+        <string name="useProfilesActivity">Perfiles de uso</string>
+        <string name="deviceProfilesActivity">Perfiles de dispositivo</string>
+    
+    <!-- Welcome strings -->
     <string name="startButton">Comenzar</string>
-    <string name="settingsButton">Configuración</string>
-    <string name="autostartText1">comenzará en</string>
+    <string name="settingsButton">Ajustes</string>
+    <string name="infoButton">Info</string>
+    <string name="autostartText1">Se comenzará en</string>
     <string name="autostartText2">segundos.</string>
     
+        <!-- Information strings -->
+    	<string name="version">Version</string>
+    	<string name="version_number">0.0.1</string>
+    	<string name="author">Autor</string>
+    	<string name="collaborators">Colaboradores</string>
+    
+    <!-- Settings strings -->
     <string name="usersTab">Usuarios</string>
     <string name="useProfilesTab">Perfiles de uso</string>
-    <string name="deviceProfilesTab">Perf. dispositivos</string>
+    <string name="deviceProfilesTab">Perfiles de dispositivo</string>
+    
+        <!-- Common strings -->
+        <string name="addButton">Añadir</string>
+    
+        <!-- Users strings -->
+        <string name="addUser">Añadir usuario</string>
+        <string name="editUser">Editar usuario</string>
+        <string name="user">Usuario</string>
+        <string name="currentUser">Usuario actual:</string>
+        <string name="customUsers">Usuarios personalizados</string>
+        <string name="defaultUsers">Usuarios por defecto</string>
+        <string name="userDeletionQuestion">¿Está seguro que desea borrar el usuario</string>
+        <string name="minimumTime">El tiempo mínimo es 5 segundos</string>
+        <!-- Use profiles strings -->
+        <string name="interaction">Interacción</string>
+        <string name="visualization">Visualización</string>
+        <string name="feedback">Realimentación</string>
+        <string name="soundVoice">Sonido y Voz</string>
+            <!-- Interaction -->
+            <string name="mainInteraction">Interacción principal</string>
+                <string name="touchInteraction">Táctil</string>
+                    <string name="multitouchInteraction">Multitáctil</string>
+                    <string name="pressAndDragInteraction">Pulsar y arrastrar</string>
+                    <string name="simpleTouchInteraction">Sencilla </string>
+                <string name="BARRIDO">Interacción</string>
+                    <string name="BARRIDOtime">tiempo de BARRIDO </string>
+            <string name="voiceInteraction">Voz</string>
+            <!-- Visualization -->
+            <string name="lookAndFeel">Aspecto</string>
+                <string name="defaultLAF">Por defecto</string>
+                <string name="plainColors">Colores básicos</string>
+                <string name="differentPlainColor">Colores básicos diferentes</string>
+                <string name="highContrastColor">Alto contraste</string>
+                <string name="blackAndWhite">Blanco y negro</string>
+            <string name="disposition">Organización</string>
+                <string name="columns">Columnas</string>
+                <string name="rows">Filas</string>
+            <string name="text">Texto</string>
+                <string name="textShow">Mostrar</string>
+                <string name="textSize">Tamaño</string>
+                <string name="textTypography">Tipografía</string>
+                    <string name="sans">Sans</string>
+                    <string name="calligraphic">Caligráfica</string>
+                    <string name="comic">Comic</string>
+                <string name="textEffects">Efectos</string>
+                <string name="textColor">Color</string>
+            <string name="imagesAndIcons">Imagenes e iconos</string>
+                <string name="icon">Icono</string>
+                <string name="highContrastIcon">Icono de alto contraste</string>
+                <string name="photo">Foto</string>
+                <string name="animation">Animación</string>
+            <string name="paging">Paginado</string>
+                <string name="standardPaging">Estándar</string>
+                <string name="automaticPaging">Automático</string>
+                <string name="firstAndLastButtons">botones primero y último</string>
+            <!-- Feedback -->
+            <string name="vibration">vibración</string>
+            <string name="confirmation">confirmación</string>
+            <string name="highlightContent">Resaltar contenido</string>
+                <string name="zoomIn">Ampliar zoom</string>
+                <string name="increaseBrightness">Incrementar brillo</string>
+            <string name="hightlightBorder">Resaltar borde</string>
+            
+            <!-- Sound & Voice -->
+            <string name="noSound">Sin sonido</string>
+            <string name="simpleSounds">Sonidos simples</string>
+                <string name="onItemSelection">Cuando un elemento está seleccionado</string>
+                <string name="onAction">Cuando la acción está realizada</string>
+            <string name="voice">Voz</string>
+                <string name="defaultVoice">Voz por defecto</string>
+                <string name="customVoice">Voz personalizada</string>
+        
+        <!-- Device profiles strings -->
+        
+            <!--  nothing yet -->
+            
+    <!-- Device strings -->
+    <string name="light">Luz</string>
+    <string name="sunblind">Persiana</string>
+    <string name="door">Puerta</string>
+    <string name="heating">Calefacción</string>
+    <string name="airConditioner">Aire acondicionado</string>
+    <string name="music">Música</string>
+    <string name="boiler">Calentador</string>
+    
+    <!-- Device actions -->
+    <string name="turnOn">Encender</string>
+    <string name="turnOff">Apagar</string>
+    <string name="raise">Subir</string>
+    <!-- Añadir resto de verbos aquí -->
+    
+    <!-- Please, translate this into english. I'll translate tags later.
+         Cosas como: "subido una persiana", "bajado una persiana", "subido una persiana del todo", "puesto agua a calentar"
+         "subido la temperatura", etc. Acciones básicas sobre los dispositivos de arriba. -->
+    <!-- Feedback strings -->
+    <string name="nice">Bien!</string>
+    <string name="youHave">Tu has</string>
+    <string name="done">hecho</string>
+    <string name="turnedOnLight">Luz encendida</string>
+    <string name="turnedOffLight">Luz apagada</string>
+    <!-- Continuar aquí -->
 </resources>
+
