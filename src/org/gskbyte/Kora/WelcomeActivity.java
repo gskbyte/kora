@@ -7,6 +7,7 @@ import org.gskbyte.Kora.Settings.SettingsManager.SettingsException;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.opengl.Visibility;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
@@ -23,7 +24,7 @@ public class WelcomeActivity extends Activity {
 	private Button startButton, settingsButton, infoButton;
 	private TextView autostartText;
 
-	private CountDownTimer contador;
+	private CountDownTimer timer;
 
 	private SettingsManager mSettingsManager;
 
@@ -50,22 +51,7 @@ public class WelcomeActivity extends Activity {
 		init();
 
 		loadCountdown();
-
 	}
-
-	@Override
-	protected void onResume() {
-		loadCountdown();
-		super.onResume();
-	}
-
-	@Override
-	protected void onPause() {
-		if (contador != null)
-			contador.cancel();
-		super.onPause();
-	}
-
 	
 	private void loadCountdown() {
 
@@ -92,23 +78,33 @@ public class WelcomeActivity extends Activity {
 		}
 
 		// Start the ControlActivity after a few seconds
-		contador = new CountDownTimer(countdownMilliseconds, 1000) {
+		timer = new CountDownTimer(countdownMilliseconds, 1000) {
+			public void onTick(long millisLeft) {
+				/// PONER NOMBRE!!!
+				String willStart = getResources().getString(R.string.autostartText1),
+		        seconds = getResources().getString(R.string.autostartText2);
 
-			public void onTick(long millisUntilFinished) {
-				autostartText.setText("Empezando en " + millisUntilFinished
-						/ 1000 + " segundos");
+				autostartText.setText("Default" + " " + willStart + " " + millisLeft/1000 + " " + seconds);
 			}
 
 			public void onFinish() {
-				startApplication();
+				startDeviceSelectionActivity();
 			}
 		};
 		
-		contador.start();
+		timer.start();
+	}
+	
+	private void stopCountDown()
+	{
+		if (timer != null)
+			timer.cancel();
+		autostartText.setVisibility(View.INVISIBLE);
 	}
 
 	// Load ControlActivity
-	private void startApplication() {
+	private void startDeviceSelectionActivity() {
+		stopCountDown();
 		Intent i = new Intent(WelcomeActivity.this, ControlActivity.class);
 		startActivity(i);
 	}
@@ -116,13 +112,15 @@ public class WelcomeActivity extends Activity {
 	// Listener del bot�n Start
 	private OnClickListener startButtonListener = new OnClickListener() {
 		public void onClick(View v) {
-			startApplication();
+			stopCountDown();
+			startDeviceSelectionActivity();
 		}
 	};
 
 	// Listener del bot�n Settings
 	private OnClickListener settingsButtonListener = new OnClickListener() {
 		public void onClick(View v) {
+			stopCountDown();
 			Intent i = new Intent(WelcomeActivity.this, SettingsActivity.class);
 			startActivity(i);
 		}
@@ -131,6 +129,7 @@ public class WelcomeActivity extends Activity {
 	// Listener del bot�n Info
 	private OnClickListener infoButtonListener = new OnClickListener() {
 		public void onClick(View v) {
+			stopCountDown();
 			showDialog(INFO_DIALOG_ID);
 		}
 	};
