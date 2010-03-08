@@ -6,7 +6,8 @@
     <string name="appName">Kora</string>
     <string name="title">Kora</string>
     
-    <!-- Common actions -->
+    
+        <!-- Common actions -->
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="select">Select</string>
@@ -34,6 +35,12 @@
     <string name="infoButton">Info</string>
     <string name="autostartText1">will start on</string>
     <string name="autostartText2">seconds.</string>
+    
+        <!-- Information strings -->
+    	<string name="version">Version</string>
+    	<string name="version_number">0.0.1</string>
+    	<string name="author">Author</string>
+    	<string name="collaborators">Collaborators</string>
     
     <!-- Settings strings -->
     <string name="usersTab">Users</string>
