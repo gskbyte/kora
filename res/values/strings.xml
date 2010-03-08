@@ -38,7 +38,7 @@
     
         <!-- Information strings -->
     	<string name="version">Version</string>
-    	<string name="version_number">0.0.1</string>
+    	<string name="version_number">0.0.2</string>
     	<string name="author">Author</string>
     	<string name="collaborators">Collaborators</string>
     
