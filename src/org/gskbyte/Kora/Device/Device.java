@@ -1,4 +1,4 @@
-package org.gskbyte.Kora.Settings;
+package org.gskbyte.Kora.Device;
 
 import android.graphics.drawable.Drawable;
 

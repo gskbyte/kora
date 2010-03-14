@@ -1,8 +1,8 @@
-package org.gskbyte.Kora.selectionActivity;
+package org.gskbyte.Kora.SelectionActivity;
 
 import java.util.Vector;
 
-import org.gskbyte.Kora.Settings.Device;
+import org.gskbyte.Kora.Device.Device;
 
 import android.content.Context;
 import android.view.View;

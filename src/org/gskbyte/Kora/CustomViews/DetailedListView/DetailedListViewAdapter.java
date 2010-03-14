@@ -1,4 +1,4 @@
-package org.gskbyte.Kora.customViews.DetailedListView;
+package org.gskbyte.Kora.CustomViews.DetailedListView;
 
 import java.util.ArrayList;
 import java.util.Collection;

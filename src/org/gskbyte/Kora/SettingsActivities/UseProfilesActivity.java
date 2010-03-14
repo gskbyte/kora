@@ -5,13 +5,13 @@ import java.util.Collection;
 import java.util.List;
 
 import org.gskbyte.Kora.R;
+import org.gskbyte.Kora.CustomViews.DetailedListView.DetailedViewModel;
+import org.gskbyte.Kora.CustomViews.DetailedListView.SectionedListAdapter;
 import org.gskbyte.Kora.Settings.SettingsManager;
 import org.gskbyte.Kora.Settings.UseProfile;
 import org.gskbyte.Kora.Settings.User;
 import org.gskbyte.Kora.Settings.SettingsManager;
 import org.gskbyte.Kora.Settings.SettingsManager.SettingsException;
-import org.gskbyte.Kora.customViews.DetailedListView.DetailedViewModel;
-import org.gskbyte.Kora.customViews.DetailedListView.SectionedListAdapter;
 
 import android.app.Activity;
 import android.app.Dialog;

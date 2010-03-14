@@ -1,7 +1,7 @@
-package org.gskbyte.Kora.selectionActivity;
+package org.gskbyte.Kora.SelectionActivity;
 
 import org.gskbyte.Kora.R;
-import org.gskbyte.Kora.Settings.Device;
+import org.gskbyte.Kora.Device.Device;
 
 import android.content.Context;
 import android.view.LayoutInflater;
