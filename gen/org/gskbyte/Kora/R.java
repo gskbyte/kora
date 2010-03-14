@@ -22,47 +22,59 @@ public final class R {
         public static final int action_start=0x7f020008;
         public static final int icon=0x7f020009;
         public static final int icon_device=0x7f02000a;
-        public static final int icon_device_profile=0x7f02000b;
-        public static final int icon_feedback=0x7f02000c;
-        public static final int icon_info=0x7f02000d;
-        public static final int icon_interaction=0x7f02000e;
-        public static final int icon_preferences=0x7f02000f;
-        public static final int icon_sound=0x7f020010;
-        public static final int icon_system=0x7f020011;
-        public static final int icon_use_profile=0x7f020012;
-        public static final int icon_user=0x7f020013;
-        public static final int icon_visualization=0x7f020014;
-        public static final int logo_prev=0x7f020015;
+        public static final int icon_device_heater_128=0x7f02000b;
+        public static final int icon_device_heater_256=0x7f02000c;
+        public static final int icon_device_light_128=0x7f02000d;
+        public static final int icon_device_light_256=0x7f02000e;
+        public static final int icon_device_music_128=0x7f02000f;
+        public static final int icon_device_music_256=0x7f020010;
+        public static final int icon_device_profile=0x7f020011;
+        public static final int icon_device_sunblind_128=0x7f020012;
+        public static final int icon_device_sunblind_256=0x7f020013;
+        public static final int icon_feedback=0x7f020014;
+        public static final int icon_info=0x7f020015;
+        public static final int icon_interaction=0x7f020016;
+        public static final int icon_preferences=0x7f020017;
+        public static final int icon_sound=0x7f020018;
+        public static final int icon_system=0x7f020019;
+        public static final int icon_use_profile=0x7f02001a;
+        public static final int icon_user=0x7f02001b;
+        public static final int icon_visualization=0x7f02001c;
+        public static final int logo_prev=0x7f02001d;
     }
     public static final class id {
-        public static final int Button01=0x7f06001d;
+        public static final int Button01=0x7f060012;
+        public static final int Button02=0x7f060013;
+        public static final int Button03=0x7f060014;
         public static final int RelativeLayout01=0x7f060001;
         public static final int ScrollView01=0x7f060000;
-        public static final int TableLayout01=0x7f06001c;
-        public static final int TableRow01=0x7f06001e;
-        public static final int TableRow02=0x7f06001f;
-        public static final int addButton=0x7f06001b;
-        public static final int appLogoImage=0x7f06000f;
+        public static final int addButton=0x7f060023;
+        public static final int appLogoImage=0x7f060017;
         public static final int autoStartCheckBox=0x7f060009;
         public static final int autoStartEdit=0x7f06000a;
-        public static final int autostart=0x7f060010;
-        public static final int buttonBar=0x7f060018;
-        public static final int chooseButton=0x7f060014;
-        public static final int deleteButton=0x7f060016;
+        public static final int autostart=0x7f060018;
+        public static final int buttonBar=0x7f060020;
+        public static final int chooseButton=0x7f06001c;
+        public static final int deleteButton=0x7f06001e;
         public static final int description=0x7f06000c;
+        public static final int deviceGrid=0x7f060015;
+        public static final int deviceIcon=0x7f06000e;
+        public static final int deviceName=0x7f06000f;
         public static final int deviceProfileSpinner=0x7f060007;
         public static final int deviceProfileText=0x7f060008;
-        public static final int editButton=0x7f060015;
+        public static final int editButton=0x7f06001d;
         public static final int image=0x7f06000b;
-        public static final int infoButton=0x7f060013;
-        public static final int listView=0x7f060017;
+        public static final int infoButton=0x7f06001b;
+        public static final int listView=0x7f06001f;
         public static final int mainText=0x7f06000d;
+        public static final int navigationButtons=0x7f060011;
         public static final int photoButton=0x7f060002;
-        public static final int settingsButton=0x7f060012;
-        public static final int startButton=0x7f060011;
-        public static final int text=0x7f06001a;
-        public static final int title=0x7f060019;
-        public static final int titleText=0x7f06000e;
+        public static final int relativeLayout=0x7f060010;
+        public static final int settingsButton=0x7f06001a;
+        public static final int startButton=0x7f060019;
+        public static final int text=0x7f060022;
+        public static final int title=0x7f060021;
+        public static final int titleText=0x7f060016;
         public static final int useProfileSpinner=0x7f060005;
         public static final int useProfileText=0x7f060006;
         public static final int userNameEdit=0x7f060003;
@@ -71,155 +83,206 @@ public final class R {
     public static final class layout {
         public static final int add_user_dialog=0x7f030000;
         public static final int detailedlistview=0x7f030001;
-        public static final int list_header=0x7f030002;
-        public static final int main=0x7f030003;
-        public static final int select_user_dialog=0x7f030004;
-        public static final int settings_list=0x7f030005;
-        public static final int settings_main=0x7f030006;
-        public static final int settings_users_main=0x7f030007;
+        public static final int device_button=0x7f030002;
+        public static final int device_grid_layout=0x7f030003;
+        public static final int device_selection_item=0x7f030004;
+        public static final int device_selection_layout=0x7f030005;
+        public static final int info_dialog=0x7f030006;
+        public static final int list_header=0x7f030007;
+        public static final int main=0x7f030008;
+        public static final int select_user_dialog=0x7f030009;
+        public static final int settings_list=0x7f03000a;
+        public static final int settings_main=0x7f03000b;
     }
     public static final class string {
-        public static final int BARRIDO=0x7f05002c;
-        public static final int BARRIDOtime=0x7f05002d;
+        public static final int BARRIDO=0x7f050031;
+        public static final int BARRIDOtime=0x7f050032;
         public static final int add=0x7f050006;
         /**  Common strings 
+ Common strings 
+ Common strings 
          */
-        public static final int addButton=0x7f05001a;
+        public static final int addButton=0x7f05001f;
         /**  Users strings 
+ Users strings 
+ Users strings 
          */
-        public static final int addUser=0x7f05001b;
-        public static final int airConditionated=0x7f05005b;
-        public static final int animation=0x7f050045;
+        public static final int addUser=0x7f050020;
+        public static final int airConditioner=0x7f050060;
+        public static final int animation=0x7f05004a;
         /**  Main strings. 
+ Main strings. 
+ Main strings. 
          */
         public static final int appName=0x7f050000;
-        public static final int automaticPaging=0x7f050048;
-        public static final int autostartText1=0x7f050015;
-        public static final int autostartText2=0x7f050016;
-        public static final int blackAndWhite=0x7f050034;
-        public static final int boiler=0x7f05005d;
-        public static final int calligraphic=0x7f05003d;
+        public static final int author=0x7f05001a;
+        public static final int automaticPaging=0x7f05004d;
+        public static final int autostartText1=0x7f050016;
+        public static final int autostartText2=0x7f050017;
+        public static final int blackAndWhite=0x7f050039;
+        public static final int boiler=0x7f050062;
+        public static final int calligraphic=0x7f050042;
         public static final int cancel=0x7f05000a;
         public static final int choose=0x7f050005;
-        public static final int columns=0x7f050036;
-        public static final int comic=0x7f05003e;
-        public static final int confirmation=0x7f05004b;
-        public static final int controlActivity=0x7f05000d;
-        public static final int controlActivityLabel=0x7f050067;
-        public static final int currentUser=0x7f05001e;
-        public static final int customUsers=0x7f05001f;
-        public static final int customVoice=0x7f050056;
-        public static final int defaultLAF=0x7f050030;
-        public static final int defaultUsers=0x7f050020;
-        public static final int defaultVoice=0x7f050055;
+        public static final int close=0x7f05000c;
+        public static final int collaborators=0x7f05001b;
+        public static final int columns=0x7f05003b;
+        public static final int comic=0x7f050043;
+        public static final int confirmation=0x7f050050;
+        public static final int controlActivity=0x7f05000e;
+        public static final int currentUser=0x7f050023;
+        public static final int customUsers=0x7f050024;
+        public static final int customVoice=0x7f05005b;
+        public static final int defaultLAF=0x7f050035;
+        public static final int defaultUsers=0x7f050025;
+        public static final int defaultVoice=0x7f05005a;
         public static final int delete=0x7f050008;
-        public static final int deviceProfilesActivity=0x7f050011;
-        public static final int deviceProfilesTab=0x7f050019;
-        public static final int differentPlainColor=0x7f050032;
-        public static final int disposition=0x7f050035;
-        public static final int done=0x7f050063;
-        public static final int door=0x7f050059;
+        public static final int deviceProfilesActivity=0x7f050012;
+        public static final int deviceProfilesTab=0x7f05001e;
+        public static final int differentPlainColor=0x7f050037;
+        public static final int disposition=0x7f05003a;
+        public static final int done=0x7f050068;
+        public static final int door=0x7f05005e;
         public static final int edit=0x7f050007;
-        public static final int editUser=0x7f05001c;
-        public static final int feedback=0x7f050025;
-        public static final int firstAndLastButtons=0x7f050049;
-        public static final int heating=0x7f05005a;
-        public static final int highContrastColor=0x7f050033;
-        public static final int highContrastIcon=0x7f050043;
-        public static final int highlightContent=0x7f05004c;
-        public static final int hightlightBorder=0x7f05004f;
-        public static final int icon=0x7f050042;
-        public static final int imagesAndIcons=0x7f050041;
-        public static final int increaseBrightness=0x7f05004e;
-        public static final int infoButton=0x7f050014;
+        public static final int editUser=0x7f050021;
+        public static final int feedback=0x7f05002a;
+        public static final int firstAndLastButtons=0x7f05004e;
+        public static final int heating=0x7f05005f;
+        public static final int highContrastColor=0x7f050038;
+        public static final int highContrastIcon=0x7f050048;
+        public static final int highlightContent=0x7f050051;
+        public static final int hightlightBorder=0x7f050054;
+        public static final int icon=0x7f050047;
+        public static final int imagesAndIcons=0x7f050046;
+        public static final int increaseBrightness=0x7f050053;
+        public static final int infoButton=0x7f050015;
         /**  Use profiles strings 
+ Use profiles strings 
+ Use profiles strings 
          */
-        public static final int interaction=0x7f050023;
+        public static final int interaction=0x7f050028;
         /**  Device profiles strings 
   nothing yet 
  Device strings 
+ Device profiles strings 
+  nothing yet 
+ Device strings 
+ Device profiles strings 
+  nothing yet 
+ Device strings 
          */
-        public static final int light=0x7f050057;
+        public static final int light=0x7f05005c;
         /**  Visualization 
+ Visualization 
+ Visualization 
          */
-        public static final int lookAndFeel=0x7f05002f;
+        public static final int lookAndFeel=0x7f050034;
         /**  Interaction 
+ Interaction 
+ Interaction 
          */
-        public static final int mainInteraction=0x7f050027;
-        public static final int minimumTime=0x7f050022;
-        public static final int multitouchInteraction=0x7f050029;
-        public static final int música=0x7f05005c;
+        public static final int mainInteraction=0x7f05002c;
+        public static final int minimumTime=0x7f050027;
+        public static final int multitouchInteraction=0x7f05002e;
+        public static final int music=0x7f050061;
         /**  Añadir resto de verbos aquí 
+ Please, translate this into english. I'll translate tags later.
+         Cosas como: "subido una persiana", "bajado una persiana", "subido una persiana del todo", "puesto agua a calentar"
+         "subido la temperatura", etc. Acciones básicas sobre los dispositivos de arriba. 
+ Feedback strings 
+ Añadir resto de verbos aquí 
  Please, translate this into english. I'll translate tags later.
    		 Cosas como: "subido una persiana", "bajado una persiana", "subido una persiana del todo", "puesto agua a calentar"
    		 "subido la temperatura", etc. Acciones básicas sobre los dispositivos de arriba. 
  Feedback strings 
+ Añadir resto de verbos aquí 
+ Please, translate this into english. I'll translate tags later.
+         Cosas como: "subido una persiana", "bajado una persiana", "subido una persiana del todo", "puesto agua a calentar"
+         "subido la temperatura", etc. Acciones básicas sobre los dispositivos de arriba. 
+ Feedback strings 
          */
-        public static final int nice=0x7f050061;
+        public static final int nice=0x7f050066;
         public static final int no=0x7f050003;
         /**  Sound & Voice 
+ Sound & Voice 
+ Sound & Voice 
          */
-        public static final int noSound=0x7f050050;
+        public static final int noSound=0x7f050055;
         public static final int ok=0x7f050009;
-        public static final int onAction=0x7f050053;
-        public static final int onItemSelection=0x7f050052;
-        public static final int paging=0x7f050046;
-        public static final int photo=0x7f050044;
-        public static final int plainColors=0x7f050031;
-        public static final int pressAndDragInteraction=0x7f05002a;
-        public static final int raise=0x7f050060;
+        public static final int onAction=0x7f050058;
+        public static final int onItemSelection=0x7f050057;
+        public static final int paging=0x7f05004b;
+        public static final int photo=0x7f050049;
+        public static final int plainColors=0x7f050036;
+        public static final int pressAndDragInteraction=0x7f05002f;
+        public static final int raise=0x7f050065;
         public static final int return_=0x7f05000b;
-        public static final int rows=0x7f050037;
-        public static final int sans=0x7f05003c;
+        public static final int rows=0x7f05003c;
+        public static final int sans=0x7f050041;
         public static final int select=0x7f050004;
-        public static final int settingsActivity=0x7f05000e;
-        public static final int settingsActivityLabel=0x7f050068;
-        public static final int settingsButton=0x7f050013;
-        public static final int simpleSounds=0x7f050051;
-        public static final int simpleTouchInteraction=0x7f05002b;
-        public static final int soundVoice=0x7f050026;
-        public static final int standardPaging=0x7f050047;
+        public static final int settingsActivity=0x7f05000f;
+        public static final int settingsButton=0x7f050014;
+        public static final int simpleSounds=0x7f050056;
+        public static final int simpleTouchInteraction=0x7f050030;
+        public static final int soundVoice=0x7f05002b;
+        public static final int standardPaging=0x7f05004c;
         /**  Welcome strings 
+ Welcome strings 
+ Welcome strings 
          */
-        public static final int startButton=0x7f050012;
-        public static final int sunblind=0x7f050058;
-        public static final int text=0x7f050038;
-        public static final int textColor=0x7f050040;
-        public static final int textEffects=0x7f05003f;
-        public static final int textShow=0x7f050039;
-        public static final int textSize=0x7f05003a;
-        public static final int textTypography=0x7f05003b;
+        public static final int startButton=0x7f050013;
+        public static final int sunblind=0x7f05005d;
+        public static final int text=0x7f05003d;
+        public static final int textColor=0x7f050045;
+        public static final int textEffects=0x7f050044;
+        public static final int textShow=0x7f05003e;
+        public static final int textSize=0x7f05003f;
+        public static final int textTypography=0x7f050040;
         public static final int title=0x7f050001;
-        public static final int touchInteraction=0x7f050028;
-        public static final int turnOff=0x7f05005f;
+        public static final int touchInteraction=0x7f05002d;
+        public static final int turnOff=0x7f050064;
         /**  Device actions 
+ Device actions 
+ Device actions 
          */
-        public static final int turnOn=0x7f05005e;
-        public static final int turnedOffLight=0x7f050065;
-        public static final int turnedOnLight=0x7f050064;
-        public static final int useProfilesActivity=0x7f050010;
-        public static final int useProfilesTab=0x7f050018;
-        public static final int user=0x7f05001d;
-        public static final int userDeletionQuestion=0x7f050021;
-        public static final int usersActivity=0x7f05000f;
+        public static final int turnOn=0x7f050063;
+        public static final int turnedOffLight=0x7f05006a;
+        public static final int turnedOnLight=0x7f050069;
+        public static final int useProfilesActivity=0x7f050011;
+        public static final int useProfilesTab=0x7f05001d;
+        public static final int user=0x7f050022;
+        public static final int userDeletionQuestion=0x7f050026;
+        public static final int usersActivity=0x7f050010;
         /**  Settings strings 
+ Settings strings 
+ Settings strings 
          */
-        public static final int usersTab=0x7f050017;
+        public static final int usersTab=0x7f05001c;
+        /**  Information strings 
+ Information strings 
+         */
+        public static final int version=0x7f050018;
+        public static final int version_number=0x7f050019;
         /**  Feedback 
+ Feedback 
+ Feedback 
          */
-        public static final int vibration=0x7f05004a;
-        public static final int visualization=0x7f050024;
-        public static final int voice=0x7f050054;
-        public static final int voiceInteraction=0x7f05002e;
+        public static final int vibration=0x7f05004f;
+        public static final int visualization=0x7f050029;
+        public static final int voice=0x7f050059;
+        public static final int voiceInteraction=0x7f050033;
         /**  Activity Strings 
+ Activity Strings 
+ Activity Strings 
          */
-        public static final int welcomeActivity=0x7f05000c;
-        public static final int welcomeActivityLabel=0x7f050066;
+        public static final int welcomeActivity=0x7f05000d;
         /**  Common actions 
+ Common actions 
+ Common actions 
          */
         public static final int yes=0x7f050002;
-        public static final int youHave=0x7f050062;
-        public static final int zoomIn=0x7f05004d;
+        public static final int youHave=0x7f050067;
+        public static final int zoomIn=0x7f050052;
     }
     public static final class xml {
         public static final int preferences_device_profile=0x7f040000;
