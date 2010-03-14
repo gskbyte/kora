@@ -38,4 +38,9 @@
                 \nAlejandro Martín Medina\nDavid Lázaro Esparcia"/>
         </TableRow>
     </TableLayout>
+    
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="GPL, 2010"/>
 </LinearLayout>
