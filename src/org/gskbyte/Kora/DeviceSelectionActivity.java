@@ -2,7 +2,7 @@ package org.gskbyte.Kora;
 
 import org.gskbyte.Kora.R;
 import org.gskbyte.Kora.Device.Device;
-import org.gskbyte.Kora.SelectionActivity.DeviceAdapter;
+import org.gskbyte.Kora.DeviceSelection.DeviceAdapter;
 import org.gskbyte.Kora.Settings.SettingsDbAdapter;
 
 import android.app.Activity;

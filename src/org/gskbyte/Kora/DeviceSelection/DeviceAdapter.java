@@ -1,4 +1,4 @@
-package org.gskbyte.Kora.SelectionActivity;
+package org.gskbyte.Kora.DeviceSelection;
 
 import java.util.Vector;
 

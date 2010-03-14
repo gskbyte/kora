@@ -1,4 +1,4 @@
-package org.gskbyte.Kora.SelectionActivity;
+package org.gskbyte.Kora.DeviceSelection;
 
 import org.gskbyte.Kora.R;
 import org.gskbyte.Kora.Device.Device;
