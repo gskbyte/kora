@@ -28,6 +28,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignWithParentIfMissing="true"
+        android:maxLines="2"
 
         android:singleLine="false"
         android:ellipsize="marquee"
@@ -47,6 +48,8 @@
         android:layout_above="@id/description"
         android:layout_alignWithParentIfMissing="true"
         android:gravity="center_vertical"
+        android:maxLines="1"
+        android:scrollHorizontally="true"
         
         android:textSize = "16sp"
         android:text="Main text goes here." />

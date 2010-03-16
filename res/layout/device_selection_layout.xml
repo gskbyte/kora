@@ -1,15 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<GridView xmlns:android="http://schemas.android.com/apk/res/android" 
-    android:id="@+id/deviceGrid"
-    android:layout_width="fill_parent" 
-    android:layout_height="fill_parent"
-    android:padding="10dp"
-    
-    android:verticalSpacing="10dp"
-    android:horizontalSpacing="10dp"
-    android:numColumns="2"
-    android:stretchMode="columnWidth"
-    
-    android:gravity="center"
-    
-    />
+
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="fill_parent"
+android:layout_height="fill_parent">
+
+	<LinearLayout android:id="@+id/navigationButtons"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_alignParentBottom="true"
+		>
+		
+		<Button android:text="Back"
+			android:id="@+id/Button01"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:drawableLeft="@drawable/action_previous"
+			/>
+			
+		<Button android:text="Next"
+			android:id="@+id/Button01"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:drawableRight="@drawable/action_next"
+			/>
+	
+	</LinearLayout>
+	
+	<GridView
+	    android:id="@+id/deviceGrid"
+	    android:layout_width="fill_parent" 
+	    android:layout_height="fill_parent"
+	    android:padding="10dp"
+	    
+	    android:verticalSpacing="10dp"
+	    android:horizontalSpacing="10dp"
+	    android:numColumns="2"
+	    android:stretchMode="columnWidth"
+	    
+	    android:layout_above="@id/navigationButtons"
+	    />
+
+</RelativeLayout>

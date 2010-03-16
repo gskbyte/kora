@@ -3,6 +3,7 @@ package org.gskbyte.Kora;
 import org.gskbyte.Kora.R;
 import org.gskbyte.Kora.Device.Device;
 import org.gskbyte.Kora.DeviceSelection.DeviceAdapter;
+import org.gskbyte.Kora.DeviceSelection.DeviceSelectionWidget;
 import org.gskbyte.Kora.Settings.SettingsDbAdapter;
 
 import android.app.Activity;
@@ -17,7 +18,9 @@ import android.view.View.OnFocusChangeListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,10 +30,13 @@ public class DeviceSelectionActivity extends Activity
 
     GridView mGrid;
     RelativeLayout layout;
+    LinearLayout linear;
+    TableLayout table;
     
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        /*
         setContentView(R.layout.device_grid_layout);
         
         layout = (RelativeLayout) findViewById(R.id.relativeLayout);
@@ -43,15 +49,31 @@ public class DeviceSelectionActivity extends Activity
         int height = d.getHeight(); 
         
         b.setText(String.valueOf(width)+" x "+String.valueOf(height));
+        */
         
-        
+
         /*
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.test_layout);
+        linear = (LinearLayout) findViewById(R.id.testLayout);
+
+        Resources r = getResources();
+        Device d = new Device("Heater", r.getDrawable(R.drawable.icon_device_heater_128));
+        DeviceSelectionWidget w = new DeviceSelectionWidget(this, R.drawable.icon_device_heater_128, "Heater");
+        linear.addView(w);
+*/
+        
+        
+        
         super.onCreate(savedInstanceState);
         setContentView(R.layout.device_selection_layout);
         
         mGrid = (GridView) findViewById(R.id.deviceGrid);
-        
+        //mGrid.setNumColumns(3);
+        //int height = mGrid.getMeasuredHeight();
+        //int width = mGrid.getMeasuredWidth();
         DeviceAdapter da = new DeviceAdapter(this);
+        
         
         Resources r = getResources();
         da.addDevice(new Device("Heater", r.getDrawable(R.drawable.icon_device_heater_128)));
@@ -59,7 +81,8 @@ public class DeviceSelectionActivity extends Activity
         da.addDevice(new Device("Sunblind", r.getDrawable(R.drawable.icon_device_sunblind_128)));
         da.addDevice(new Device("Music", r.getDrawable(R.drawable.icon_device_music_128)));
         
-        mGrid.setAdapter(da);*/
+        mGrid.setAdapter(da);
+        
     }
     
     

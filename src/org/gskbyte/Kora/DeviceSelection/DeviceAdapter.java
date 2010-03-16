@@ -2,14 +2,13 @@ package org.gskbyte.Kora.DeviceSelection;
 
 import java.util.Vector;
 
+import org.gskbyte.Kora.R;
 import org.gskbyte.Kora.Device.Device;
 
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.GridView;
-import android.widget.ImageView;
 
 public class DeviceAdapter extends BaseAdapter
 {
@@ -40,8 +39,10 @@ public class DeviceAdapter extends BaseAdapter
 
     public View getView(int position, View convertView, ViewGroup parent)
     {
+        //View view;
         DeviceSelectionButton view;
         if (convertView == null) {
+            //view = new DeviceSelectionWidget(mContext, R.drawable.icon_device_heater_128, "Heater");
             view = new DeviceSelectionButton(mContext, devices.get(position));
             //view.setLayoutParams(new GridView.LayoutParams(45, 45));
             //view.setAdjustViewBounds(false);
