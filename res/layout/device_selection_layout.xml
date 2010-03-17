@@ -29,16 +29,10 @@ android:layout_height="fill_parent">
 	
 	</LinearLayout>
 	
-	<GridLayout
+	<org.gskbyte.Kora.customViews.GridLayout
 	    android:id="@+id/deviceGrid"
 	    android:layout_width="fill_parent" 
 	    android:layout_height="fill_parent"
-	    android:padding="10dp"
-	    
-	    android:verticalSpacing="10dp"
-	    android:horizontalSpacing="10dp"
-	    android:numColumns="2"
-	    android:stretchMode="columnWidth"
 	    
 	    android:layout_above="@id/navigationButtons"
 	    />

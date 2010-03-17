@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.gskbyte.Kora"
+    package="org.gskbyte.kora"
     android:versionCode="1" android:versionName="0.1">
     
     <uses-permission android:name="android.permission.CAMERA" />
@@ -31,18 +31,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        	<activity android:name=".SettingsActivities.UsersActivity"
+        	<activity android:name=".settingsActivities.UsersActivity"
 	              android:label="@string/usersActivity">
         	</activity>
-        		<activity android:name=".SettingsActivities.UserPreferencesActivity"
+        		<activity android:name=".settingsActivities.UserPreferencesActivity"
 	              	android:label="userPreferencesActivity">
         		</activity>
-        	<activity android:name=".SettingsActivities.UseProfilesActivity"
+        	<activity android:name=".settingsActivities.UseProfilesActivity"
 	              android:label="@string/useProfilesActivity">
         	</activity>
-        		<activity android:name=".SettingsActivities.UseProfilesPreferencesActivity">
+        		<activity android:name=".settingsActivities.UseProfilesPreferencesActivity">
         		</activity>
-        	<activity android:name=".SettingsActivities.DeviceProfilesActivity"
+        	<activity android:name=".settingsActivities.DeviceProfilesActivity"
 	              android:label="@string/deviceProfilesActivity">
         	</activity>
 
