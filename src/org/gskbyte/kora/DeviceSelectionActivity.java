@@ -63,12 +63,33 @@ public class DeviceSelectionActivity extends Activity
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.device_selection_layout);
-        /*
+        
         mGrid = (GridLayout) findViewById(R.id.deviceGrid);
         mGrid.setClipToPadding(false);
+        mGrid.setNColumns(2);
+        mGrid.setNRows(3);
         
+        @SuppressWarnings("unused")
         int nchildren = mGrid.getChildCount();
-        */
+        
+        DeviceSelectionWidget w = new DeviceSelectionWidget(this, R.drawable.icon_device_heater_128, "Heater"),
+                              w2 = new DeviceSelectionWidget(this, R.drawable.icon_device_light_128, "Light");
+        
+        mGrid.addView(w);
+        mGrid.addView(w2);
+        
+        Button nextButton = (Button) findViewById(R.id.nextButton);
+        nextButton.setOnClickListener(new OnClickListener(){
+
+            @Override
+            public void onClick(View v)
+            {
+                mGrid.setNColumns(1);
+            }});
+        /*mGrid.addView(w);/*
+        mGrid.addView(w);
+        mGrid.addView(w);
+        mGrid.addView(w);
         /*
         super.onCreate(savedInstanceState);
         setContentView(R.layout.device_selection_layout);

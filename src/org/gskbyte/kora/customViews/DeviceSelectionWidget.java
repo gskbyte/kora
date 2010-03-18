@@ -28,7 +28,11 @@ public class DeviceSelectionWidget extends View
     private final String label;
     private final int imageResId;
     private final Bitmap image;
-    //private final InternalListener listenerAdapter = new InternalListener();
+    private final InternalListener listenerAdapter = new InternalListener();
+    
+    private int mWidth, mHeight;
+    private int iconX, iconY, iconWidth, iconHeight;
+   
     
     public DeviceSelectionWidget(Context context, int resImage, String label)
     {
@@ -38,80 +42,52 @@ public class DeviceSelectionWidget extends View
         this.image = BitmapFactory.decodeResource(context.getResources(), imageResId);
         
         setFocusable(true);
-        setBackgroundColor(Color.WHITE);
+        //setBackgroundColor(Color.WHITE);
         
         //setOnClickListener(listenerAdapter);
         setClickable(true);
+        this.setPadding(10, 10, 10, 10);
     }
     
     protected void onFocusChanged(boolean gainFocus, int direction, Rect previouslyFocusedRect)
     {
+        /*
         if (gainFocus == true){
             this.setBackgroundColor(Color.rgb(255, 165, 0));
         } else {
             this.setBackgroundColor(Color.WHITE);
         }
+        */
     }
 
     protected void onDraw(Canvas canvas)
     {
         Paint textPaint = new Paint();
         textPaint.setColor(Color.BLACK);
-        canvas.drawBitmap(image, WIDTH_PADDING / 2, HEIGHT_PADDING / 2, null);
-        canvas.drawText(label, WIDTH_PADDING / 2 + image.getWidth()/2, (HEIGHT_PADDING / 2) + image.getHeight() + 8, textPaint);
+        Bitmap b = Bitmap.createScaledBitmap(image, iconWidth, iconHeight, true);
+        canvas.drawBitmap(b, iconX, iconY, null);
+        canvas.drawText(label, iconX+b.getWidth()/2, iconY+b.getHeight() + 8, textPaint);
     }
 
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) 
     {
-        @SuppressWarnings("unused")
-        int width = MeasureSpec.getSize(widthMeasureSpec),
-            height = MeasureSpec.getSize(heightMeasureSpec);
+        mWidth = MeasureSpec.getSize(widthMeasureSpec);
+        mHeight = MeasureSpec.getSize(heightMeasureSpec);
 
+        // Calcular tamaños de las cosas aquí
+        iconX = mWidth / 10;
+        iconY = mHeight / 10;
+        iconWidth = 7*mWidth/10;
+        iconHeight = 7*mHeight/10;
         
-        setMeasuredDimension(measureWidth(widthMeasureSpec), 
-                             measureHeight(heightMeasureSpec));
+        setMeasuredDimension(mWidth, mHeight);
     }
 
-    private int measureWidth(int measureSpec)
-    {
-        int preferred = image.getWidth() + WIDTH_PADDING;
-        return getMeasurement(measureSpec, preferred);
-    }
-    
-    private int measureHeight(int measureSpec)
-    {
-        int preferred = image.getHeight() + HEIGHT_PADDING + 8;
-        return getMeasurement(measureSpec, preferred);
-    }
-    
-    private int getMeasurement(int measureSpec, int preferred)
-    {
-        int specSize = MeasureSpec.getSize(measureSpec);
-        int measurement = 0;
-          
-        switch(MeasureSpec.getMode(measureSpec))
-        {
-        case MeasureSpec.EXACTLY:
-            // This means the width of this view has been given.
-            measurement = specSize;
-            break;
-        case MeasureSpec.AT_MOST:
-            // Take the minimum of the preferred size and what
-            // we were told to be.
-            measurement = Math.min(preferred, specSize);
-            break;
-        default: // MeasureSpec.UNSPECIFIED
-            measurement = preferred;
-            break;
-        }
-        return measurement;
-    }
-
-  /*  public void setOnClickListener(OnClickListener newListener)
+    public void setOnClickListener(OnClickListener newListener)
     {
         listenerAdapter.setListener(newListener);
     }
-*/
+
     public String getLabel()
     {
         return label;

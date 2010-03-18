@@ -12,7 +12,7 @@ android:layout_height="fill_parent">
 		>
 		
 		<Button android:text="Back"
-			android:id="@+id/Button01"
+			android:id="@+id/backButton"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_weight="1"
@@ -20,7 +20,7 @@ android:layout_height="fill_parent">
 			/>
 			
 		<Button android:text="Next"
-			android:id="@+id/Button01"
+			android:id="@+id/nextButton"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_weight="1"
@@ -29,10 +29,11 @@ android:layout_height="fill_parent">
 	
 	</LinearLayout>
 	
-	<org.gskbyte.Kora.customViews.GridLayout
+	<org.gskbyte.kora.customViews.GridLayout
 	    android:id="@+id/deviceGrid"
 	    android:layout_width="fill_parent" 
 	    android:layout_height="fill_parent"
+	    
 	    
 	    android:layout_above="@id/navigationButtons"
 	    />

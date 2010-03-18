@@ -39,22 +39,26 @@ import android.util.AttributeSet;
  * @attr ref com.google.android.photostream.R.styleable#GridLayout_numColumns
  * @attr ref com.google.android.photostream.R.styleable#GridLayout_numRows  
  */
-public class GridLayout extends ViewGroup {
+public class GridLayout extends ViewGroup
+{
     private int mNumColumns;
     private int mNumRows;
 
     private int mColumnWidth;
     private int mRowHeight;
 
-    public GridLayout(Context context) {
+    public GridLayout(Context context)
+    {
         this(context, null);
     }
 
-    public GridLayout(Context context, AttributeSet attrs) {
+    public GridLayout(Context context, AttributeSet attrs)
+    {
         this(context, attrs, 0);
     }
 
-    public GridLayout(Context context, AttributeSet attrs, int defStyle) {
+    public GridLayout(Context context, AttributeSet attrs, int defStyle)
+    {
         super(context, attrs, defStyle);
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.GridLayout, defStyle, 0);
 
@@ -63,10 +67,25 @@ public class GridLayout extends ViewGroup {
 
         a.recycle();
     }
+    
+    public void setNColumns(int ncolumns)
+    {
+        mNumColumns = ncolumns;
+        requestLayout();
+        invalidate();
+    }
+    
+    public void setNRows(int nrows)
+    {
+        mNumRows = nrows;
+        requestLayout();
+        invalidate();
+    }
 
     @Override
     protected void attachLayoutAnimationParameters(View child,
-            ViewGroup.LayoutParams params, int index, int count) {
+            ViewGroup.LayoutParams params, int index, int count)
+    {
 
         GridLayoutAnimationController.AnimationParameters animationParams =
                 (GridLayoutAnimationController.AnimationParameters)
@@ -87,7 +106,8 @@ public class GridLayout extends ViewGroup {
     }
 
     @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
+    {
         final int widthSpecMode = MeasureSpec.getMode(widthMeasureSpec);
         final int widthSpecSize =  MeasureSpec.getSize(widthMeasureSpec);
 
@@ -119,7 +139,8 @@ public class GridLayout extends ViewGroup {
     }
 
     @Override
-    protected void onLayout(boolean changed, int l, int t, int r, int b) {
+    protected void onLayout(boolean changed, int l, int t, int r, int b)
+    {
         final int columns = mNumColumns;
         final int paddingLeft = getPaddingLeft();
         final int paddingTop = getPaddingTop();
