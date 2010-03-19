@@ -10,6 +10,7 @@
     <string name="choose">Elegir</string>
     <string name="add">Añadir</string>
     <string name="edit">Editar</string>
+    <string name="copy">Copiar</string>
     <string name="delete">Borrar</string>
     <string name="ok">Ok</string>
     <string name="cancel">Cancelar</string>
