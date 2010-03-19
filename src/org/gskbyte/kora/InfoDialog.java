@@ -23,7 +23,7 @@ public class InfoDialog extends AlertDialog {
 		setView(v);
 		
 		Resources r = context.getResources();
-		String title = r.getString(R.string.appName)+" "+r.getString(R.string.version_number);
+		String title = r.getString(R.string.appName)+" "+r.getString(R.string.versionNumber);
 		this.setTitle(title);
 		this.setIcon(r.getDrawable(R.drawable.icon_info));
 		

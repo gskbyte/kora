@@ -108,11 +108,12 @@ public class AddEditUserDialog extends AlertDialog
             //mPhotoButton.setD
             mNameEdit.setText("");
             mSchoolEdit.setText("");
-            mAutoStartEdit.setText("5");
+            //mAutoStartEdit.setText("5");
 
             populateSpinners();
             
-            mAutoStartCheckBox.setChecked(true);
+            //mAutoStartCheckBox.setChecked(true);
+            //mAutoStartEdit.setText("5");
             
         } else {
             mMode = EDIT_MODE;

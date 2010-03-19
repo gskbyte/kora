@@ -82,7 +82,6 @@ public class UsersActivity extends Activity
         
         /* Ajustar vista */
         mTitle.setText(mResources.getString(R.string.currentUser));
-        mAddUserButton.setText(mResources.getString(R.string.addUser));
 
         updateCurrentUserView();
         updateUsersList(true);

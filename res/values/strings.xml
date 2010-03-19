@@ -7,7 +7,7 @@
     <string name="title">Kora</string>
     
     
-        <!-- Common actions -->
+    <!-- Common actions -->
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="select">Select</string>
@@ -38,8 +38,10 @@
     
         <!-- Information strings -->
     	<string name="version">Version</string>
-    	<string name="version_number">0.0.2</string>
+    	<string name="versionNumber">0.0.2</string>
+    	<string name="scautProject">The Sc@ut Project</string>
     	<string name="author">Author</string>
+    	<string name="projectSupervisor">Supervisor</string>
     	<string name="collaborators">Collaborators</string>
     
     <!-- Settings strings -->
@@ -51,14 +53,27 @@
         <string name="addButton">Add</string>
     
         <!-- Users strings -->
-        <string name="addUser">Add user</string>
-        <string name="editUser">Edit user</string>
-        <string name="user">User</string>
         <string name="currentUser">Current user:</string>
         <string name="customUsers">Custom users</string>
         <string name="defaultUsers">Default users</string>
-        <string name="userDeletionQuestion">Are you sure you want to delete user</string>
-        <string name="minimumTime">Minimum time is 5 seconds</string>
+	        <!-- Add/Edit dialog -->
+	        <string name="addUser">Add user</string>
+	        <string name="editUser">Edit user</string>
+	        <string name="userPhoto">Photo</string>
+	        <string name="name">Name</string>
+	        <string name="school">School</string>
+	        <string name="useProfile">Use profile</string>
+	        <string name="deviceProfile">Device profile</string>
+	        <string name="autoStart">Autostart</string>
+	        <string name="seconds">seconds</string>
+	        
+	        <string name="minimumTime">Minimum time is 5 seconds</string>
+	        <!-- Selection dialog -->
+	        <string name="user">User</string>
+	        
+	        <!-- Deletion dialog -->
+	        <string name="userDeletionQuestion">Are you sure you want to delete user</string>
+        
         <!-- Use profiles strings -->
         <string name="interaction">Interaction</string>
         <string name="visualization">Visualization</string>
@@ -95,7 +110,7 @@
             <string name="imagesAndIcons">Images and icons</string>
                 <string name="icon">Icon</string>
                 <string name="highContrastIcon">highContrastIcon</string>
-                <string name="photo">Photo</string>
+                <string name="devicePhoto">Photo</string>
                 <string name="animation">Animation</string>
             <string name="paging">Paging</string>
                 <string name="standardPaging">Standard</string>

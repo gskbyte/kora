@@ -3,18 +3,24 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="wrap_content"
   android:layout_height="wrap_content"
-  android:orientation="vertical"
-  android:gravity="center_horizontal">
+  android:orientation="vertical">
+        
+    <TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+        android:padding="5dip"
+        android:textSize="18dip"
+        android:text="@string/scautProject"/>
         
     <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:stretchColumns="1"
         android:padding="5dip">
+        
     
         <TableRow>
             <TextView
-                android:layout_column="1"
                 android:padding="5dip"
                 android:text="@string/author" />
             <TextView
@@ -22,17 +28,22 @@
                 android:text="Jose Alcalá Correa" />
         </TableRow>
     
-        <View
-            android:layout_height="2dip"
-            android:background="#FF909090" />
+    
+    	<TableRow>
+            <TextView
+                android:padding="5dip"
+                android:text="@string/projectSupervisor" />
+            <TextView
+                android:padding="5dip"
+                android:text="Mª José Rodríguez Fórtiz" />
+        </TableRow>
+    
     
         <TableRow>
             <TextView
-                android:layout_column="1"
                 android:padding="5dip"
                 android:text="@string/collaborators"/>
             <TextView
-                android:layout_column="1"
                 android:padding="5dip"
                 android:text="Manuel Martín Salvador\nDaniel Fernández Gómez
                 \nAlejandro Martín Medina\nDavid Lázaro Esparcia"/>
@@ -42,5 +53,6 @@
 	<TextView
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
+		android:layout_gravity="center_horizontal"
 		android:text="GPL, 2010"/>
 </LinearLayout>

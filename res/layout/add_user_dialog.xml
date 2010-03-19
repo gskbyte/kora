@@ -3,97 +3,86 @@
                 android:layout_width="fill_parent" 
                 android:layout_height="fill_parent" 
                 xmlns:android="http://schemas.android.com/apk/res/android">
-<RelativeLayout android:id="@+id/RelativeLayout01"
-	android:layout_width="fill_parent"
-	android:layout_height="wrap_content"
-  	android:minWidth="250dip"
-	android:orientation="horizontal">
-	
-	<Button android:id="@+id/photoButton"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:minWidth="80dip"
-		android:minHeight="90dip"
+	<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:stretchColumns="1">
+        
+        <TableRow>
+	        <Button android:id="@+id/photoButton"
+			android:layout_width="wrap_content"
+			android:layout_height="fill_parent"
+			
+			android:text="@string/userPhoto"
+			android:drawableTop="@drawable/icon_user"/>
+			
+			<LinearLayout android:orientation="vertical"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content">
+			
+		        <EditText android:id="@+id/userNameEdit"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:maxLength="16"
+				android:singleLine="true"
+				
+				android:hint="@string/name"/>
+			
+				<EditText android:id="@+id/userSchoolEdit"
+					android:layout_width="fill_parent"
+					android:layout_height="wrap_content"
+					android:maxLength="16"
+					android:singleLine="true"
+					
+					android:hint="@string/school"/>
+					
+			</LinearLayout>
+        </TableRow>
+        
+        <TableRow android:gravity="center_vertical">
+	        <TextView android:id="@+id/useProfileText" 
+				android:layout_width="wrap_content" 
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="5dip"
+				
+				android:text="@string/useProfile"/>
 		
-		android:text="foto"
-		android:drawableTop="@drawable/icon_user"
-	/>
-	
-	<EditText android:id="@+id/userNameEdit"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:layout_toRightOf="@id/photoButton"
+			<Spinner android:id="@+id/useProfileSpinner"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"/>
+        </TableRow>
+        
+        <TableRow android:gravity="center_vertical">
+	        <TextView android:id="@+id/deviceProfileText" 
+				android:layout_width="wrap_content" 
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="5dip"
+				
+				android:text="@string/deviceProfile" />
 		
-		android:hint="Nombre"
-		android:singleLine="true"
-	/>
-	
-	<EditText android:id="@+id/userSchoolEdit"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:layout_toRightOf="@id/photoButton"
-		android:layout_below="@id/userNameEdit"
-		android:hint="Centro"
-		android:singleLine="true"
-	/>
-
-	<Spinner android:id="@+id/useProfileSpinner"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_alignParentRight="true"
-		android:layout_below="@id/userSchoolEdit"
-		android:minWidth="200dip"
-		
-		android:contentDescription="caca"
-	/>
-		
-	<TextView android:id="@+id/useProfileText" 
-		android:layout_width="wrap_content" 
-		android:layout_height="wrap_content"
-		android:layout_below="@id/userSchoolEdit"
-		android:layout_toLeftOf="@id/useProfileSpinner"
-		android:layout_alignParentLeft="true"
-		android:layout_alignBaseline="@id/useProfileSpinner"
-		android:layout_marginLeft="10dip"
-		
-		android:text="Perfil de\nuso"
-	/>
-		
-	<Spinner android:id="@+id/deviceProfileSpinner"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_below="@id/useProfileSpinner"
-		android:layout_alignLeft="@id/useProfileSpinner"
-		android:layout_alignParentRight="true"/>
-	
-	<TextView android:id="@+id/deviceProfileText" 
-		android:layout_width="wrap_content" 
-		android:layout_height="wrap_content"
-		android:layout_below="@id/useProfileSpinner"
-		android:layout_toLeftOf="@id/deviceProfileSpinner"
-		android:layout_alignParentLeft="true"
-		android:layout_alignBaseline="@id/deviceProfileSpinner"
-		android:layout_marginLeft="10dip"
-		
-		android:text="Perfil de\ndispositivos" />
-		
-	<CheckBox android:id="@+id/autoStartCheckBox"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_below="@id/deviceProfileSpinner"
-		
-		android:text="Entrada\nautomática"
-	/>
-		
-	<EditText android:id="@+id/autoStartEdit"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:layout_toRightOf="@id/autoStartCheckBox"
-		android:layout_below="@id/deviceProfileSpinner"
-		android:hint="segundos"
-		android:singleLine="true"
-		android:numeric="integer"
-	/>
-		
-</RelativeLayout>
+			<Spinner android:id="@+id/deviceProfileSpinner"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"/>
+        </TableRow>
+        
+        <TableRow android:gravity="center_vertical">
+	        <CheckBox android:id="@+id/autoStartCheckBox"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:paddingRight="10dip"
+				
+				android:text="@string/autoStart"/>
+			
+			<EditText android:id="@+id/autoStartEdit"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				
+				android:hint="@string/seconds"
+				android:enabled="false"
+				
+				android:singleLine="true"
+				android:numeric="integer"/>
+        </TableRow>
+    </TableLayout>
 </ScrollView>
