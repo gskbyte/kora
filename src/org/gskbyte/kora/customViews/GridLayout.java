@@ -46,6 +46,8 @@ public class GridLayout extends ViewGroup
 
     private int mColumnWidth;
     private int mRowHeight;
+    
+    private int mMargin;
 
     public GridLayout(Context context)
     {
@@ -65,6 +67,9 @@ public class GridLayout extends ViewGroup
         mNumColumns = a.getInt(R.styleable.GridLayout_numColumns, 1);
         mNumRows = a.getInt(R.styleable.GridLayout_numRows, 1);
 
+        setPadding(5, 5, 5, 5);
+        mMargin = 20;
+        
         a.recycle();
     }
     
@@ -121,18 +126,12 @@ public class GridLayout extends ViewGroup
         final int width = widthSpecSize - getPaddingLeft() - getPaddingRight();
         final int height = heightSpecSize - getPaddingTop() - getPaddingBottom();
 
-        final int columnWidth = mColumnWidth = width / mNumColumns;
-        final int rowHeight = mRowHeight = height / mNumRows;
+        mColumnWidth = width / mNumColumns - mMargin/2;
+        mRowHeight = height / mNumRows - mMargin/2;
 
-        final int count = getChildCount();
-
-        for (int i = 0; i < count; i++) {
-            final View child = getChildAt(i);
-
-            int childWidthSpec = MeasureSpec.makeMeasureSpec(columnWidth, MeasureSpec.EXACTLY);
-            int childheightSpec = MeasureSpec.makeMeasureSpec(rowHeight, MeasureSpec.EXACTLY);
-
-            child.measure(childWidthSpec, childheightSpec);
+        for (int i = 0; i < getChildCount(); i++) {
+            getChildAt(i).measure(MeasureSpec.makeMeasureSpec(mColumnWidth, MeasureSpec.EXACTLY),
+            			  MeasureSpec.makeMeasureSpec(mRowHeight, MeasureSpec.EXACTLY));
         }
 
         setMeasuredDimension(widthSpecSize, heightSpecSize);
@@ -144,23 +143,22 @@ public class GridLayout extends ViewGroup
         final int columns = mNumColumns;
         final int paddingLeft = getPaddingLeft();
         final int paddingTop = getPaddingTop();
-        final int columnWidth = mColumnWidth;
-        final int rowHeight = mRowHeight;
-        final int count = getChildCount();
 
-        for (int i = 0; i < count; i++) {
+        for (int i = 0; i < getChildCount(); i++) {
             View child = getChildAt(i);
             if (child.getVisibility() != GONE) {
                 final int column = i % columns;
                 final int row = i / columns;
 
-                int childLeft = paddingLeft + column * columnWidth;
-                int childTop = paddingTop + row * rowHeight;
+                int childLeft = paddingLeft + column * mColumnWidth + column*mMargin;
+                int childTop = paddingTop + row * mRowHeight + row*mMargin;
 
-                child.layout(childLeft, childTop, childLeft + child.getMeasuredWidth(),
-                        childTop + child.getMeasuredHeight());
+                child.layout(childLeft, childTop, 
+		                     childLeft+child.getMeasuredWidth(),
+		                     childTop+child.getMeasuredHeight());
             }
         }
+        
     }
 }
 

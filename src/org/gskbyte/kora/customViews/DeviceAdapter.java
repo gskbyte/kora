@@ -3,6 +3,7 @@ package org.gskbyte.kora.customViews;
 import java.util.Vector;
 
 import org.gskbyte.kora.R;
+import org.gskbyte.kora.customViews.koraButton.KoraButton_old;
 import org.gskbyte.kora.device.Device;
 
 import android.content.Context;
@@ -40,16 +41,16 @@ public class DeviceAdapter extends BaseAdapter
     public View getView(int position, View convertView, ViewGroup parent)
     {
         //View view;
-        DeviceSelectionButton view;
+        KoraButton_old view;
         if (convertView == null) {
             //view = new DeviceSelectionWidget(mContext, R.drawable.icon_device_heater_128, "Heater");
-            view = new DeviceSelectionButton(mContext, devices.get(position));
+            view = new KoraButton_old(mContext, devices.get(position));
             //view.setLayoutParams(new GridView.LayoutParams(45, 45));
             //view.setAdjustViewBounds(false);
             //view.setScaleType(ImageView.ScaleType.CENTER_CROP);
             //view.setPadding(8, 8, 8, 8);
         } else {
-            view = (DeviceSelectionButton) convertView;
+            view = (KoraButton_old) convertView;
         }
 
         return view;

@@ -2,8 +2,8 @@ package org.gskbyte.kora;
 
 import org.gskbyte.kora.R;
 import org.gskbyte.kora.customViews.DeviceAdapter;
-import org.gskbyte.kora.customViews.DeviceSelectionWidget;
 import org.gskbyte.kora.customViews.GridLayout;
+import org.gskbyte.kora.customViews.koraButton.KoraButton;
 import org.gskbyte.kora.device.Device;
 import org.gskbyte.kora.settings.SettingsDbAdapter;
 
@@ -34,81 +34,33 @@ public class DeviceSelectionActivity extends Activity
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        /*
-        setContentView(R.layout.device_grid_layout);
-        
-        layout = (RelativeLayout) findViewById(R.id.relativeLayout);
-        Button b = (Button) findViewById(R.id.Button03);
-        
-
-        WindowManager w = getWindowManager(); 
-        Display d = w.getDefaultDisplay(); 
-        int width = d.getWidth(); 
-        int height = d.getHeight(); 
-        
-        b.setText(String.valueOf(width)+" x "+String.valueOf(height));
-        */
-        
-
-        /*
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.test_layout);
-        linear = (LinearLayout) findViewById(R.id.testLayout);
-
-        Resources r = getResources();
-        Device d = new Device("Heater", r.getDrawable(R.drawable.icon_device_heater_128));
-        DeviceSelectionWidget w = new DeviceSelectionWidget(this, R.drawable.icon_device_heater_128, "Heater");
-        linear.addView(w);
-*/
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.device_selection_layout);
         
         mGrid = (GridLayout) findViewById(R.id.deviceGrid);
         mGrid.setClipToPadding(false);
-        mGrid.setNColumns(2);
+        mGrid.setNColumns(3);
         mGrid.setNRows(3);
         
         @SuppressWarnings("unused")
         int nchildren = mGrid.getChildCount();
         
-        DeviceSelectionWidget w = new DeviceSelectionWidget(this, R.drawable.icon_device_heater_128, "Heater"),
-                              w2 = new DeviceSelectionWidget(this, R.drawable.icon_device_light_128, "Light");
+        KoraButton w = new KoraButton(this, R.drawable.icon_device_heater_128, "Heater"),
+                              w2 = new KoraButton(this, R.drawable.icon_device_light_128, "Light");
         
         mGrid.addView(w);
         mGrid.addView(w2);
         
         Button nextButton = (Button) findViewById(R.id.nextButton);
         nextButton.setOnClickListener(new OnClickListener(){
-
-            @Override
-            public void onClick(View v)
-            {
-                mGrid.setNColumns(1);
-            }});
-        /*mGrid.addView(w);/*
-        mGrid.addView(w);
-        mGrid.addView(w);
-        mGrid.addView(w);
-        /*
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.device_selection_layout);
-        
-        mGrid = (GridView) findViewById(R.id.deviceGrid);
-        //mGrid.setNumColumns(3);
-        //int height = mGrid.getMeasuredHeight();
-        //int width = mGrid.getMeasuredWidth();
-        DeviceAdapter da = new DeviceAdapter(this);
-        
-        
-        Resources r = getResources();
-        da.addDevice(new Device("Heater", r.getDrawable(R.drawable.icon_device_heater_128)));
-        da.addDevice(new Device("Light", r.getDrawable(R.drawable.icon_device_light_128)));
-        da.addDevice(new Device("Sunblind", r.getDrawable(R.drawable.icon_device_sunblind_128)));
-        da.addDevice(new Device("Music", r.getDrawable(R.drawable.icon_device_music_128)));
-        
-        mGrid.setAdapter(da);
-        */
+	        @Override
+	        public void onClick(View v)
+	        {
+	            mGrid.setNColumns(2);
+	            mGrid.setNRows(2);
+	        }
+        });
     }
     
     
