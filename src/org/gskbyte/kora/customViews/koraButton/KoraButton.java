@@ -97,8 +97,7 @@ public class KoraButton extends View
             backRect = new RectF(mBackX, mBackY, mBackXMax, mBackYMax);
         else
             backRect = new RectF(0, 0, mWidth, mHeight);
-        //canvas.drawRoundRect(backRect, 6, 6, backPaint);
-        canvas.drawRect(backRect, backPaint);
+        canvas.drawRoundRect(backRect, 6, 6, backPaint);
 
         // Icono
         String t = mText;
@@ -113,6 +112,7 @@ public class KoraButton extends View
             textPaint.setColor(Color.BLACK);
             textPaint.setTypeface(mAttributes.typeface);
             textPaint.setTextAlign(Paint.Align.CENTER);
+            textPaint.setTextSize(mAttributes.textScale*(mWidth>>3));
             canvas.drawText(mText, mTextX, mTextY, textPaint);
         }
     }
@@ -143,7 +143,7 @@ public class KoraButton extends View
         }
 
         if (mAttributes.orientation == Attributes.HORIZONTAL) {
-
+            
         } else {
             iconX = iconY = (mWidth >> 4) + mBackX; // width*2/16
             iconW = mWidth - (iconX << 1);
@@ -156,40 +156,20 @@ public class KoraButton extends View
             }
         }
 
-        // Escalar imagen para confinarla en el espacio asignado
-        getScaledIconValues(iconX, iconY, iconW, iconH);
-    }
-    
-    protected void getScaledIconValues(int dx, int dy, int iconW, int iconH)
-    {
+        // Escalar icono
         // para las proporciones, multplico y divido por 1024
         // en vez de usar flotantes, es algo más rápido
-        int iw = mIcon.getWidth(),
-            ih = mIcon.getHeight();
-        int rw = (iconW<<10) / iw,
-            rh = (iconH<<10) / ih;
-
-        int rel;
-        if(iw > ih){
-            if(iconW >= iconH) {
-                rel = rh;
-            } else {
-                rel = rw;
-            }
-        } else {
-            if(iconW >= iconH) {
-                rel = rh;
-            } else {
-                rel = rw;
-            }
-        }
+        int w = mIcon.getWidth(),
+            h = mIcon.getHeight();
+        int rw = (iconW<<10) / w,
+            rh = (iconH<<10) / h;
         
-        mIconWidth = (rel * iw)>>10;
-        mIconHeight = (rel * ih)>>10;
+        int res = (rw < rh) ? rw : rh;
         
-        mIconX = dx + (Math.abs(mIconWidth - iconW)>>1);
-        mIconY = dy + (Math.abs(mIconHeight - iconH)>>1);
-        
+        mIconWidth = (res*w)>>10;
+        mIconHeight = (res*h)>>10;
+        mIconX = iconX + (Math.abs(mIconWidth - iconW)>>1);
+        mIconY = iconY + (Math.abs(mIconHeight - iconH)>>1);
     }
 
     @Override
@@ -245,7 +225,8 @@ public class KoraButton extends View
 
         public int orientation = VERTICAL;
 
-        public boolean showText = false;
+        public boolean showText = true;
+        public float textScale = (float) 1.0;
         public Typeface typeface = Typeface.DEFAULT;
 
         public boolean showBorder = true;
