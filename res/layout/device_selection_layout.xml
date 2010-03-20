@@ -29,7 +29,7 @@ android:layout_height="fill_parent">
 	
 	</LinearLayout>
 	
-	<org.gskbyte.kora.customViews.GridLayout
+	<org.gskbyte.kora.customViews.gridLayout.GridLayout
 	    android:id="@+id/deviceGrid"
 	    android:layout_width="fill_parent" 
 	    android:layout_height="fill_parent"

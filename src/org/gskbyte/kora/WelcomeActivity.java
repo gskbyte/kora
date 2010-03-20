@@ -1,6 +1,7 @@
 package org.gskbyte.kora;
 
 import org.gskbyte.kora.R;
+import org.gskbyte.kora.handlingActivities.DeviceSelectionActivity;
 import org.gskbyte.kora.settings.SettingsManager;
 import org.gskbyte.kora.settings.User;
 import org.gskbyte.kora.settings.SettingsManager.SettingsException;

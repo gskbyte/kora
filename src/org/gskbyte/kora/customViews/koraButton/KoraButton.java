@@ -11,6 +11,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
@@ -25,123 +26,261 @@ import android.widget.Toast;
 public class KoraButton extends View
 {
     private static final String TAG = "KoraButton";
-    
-    // Propiedades generales del botón
-    private int mWidth, mHeight;
-    
-    // Borde
-    private boolean drawBorder;
-    private int borderColor;
-    
-    // Fondo
-    private int backX, backY, backXMax, backYMax;
-    private int backColor;
-    
-    // Icono
-    private int iconX, iconY, iconWidth, iconHeight;
-    private Bitmap image;
-    private int imageResId;
-    
-    // Texto
-    private  String label;
-    private int textX, textY;
-    
-    public KoraButton(Context context, int resImage, String label)
+
+    public static final int STATE_NORMAL = 0, STATE_FOCUSED = 1,
+            STATE_SELECTED = 2;
+
+    public KoraButton(Context context, String text, Drawable icon,
+            Attributes attr)
     {
         super(context);
-        this.label = label;
-        this.imageResId = resImage;
-        this.image = BitmapFactory.decodeResource(context.getResources(), imageResId);
-        
+        // this(context, text, icon.d)
+    }
+
+    public KoraButton(Context context, String text, int iconId, Attributes attr)
+    {
+        this(context, text, BitmapFactory.decodeResource(
+                context.getResources(), iconId), attr);
+    }
+
+    public KoraButton(Context context, String text, Bitmap icon, Attributes attr)
+    {
+        super(context);
+
+        if (text != null)
+            mText = text;
+        else
+            mText = text;
+
+        mIcon = icon;
+
+        if (attr != null)
+            mAttributes = attr;
+        else
+            mAttributes = new Attributes();
+
+        mState = STATE_NORMAL;
+
         setFocusable(true);
         setClickable(true);
-        
-        borderColor = Color.rgb(255, 165, 0);
-        backColor = Color.WHITE;
-        
-        this.setPadding(10, 10, 20, 10);
     }
-    
-    protected void onFocusChanged(boolean gainFocus, int direction, Rect previouslyFocusedRect)
+
+    protected void onFocusChanged(boolean gainFocus, int direction,
+            Rect previouslyFocusedRect)
     {
-    	if (gainFocus == true){
-            borderColor = Color.CYAN;
+        if (gainFocus) {
+            mState = STATE_FOCUSED;
         } else {
-        	borderColor = Color.rgb(255, 165, 0);
+            mState = STATE_NORMAL;
         }
-    	
-    	invalidate();
+
+        invalidate();
     }
 
     protected void onDraw(Canvas canvas)
     {
-    	// Pintar borde
-    	Paint borderPaint = new Paint();
-    	borderPaint.setColor(borderColor);
-    	RectF borderRect = new RectF(0, 0, mWidth, mHeight);
-    	canvas.drawRoundRect(borderRect, 10, 10, borderPaint);
-    	
-    	// Pintar fondo
-    	final Paint backPaint = new Paint();
-        backPaint.setAntiAlias(true); 
-    	backPaint.setColor(backColor);
-    	RectF backRect = new RectF(backX, backY, backXMax, backYMax);
-    	canvas.drawRoundRect(backRect, 10, 10, backPaint);
-    	
-    	// Icono
-        Bitmap b = Bitmap.createScaledBitmap(image, iconWidth, iconHeight, true);
-        canvas.drawBitmap(b, iconX, iconY, null);
+        // Pintar borde
+        if (mAttributes.showBorder) {
+            Paint borderPaint = new Paint();
+            borderPaint.setAntiAlias(true);
+            borderPaint.setColor(mAttributes.borderColors[mState]);
+            RectF borderRect = new RectF(0, 0, mWidth, mHeight);
+            canvas.drawRoundRect(borderRect, 10, 10, borderPaint);
+        }
+
+        // Pintar fondo
+        final Paint backPaint = new Paint();
+        backPaint.setAntiAlias(true);
+        backPaint.setColor(mAttributes.backgroundColors[mState]);
+        RectF backRect;
+        if (mAttributes.showBorder)
+            backRect = new RectF(mBackX, mBackY, mBackXMax, mBackYMax);
+        else
+            backRect = new RectF(0, 0, mWidth, mHeight);
+        //canvas.drawRoundRect(backRect, 6, 6, backPaint);
+        canvas.drawRect(backRect, backPaint);
+
+        // Icono
+        String t = mText;
+        Bitmap b = Bitmap.createScaledBitmap(mIcon, mIconWidth, mIconHeight,
+                true);
+        canvas.drawBitmap(b, mIconX, mIconY, null);
 
         // Texto
-        Paint textPaint = new Paint();
-        textPaint.setColor(Color.BLACK);
-        textPaint.setTextAlign(Paint.Align.CENTER);
-        canvas.drawText(label, textX, textY, textPaint);
+        if (mAttributes.showText) {
+            Paint textPaint = new Paint();
+            textPaint.setAntiAlias(true);
+            textPaint.setColor(Color.BLACK);
+            textPaint.setTypeface(mAttributes.typeface);
+            textPaint.setTextAlign(Paint.Align.CENTER);
+            canvas.drawText(mText, mTextX, mTextY, textPaint);
+        }
     }
 
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) 
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
     {
         mWidth = MeasureSpec.getSize(widthMeasureSpec);
         mHeight = MeasureSpec.getSize(heightMeasureSpec);
 
-        // Calcular tamaños de las cosas aquí
-        backX = mWidth / 16;
-        backY = mHeight / 16;
-        backXMax = mWidth * 15/16;
-        backYMax = mHeight* 15/16;
-        
-        iconX = mWidth * 2/16;
-        iconY = mHeight * 2/16;
-        iconWidth = mWidth * 12/16;
-        iconHeight = mHeight * 10/16;
-        
-        // ESCALAR IMAGEN
-        
-        textX = mWidth * 8/16;
-        textY =  mHeight * 14/16;
-        
+        calculateCoordinates();
+
         setMeasuredDimension(mWidth, mHeight);
     }
 
-    public String getLabel()
+    protected void calculateCoordinates()
     {
-        return label;
-    }
-    
-    public int getImageResId()
-    {
-        return imageResId;
-    }
-    
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
+        int iconX=0, iconY=0, iconW=0, iconH=0;
+        
+        // El ancho del borde se toma relativo a la anchura del widget
+        if (mAttributes.showBorder) {
+            mBackX = mBackY = mWidth >> 4; // width/16
+            mBackXMax = mWidth - mBackX;
+            mBackYMax = mHeight - mBackX;
+        } else {
+            mBackX = mBackY = 0; // width/16
+            mBackXMax = mWidth;
+            mBackYMax = mHeight;
+        }
 
-            int action = event.getAction();
+        if (mAttributes.orientation == Attributes.HORIZONTAL) {
 
-            if (action == MotionEvent.ACTION_DOWN) {
-            	
+        } else {
+            iconX = iconY = (mWidth >> 4) + mBackX; // width*2/16
+            iconW = mWidth - (iconX << 1);
+            if (mAttributes.showText) {
+                iconH = mHeight - (iconY << 2);
+                mTextX = mWidth * 8 / 16;
+                mTextY = mHeight * 14 / 16;
+            } else {
+                iconH = mHeight - (iconY << 1);
             }
+        }
 
-            return true;
+        // Escalar imagen para confinarla en el espacio asignado
+        getScaledIconValues(iconX, iconY, iconW, iconH);
     }
+    
+    protected void getScaledIconValues(int dx, int dy, int iconW, int iconH)
+    {
+        // para las proporciones, multplico y divido por 1024
+        // en vez de usar flotantes, es algo más rápido
+        int iw = mIcon.getWidth(),
+            ih = mIcon.getHeight();
+        int rw = (iconW<<10) / iw,
+            rh = (iconH<<10) / ih;
+
+        int rel;
+        if(iw > ih){
+            if(iconW >= iconH) {
+                rel = rh;
+            } else {
+                rel = rw;
+            }
+        } else {
+            if(iconW >= iconH) {
+                rel = rh;
+            } else {
+                rel = rw;
+            }
+        }
+        
+        mIconWidth = (rel * iw)>>10;
+        mIconHeight = (rel * ih)>>10;
+        
+        mIconX = dx + (Math.abs(mIconWidth - iconW)>>1);
+        mIconY = dy + (Math.abs(mIconHeight - iconH)>>1);
+        
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event)
+    {
+
+        int action = event.getAction();
+
+        if (action == MotionEvent.ACTION_DOWN) {
+
+        }
+
+        return true;
+    }
+
+    public String getText()
+    {
+        return mText;
+    }
+
+    public void setText(String text)
+    {
+        mText = text;
+        invalidate();
+    }
+
+    public Bitmap getIcon()
+    {
+        return mIcon;
+    }
+
+    public void setIcon(Bitmap icon)
+    {
+        mIcon = icon;
+        invalidate();
+    }
+
+    public Attributes getAttributes()
+    {
+        return mAttributes;
+    }
+
+    public void setAttributes(Attributes attr)
+    {
+        mAttributes = attr;
+        calculateCoordinates();
+        invalidate();
+    }
+
+    public class Attributes
+    {
+        public static final int HORIZONTAL = 0, VERTICAL = 1;
+
+        public int orientation = VERTICAL;
+
+        public boolean showText = false;
+        public Typeface typeface = Typeface.DEFAULT;
+
+        public boolean showBorder = true;
+        public int[] borderColors = { Color.GREEN, Color.WHITE, Color.WHITE };
+
+        public int[] backgroundColors = { Color.WHITE, Color.WHITE, Color.WHITE };
+
+        public Attributes()
+        {
+        }
+
+        public Attributes(int orientation, boolean showText,
+                boolean showBorder, int[] borderColors, int[] backgroundColors,
+                Typeface typeface)
+        {
+            this.orientation = orientation;
+            this.showText = showText;
+            this.showBorder = showBorder;
+
+            if (borderColors.length == 3)
+                this.borderColors = borderColors;
+            if (backgroundColors.length == 3)
+                this.backgroundColors = backgroundColors;
+        }
+    }
+
+    // Propiedades generales del botón
+    private String mText;
+    private Bitmap mIcon;
+    private int mState;
+    private Attributes mAttributes;
+
+    // Variables utilizadas para dibujar
+    private int mWidth, mHeight;
+    private int mBackX, mBackY, mBackXMax, mBackYMax;
+    private int mIconX, mIconY, mIconWidth, mIconHeight;
+    private int mTextX, mTextY;
 }

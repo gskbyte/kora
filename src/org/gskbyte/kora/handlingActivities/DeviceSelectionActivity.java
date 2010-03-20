@@ -1,29 +1,17 @@
-package org.gskbyte.kora;
+package org.gskbyte.kora.handlingActivities;
 
 import org.gskbyte.kora.R;
-import org.gskbyte.kora.customViews.DeviceAdapter;
-import org.gskbyte.kora.customViews.GridLayout;
+import org.gskbyte.kora.R.drawable;
+import org.gskbyte.kora.R.id;
+import org.gskbyte.kora.R.layout;
+import org.gskbyte.kora.customViews.gridLayout.GridLayout;
 import org.gskbyte.kora.customViews.koraButton.KoraButton;
-import org.gskbyte.kora.device.Device;
-import org.gskbyte.kora.settings.SettingsDbAdapter;
 
 import android.app.Activity;
-import android.content.res.Resources;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Display;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.View.OnClickListener;
-import android.view.View.OnFocusChangeListener;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.GridView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TableLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 public class DeviceSelectionActivity extends Activity
 {
@@ -35,7 +23,6 @@ public class DeviceSelectionActivity extends Activity
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        super.onCreate(savedInstanceState);
         setContentView(R.layout.device_selection_layout);
         
         mGrid = (GridLayout) findViewById(R.id.deviceGrid);
@@ -43,14 +30,18 @@ public class DeviceSelectionActivity extends Activity
         mGrid.setNColumns(3);
         mGrid.setNRows(3);
         
-        @SuppressWarnings("unused")
-        int nchildren = mGrid.getChildCount();
         
-        KoraButton w = new KoraButton(this, R.drawable.icon_device_heater_128, "Heater"),
-                              w2 = new KoraButton(this, R.drawable.icon_device_light_128, "Light");
+        KoraButton w = new KoraButton(this, "Heater", R.drawable.icon_device_heater_128, null),
+                   w2 = new KoraButton(this, "Light", R.drawable.icon_device_light_128, null),
+                   w3 = new KoraButton(this, "Music", R.drawable.icon_device_music_128, null),
+                   w4 = new KoraButton(this, "Sunblind", R.drawable.icon_device_sunblind_128, null),
+                   w5 = new KoraButton(this, "Light", R.drawable.icon_device_light_128, null);
         
         mGrid.addView(w);
         mGrid.addView(w2);
+        mGrid.addView(w3);
+        mGrid.addView(w4);
+        mGrid.addView(w5);
         
         Button nextButton = (Button) findViewById(R.id.nextButton);
         nextButton.setOnClickListener(new OnClickListener(){
