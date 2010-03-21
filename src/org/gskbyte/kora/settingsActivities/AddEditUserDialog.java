@@ -142,7 +142,11 @@ public class AddEditUserDialog extends AlertDialog
                useProfile = "Default",
                deviceProfile = "Default";
         boolean autoStart = mAutoStartCheckBox.isChecked();
-        int seconds = Integer.parseInt(timeString);
+        int seconds;
+        if(autoStart)
+            seconds = Integer.parseInt(timeString);
+        else
+            seconds = 10;
         
         User ret = new User(name, false,
                             school, null,

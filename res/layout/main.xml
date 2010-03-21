@@ -3,7 +3,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:padding="10dip">
+    android:padding="10dip"
+    android:background="@drawable/main_background">
 	
 	<TextView
 		android:id="@+id/autostart"
@@ -11,6 +12,7 @@
 		android:layout_height="wrap_content"
 		android:layout_centerHorizontal="true"
 		
+		android:textColor="#FF000000"
 		android:text="@string/autostartText1"/>
 		
     <ImageView

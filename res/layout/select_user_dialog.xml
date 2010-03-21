@@ -21,7 +21,7 @@
         android:layout_gravity="center"
         android:minWidth="150dip"
         
-        android:drawableLeft="@drawable/action_edit"
+        android:drawableLeft="@drawable/action_copy"
         android:text="@string/copy"/>
     
     <Button android:id="@+id/editButton"

@@ -100,7 +100,6 @@ public class KoraButton extends View
         canvas.drawRoundRect(backRect, 6, 6, backPaint);
 
         // Icono
-        String t = mText;
         Bitmap b = Bitmap.createScaledBitmap(mIcon, mIconWidth, mIconHeight,
                 true);
         canvas.drawBitmap(b, mIconX, mIconY, null);
