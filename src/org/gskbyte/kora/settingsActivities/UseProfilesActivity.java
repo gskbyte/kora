@@ -5,8 +5,8 @@ import java.util.Collection;
 import java.util.List;
 
 import org.gskbyte.kora.R;
-import org.gskbyte.kora.customViews.DetailedListView.DetailedViewModel;
-import org.gskbyte.kora.customViews.DetailedListView.SectionedListAdapter;
+import org.gskbyte.kora.customViews.detailedListView.DetailedViewModel;
+import org.gskbyte.kora.customViews.detailedListView.SectionedListAdapter;
 import org.gskbyte.kora.settings.SettingsManager;
 import org.gskbyte.kora.settings.UseProfile;
 import org.gskbyte.kora.settings.User;

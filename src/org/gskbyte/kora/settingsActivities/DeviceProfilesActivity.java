@@ -1,6 +1,6 @@
 package org.gskbyte.kora.settingsActivities;
 
-import org.gskbyte.kora.customViews.DetailedListView.DetailedListViewAdapter;
+import org.gskbyte.kora.customViews.detailedListView.DetailedListViewAdapter;
 
 import android.app.ListActivity;
 import android.os.Bundle;

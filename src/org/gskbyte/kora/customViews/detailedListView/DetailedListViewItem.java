@@ -1,4 +1,4 @@
-package org.gskbyte.kora.customViews.DetailedListView;
+package org.gskbyte.kora.customViews.detailedListView;
 
 import org.gskbyte.kora.R;
 import android.content.Context;
