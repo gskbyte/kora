@@ -49,10 +49,11 @@ public class UsersActivity extends Activity
     private String mSelectedUserName;
     
     /* Dialog IDs */
-    private static final int ADD_USER_DIALOG_ID = 0;
-    private static final int EDIT_USER_DIALOG_ID = 1;
-    private static final int SELECT_USER_DIALOG_ID = 2;
-    private static final int CONFIRM_DELETE_USER_DIALOG_ID = 3;
+    public static final int ADD_USER_DIALOG_ID = 0;
+    public static final int COPY_USER_DIALOG_ID = 1;
+    public static final int EDIT_USER_DIALOG_ID = 2;
+    public static final int SELECT_USER_DIALOG_ID = 3;
+    public static final int CONFIRM_DELETE_USER_DIALOG_ID = 4;
     
     public void onCreate(Bundle savedInstanceState)
     {
@@ -101,6 +102,17 @@ public class UsersActivity extends Activity
         case ADD_USER_DIALOG_ID:
             dialog = new AddEditUserDialog(this, null);
             break;
+        case COPY_USER_DIALOG_ID:
+            try {
+                u = (User) mSettings.getUser(mSelectedUserName);
+                dialog = new CopyUserDialog(this, u);
+            } catch (SettingsException e) {
+                Toast.makeText(this, 
+                    "User not found: "+mSelectedUserName+". Reset app.\n"+e.getMessage(),
+                    Toast.LENGTH_LONG).show();
+            }
+            break;
+            
         case EDIT_USER_DIALOG_ID:
             try {
                 u = (User) mSettings.getUser(mSelectedUserName);
@@ -139,6 +151,17 @@ public class UsersActivity extends Activity
         case ADD_USER_DIALOG_ID:
             ((AddEditUserDialog)dialog).setUser(null);
             break;
+        case COPY_USER_DIALOG_ID:
+            try {
+                u = (User) mSettings.getUser(mSelectedUserName);
+                ((CopyUserDialog)dialog).setUser(u);
+            } catch (SettingsException e) {
+                Toast.makeText(this, 
+                        "User not found: "+mSelectedUserName+". Reset app.\n"+e.getMessage(),
+                        Toast.LENGTH_LONG).show();
+            }
+            break;
+            
         case EDIT_USER_DIALOG_ID:
             try {
                 u = (User) mSettings.getUser(mSelectedUserName);
@@ -234,11 +257,6 @@ public class UsersActivity extends Activity
         }
     }
     
-    public void showEditUserDialog()
-    {
-        showDialog(EDIT_USER_DIALOG_ID);
-    }
-    
     public void editUser(String previous_name, User u)
     {
         try{
@@ -254,11 +272,6 @@ public class UsersActivity extends Activity
             Toast.makeText(this,
                     "Edición incorrecta: "+previous_name+" -X> "+u.getName(), Toast.LENGTH_SHORT).show();
         }
-    }
-    
-    public void showDeleteUserDialog()
-    {
-        showDialog(CONFIRM_DELETE_USER_DIALOG_ID);
     }
     
     public void deleteUser()

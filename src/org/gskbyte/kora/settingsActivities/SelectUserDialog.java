@@ -16,7 +16,7 @@ public class SelectUserDialog extends AlertDialog
     Resources resources;
     UsersActivity activity;
     
-    Button chooseButton, editButton, deleteButton;
+    Button chooseButton, copyButton, editButton, deleteButton;
     
     public interface Listener
     {
@@ -33,27 +33,10 @@ public class SelectUserDialog extends AlertDialog
         
         View v = View.inflate(context, R.layout.select_user_dialog, null);
         chooseButton = (Button) v.findViewById(R.id.chooseButton);
+        copyButton = (Button) v.findViewById(R.id.copyButton);
         editButton = (Button) v.findViewById(R.id.editButton);
         deleteButton = (Button) v.findViewById(R.id.deleteButton);
         
-        // Igualar ancho de los botones
-        /*int chooseButtonWidth = chooseButton.getWidth(),
-            editButtonWidth = editButton.getWidth(),
-            deleteButtonWidth = deleteButton.getWidth();
-
-        
-        int maximum = Math.max(chooseButtonWidth, editButtonWidth);
-        maximum = Math.max(maximum, deleteButtonWidth);
-        
-        
-        chooseButton.setMinimumWidth(maximum);
-        editButton.setMinimumWidth(maximum);
-        deleteButton.setMinimumWidth(maximum);
-        
-        chooseButton.setWidth(maximum);
-        editButton.setWidth(maximum);
-        deleteButton.setWidth(maximum);
-        */
         setUser(user);
         
         setButton(BUTTON_NEGATIVE, resources.getString(R.string.return_), new DialogInterface.OnClickListener() {
@@ -63,6 +46,7 @@ public class SelectUserDialog extends AlertDialog
         });
 
         chooseButton.setOnClickListener(chooseListener);
+        copyButton.setOnClickListener(copyListener);
         editButton.setOnClickListener(editListener);
         deleteButton.setOnClickListener(deleteListener);
         
@@ -86,12 +70,21 @@ public class SelectUserDialog extends AlertDialog
                 dismiss();
             }
         };
+        
+    private android.view.View.OnClickListener copyListener = new android.view.View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                activity.showDialog(UsersActivity.COPY_USER_DIALOG_ID);
+                dismiss();
+            }
+        };
     
     private android.view.View.OnClickListener editListener = new android.view.View.OnClickListener() {
             @Override
             public void onClick(View v)
             {
-                activity.showEditUserDialog();
+                activity.showDialog(UsersActivity.EDIT_USER_DIALOG_ID);
                 dismiss();
             }
         };
@@ -100,7 +93,7 @@ public class SelectUserDialog extends AlertDialog
             @Override
             public void onClick(View v)
             {
-                activity.showDeleteUserDialog();
+                activity.showDialog(UsersActivity.CONFIRM_DELETE_USER_DIALOG_ID);
                 dismiss();
             }
         };

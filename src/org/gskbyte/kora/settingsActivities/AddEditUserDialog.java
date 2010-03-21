@@ -9,7 +9,6 @@ import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.view.View;
 import android.view.View.OnFocusChangeListener;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -138,6 +137,7 @@ public class AddEditUserDialog extends AlertDialog
     {
         String name = mNameEdit.getText().toString(),
                school = mSchoolEdit.getText().toString(),
+               // poner foto
                timeString = mAutoStartEdit.getText().toString(),
                useProfile = "Default",
                deviceProfile = "Default";
