@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    
+    <RelativeLayout
+        android:id="@+id/statusBar"
+        android:layout_width="120dip"
+        android:layout_height="fill_parent"
+        android:paddingTop="10dip"
+        android:paddingBottom="10dip"
+        android:layout_alignParentRight="true"
+        
+        android:layout_gravity="center_horizontal"
+        
+        style="@android:style/ButtonBar">
+        
+        <TextView android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="5dip"
+            
+            android:textColor="#000000"
+            android:text="@string/current"/>
+            
+        <ImageView android:id="@+id/image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/title"
+          
+            android:src="@drawable/icon_user"/>
+            
+             
+        <TextView android:id="@+id/text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/image"
+            
+            android:scrollHorizontally="true"
+            
+            android:textColor="#000000"
+            android:textSize="15sp"
+            android:text="text goes here"/>
+            
+	    <Button android:id="@+id/addButton"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentBottom="true"
+	        
+	        android:text="@string/addButton"
+	        android:drawableLeft="@drawable/action_add"/>
+                
+    </RelativeLayout>
+            
+    <ListView android:id="@+id/listView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_toLeftOf="@id/statusBar"
+        android:layout_alignParentTop="true">
+    </ListView>
+</RelativeLayout>

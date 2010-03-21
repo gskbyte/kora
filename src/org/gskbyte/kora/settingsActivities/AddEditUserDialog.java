@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 import android.widget.CompoundButton.OnCheckedChangeListener;
@@ -30,7 +31,7 @@ public class AddEditUserDialog extends AlertDialog
     private UsersActivity mActivity;
     private Resources mResources;
     
-    private Button mPhotoButton;
+    private ImageButton mPhotoButton;
     private EditText mNameEdit, mSchoolEdit, mAutoStartEdit;
     private Spinner mUseProfileSpinner, mDeviceProfileSpinner;
     private CheckBox mAutoStartCheckBox;
@@ -42,7 +43,7 @@ public class AddEditUserDialog extends AlertDialog
         mResources = context.getResources();
         
         View v = View.inflate(context, R.layout.add_user_dialog, null);
-        mPhotoButton = (Button) v.findViewById(R.id.photoButton);
+        mPhotoButton = (ImageButton) v.findViewById(R.id.photoButton);
         mNameEdit = (EditText) v.findViewById(R.id.userNameEdit);
         mSchoolEdit = (EditText) v.findViewById(R.id.userSchoolEdit);
         mAutoStartEdit = (EditText) v.findViewById(R.id.autoStartEdit);

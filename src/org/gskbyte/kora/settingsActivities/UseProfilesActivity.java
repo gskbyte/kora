@@ -76,7 +76,6 @@ public class UseProfilesActivity extends Activity
         mAdapter=new SectionedListAdapter(this/*, R.layout.detailedlistview*/);
         
         /* Ajustar vista */
-        mTitle.setText(mResources.getString(R.string.currentUser));
         mAddUseProfileButton.setText(mResources.getString(R.string.addUser));
 
         updateCurrentUseProfileView();
@@ -129,12 +128,12 @@ public class UseProfilesActivity extends Activity
                         null));
             
             if(customs.size()>0)
-                mAdapter.addSection(mResources.getString(R.string.customUsers), customs);
-            mAdapter.addSection(mResources.getString(R.string.defaultUsers), defaults);
+                mAdapter.addSection(mResources.getString(R.string.customs), customs);
+            mAdapter.addSection(mResources.getString(R.string.defaults), defaults);
         } else {
-            mAdapter.removeSection(mResources.getString(R.string.customUsers));
+            mAdapter.removeSection(mResources.getString(R.string.customs));
             if(customs.size()>0)
-                mAdapter.addSection(0, mResources.getString(R.string.customUsers), customs);
+                mAdapter.addSection(0, mResources.getString(R.string.customs), customs);
             mAdapter.notifyDataSetChanged();
         }
         

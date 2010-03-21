@@ -1,58 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  android:layout_width="wrap_content"
-  android:layout_height="wrap_content"
-  android:orientation="vertical">
-        
-    <TextView
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-        android:padding="5dip"
-        android:textSize="18dip"
-        android:text="@string/scautProject"/>
-        
-    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:stretchColumns="1"
-        android:padding="5dip">
-        
+
     
-        <TableRow>
-            <TextView
-                android:padding="5dip"
-                android:text="@string/author" />
-            <TextView
-                android:padding="5dip"
-                android:text="Jose Alcalá Correa" />
-        </TableRow>
-    
-    
-    	<TableRow>
-            <TextView
-                android:padding="5dip"
-                android:text="@string/projectSupervisor" />
-            <TextView
-                android:padding="5dip"
-                android:text="Mª José Rodríguez Fórtiz" />
-        </TableRow>
-    
-    
-        <TableRow>
-            <TextView
-                android:padding="5dip"
-                android:text="@string/collaborators"/>
-            <TextView
-                android:padding="5dip"
-                android:text="Manuel Martín Salvador\nDaniel Fernández Gómez
-                \nAlejandro Martín Medina\nDavid Lázaro Esparcia"/>
-        </TableRow>
-    </TableLayout>
-    
-	<TextView
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_gravity="center_horizontal"
-		android:text="GPL, 2010"/>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" 
+            android:layout_width="fill_parent" 
+            android:layout_height="fill_parent" >
+    <LinearLayout
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:orientation="vertical"
+	    android:padding="5dip">
+	    
+	    <TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+	        android:textSize="18dip"
+	        android:text="@string/scautProject"/>
+	       
+	    <View
+	         android:layout_width="fill_parent"
+	         android:layout_height="1dip"
+	         android:background="#FF909090" />
+	        
+	    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	         android:layout_width="wrap_content"
+	         android:layout_height="wrap_content"
+	         android:stretchColumns="1">
+	    
+	        <TableRow>
+	            <TextView
+	                android:paddingRight="5dip"
+	                android:text="@string/author" />
+	            <TextView
+	                android:paddingLeft="5dip"
+	                android:text="Jose Alcalá Correa" />
+	        </TableRow>
+	    
+	    	<TableRow>
+	            <TextView
+	                android:paddingRight="5dip"
+	                android:text="@string/projectSupervisor" />
+	            <TextView
+	                android:paddingLeft="5dip"
+	                android:text="Mª José Rodríguez Fórtiz" />
+	        </TableRow>
+	    </TableLayout>
+	    
+	    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dip"
+            android:textSize="18dip"
+            android:text="@string/acknowledgements"/>
+           
+        <View
+             android:layout_width="fill_parent"
+             android:layout_height="1dip"
+             android:background="#FF909090" />
+	    
+	    <TableLayout
+	         android:layout_width="wrap_content"
+	         android:layout_height="wrap_content"
+	         android:stretchColumns="1">
+	    
+	        <TableRow>
+	            <TextView
+	                android:paddingRight="5dip"
+	                android:text="Hackathon\n2010"/>
+	            <TextView
+	                android:paddingLeft="5dip"
+	                android:text="Manuel Martín Salvador\nDaniel Fernández Gómez
+	                \nAlejandro Martín Medina\nDavid Lázaro Esparcia"/>
+	        </TableRow>
+	        <TableRow>
+	            <TextView
+	                android:paddingRight="5dip"
+	                android:text="@string/artwork"/>
+	            <TextView
+	                android:paddingLeft="5dip"
+                    android:scrollHorizontally="true"
+	                android:text="@string/artworkString"/>
+	        </TableRow>
+	        
+		    <TextView
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_gravity="center_horizontal"
+		        android:text="GPL, 2010"/>
+	    </TableLayout>
 </LinearLayout>
+</ScrollView>

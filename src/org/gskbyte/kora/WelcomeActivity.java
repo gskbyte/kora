@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class WelcomeActivity extends Activity {
@@ -23,7 +24,8 @@ public class WelcomeActivity extends Activity {
 
 	private static final int INFO_DIALOG_ID = 0;
 
-	private Button startButton, settingsButton, infoButton;
+	private Button startButton, settingsButton;
+	private ImageView infoButton;
 	private TextView autostartText;
 
 	private CountDownTimer timer;
@@ -41,7 +43,7 @@ public class WelcomeActivity extends Activity {
 
 		startButton = (Button) findViewById(R.id.startButton);
 		settingsButton = (Button) findViewById(R.id.settingsButton);
-		infoButton = (Button) findViewById(R.id.infoButton);
+		infoButton = (ImageView) findViewById(R.id.infoButton);
 		autostartText = (TextView) findViewById(R.id.autostart);
 
 		// Asociar eventos con botones
@@ -51,10 +53,24 @@ public class WelcomeActivity extends Activity {
 
 		// Cargar datos de programa (usuarios, perfiles, etc)
 		init();
+		
+		
 
 		loadCountdown();
 	}
 	
+	public void onPause()
+	{
+	    stopCountDown();
+	    super.onPause();
+	}
+	
+	
+	public void onStop()
+    {
+        stopCountDown();
+        super.onStop();
+    }
 	private void loadCountdown() {
 
 		User currentUser = null;
@@ -114,7 +130,6 @@ public class WelcomeActivity extends Activity {
 	// Listener del bot�n Start
 	private OnClickListener startButtonListener = new OnClickListener() {
 		public void onClick(View v) {
-			stopCountDown();
 			startDeviceSelectionActivity();
 		}
 	};

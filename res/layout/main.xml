@@ -1,54 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    
-    android:gravity="bottom">
+    android:padding="10dip">
 	
 	<TextView
 		android:id="@+id/autostart"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_gravity="center_horizontal"
+		android:layout_centerHorizontal="true"
 		
-		android:text="@string/autostartText1"
-		/>
+		android:text="@string/autostartText1"/>
+		
+    <ImageView
+        android:id="@+id/infoButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        
+        android:src="@drawable/icon_info"/>
+        
+        
+    <Button
+        android:id="@+id/settingsButton"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        
+        android:textSize="20sp" 
+        android:text="@string/settingsButton"
+        android:drawableLeft="@drawable/icon_preferences"/>
+	
 	<Button
 		android:id="@+id/startButton"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
+		android:layout_above="@id/settingsButton"
 		
+        android:minHeight="75dip"
 		android:text="@string/startButton"
-		android:textSize="40dip" 
+		android:textSize="40sp" 
 		android:drawableLeft="@drawable/action_start"/>
-		
-	<LinearLayout
-	    android:orientation="horizontal"
-	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"
-	    
-	    android:gravity="center"
-		android:layout_marginTop="10dip"
-		android:layout_marginBottom="5dip"
-	    >
-		<Button
-			android:id="@+id/settingsButton"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_marginRight="10dip"
-            android:textSize="20dip" 
-			
-			android:text="@string/settingsButton"
-			android:drawableLeft="@drawable/icon_preferences" 
-			android:layout_weight="1"/>
-			
-		<Button
-			android:id="@+id/infoButton"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			
-			android:drawableLeft="@drawable/icon_info" 
-			android:text="@string/infoButton"/>
-	</LinearLayout>
-</LinearLayout>
+</RelativeLayout>

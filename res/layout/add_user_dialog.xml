@@ -9,12 +9,12 @@
         android:stretchColumns="1">
         
         <TableRow>
-	        <Button android:id="@+id/photoButton"
+	        <ImageButton android:id="@+id/photoButton"
 			android:layout_width="wrap_content"
 			android:layout_height="fill_parent"
+            android:scaleType="fitXY"
 			
-			android:text="@string/userPhoto"
-			android:drawableTop="@drawable/icon_user"/>
+			android:src="@drawable/icon_user_big"/>
 			
 			<LinearLayout android:orientation="vertical"
 			android:layout_width="wrap_content"
@@ -69,8 +69,8 @@
 	        <CheckBox android:id="@+id/autoStartCheckBox"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:paddingRight="10dip"
 				
+				android:textSize="15sp"
 				android:text="@string/autoStart"/>
 			
 			<EditText android:id="@+id/autoStartEdit"

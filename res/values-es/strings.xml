@@ -38,6 +38,9 @@
     	<string name="scautProject">Proyecto Sc@ut</string>
     	<string name="author">Autor</string>
     	<string name="projectSupervisor">Tutora</string>
+        <string name="acknowledgements">Agradecimientos y créditos</string>
+        <string name="artwork">Arte</string>
+        <string name="artworkString">Icono y fondo por Jeremy Todaro\nAlgunos iconos originales\ndel Proyecto Oxygen</string>
     	<string name="collaborators">Colaboradores</string>
     
     <!-- Settings strings -->
@@ -47,11 +50,11 @@
     
         <!-- Common strings -->
         <string name="addButton">Añadir</string>
+        <string name="current">Actual:</string>
+        <string name="customs">Personalizados</string>
+        <string name="defaults">Por defecto</string>
     
         <!-- Users strings -->
-        <string name="currentUser">Usuario actual:</string>
-        <string name="customUsers">Usuarios personalizados</string>
-        <string name="defaultUsers">Usuarios por defecto</string>
         	<!-- Add/Edit dialog -->
         	<string name="addUser">Añadir usuario</string>
         	<string name="editUser">Editar usuario</string>

@@ -15,7 +15,7 @@ public class DetailedListViewItem extends RelativeLayout
     {
         super(context);
         
-        LayoutInflater.from(context).inflate(R.layout.detailedlistview, this, true);
+        LayoutInflater.from(context).inflate(R.layout.detailed_list_view, this, true);
         
         mMainText = (TextView) findViewById(R.id.mainText);
         mDescription = (TextView) findViewById(R.id.description);
@@ -36,7 +36,7 @@ public class DetailedListViewItem extends RelativeLayout
     {
         super(context);
         
-        LayoutInflater.from(context).inflate(R.layout.detailedlistview, this, true);
+        LayoutInflater.from(context).inflate(R.layout.detailed_list_view, this, true);
         
         mMainText = (TextView) findViewById(R.id.mainText);
         mDescription = (TextView) findViewById(R.id.description);
