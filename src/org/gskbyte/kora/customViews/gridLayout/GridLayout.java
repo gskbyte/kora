@@ -77,23 +77,19 @@ public class GridLayout extends ViewGroup
     	return mNumColumns;
     }
     
-    public void setNColumns(int ncolumns)
-    {
-        mNumColumns = ncolumns;
-        requestLayout();
-        invalidate();
-    }
-    
     public int getNRows()
     {
-    	return mNumRows;
+        return mNumRows;
     }
     
-    public void setNRows(int nrows)
+    public void setDimensions(int nrows, int ncolumns)
     {
-        mNumRows = nrows;
-        requestLayout();
-        invalidate();
+        if(nrows > 0 && ncolumns>0){
+            mNumRows = nrows;
+            mNumColumns = ncolumns;
+            requestLayout();
+            invalidate();
+        } // TODO TIRAR EXCEPCIÓN
     }
     
     public int getMargin()

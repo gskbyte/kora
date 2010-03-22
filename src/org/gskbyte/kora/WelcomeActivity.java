@@ -5,6 +5,7 @@ import org.gskbyte.kora.handlingActivities.DeviceSelectionActivity;
 import org.gskbyte.kora.settings.SettingsManager;
 import org.gskbyte.kora.settings.User;
 import org.gskbyte.kora.settings.SettingsManager.SettingsException;
+import org.gskbyte.kora.settingsActivities.SettingsActivity;
 
 import android.app.Activity;
 import android.app.Dialog;

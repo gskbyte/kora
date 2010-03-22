@@ -11,21 +11,37 @@ android:layout_height="fill_parent">
 		android:layout_alignParentBottom="true"
 		>
 		
-		<Button android:text="Back"
-			android:id="@+id/backButton"
+		<Button android:text="-r"
+			android:id="@+id/lessRows"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_weight="1"
 			android:drawableLeft="@drawable/action_previous"
 			/>
 			
-		<Button android:text="Next"
-			android:id="@+id/nextButton"
+		<Button android:text="+r"
+			android:id="@+id/moreRows"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_weight="1"
 			android:drawableRight="@drawable/action_next"
 			/>
+			
+	   <Button android:text="-c"
+            android:id="@+id/lessColumns"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableRight="@drawable/action_next"
+            />
+            
+       <Button android:text="+c"
+            android:id="@+id/moreColumns"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableRight="@drawable/action_next"
+            />
 	
 	</LinearLayout>
 	

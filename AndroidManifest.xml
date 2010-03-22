@@ -25,7 +25,7 @@
             </intent-filter>
         </activity>
         
-        <activity android:name=".SettingsActivity"
+        <activity android:name=".settingsActivities.SettingsActivity"
               android:label="@string/settingsActivity">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />

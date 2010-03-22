@@ -13,7 +13,6 @@
             android:scaleType="fitXY"
             android:layout_marginRight="10dip"
             
-            android:text="@string/userPhoto"
             android:src="@drawable/icon_user_big"/>
         
         <TableLayout android:id="@+id/fieldsTable"

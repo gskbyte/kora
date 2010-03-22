@@ -3,7 +3,8 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="wrap_content"
 	android:layout_height="wrap_content"
-	android:layout_gravity="center_horizontal"
+	android:layout_gravity="center"
+    android:gravity="center"
 	android:orientation="horizontal"
 	>
     <LinearLayout
@@ -39,7 +40,7 @@
 	        android:layout_gravity="center"
 	        android:minWidth="150dip"
 	        
-	        android:drawableLeft="@drawable/action_edit"
+	        android:drawableLeft="@drawable/action_copy"
 	        android:text="@string/copy"/>
 	    
 	    <Button android:id="@+id/deleteButton"

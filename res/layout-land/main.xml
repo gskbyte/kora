@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:padding="10dip"
+    android:padding="5dip"
+    android:background="@drawable/main_background_land"
     >
     
     <Button
@@ -15,7 +16,7 @@
         
         android:textSize="15sp"
         android:text="@string/settingsButton"
-        android:drawableTop="@drawable/icon_preferences"/>
+        android:drawableLeft="@drawable/icon_preferences"/>
          
     <Button
         android:id="@+id/startButton"
@@ -44,5 +45,6 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         
+        android:textColor="#FF000000"
         android:text="@string/autostartText1"/>
 </RelativeLayout>

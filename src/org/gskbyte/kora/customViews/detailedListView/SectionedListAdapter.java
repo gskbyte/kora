@@ -179,7 +179,8 @@ public class SectionedListAdapter extends ArrayAdapter<Object>
     }
 
     @Override
-    public long getItemId(int position) {
+    public long getItemId(int position)
+    {
         return position;
     }
     

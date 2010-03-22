@@ -26,11 +26,12 @@ public class InfoDialog extends AlertDialog {
 		String title = r.getString(R.string.appName)+" "+r.getString(R.string.versionNumber);
 		this.setTitle(title);
 		this.setIcon(r.getDrawable(R.drawable.icon_info));
-		
+		/*
 		setButton(AlertDialog.BUTTON_NEUTRAL, context.getResources().getString(R.string.close), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                  dismiss();
             }
          });
+         */
 	}
 }

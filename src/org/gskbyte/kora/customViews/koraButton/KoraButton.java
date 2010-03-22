@@ -27,8 +27,9 @@ public class KoraButton extends View
 {
     private static final String TAG = "KoraButton";
 
-    public static final int STATE_NORMAL = 0, STATE_FOCUSED = 1,
-            STATE_SELECTED = 2;
+    public static final int STATE_NORMAL = 0,
+                            STATE_FOCUSED = 1,
+                            STATE_SELECTED = 2;
 
     public KoraButton(Context context, String text, Drawable icon,
             Attributes attr)
@@ -110,8 +111,12 @@ public class KoraButton extends View
             textPaint.setAntiAlias(true);
             textPaint.setColor(Color.BLACK);
             textPaint.setTypeface(mAttributes.typeface);
-            textPaint.setTextAlign(Paint.Align.CENTER);
-            textPaint.setTextSize(mAttributes.textScale*(mWidth>>3));
+            if(mAttributes.orientation == Attributes.VERTICAL){
+                textPaint.setTextAlign(Paint.Align.CENTER);
+                textPaint.setTextSize(mAttributes.textScale*(Math.min(mWidth, mHeight)>>2));
+            } else {
+                textPaint.setTextSize(mAttributes.textScale*Math.min(mWidth, mHeight)/3);
+            }
             canvas.drawText(mText, mTextX, mTextY, textPaint);
         }
     }
@@ -120,6 +125,11 @@ public class KoraButton extends View
     {
         mWidth = MeasureSpec.getSize(widthMeasureSpec);
         mHeight = MeasureSpec.getSize(heightMeasureSpec);
+        
+        if(mWidth>2.25*mHeight)
+            mAttributes.orientation = Attributes.HORIZONTAL;
+        else
+            mAttributes.orientation = Attributes.VERTICAL;
 
         calculateCoordinates();
 
@@ -129,10 +139,11 @@ public class KoraButton extends View
     protected void calculateCoordinates()
     {
         int iconX=0, iconY=0, iconW=0, iconH=0;
+        int minSize = Math.min(mWidth, mHeight);
         
         // El ancho del borde se toma relativo a la anchura del widget
         if (mAttributes.showBorder) {
-            mBackX = mBackY = mWidth >> 4; // width/16
+            mBackX = mBackY = (int)((minSize >> 4)*mAttributes.borderScale);
             mBackXMax = mWidth - mBackX;
             mBackYMax = mHeight - mBackX;
         } else {
@@ -140,20 +151,34 @@ public class KoraButton extends View
             mBackXMax = mWidth;
             mBackYMax = mHeight;
         }
-
+        
+        iconX = iconY = (minSize >> 4) + mBackX; // width*2/16
         if (mAttributes.orientation == Attributes.HORIZONTAL) {
-            
+            iconH = mHeight - (iconY << 1);
+            if (mAttributes.showText) {
+                iconW = (mWidth>>1) - (iconX << 1);
+                mTextX = mWidth>>1;
+                mTextY = (mHeight>>1) + (int)mAttributes.textScale*8;
+            } else {
+                iconW = mWidth - (iconX << 1);
+            }
         } else {
-            iconX = iconY = (mWidth >> 4) + mBackX; // width*2/16
             iconW = mWidth - (iconX << 1);
             if (mAttributes.showText) {
-                iconH = mHeight - (iconY << 2);
-                mTextX = mWidth * 8 / 16;
+                iconH = mHeight - (iconY << 1) - (int)(mAttributes.textScale*(minSize>>2));
+                mTextX = mWidth >>1;
                 mTextY = mHeight * 14 / 16;
             } else {
                 iconH = mHeight - (iconY << 1);
             }
         }
+        
+        // Establecer tamaño mínimo para iconos
+        if(iconW < 10)
+            iconW = 10;
+
+        if(iconH < 10)
+            iconH = 10;
 
         // Escalar icono
         // para las proporciones, multplico y divido por 1024
@@ -170,15 +195,38 @@ public class KoraButton extends View
         mIconX = iconX + (Math.abs(mIconWidth - iconW)>>1);
         mIconY = iconY + (Math.abs(mIconHeight - iconH)>>1);
     }
+    
+    public void setOnClickListener(OnClickListener newListener)
+    {
+        clickListener = newListener;
+    }
 
+    
     @Override
     public boolean onTouchEvent(MotionEvent event)
     {
 
         int action = event.getAction();
 
-        if (action == MotionEvent.ACTION_DOWN) {
-
+        switch(action){
+            case MotionEvent.ACTION_DOWN:
+                this.mState = STATE_FOCUSED;
+                invalidate();
+                break;
+            case MotionEvent.ACTION_UP:
+                @SuppressWarnings("unused")
+                int x = (int) event.getX(),
+                    y = (int) event.getY();
+                
+                if(x<mWidth && y<mHeight && mState==STATE_FOCUSED){
+                    mState = STATE_SELECTED;
+                    if(clickListener!=null)
+                        clickListener.onClick(this);
+                } else {
+                    mState = STATE_NORMAL;
+                }
+                invalidate();
+                break;
         }
 
         return true;
@@ -229,9 +277,10 @@ public class KoraButton extends View
         public Typeface typeface = Typeface.DEFAULT;
 
         public boolean showBorder = true;
-        public int[] borderColors = { Color.GREEN, Color.WHITE, Color.WHITE };
+        public float borderScale = (float) 1.0;
+        public int[] borderColors = { Color.rgb(52,139,212), Color.rgb(255, 165, 0), Color.rgb(255, 165, 0) };
 
-        public int[] backgroundColors = { Color.WHITE, Color.WHITE, Color.WHITE };
+        public int[] backgroundColors = { Color.WHITE, Color.WHITE, Color.rgb(255, 165, 0) };
 
         public Attributes()
         {
@@ -251,7 +300,7 @@ public class KoraButton extends View
                 this.backgroundColors = backgroundColors;
         }
     }
-
+    
     // Propiedades generales del botón
     private String mText;
     private Bitmap mIcon;
@@ -263,4 +312,6 @@ public class KoraButton extends View
     private int mBackX, mBackY, mBackXMax, mBackYMax;
     private int mIconX, mIconY, mIconWidth, mIconHeight;
     private int mTextX, mTextY;
+    
+    private OnClickListener clickListener;
 }
