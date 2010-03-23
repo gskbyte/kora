@@ -66,7 +66,7 @@ public class SelectUserDialog extends AlertDialog
             @Override
             public void onClick(View v)
             {
-                activity.chooseCurrentUser();
+                activity.chooseCurrentProfile();
                 dismiss();
             }
         };
@@ -75,7 +75,7 @@ public class SelectUserDialog extends AlertDialog
             @Override
             public void onClick(View v)
             {
-                activity.showDialog(UsersActivity.COPY_USER_DIALOG_ID);
+                activity.showDialog(UsersActivity.COPY_DIALOG_ID);
                 dismiss();
             }
         };
@@ -84,7 +84,7 @@ public class SelectUserDialog extends AlertDialog
             @Override
             public void onClick(View v)
             {
-                activity.showDialog(UsersActivity.EDIT_USER_DIALOG_ID);
+                activity.showDialog(UsersActivity.EDIT_DIALOG_ID);
                 dismiss();
             }
         };
@@ -93,7 +93,7 @@ public class SelectUserDialog extends AlertDialog
             @Override
             public void onClick(View v)
             {
-                activity.showDialog(UsersActivity.CONFIRM_DELETE_USER_DIALOG_ID);
+                activity.showDialog(UsersActivity.CONFIRM_DELETE_DIALOG_ID);
                 dismiss();
             }
         };

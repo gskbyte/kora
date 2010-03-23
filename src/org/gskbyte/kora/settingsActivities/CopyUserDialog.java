@@ -57,7 +57,7 @@ public class CopyUserDialog extends AlertDialog
                     ret.setSchool(mSchoolEdit.getText().toString());
                     // poner foto
                     
-                    mActivity.addUser(ret);
+                    mActivity.addProfile(ret);
                 }
             });
         

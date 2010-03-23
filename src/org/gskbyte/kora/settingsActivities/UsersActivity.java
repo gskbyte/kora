@@ -7,11 +7,11 @@ import java.util.List;
 import org.gskbyte.kora.R;
 import org.gskbyte.kora.customViews.detailedListView.DetailedViewModel;
 import org.gskbyte.kora.customViews.detailedListView.SectionedListAdapter;
+import org.gskbyte.kora.settings.Profile;
 import org.gskbyte.kora.settings.SettingsManager;
 import org.gskbyte.kora.settings.User;
 import org.gskbyte.kora.settings.SettingsManager.SettingsException;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -29,68 +29,29 @@ import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
 
-public class UsersActivity extends Activity
+public class UsersActivity extends ProfilesActivity
 {
     private static final String TAG = "UsersActivity";
-    
-    private Resources mResources;
-    
-    private ListView mListView;
-    private TextView mTitle;
-    private TextView mCurrentUserNameTextView;
-    private ImageView mCurrentUserImageView;
-    private Button mAddUserButton;
-
-    private SectionedListAdapter mAdapter;
-    
-    private SettingsManager mSettings;
-    private User mCurrentUser;
-
-    private String mSelectedUserName;
-    
-    /* Dialog IDs */
-    public static final int ADD_USER_DIALOG_ID = 0;
-    public static final int COPY_USER_DIALOG_ID = 1;
-    public static final int EDIT_USER_DIALOG_ID = 2;
-    public static final int SELECT_USER_DIALOG_ID = 3;
-    public static final int CONFIRM_DELETE_USER_DIALOG_ID = 4;
     
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.settings_list);
-        mResources = getResources();
-
-        /* Cargar elementos de la vista */
-        mListView = (ListView) findViewById(R.id.listView);
-        mTitle = (TextView) findViewById(R.id.title);
-        mCurrentUserNameTextView = (TextView) findViewById(R.id.text);
-        mCurrentUserImageView = (ImageView) findViewById(R.id.image);
-        mAddUserButton = (Button) findViewById(R.id.addButton);
-       
+        
         /* Iniciar manejadores */
         try {
             mSettings = SettingsManager.getInstance();
         } catch (SettingsException e) {
             Log.e(TAG, e.getMessage());
         }
-        mCurrentUser = mSettings.getCurrentUser();
+        mCurrentProfile = mSettings.getCurrentUser();
         
-        /* Iniciar adaptadores de listas */
-        //mCustomUsersAdapter = new DetailedListViewAdapter(this, R.layout.detailedlistview);
-        //mDefaultUsersAdapter = new DetailedListViewAdapter(this, R.layout.detailedlistview);
-        mAdapter=new SectionedListAdapter(this/*, R.layout.detailedlistview*/);
         
         /* Ajustar vista */
-
-        updateCurrentUserView();
-        updateUsersList(true);
+        updateCurrentProfileView();
+        updateProfilesList(true);
         mListView.setAdapter(mAdapter);
         
         
-        /* Asociar eventos */
-        mListView.setOnItemClickListener(selectUserListener);
-        mAddUserButton.setOnClickListener(addUserListener);
     }
     
     protected Dialog onCreateDialog(int id)
@@ -99,41 +60,41 @@ public class UsersActivity extends Activity
         User u;
         switch(id)
         {
-        case ADD_USER_DIALOG_ID:
+        case ADD_DIALOG_ID:
             dialog = new AddEditUserDialog(this, null);
             break;
-        case COPY_USER_DIALOG_ID:
+        case COPY_DIALOG_ID:
             try {
-                u = (User) mSettings.getUser(mSelectedUserName);
+                u = (User) mSettings.getUser(mSelectedProfileName);
                 dialog = new CopyUserDialog(this, u);
             } catch (SettingsException e) {
                 Toast.makeText(this, 
-                    "User not found: "+mSelectedUserName+". Reset app.\n"+e.getMessage(),
+                    "User not found: "+mSelectedProfileName+". Reset app.\n"+e.getMessage(),
                     Toast.LENGTH_LONG).show();
             }
             break;
             
-        case EDIT_USER_DIALOG_ID:
+        case EDIT_DIALOG_ID:
             try {
-                u = (User) mSettings.getUser(mSelectedUserName);
+                u = (User) mSettings.getUser(mSelectedProfileName);
                 dialog = new AddEditUserDialog(this, u);
             } catch (SettingsException e) {
                 Toast.makeText(this, 
-                    "User not found: "+mSelectedUserName+". Reset app.\n"+e.getMessage(),
+                    "User not found: "+mSelectedProfileName+". Reset app.\n"+e.getMessage(),
                     Toast.LENGTH_LONG).show();
             }
             break;
-        case SELECT_USER_DIALOG_ID:
+        case SELECT_DIALOG_ID:
             try {
-                u = (User) mSettings.getUser(mSelectedUserName);
+                u = (User) mSettings.getUser(mSelectedProfileName);
                 dialog = new SelectUserDialog(this, u);
             } catch (SettingsException e) {
                 Toast.makeText(this, 
-                    "User not found: "+mSelectedUserName+". Reset app.\n"+e.getMessage(),
+                    "User not found: "+mSelectedProfileName+". Reset app.\n"+e.getMessage(),
                     Toast.LENGTH_LONG).show();
             }
             break;
-        case CONFIRM_DELETE_USER_DIALOG_ID:
+        case CONFIRM_DELETE_DIALOG_ID:
             dialog = createConfirmDeleteUserDialog();
             break;
         default:
@@ -148,54 +109,54 @@ public class UsersActivity extends Activity
         User u;
         switch(id)
         {
-        case ADD_USER_DIALOG_ID:
+        case ADD_DIALOG_ID:
             ((AddEditUserDialog)dialog).setUser(null);
             break;
-        case COPY_USER_DIALOG_ID:
+        case COPY_DIALOG_ID:
             try {
-                u = (User) mSettings.getUser(mSelectedUserName);
+                u = (User) mSettings.getUser(mSelectedProfileName);
                 ((CopyUserDialog)dialog).setUser(u);
             } catch (SettingsException e) {
                 Toast.makeText(this, 
-                        "User not found: "+mSelectedUserName+". Reset app.\n"+e.getMessage(),
+                        "User not found: "+mSelectedProfileName+". Reset app.\n"+e.getMessage(),
                         Toast.LENGTH_LONG).show();
             }
             break;
             
-        case EDIT_USER_DIALOG_ID:
+        case EDIT_DIALOG_ID:
             try {
-                u = (User) mSettings.getUser(mSelectedUserName);
+                u = (User) mSettings.getUser(mSelectedProfileName);
                 ((AddEditUserDialog)dialog).setUser(u);
             } catch (SettingsException e) {
                 Toast.makeText(this, 
-                        "User not found: "+mSelectedUserName+". Reset app.\n"+e.getMessage(),
+                        "User not found: "+mSelectedProfileName+". Reset app.\n"+e.getMessage(),
                         Toast.LENGTH_LONG).show();
             }
             break;
-        case SELECT_USER_DIALOG_ID:
+        case SELECT_DIALOG_ID:
             try {
-                u = (User) mSettings.getUser(mSelectedUserName);
+                u = (User) mSettings.getUser(mSelectedProfileName);
                 ((SelectUserDialog)dialog).setUser(u);
             } catch (SettingsException e) {
                 Toast.makeText(this, 
-                        "User not found: "+mSelectedUserName+". Reset app.\n"+e.getMessage(),
+                        "User not found: "+mSelectedProfileName+". Reset app.\n"+e.getMessage(),
                         Toast.LENGTH_LONG).show();
             }
             break;
-        case CONFIRM_DELETE_USER_DIALOG_ID:
+        case CONFIRM_DELETE_DIALOG_ID:
             break;
         default:
             dialog = null;
         }
     }
     
-    protected void updateCurrentUserView()
+    protected void updateCurrentProfileView()
     {
-        mCurrentUserNameTextView.setText(mCurrentUser.getName());
-        mCurrentUserImageView.setImageDrawable(mCurrentUser.getPhoto());
+        mCurrentProfileTextView.setText(((User)mCurrentProfile).getName());
+        mCurrentProfileImageView.setImageDrawable(((User)mCurrentProfile).getPhoto());
     }
 
-    protected void updateUsersList(boolean first_time)
+    protected void updateProfilesList(boolean first_time)
     {
         // Usuarios personalizados
         Collection<User> customUsers = (Collection) mSettings.getCustomUsers();
@@ -231,61 +192,63 @@ public class UsersActivity extends Activity
         mAdapter.notifyDataSetChanged();
     }
     
-    public void chooseCurrentUser()
+    public void chooseCurrentProfile()
     {
         try {
-            mSettings.setCurrentUser(mSelectedUserName);
-            mCurrentUser = mSettings.getCurrentUser();
-            updateCurrentUserView();
+            mSettings.setCurrentUser(mSelectedProfileName);
+            mCurrentProfile = mSettings.getCurrentUser();
+            updateCurrentProfileView();
         } catch (SettingsException e) {
             Toast.makeText(this, 
-                "User not found: "+mSelectedUserName+". Reset app.\n"+e.getMessage(),
+                "User not found: "+mSelectedProfileName+". Reset app.\n"+e.getMessage(),
                 Toast.LENGTH_LONG).show();
         }
     }
 
-    public void addUser(User u)
+    public void addProfile(Profile p)
     {
+    	User u = (User) p;
         try{
             mSettings.addUser(u);
             Toast.makeText(this, 
                     "Usuario añadido: "+u.getName(), Toast.LENGTH_SHORT).show();
-            updateUsersList(false);
+            updateProfilesList(false);
         } catch (SettingsManager.SettingsException e){
             Toast.makeText(this, 
                     "Fallo al añadir el usuario "+u.getName(), Toast.LENGTH_SHORT).show();
         }
     }
     
-    public void editUser(String previous_name, User u)
+    public void editProfile(String previous_name, Profile p)
     {
+    	User u = (User) p;
         try{
             mSettings.editUser(previous_name, u);
             Toast.makeText(this, 
                     "Edición correcta: "+previous_name+" -> "+u.getName(), Toast.LENGTH_SHORT).show();
-            if(previous_name.equals(mCurrentUser.getName())){
-                mCurrentUser = u;
-                updateCurrentUserView();
+            if(previous_name.equals(((User)mCurrentProfile).getName())){
+                mCurrentProfile = u;
+                updateCurrentProfileView();
             }
-            updateUsersList(false);
+            updateProfilesList(false);
         }catch (SettingsManager.SettingsException e){
             Toast.makeText(this,
                     "Edición incorrecta: "+previous_name+" -X> "+u.getName(), Toast.LENGTH_SHORT).show();
         }
     }
     
-    public void deleteUser()
+    public void deleteProfile(String name)
     {
-        boolean ok = !mCurrentUser.getName().equals(mSelectedUserName);
+        boolean ok = !((User)mCurrentProfile).getName().equals(name);
         if(ok){
             try{
-                mSettings.removeUser(mSelectedUserName);
+                mSettings.removeUser(mSelectedProfileName);
                 Toast.makeText(this, 
-                        "Usuario borrado con éxito: "+mSelectedUserName, Toast.LENGTH_SHORT).show();
-                updateUsersList(false);
+                        "Usuario borrado con éxito: "+mSelectedProfileName, Toast.LENGTH_SHORT).show();
+                updateProfilesList(false);
             }catch (SettingsManager.SettingsException e){
                 Toast.makeText(this,
-                        "Se produjo un error al borrar el usuario: "+mSelectedUserName, Toast.LENGTH_SHORT).show();
+                        "Se produjo un error al borrar el usuario: "+mSelectedProfileName, Toast.LENGTH_SHORT).show();
             }
         } else {
             Toast.makeText(this, 
@@ -296,12 +259,12 @@ public class UsersActivity extends Activity
     private Dialog createConfirmDeleteUserDialog()
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(mResources.getString(R.string.userDeletionQuestion)+ " " + mSelectedUserName + "?")
+        builder.setMessage(mResources.getString(R.string.userDeletionQuestion)+ " " + mSelectedProfileName + "?")
                //.setIcon()
                .setCancelable(false)
                .setPositiveButton(mResources.getString(R.string.yes), new DialogInterface.OnClickListener() {
                    public void onClick(DialogInterface dialog, int id) {
-                        deleteUser();
+                        deleteProfile(mSelectedProfileName);
                    }
                })
                .setNegativeButton(mResources.getString(R.string.no), new DialogInterface.OnClickListener() {
@@ -312,24 +275,5 @@ public class UsersActivity extends Activity
         return builder.create();
     }
     
-    private OnItemClickListener selectUserListener = new OnItemClickListener() {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position,
-                long id)
-        {
-            mAdapter.setSelected(position);
-            DetailedViewModel selected_model = 
-                (DetailedViewModel) mAdapter.getItem(position);
-            mSelectedUserName = selected_model.tag();
-            
-            showDialog(SELECT_USER_DIALOG_ID);
-        }
-
-    };
-
-    private OnClickListener addUserListener = new OnClickListener() {
-        public void onClick(View v) {
-            showDialog(ADD_USER_DIALOG_ID);
-        }
-    };
+    
 }

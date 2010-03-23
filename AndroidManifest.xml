@@ -34,14 +34,9 @@
         	<activity android:name=".settingsActivities.UsersActivity"
 	              android:label="@string/usersActivity">
         	</activity>
-        		<activity android:name=".settingsActivities.UserPreferencesActivity"
-	              	android:label="userPreferencesActivity">
-        		</activity>
         	<activity android:name=".settingsActivities.UseProfilesActivity"
 	              android:label="@string/useProfilesActivity">
         	</activity>
-        		<activity android:name=".settingsActivities.UseProfilesPreferencesActivity">
-        		</activity>
         	<activity android:name=".settingsActivities.DeviceProfilesActivity"
 	              android:label="@string/deviceProfilesActivity">
         	</activity>

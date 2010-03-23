@@ -86,9 +86,9 @@ public class AddEditUserDialog extends AlertDialog
                 public void onClick(DialogInterface dialog, int id) {
                     User u = collectUserData();
                     if(mMode == ADD_MODE)
-                        mActivity.addUser(u);
+                        mActivity.addProfile(u);
                     else
-                        mActivity.editUser(mPreviousName, u);
+                        mActivity.editProfile(mPreviousName, u);
                 }
             });
         
