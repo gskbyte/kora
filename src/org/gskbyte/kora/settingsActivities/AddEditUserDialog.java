@@ -41,7 +41,7 @@ public class AddEditUserDialog extends AlertDialog
         mActivity = (UsersActivity) context;
         mResources = context.getResources();
         
-        View v = View.inflate(context, R.layout.add_user_dialog, null);
+        View v = View.inflate(context, R.layout.add_edit_user_dialog, null);
         mPhotoButton = (ImageButton) v.findViewById(R.id.photoButton);
         mNameEdit = (EditText) v.findViewById(R.id.userNameEdit);
         mSchoolEdit = (EditText) v.findViewById(R.id.userSchoolEdit);
@@ -142,11 +142,10 @@ public class AddEditUserDialog extends AlertDialog
                useProfile = "Default",
                deviceProfile = "Default";
         boolean autoStart = mAutoStartCheckBox.isChecked();
-        int seconds;
-        if(autoStart)
+        int seconds = 10;
+        if(autoStart && timeString.length()>0){
             seconds = Integer.parseInt(timeString);
-        else
-            seconds = 10;
+        }
         
         User ret = new User(name, false,
                             school, null,

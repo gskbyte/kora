@@ -11,6 +11,7 @@ import org.gskbyte.kora.settings.SettingsManager.SettingsException;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -36,9 +37,9 @@ public abstract class ProfilesActivity extends Activity
 	protected Resources mResources;
 	
 	protected ListView mListView;
-	protected TextView mTitle;
-	protected TextView mCurrentProfileTextView;
-	protected ImageView mCurrentProfileImageView;
+	protected TextView mTitleText;
+	protected TextView mCurrentProfileText;
+	protected ImageView mCurrentProfileImage;
 	protected Button mAddButton;
 
 	protected SectionedListAdapter mAdapter;
@@ -47,19 +48,19 @@ public abstract class ProfilesActivity extends Activity
 	protected Profile mCurrentProfile;
 
 	protected String mSelectedProfileName;
+	protected String mTitle;
+	protected Drawable mPhoto;
 	
-	// TODO TERMINAR
 	public void onCreate(Bundle savedInstanceState)
-    {
+	{
         super.onCreate(savedInstanceState);
-        
         setContentView(R.layout.settings_list);
         mResources = getResources();
 
         mListView = (ListView) findViewById(R.id.listView);
-        mTitle = (TextView) findViewById(R.id.title);
-        mCurrentProfileTextView = (TextView) findViewById(R.id.text);
-        mCurrentProfileImageView = (ImageView) findViewById(R.id.image);
+        mTitleText = (TextView) findViewById(R.id.title);
+        mCurrentProfileText = (TextView) findViewById(R.id.text);
+        mCurrentProfileImage = (ImageView) findViewById(R.id.image);
         mAddButton = (Button) findViewById(R.id.addButton);
 
         /* Iniciar adaptadores de listas */
@@ -68,34 +69,32 @@ public abstract class ProfilesActivity extends Activity
         /* Asociar eventos */
         mListView.setOnItemClickListener(selectProfileListener);
         mAddButton.setOnClickListener(addProfileListener);
-    }
+	}
 	
-	protected abstract Dialog onCreateDialog(int id);
-	protected abstract void onPrepareDialog(int id, Dialog dialog);
-	protected abstract void updateCurrentProfileView();
 	public abstract void chooseCurrentProfile();
 	public abstract void addProfile(Profile p);
 	public abstract void editProfile(String previous_id, Profile p);
 	public abstract void deleteProfile(String id);
+	public abstract void updateList();
 	
 	protected OnItemClickListener selectProfileListener = new OnItemClickListener() {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position,
-                long id)
-        {
-            mAdapter.setSelected(position);
-            DetailedViewModel selected_model = 
-                (DetailedViewModel) mAdapter.getItem(position);
-            mSelectedProfileName = selected_model.tag();
-            
-            showDialog(SELECT_DIALOG_ID);
-        }
-
-    };
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position,
+                    long id)
+            {
+                mAdapter.setSelected(position);
+                DetailedViewModel selected_model = 
+                    (DetailedViewModel) mAdapter.getItem(position);
+                mSelectedProfileName = selected_model.tag();
+                
+                showDialog(SELECT_DIALOG_ID);
+            }
+    
+        };
 
     protected OnClickListener addProfileListener = new OnClickListener() {
-        public void onClick(View v) {
-            showDialog(ADD_DIALOG_ID);
-        }
-    };
+            public void onClick(View v) {
+                showDialog(ADD_DIALOG_ID);
+            }
+        };
 }

@@ -2,7 +2,7 @@ package org.gskbyte.kora.settings;
 
 import android.graphics.drawable.Drawable;
 
-public class User extends Profile<String>
+public class User extends Profile
 {
     private static Drawable defaultPhoto = null;
     
@@ -20,7 +20,7 @@ public class User extends Profile<String>
                 boolean autoStart, int autoStartTimeSeconds,
                 String useProfileName, String deviceProfileName)
     {
-        this.id = name;
+        this.name = name;
         this.isDefault = isDefault;
         
         this.school = school;
@@ -39,16 +39,6 @@ public class User extends Profile<String>
     public static void setDefaultPhoto(Drawable photo)
     {
         defaultPhoto = photo;
-    }
-    
-    public String getName()
-    {
-        return this.id;
-    }
-
-    public void setName(String name)
-    {
-        this.id = name;
     }
 
     public Drawable getPhoto()
@@ -120,16 +110,5 @@ public class User extends Profile<String>
     public void setDeviceProfileName(String deviceProfileName)
     {
         this.deviceProfileName = deviceProfileName;
-    }
-
-    @Override
-    public int compareTo(Object another)
-    {
-        if(another == null)
-            return 1;
-        if(another.getClass() != User.class)
-            return 1;
-        
-        return id.compareTo(((User)another).id);
     }
 }

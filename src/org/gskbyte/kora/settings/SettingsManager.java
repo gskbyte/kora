@@ -5,21 +5,25 @@ import java.util.List;
 import org.gskbyte.kora.R;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 public class SettingsManager
 {
     private static final String TAG = "SettingsManager";
+    private static final String PREFERENCES_TAG = "KoraProfilesPreferences";
+    private static final String PREFERENCE_LAST_USER_NAME = "lastUser";
     
-    private static User mCurrentUser = null;
-    private static UseProfile mCurrentUseProfile = null;
-    private static DeviceProfile mCurrentDeviceProfile = null;
+    private static User sCurrentUser = null;
+    private static UseProfile sCurrentUseProfile = null;
+    private static DeviceProfile sCurrentDeviceProfile = null;
     
-    private static SettingsDbAdapter mDbAdapter;
+    private static SettingsDbAdapter sDbAdapter;
     
-    private static Context mContext = null;
-    private static Resources mResources = null;
+    private static Context sContext = null;
+    private static Resources sResources = null;
     
     private static SettingsManager instance = null;
+    private static SharedPreferences sPreferences;
     
     public final class SettingsException extends Exception
     {
@@ -62,16 +66,18 @@ public class SettingsManager
     protected SettingsManager() throws SettingsException
     {
         /* Cargar configuración previa */
-        // cargar nombre de usuario del último
-        String lastUser = "Default";
+        sPreferences =  sContext.getSharedPreferences(PREFERENCES_TAG,
+                                                      Context.MODE_PRIVATE);
+        String lastUserName = sPreferences.getString(PREFERENCE_LAST_USER_NAME, "Default");
         
-        /* Iniciar gestores con lo básico*/
-        setCurrentUser(lastUser);
+        /* Cargar el último usuario y sus perfiles de uso asociados*/
+        setCurrentUser(lastUserName);
+        
+        /* CARGAR PERFILES DE USO */
         
         // cargar perfiles según los datos del usuario
         //UseProfileManager.init(res);
         //UseProfile up = UseProfileManager.load(u.getUseProfileName());
-        
         
         //DeviceManager.init(res);
         //DeviceProfile dp = UseProfileManager.load(u.getUseProfileName());
@@ -80,13 +86,23 @@ public class SettingsManager
     
     public static void init(Context context)
     {
-        mContext = context;
-        mResources = context.getResources();
+        sContext = context;
+        sResources = context.getResources();
         
-        User.setDefaultPhoto(mResources.getDrawable(R.drawable.icon_user));
-        
-        mDbAdapter = new SettingsDbAdapter(mContext);
-        mDbAdapter.open();
+        // Cargar último usuario, si no existe, establecer Default
+        User.setDefaultPhoto(sResources.getDrawable(R.drawable.icon_user));
+                
+        sDbAdapter = new SettingsDbAdapter(sContext);
+        sDbAdapter.open();
+    }
+    
+    public static void finish()
+    {
+        sDbAdapter.close();
+        // Guardar en el fichero de preferencias y hacer commit
+        SharedPreferences.Editor editor = sPreferences.edit();
+        editor.putString(PREFERENCE_LAST_USER_NAME, sCurrentUser.getName());
+        editor.commit();
     }
     
     public static SettingsManager getInstance() throws SettingsException
@@ -108,7 +124,7 @@ public class SettingsManager
     
     public User getUser(String name) throws SettingsException
     {
-        List<User> res = mDbAdapter.getUsers(
+        List<User> res = sDbAdapter.getUsers(
                 SettingsDbAdapter.USER_NAME+"='"+name+"'");
         if(res.size()==1)
             return res.get(0);
@@ -118,13 +134,13 @@ public class SettingsManager
     
     public List<User> getDefaultUsers()
     {
-        return mDbAdapter.getUsers(
+        return sDbAdapter.getUsers(
                 SettingsDbAdapter.USER_ISDEFAULT + "=" + 1);
     }
     
     public List<User> getCustomUsers()
     {
-        return mDbAdapter.getUsers(
+        return sDbAdapter.getUsers(
                 SettingsDbAdapter.USER_ISDEFAULT + "=" + 0);
     }
     
@@ -133,7 +149,7 @@ public class SettingsManager
         if(u == null || u.getName() == null || u.getName().length()==0)
             throw new SettingsException(SettingsException.BAD, User.class);
         // Comprobar que los perfiles son correctos!
-        if(!mDbAdapter.addUser(u))
+        if(!sDbAdapter.addUser(u))
             throw new SettingsException(SettingsException.EXISTS, User.class);
     }
     
@@ -154,13 +170,13 @@ public class SettingsManager
     
     public void removeUser(String name) throws SettingsException
     {
-        if(!mDbAdapter.removeUser(name))
+        if(!sDbAdapter.removeUser(name))
             throw new SettingsException(SettingsException.NOT_EXISTS, User.class);
     }
     
     public User getCurrentUser()
     {
-        return mCurrentUser;
+        return sCurrentUser;
     }
     
     public void setCurrentUser(String name) throws SettingsException
@@ -169,7 +185,7 @@ public class SettingsManager
         /* ¡Cambiar perfiles */
         
         // se hace después para evitar excepciones
-        mCurrentUser = u;
+        sCurrentUser = u;
     }
     
     
@@ -185,7 +201,7 @@ public class SettingsManager
     
     public UseProfile getUseProfile(String name) throws SettingsException
     {
-        List<UseProfile> res = mDbAdapter.getUseProfiles(
+        List<UseProfile> res = sDbAdapter.getUseProfiles(
                 SettingsDbAdapter.USEPROFILE_NAME+"='"+name+"'");
         if(res.size()==1)
             return res.get(0);
@@ -195,13 +211,13 @@ public class SettingsManager
     
     public List<UseProfile> getDefaultUseProfiles()
     {
-        return mDbAdapter.getUseProfiles(
+        return sDbAdapter.getUseProfiles(
                 SettingsDbAdapter.USEPROFILE_ISDEFAULT + "=" + 1);
     }
     
     public List<UseProfile> getCustomUseProfiles()
     {
-        return mDbAdapter.getUseProfiles(
+        return sDbAdapter.getUseProfiles(
                 SettingsDbAdapter.USEPROFILE_ISDEFAULT + "=" + 0);
     }
     
@@ -237,7 +253,7 @@ public class SettingsManager
     
     public UseProfile getCurrentUseProfile()
     {
-        return mCurrentUseProfile;
+        return sCurrentUseProfile;
     }
     
     
@@ -253,7 +269,7 @@ public class SettingsManager
     
     public DeviceProfile getDeviceProfile(String name) throws SettingsException
     {
-        List<DeviceProfile> res = mDbAdapter.getDeviceProfiles(
+        List<DeviceProfile> res = sDbAdapter.getDeviceProfiles(
                 SettingsDbAdapter.DEVICEPROFILE_NAME+"='"+name+"'");
         if(res.size()==1)
             return res.get(0);
@@ -263,13 +279,13 @@ public class SettingsManager
     
     public List<DeviceProfile> getDefaultDeviceProfiles()
     {
-        return mDbAdapter.getDeviceProfiles(
+        return sDbAdapter.getDeviceProfiles(
                 SettingsDbAdapter.DEVICEPROFILE_ISDEFAULT + "=" + 1);
     }
     
     public List<DeviceProfile> getCustomDeviceProfiles()
     {
-        return mDbAdapter.getDeviceProfiles(
+        return sDbAdapter.getDeviceProfiles(
                 SettingsDbAdapter.DEVICEPROFILE_ISDEFAULT + "=" + 0);
     }
     
@@ -288,6 +304,6 @@ public class SettingsManager
     
     public DeviceProfile getCurrentDeviceProfile()
     {
-        return mCurrentDeviceProfile;
+        return sCurrentDeviceProfile;
     }
 }

@@ -59,6 +59,7 @@
         <string name="defaults">Default</string>
     
         <!-- Users strings -->
+            <string name="currentUser">Current user:</string>
 	        <!-- Add/Edit dialog -->
 	        <string name="addUser">Add user</string>
 	        <string name="editUser">Edit user</string>
@@ -78,6 +79,8 @@
 	        <string name="userDeletionQuestion">Are you sure you want to delete user</string>
         
         <!-- Use profiles strings -->
+        <string name="currentUseProfile">Current use profile for</string>
+        <string name="chooseUseProfileFor">Choose for</string>
         <string name="interaction">Interaction</string>
         <string name="visualization">Visualization</string>
         <string name="feedback">Feedback</string>
@@ -137,6 +140,7 @@
                 <string name="customVoice">Custom voice</string>
         
         <!-- Device profiles strings -->
+        <string name="currentDeviceProfile">Current device profile for</string>
         
             <!--  nothing yet -->
             

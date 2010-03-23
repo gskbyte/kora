@@ -10,7 +10,7 @@ import org.gskbyte.kora.settingsActivities.SettingsActivity;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
-import android.opengl.Visibility;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
@@ -19,45 +19,89 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class WelcomeActivity extends Activity {
 	private static final String TAG = "WelcomeActivity";
 
 	private static final int INFO_DIALOG_ID = 0;
 
-	private Button startButton, settingsButton;
-	private ImageView infoButton;
-	private TextView autostartText;
+	private Button mStartButton, mSettingsButton;
+	private ImageView mInfoButton;
+	private TextView mAutostartText;
 
-	private CountDownTimer timer;
+	private CountDownTimer mTimer;
 
+	private Resources mResources;
 	private SettingsManager mSettingsManager;
-
-	private void init() {
-		SettingsManager.init(this);
-	}
+	private User mCurrentUser;
+	
+	private boolean mJustStarted = true;
+	
 
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+	public void onCreate(Bundle savedInstanceState)
+	{
+        super.onCreate(savedInstanceState);
+        
 		setContentView(R.layout.main);
 
-		startButton = (Button) findViewById(R.id.startButton);
-		settingsButton = (Button) findViewById(R.id.settingsButton);
-		infoButton = (ImageView) findViewById(R.id.infoButton);
-		autostartText = (TextView) findViewById(R.id.autostart);
+		mResources = getResources();
+		
+		mStartButton = (Button) findViewById(R.id.startButton);
+		mSettingsButton = (Button) findViewById(R.id.settingsButton);
+		mInfoButton = (ImageView) findViewById(R.id.infoButton);
+		mAutostartText = (TextView) findViewById(R.id.autostart);
 
 		// Asociar eventos con botones
-		startButton.setOnClickListener(startButtonListener);
-		settingsButton.setOnClickListener(settingsButtonListener);
-		infoButton.setOnClickListener(infoButtonListener);
+		mStartButton.setOnClickListener(startButtonListener);
+		mSettingsButton.setOnClickListener(settingsButtonListener);
+		mInfoButton.setOnClickListener(infoButtonListener);
 
 		// Cargar datos de programa (usuarios, perfiles, etc)
-		init();
-		
-		
+		try {
+            SettingsManager.init(this);
+            mSettingsManager = SettingsManager.getInstance();
+        } catch (SettingsException e) {
+            Log.e(TAG, e.getMessage());
+        }
+	}
+	
+	public void onResume()
+	{
+        mCurrentUser = mSettingsManager.getCurrentUser();
+	    // Iniciar cuenta atrás si el usuario quiere comienzo automático
+        if (mCurrentUser.wantsAutoStart() && mJustStarted) {
+            mJustStarted = false;
+            int countdownMilliseconds = mCurrentUser.getAutoStartSeconds() * 1000;
+            setAutostartText(mCurrentUser.getName(), mCurrentUser.getAutoStartSeconds());
+            mTimer = new CountDownTimer(countdownMilliseconds, 1000) {
+                String name = WelcomeActivity.this.mCurrentUser.getName();
+                public void onTick(long millisLeft) {
+                    WelcomeActivity.this.setAutostartText(name,
+                                                       (int) (millisLeft/1000));
+                }
 
-		loadCountdown();
+                public void onFinish() {
+                    startDeviceSelectionActivity();
+                }
+            };
+            mTimer.start();
+        } else {
+            String text = mResources.getString(R.string.user) + ": " +
+                          mCurrentUser.getName();
+            mAutostartText.setText(text);
+        }
+        super.onResume();
+	}
+	
+	private void setAutostartText(String user_name, int seconds_left)
+	{
+	    final String willStart = mResources.getString(R.string.autostartText1),
+                     seconds = mResources.getString(R.string.autostartText2);
+        String text = user_name + " " + willStart + " " +seconds_left +
+                      " " + seconds;
+        mAutostartText.setText(text);
 	}
 	
 	public void onPause()
@@ -66,64 +110,23 @@ public class WelcomeActivity extends Activity {
 	    super.onPause();
 	}
 	
-	
-	public void onStop()
-    {
-        stopCountDown();
-        super.onStop();
-    }
-	private void loadCountdown() {
-
-		User currentUser = null;
-
-		try {
-			mSettingsManager = SettingsManager.getInstance();
-			currentUser = mSettingsManager.getCurrentUser();
-		} catch (SettingsException e) {
-			Log.e(TAG, e.getMessage());
-		}
-
-		// Cargar estos datos de donde corresponde
-		// String userName = nombre,
-		// willStart = getResources().getString(R.string.autostartText1),
-		// seconds = getResources().getString(R.string.autostartText2);
-		// int seconds_left = 10;
-		// autostartText.setText(userName + " " + willStart + " " + seconds_left
-		// + " " + seconds);
-
-		int countdownMilliseconds = 10000;
-		if (currentUser != null) {
-			countdownMilliseconds = currentUser.getAutoStartSeconds() * 1000;
-		}
-
-		// Start the ControlActivity after a few seconds
-		timer = new CountDownTimer(countdownMilliseconds, 1000) {
-			public void onTick(long millisLeft) {
-				/// PONER NOMBRE!!!
-				String willStart = getResources().getString(R.string.autostartText1),
-		        seconds = getResources().getString(R.string.autostartText2);
-
-				autostartText.setText("Default" + " " + willStart + " " + millisLeft/1000 + " " + seconds);
-			}
-
-			public void onFinish() {
-				startDeviceSelectionActivity();
-			}
-		};
-		
-		timer.start();
+	public void onDestroy()
+	{
+        SettingsManager.finish();
+        super.onDestroy();
 	}
 	
 	private void stopCountDown()
 	{
-		if (timer != null)
-			timer.cancel();
-		autostartText.setVisibility(View.INVISIBLE);
+		if (mTimer != null)
+			mTimer.cancel();
+		String text = mResources.getString(R.string.user) + ": " +
+        mCurrentUser.getName();
+		mAutostartText.setText(text);
 	}
 
 	// Load ControlActivity
 	private void startDeviceSelectionActivity() {
-		stopCountDown();
 		Intent i = new Intent(WelcomeActivity.this, DeviceSelectionActivity.class);
 		startActivity(i);
 	}
@@ -138,7 +141,6 @@ public class WelcomeActivity extends Activity {
 	// Listener del bot�n Settings
 	private OnClickListener settingsButtonListener = new OnClickListener() {
 		public void onClick(View v) {
-			stopCountDown();
 			Intent i = new Intent(WelcomeActivity.this, SettingsActivity.class);
 			startActivity(i);
 		}
@@ -147,13 +149,14 @@ public class WelcomeActivity extends Activity {
 	// Listener del bot�n Info
 	private OnClickListener infoButtonListener = new OnClickListener() {
 		public void onClick(View v) {
-			stopCountDown();
 			showDialog(INFO_DIALOG_ID);
 		}
 	};
 
 	// onCreateDialog
 	protected Dialog onCreateDialog(int id) {
+        stopCountDown();
+        
 		Dialog dialog = null;
 
 		switch (id) {

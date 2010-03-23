@@ -37,21 +37,21 @@ public class UsersActivity extends ProfilesActivity
     {
         super.onCreate(savedInstanceState);
         
-        /* Iniciar manejadores */
+        /* Iniciar manejadores, cargar usuario actual */
         try {
             mSettings = SettingsManager.getInstance();
+            mCurrentProfile = mSettings.getCurrentUser();
         } catch (SettingsException e) {
             Log.e(TAG, e.getMessage());
         }
-        mCurrentProfile = mSettings.getCurrentUser();
+        /* Ajustar vista al usuario actual */
+        mTitleText.setText(mResources.getString(R.string.current));
+        mCurrentProfileText.setText(mCurrentProfile.getName());
+        mCurrentProfileImage.setImageDrawable(((User)mCurrentProfile).getPhoto());
         
-        
-        /* Ajustar vista */
-        updateCurrentProfileView();
-        updateProfilesList(true);
+        /* Iniciar lista de perfiles */
+        updateList();
         mListView.setAdapter(mAdapter);
-        
-        
     }
     
     protected Dialog onCreateDialog(int id)
@@ -95,7 +95,21 @@ public class UsersActivity extends ProfilesActivity
             }
             break;
         case CONFIRM_DELETE_DIALOG_ID:
-            dialog = createConfirmDeleteUserDialog();
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage(mResources.getString(R.string.userDeletionQuestion)+ " " + mSelectedProfileName + "?")
+                   .setIcon(mResources.getDrawable(R.drawable.icon_important))
+                   .setCancelable(false)
+                   .setPositiveButton(mResources.getString(R.string.yes), new DialogInterface.OnClickListener() {
+                       public void onClick(DialogInterface dialog, int id) {
+                            deleteProfile(mSelectedProfileName);
+                       }
+                   })
+                   .setNegativeButton(mResources.getString(R.string.no), new DialogInterface.OnClickListener() {
+                       public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                       }
+                   });
+            dialog = builder.create();
             break;
         default:
             dialog = null;
@@ -150,16 +164,10 @@ public class UsersActivity extends ProfilesActivity
         }
     }
     
-    protected void updateCurrentProfileView()
-    {
-        mCurrentProfileTextView.setText(((User)mCurrentProfile).getName());
-        mCurrentProfileImageView.setImageDrawable(((User)mCurrentProfile).getPhoto());
-    }
-
-    protected void updateProfilesList(boolean first_time)
+    public void updateList()
     {
         // Usuarios personalizados
-        Collection<User> customUsers = (Collection) mSettings.getCustomUsers();
+        Collection<User> customUsers = (Collection<User>) mSettings.getCustomUsers();
         List<DetailedViewModel> customs = new ArrayList<DetailedViewModel>();
         for(User u : customUsers)
             customs.add(new DetailedViewModel(
@@ -168,9 +176,13 @@ public class UsersActivity extends ProfilesActivity
                     u.getUseProfileName()+ "\n"+ u.getDeviceProfileName(),
                     u.getPhoto()));
         
-        if(first_time){
+        String defaultsSectionName = mResources.getString(R.string.defaults);
+        // Si no existe la sección de perfiles por defecto, es que no hay nada.
+        // Crearlo todo entonces, en caso contrario borrar los personalizados
+        // y meter los nuevos
+        if(mAdapter.getSectionIndex(defaultsSectionName) == -1){
             // Usuarios por defecto
-            Collection<User> defaultUsers = (Collection) mSettings.getDefaultUsers();
+            Collection<User> defaultUsers = (Collection<User>) mSettings.getDefaultUsers();
             List<DetailedViewModel> defaults = new ArrayList<DetailedViewModel>();
             for(User u : defaultUsers)
                 defaults.add(new DetailedViewModel(
@@ -181,12 +193,11 @@ public class UsersActivity extends ProfilesActivity
             
             if(customs.size()>0)
                 mAdapter.addSection(mResources.getString(R.string.customs), customs);
-            mAdapter.addSection(mResources.getString(R.string.defaults), defaults);
+            mAdapter.addSection(defaultsSectionName, defaults);
         } else {
             mAdapter.removeSection(mResources.getString(R.string.customs));
             if(customs.size()>0)
                 mAdapter.addSection(0, mResources.getString(R.string.customs), customs);
-            mAdapter.notifyDataSetChanged();
         }
         
         mAdapter.notifyDataSetChanged();
@@ -197,7 +208,8 @@ public class UsersActivity extends ProfilesActivity
         try {
             mSettings.setCurrentUser(mSelectedProfileName);
             mCurrentProfile = mSettings.getCurrentUser();
-            updateCurrentProfileView();
+            mCurrentProfileText.setText(mCurrentProfile.getName());
+            mCurrentProfileImage.setImageDrawable(((User)mCurrentProfile).getPhoto());
         } catch (SettingsException e) {
             Toast.makeText(this, 
                 "User not found: "+mSelectedProfileName+". Reset app.\n"+e.getMessage(),
@@ -212,7 +224,7 @@ public class UsersActivity extends ProfilesActivity
             mSettings.addUser(u);
             Toast.makeText(this, 
                     "Usuario añadido: "+u.getName(), Toast.LENGTH_SHORT).show();
-            updateProfilesList(false);
+            updateList();
         } catch (SettingsManager.SettingsException e){
             Toast.makeText(this, 
                     "Fallo al añadir el usuario "+u.getName(), Toast.LENGTH_SHORT).show();
@@ -226,11 +238,12 @@ public class UsersActivity extends ProfilesActivity
             mSettings.editUser(previous_name, u);
             Toast.makeText(this, 
                     "Edición correcta: "+previous_name+" -> "+u.getName(), Toast.LENGTH_SHORT).show();
-            if(previous_name.equals(((User)mCurrentProfile).getName())){
+            if(previous_name.equals(mCurrentProfile.getName())){
                 mCurrentProfile = u;
-                updateCurrentProfileView();
+                mCurrentProfileText.setText(mCurrentProfile.getName());
+                mCurrentProfileImage.setImageDrawable(((User)mCurrentProfile).getPhoto());
             }
-            updateProfilesList(false);
+            updateList();
         }catch (SettingsManager.SettingsException e){
             Toast.makeText(this,
                     "Edición incorrecta: "+previous_name+" -X> "+u.getName(), Toast.LENGTH_SHORT).show();
@@ -239,13 +252,13 @@ public class UsersActivity extends ProfilesActivity
     
     public void deleteProfile(String name)
     {
-        boolean ok = !((User)mCurrentProfile).getName().equals(name);
+        boolean ok = !mCurrentProfile.getName().equals(name);
         if(ok){
             try{
                 mSettings.removeUser(mSelectedProfileName);
                 Toast.makeText(this, 
                         "Usuario borrado con éxito: "+mSelectedProfileName, Toast.LENGTH_SHORT).show();
-                updateProfilesList(false);
+                updateList();
             }catch (SettingsManager.SettingsException e){
                 Toast.makeText(this,
                         "Se produjo un error al borrar el usuario: "+mSelectedProfileName, Toast.LENGTH_SHORT).show();
@@ -256,24 +269,6 @@ public class UsersActivity extends ProfilesActivity
         }
     }
     
-    private Dialog createConfirmDeleteUserDialog()
-    {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(mResources.getString(R.string.userDeletionQuestion)+ " " + mSelectedProfileName + "?")
-               //.setIcon()
-               .setCancelable(false)
-               .setPositiveButton(mResources.getString(R.string.yes), new DialogInterface.OnClickListener() {
-                   public void onClick(DialogInterface dialog, int id) {
-                        deleteProfile(mSelectedProfileName);
-                   }
-               })
-               .setNegativeButton(mResources.getString(R.string.no), new DialogInterface.OnClickListener() {
-                   public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                   }
-               });
-        return builder.create();
-    }
     
     
 }

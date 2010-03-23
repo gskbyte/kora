@@ -1,13 +1,20 @@
 package org.gskbyte.kora.settings;
 
-public abstract class Profile<Id> implements Comparable
+import java.io.Serializable;
+
+public abstract class Profile implements Comparable, Serializable
 {
-    Id id;
+    String name;
     protected boolean isDefault;
     
-    public Id getId()
+    public String getName()
     {
-        return id;
+        return name;
+    }
+    
+    public void setName(String name)
+    {
+        this.name = name;;
     }
     
     public boolean isDefault()
@@ -18,5 +25,15 @@ public abstract class Profile<Id> implements Comparable
     public boolean isCustom()
     {
         return !isDefault;
+    }
+    
+    public int compareTo(Object another)
+    {
+        if(another == null)
+            return 1;
+        if(another.getClass() != this.getClass())
+            return 1;
+        
+        return name.compareTo(((Profile)another).name);
     }
 }

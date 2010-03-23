@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView android:id="@+id/ScrollView01" 
-                android:layout_width="fill_parent" 
-                android:layout_height="fill_parent" 
-                xmlns:android="http://schemas.android.com/apk/res/android">
-	<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent" 
+    android:layout_height="fill_parent">
+    
+	<TableLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:stretchColumns="1">
@@ -39,7 +39,7 @@
 			</LinearLayout>
         </TableRow>
         
-        <TableRow android:gravity="center_vertical">
+        <TableRow>
 	        <TextView android:id="@+id/useProfileText" 
 				android:layout_width="wrap_content" 
 				android:layout_height="wrap_content"
@@ -52,7 +52,7 @@
 				android:layout_height="wrap_content"/>
         </TableRow>
         
-        <TableRow android:gravity="center_vertical">
+        <TableRow>
 	        <TextView android:id="@+id/deviceProfileText" 
 				android:layout_width="wrap_content" 
 				android:layout_height="wrap_content"
@@ -65,7 +65,7 @@
 				android:layout_height="wrap_content"/>
         </TableRow>
         
-        <TableRow android:gravity="center_vertical">
+        <TableRow>
 	        <CheckBox android:id="@+id/autoStartCheckBox"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"

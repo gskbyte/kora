@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center">
+	<Button android:id="@+id/chooseButton"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_gravity="center"
+	    android:minWidth="150dip"
+	    
+	    android:drawableLeft="@drawable/action_choose"
+	    android:text="@string/chooseUseProfileFor"/>
+   
+   <LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="center"
+		android:gravity="center"
+		android:orientation="horizontal">
+		<Button android:id="@+id/editButton"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="center"
+	        
+	        android:drawableLeft="@drawable/action_edit"
+	        android:text="@string/edit"/>
+        <Button android:id="@+id/copyButton"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="center"
+	        
+	        android:drawableLeft="@drawable/action_copy"
+	        android:text="@string/copy"/>
+        <Button android:id="@+id/deleteButton"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="center"
+	        
+	        android:drawableLeft="@drawable/action_delete"
+	        android:text="@string/delete"/>
+    </LinearLayout>
+</LinearLayout>

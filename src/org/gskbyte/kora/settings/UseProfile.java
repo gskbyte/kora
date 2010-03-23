@@ -1,6 +1,6 @@
 package org.gskbyte.kora.settings;
 
-public class UseProfile
+public class UseProfile extends Profile
 {
     // Interaction modes
     public class interaction{
