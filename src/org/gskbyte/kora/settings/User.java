@@ -1,19 +1,23 @@
 package org.gskbyte.kora.settings;
 
+import java.io.Serializable;
+
 import android.graphics.drawable.Drawable;
 
-public class User extends Profile
+public class User extends Profile implements Serializable
 {
-    private static Drawable defaultPhoto = null;
+    transient private static final long serialVersionUID = -486208937377205579L;
+
+    transient private static Drawable defaultPhoto = null;
     
     private String school = "";
-    private Drawable photo = null;
+    transient private Drawable photo = null;
     private String photoPath = "";
     private boolean autoStart = true;
     private int autoStartTimeSeconds = 10;
     
-    String useProfileName;
-    String deviceProfileName;
+    private String useProfileName;
+    private String deviceProfileName;
     
     public User(String name, boolean isDefault, 
                 String school, String photoPath,

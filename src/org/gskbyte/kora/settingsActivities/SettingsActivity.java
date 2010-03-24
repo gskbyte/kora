@@ -1,9 +1,6 @@
 package org.gskbyte.kora.settingsActivities;
 
 import org.gskbyte.kora.R;
-import org.gskbyte.kora.R.drawable;
-import org.gskbyte.kora.R.layout;
-import org.gskbyte.kora.R.string;
 
 import android.app.TabActivity;
 import android.content.Intent;

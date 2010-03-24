@@ -1,32 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent" 
-    android:layout_height="fill_parent">
-    
-	<TableLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:stretchColumns="1">
-        
-        <TableRow>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+	<TableLayout 
+	     android:layout_width="wrap_content"
+	     android:layout_height="wrap_content"
+	     android:stretchColumns="1"
+         android:padding="5dip">
+	       
+	     <TableRow>
 	        <ImageButton android:id="@+id/photoButton"
-			android:layout_width="wrap_content"
-			android:layout_height="fill_parent"
-            android:scaleType="fitXY"
-			
-			android:src="@drawable/icon_user_big"/>
+				android:layout_width="wrap_content"
+				android:layout_height="fill_parent"
+	            android:scaleType="fitXY"
+			    
+			    android:src="@drawable/icon_user_big"/>
 			
 			<LinearLayout android:orientation="vertical"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content">
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content">
 			
 		        <EditText android:id="@+id/userNameEdit"
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-				android:maxLength="16"
-				android:singleLine="true"
-				
-				android:hint="@string/name"/>
+					android:layout_width="fill_parent"
+					android:layout_height="wrap_content"
+					android:maxLength="16"
+					android:singleLine="true"
+					
+					android:hint="@string/name"/>
 			
 				<EditText android:id="@+id/userSchoolEdit"
 					android:layout_width="fill_parent"
@@ -36,10 +37,10 @@
 					
 					android:hint="@string/school"/>
 					
-			</LinearLayout>
-        </TableRow>
-        
-        <TableRow>
+		   </LinearLayout>
+	    </TableRow>
+	    
+	    <TableRow>
 	        <TextView android:id="@+id/useProfileText" 
 				android:layout_width="wrap_content" 
 				android:layout_height="wrap_content"
@@ -50,9 +51,9 @@
 			<Spinner android:id="@+id/useProfileSpinner"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"/>
-        </TableRow>
-        
-        <TableRow>
+	    </TableRow>
+	       
+	    <TableRow>
 	        <TextView android:id="@+id/deviceProfileText" 
 				android:layout_width="wrap_content" 
 				android:layout_height="wrap_content"
@@ -63,9 +64,9 @@
 			<Spinner android:id="@+id/deviceProfileSpinner"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"/>
-        </TableRow>
-        
-        <TableRow>
+	    </TableRow>
+	       
+	    <TableRow>
 	        <CheckBox android:id="@+id/autoStartCheckBox"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
@@ -83,6 +84,29 @@
 				
 				android:singleLine="true"
 				android:numeric="integer"/>
-        </TableRow>
-    </TableLayout>
-</ScrollView>
+	     </TableRow>
+	 </TableLayout>
+	 <LinearLayout
+	    android:orientation="horizontal"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    style="@android:style/ButtonBar">
+	        <Button android:id="@+id/acceptButton"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+                android:width="0px"
+                android:layout_weight="0.5"
+	            
+	            android:drawableLeft="@drawable/action_ok"
+	            android:text="@string/ok"/>
+	            
+	        <Button android:id="@+id/cancelButton"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+                android:width="0px"
+                android:layout_weight="0.5"
+	            
+	            android:drawableLeft="@drawable/action_cancel"
+	            android:text="@string/cancel"/>
+	</LinearLayout>
+</LinearLayout>

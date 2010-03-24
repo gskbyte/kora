@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.gskbyte.kora.R;
 import org.gskbyte.kora.customViews.detailedListView.DetailedViewModel;
-import org.gskbyte.kora.customViews.detailedListView.SectionedListAdapter;
 import org.gskbyte.kora.settings.Profile;
 import org.gskbyte.kora.settings.SettingsManager;
 import org.gskbyte.kora.settings.User;
@@ -15,23 +14,16 @@ import org.gskbyte.kora.settings.SettingsManager.SettingsException;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.content.res.Resources;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
-
 
 public class UsersActivity extends ProfilesActivity
 {
     private static final String TAG = "UsersActivity";
+    
+    public AddEditUserDialog addEditUserDialog;
     
     public void onCreate(Bundle savedInstanceState)
     {
@@ -54,6 +46,33 @@ public class UsersActivity extends ProfilesActivity
         mListView.setAdapter(mAdapter);
     }
     
+    protected void onActivityResult(int requestCode, int resultCode,
+            Intent data) {
+        
+        if(resultCode==RESULT_OK){
+            switch(requestCode)
+            {
+            case ADD_REQUEST:
+                User u = (User)data.getSerializableExtra(AddEditUserActivity.RESULT_TAG);
+                try{
+                    mSettings.addUser(u);
+                    Toast.makeText(this, 
+                            "Usuario añadido: "+u.getName(), Toast.LENGTH_SHORT).show();
+                    updateList();
+                } catch (SettingsManager.SettingsException e){
+                    Toast.makeText(this, mResources.getString(R.string.addUserFail)+
+                            " "+u.getName(), Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case COPY_REQUEST:
+                break;
+            case EDIT_REQUEST:
+                break;
+            }
+        }
+    }
+
+    
     protected Dialog onCreateDialog(int id)
     {
         Dialog dialog=null;
@@ -61,7 +80,7 @@ public class UsersActivity extends ProfilesActivity
         switch(id)
         {
         case ADD_DIALOG_ID:
-            dialog = new AddEditUserDialog(this, null);
+            dialog = addEditUserDialog = new AddEditUserDialog(this, null);
             break;
         case COPY_DIALOG_ID:
             try {
@@ -217,19 +236,6 @@ public class UsersActivity extends ProfilesActivity
         }
     }
 
-    public void addProfile(Profile p)
-    {
-    	User u = (User) p;
-        try{
-            mSettings.addUser(u);
-            Toast.makeText(this, 
-                    "Usuario añadido: "+u.getName(), Toast.LENGTH_SHORT).show();
-            updateList();
-        } catch (SettingsManager.SettingsException e){
-            Toast.makeText(this, 
-                    "Fallo al añadir el usuario "+u.getName(), Toast.LENGTH_SHORT).show();
-        }
-    }
     
     public void editProfile(String previous_name, Profile p)
     {

@@ -60,6 +60,7 @@
     
         <!-- Users strings -->
             <string name="currentUser">Current user:</string>
+	        <string name="addUserFail">Failed when adding user</string>
 	        <!-- Add/Edit dialog -->
 	        <string name="addUser">Add user</string>
 	        <string name="editUser">Edit user</string>

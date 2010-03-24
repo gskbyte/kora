@@ -147,12 +147,6 @@ public class UseProfilesActivity extends ProfilesActivity
         mAdapter.notifyDataSetChanged();
     }
 
-    @Override
-    public void addProfile(Profile p)
-    {
-        // TODO Auto-generated method stub
-        
-    }
 
     @Override
     public void chooseCurrentProfile()

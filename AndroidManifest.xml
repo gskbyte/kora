@@ -34,6 +34,11 @@
         	<activity android:name=".settingsActivities.UsersActivity"
 	              android:label="@string/usersActivity">
         	</activity>
+	        	<activity android:name=".settingsActivities.AddEditUserActivity"
+	        	      android:theme="@android:style/Theme.Dialog"
+	        	      android:icon="@drawable/action_add"
+	                  android:label="@string/usersActivity">
+	            </activity>
         	<activity android:name=".settingsActivities.UseProfilesActivity"
 	              android:label="@string/useProfilesActivity">
         	</activity>

@@ -1,16 +1,22 @@
 package org.gskbyte.kora.settingsActivities;
 
+import java.io.Serializable;
+
 import org.gskbyte.kora.R;
 import org.gskbyte.kora.settings.User;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.view.View.OnFocusChangeListener;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -19,9 +25,15 @@ import android.widget.Spinner;
 import android.widget.Toast;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 
-public class AddEditUserDialog extends AlertDialog
+public class AddEditUserActivity extends Activity
 {
-    private static final String TAG = "AddEditUserDialog";
+    private static final String TAG = "AddEditUserActivity";
+    
+    public static final String ARGUMENT_USER_TAG = "org.gskbyte.kora.AddEditUser";
+    public static final String RESULT_TAG = "org.gskbyte.kora.AddEditUser";
+
+    
+    public static final int PHOTO_REQUEST_CODE = 1;
     
     private static final int ADD_MODE = 0;
     private static final int EDIT_MODE = 1;
@@ -29,56 +41,48 @@ public class AddEditUserDialog extends AlertDialog
     private int mMode;
     private String mPreviousName;
     
-    private UsersActivity mActivity;
     private Resources mResources;
     
     private ImageButton mPhotoButton;
     private EditText mNameEdit, mSchoolEdit, mAutoStartEdit;
     private Spinner mUseProfileSpinner, mDeviceProfileSpinner;
-    private CheckBox mAutoStartCheckBox;    
+    private CheckBox mAutoStartCheckBox;
+    private Button mAcceptButton, mCancelButton;
     
-    public AddEditUserDialog(Context context, User user)
+    public void onCreate(Bundle savedInstanceState)
     {
-        super(context);
-        mActivity = (UsersActivity) context;
-        mResources = context.getResources();
+        super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_LEFT_ICON);
+        setContentView(R.layout.add_edit_user_dialog);
+           
+        mPhotoButton = (ImageButton) findViewById(R.id.photoButton);
+        mNameEdit = (EditText) findViewById(R.id.userNameEdit);
+        mSchoolEdit = (EditText) findViewById(R.id.userSchoolEdit);
         
-        View v = View.inflate(context, R.layout.add_edit_user_dialog, null);
-        mPhotoButton = (ImageButton) v.findViewById(R.id.photoButton);
-        mNameEdit = (EditText) v.findViewById(R.id.userNameEdit);
-        mSchoolEdit = (EditText) v.findViewById(R.id.userSchoolEdit);
-        mAutoStartEdit = (EditText) v.findViewById(R.id.autoStartEdit);
+        mUseProfileSpinner = (Spinner) findViewById(R.id.useProfileSpinner);
+        mDeviceProfileSpinner = (Spinner) findViewById(R.id.deviceProfileSpinner);
         
-        mUseProfileSpinner = (Spinner) v.findViewById(R.id.useProfileSpinner);
-        mDeviceProfileSpinner = (Spinner) v.findViewById(R.id.deviceProfileSpinner);
+        mAutoStartCheckBox = (CheckBox) findViewById(R.id.autoStartCheckBox);
+        mAutoStartEdit = (EditText) findViewById(R.id.autoStartEdit);
+        mAcceptButton = (Button) findViewById(R.id.acceptButton);
+        mCancelButton = (Button) findViewById(R.id.cancelButton);
         
-        mAutoStartCheckBox = (CheckBox) v.findViewById(R.id.autoStartCheckBox);
-
         mPhotoButton.setOnClickListener(photoButtonListener);
         mAutoStartCheckBox.setOnCheckedChangeListener(autoStartCheckListener);
         mAutoStartEdit.setOnFocusChangeListener(autoStartEditListener);
+        mAcceptButton.setOnClickListener(acceptListener);
+        mCancelButton.setOnClickListener(cancelListener);
+        Toast.makeText(this, "CREATE", Toast.LENGTH_SHORT).show();
         
-        
-        
-        setButton(BUTTON_NEGATIVE, mResources.getString(R.string.return_), new DialogInterface.OnClickListener() {
-               public void onClick(DialogInterface dialog, int id) {
-                    cancel();
-               }
-            });
-        
-        setButton(BUTTON_POSITIVE, mResources.getString(R.string.ok), new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int id) {
-                    User u = collectUserData();
-                    if(mMode == ADD_MODE)
-                        ;//mActivity.addProfile(u);
-                    else
-                        mActivity.editProfile(mPreviousName, u);
-                }
-            });
-        
-        setUser(user);
-        
-        setView(v);
+        //savedInstanceState.getSerializable(key)
+    }
+    
+    public void onStart()
+    {
+        super.onStart();
+        Toast.makeText(this, "START", Toast.LENGTH_LONG).show();
+
+        setUser(null);
     }
     
     public void setUser(User user)
@@ -86,7 +90,7 @@ public class AddEditUserDialog extends AlertDialog
         if(user == null){
             mMode = ADD_MODE;
             
-            setIcon(R.drawable.action_add);
+            getWindow().setFeatureDrawableResource(Window.FEATURE_LEFT_ICON, R.drawable.action_add);
             setTitle(R.string.addUser);
             
             //mPhotoButton.setD
@@ -103,7 +107,7 @@ public class AddEditUserDialog extends AlertDialog
             mMode = EDIT_MODE;
             mPreviousName = user.getName();
             
-            setIcon(R.drawable.action_edit);
+            getWindow().setFeatureDrawableResource(Window.FEATURE_LEFT_ICON, R.drawable.action_edit);
             setTitle(R.string.editUser);
             
             //mPhotoButton.set
@@ -121,10 +125,10 @@ public class AddEditUserDialog extends AlertDialog
     {
         String name = mNameEdit.getText().toString(),
                school = mSchoolEdit.getText().toString(),
-               // poner foto
                timeString = mAutoStartEdit.getText().toString(),
                useProfile = "Default",
                deviceProfile = "Default";
+        //Drawable photo = mPhotoButton.getDrawable();
         boolean autoStart = mAutoStartCheckBox.isChecked();
         int seconds = 10;
         if(autoStart && timeString.length()>0){
@@ -138,17 +142,25 @@ public class AddEditUserDialog extends AlertDialog
         return ret;
     }
     
-    public void setPhoto(Drawable d)
-    {
-        
-    }
-    
     protected void populateSpinners()
     {
         
     }
     
     /* Listeners */
+    
+    private View.OnClickListener photoButtonListener = new View.OnClickListener(){
+        @Override
+        public void onClick(View v)
+        {
+            Intent intent = new Intent(Intent.ACTION_PICK);
+            // tells your intent to get the contents
+            // opens the URI for your image directory on your sdcard
+            intent.setType("image/*"); 
+            //AddEditUserActivity.this.startActivityForResult(intent,
+            //                                 UsersActivity.PHOTO_REQUEST_CODE);
+        }
+    };
     
     private OnCheckedChangeListener autoStartCheckListener = new OnCheckedChangeListener(){
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
@@ -170,7 +182,7 @@ public class AddEditUserDialog extends AlertDialog
                     
                     if(seconds<5){
                         mAutoStartEdit.setText("5");
-                        Toast.makeText(AddEditUserDialog.this.getContext(), 
+                        Toast.makeText(AddEditUserActivity.this, 
                                 mResources.getString(R.string.minimumTime), 
                                 Toast.LENGTH_SHORT).show();
                     }
@@ -178,16 +190,24 @@ public class AddEditUserDialog extends AlertDialog
             }
         };
 
-    private View.OnClickListener photoButtonListener = new View.OnClickListener(){
+    private View.OnClickListener acceptListener = new View.OnClickListener(){
             @Override
             public void onClick(View v)
             {
-                Intent intent = new Intent(Intent.ACTION_PICK);
-                // tells your intent to get the contents
-                // opens the URI for your image directory on your sdcard
-                intent.setType("image/*"); 
-                //mActivity.startActivityForResult(intent,
-                //                                 UsersActivity.PHOTO_REQUEST_CODE);
+                Intent i = new Intent();
+                User u = collectUserData();
+                i.putExtra(RESULT_TAG, u);
+                setResult(RESULT_OK, i);
+                finish();
             }
         };
+    private View.OnClickListener cancelListener = new View.OnClickListener(){
+            @Override
+            public void onClick(View v)
+            {
+                setResult(RESULT_CANCELED);
+                finish();
+            }
+        };
+
 }

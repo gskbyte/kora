@@ -2,7 +2,9 @@ package org.gskbyte.kora.settings;
 
 import java.io.Serializable;
 
-public abstract class Profile implements Comparable, Serializable
+import android.os.Parcelable;
+
+public abstract class Profile implements Comparable<Profile>, Serializable
 {
     String name;
     protected boolean isDefault;
@@ -27,7 +29,7 @@ public abstract class Profile implements Comparable, Serializable
         return !isDefault;
     }
     
-    public int compareTo(Object another)
+    public int compareTo(Profile another)
     {
         if(another == null)
             return 1;

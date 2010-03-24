@@ -10,6 +10,7 @@ import org.gskbyte.kora.settings.SettingsManager.SettingsException;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -26,6 +27,12 @@ import android.widget.AdapterView.OnItemClickListener;
 public abstract class ProfilesActivity extends Activity
 {
 	private static final String TAG = "ProfilesActivity";
+	
+	/* Request codes */
+    public static final int ADD_REQUEST = 0;
+    public static final int COPY_REQUEST = 1;
+    public static final int EDIT_REQUEST = 2;
+	
 	
     /* Dialog IDs */
     public static final int ADD_DIALOG_ID = 0;
@@ -72,7 +79,6 @@ public abstract class ProfilesActivity extends Activity
 	}
 	
 	public abstract void chooseCurrentProfile();
-	public abstract void addProfile(Profile p);
 	public abstract void editProfile(String previous_id, Profile p);
 	public abstract void deleteProfile(String id);
 	public abstract void updateList();
@@ -94,7 +100,10 @@ public abstract class ProfilesActivity extends Activity
 
     protected OnClickListener addProfileListener = new OnClickListener() {
             public void onClick(View v) {
-                showDialog(ADD_DIALOG_ID);
+                Intent intent = new Intent(ProfilesActivity.this,
+                                           AddEditUserActivity.class);
+                ProfilesActivity.this.
+                    startActivityForResult(intent, ADD_REQUEST);
             }
         };
 }
