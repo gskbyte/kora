@@ -17,14 +17,17 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.AdapterView;
 import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
 
 public class UsersActivity extends ProfilesActivity
 {
     private static final String TAG = "UsersActivity";
-    
-    public AddEditUserDialog addEditUserDialog;
-    
+    public static final String TAG_USER_NAME = "USER_NAME";
+
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
@@ -44,143 +47,19 @@ public class UsersActivity extends ProfilesActivity
         /* Iniciar lista de perfiles */
         updateList();
         mListView.setAdapter(mAdapter);
-    }
-    
-    protected void onActivityResult(int requestCode, int resultCode,
-            Intent data) {
         
-        if(resultCode==RESULT_OK){
-            switch(requestCode)
-            {
-            case ADD_REQUEST:
-                User u = (User)data.getSerializableExtra(UserAddEditActivity.RESULT_TAG);
-                try{
-                    mSettings.addUser(u);
-                    Toast.makeText(this, 
-                            "Usuario añadido: "+u.getName(), Toast.LENGTH_SHORT).show();
-                    updateList();
-                } catch (SettingsManager.SettingsException e){
-                    Toast.makeText(this, mResources.getString(R.string.addUserFail)+
-                            " "+u.getName(), Toast.LENGTH_SHORT).show();
-                }
-                break;
-            case COPY_REQUEST:
-                break;
-            case EDIT_REQUEST:
-                break;
-            }
-        }
-    }
-
-    
-    protected Dialog onCreateDialog(int id)
-    {
-        Dialog dialog=null;
-        User u;
-        switch(id)
-        {
-        case ADD_DIALOG_ID:
-            dialog = addEditUserDialog = new AddEditUserDialog(this, null);
-            break;
-        case COPY_DIALOG_ID:
-            try {
-                u = (User) mSettings.getUser(mSelectedProfileName);
-                dialog = new CopyUserDialog(this, u);
-            } catch (SettingsException e) {
-                Toast.makeText(this, 
-                    "User not found: "+mSelectedProfileName+". Reset app.\n"+e.getMessage(),
-                    Toast.LENGTH_LONG).show();
-            }
-            break;
-            
-        case EDIT_DIALOG_ID:
-            try {
-                u = (User) mSettings.getUser(mSelectedProfileName);
-                dialog = new AddEditUserDialog(this, u);
-            } catch (SettingsException e) {
-                Toast.makeText(this, 
-                    "User not found: "+mSelectedProfileName+". Reset app.\n"+e.getMessage(),
-                    Toast.LENGTH_LONG).show();
-            }
-            break;
-        case SELECT_DIALOG_ID:
-            try {
-                u = (User) mSettings.getUser(mSelectedProfileName);
-                dialog = new SelectUserDialog(this, u);
-            } catch (SettingsException e) {
-                Toast.makeText(this, 
-                    "User not found: "+mSelectedProfileName+". Reset app.\n"+e.getMessage(),
-                    Toast.LENGTH_LONG).show();
-            }
-            break;
-        case CONFIRM_DELETE_DIALOG_ID:
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage(mResources.getString(R.string.userDeletionQuestion)+ " " + mSelectedProfileName + "?")
-                   .setIcon(mResources.getDrawable(R.drawable.icon_important))
-                   .setCancelable(false)
-                   .setPositiveButton(mResources.getString(R.string.yes), new DialogInterface.OnClickListener() {
-                       public void onClick(DialogInterface dialog, int id) {
-                            deleteProfile(mSelectedProfileName);
-                       }
-                   })
-                   .setNegativeButton(mResources.getString(R.string.no), new DialogInterface.OnClickListener() {
-                       public void onClick(DialogInterface dialog, int id) {
-                            dialog.cancel();
-                       }
-                   });
-            dialog = builder.create();
-            break;
-        default:
-            dialog = null;
-        }
-
-        return dialog;
+        /* Asociar eventos */
+        mListView.setOnItemClickListener(selectProfileListener);
+        mAddButton.setOnClickListener(addProfileListener);
     }
     
-    protected void onPrepareDialog(int id, Dialog dialog)
+
+    public void updateView()
     {
-        User u;
-        switch(id)
-        {
-        case ADD_DIALOG_ID:
-            ((AddEditUserDialog)dialog).setUser(null);
-            break;
-        case COPY_DIALOG_ID:
-            try {
-                u = (User) mSettings.getUser(mSelectedProfileName);
-                ((CopyUserDialog)dialog).setUser(u);
-            } catch (SettingsException e) {
-                Toast.makeText(this, 
-                        "User not found: "+mSelectedProfileName+". Reset app.\n"+e.getMessage(),
-                        Toast.LENGTH_LONG).show();
-            }
-            break;
-            
-        case EDIT_DIALOG_ID:
-            try {
-                u = (User) mSettings.getUser(mSelectedProfileName);
-                ((AddEditUserDialog)dialog).setUser(u);
-            } catch (SettingsException e) {
-                Toast.makeText(this, 
-                        "User not found: "+mSelectedProfileName+". Reset app.\n"+e.getMessage(),
-                        Toast.LENGTH_LONG).show();
-            }
-            break;
-        case SELECT_DIALOG_ID:
-            try {
-                u = (User) mSettings.getUser(mSelectedProfileName);
-                ((SelectUserDialog)dialog).setUser(u);
-            } catch (SettingsException e) {
-                Toast.makeText(this, 
-                        "User not found: "+mSelectedProfileName+". Reset app.\n"+e.getMessage(),
-                        Toast.LENGTH_LONG).show();
-            }
-            break;
-        case CONFIRM_DELETE_DIALOG_ID:
-            break;
-        default:
-            dialog = null;
-        }
+        updateList();
+        // actualizar vista de usuario
+        //mCurrentProfile = mSettings.getCurrentUser();
+        //mCurrentProfileText.setText(mCurrentProfile.getName());
     }
     
     public void updateList()
@@ -222,58 +101,33 @@ public class UsersActivity extends ProfilesActivity
         mAdapter.notifyDataSetChanged();
     }
     
-    public void chooseCurrentProfile()
-    {
-        try {
-            mSettings.setCurrentUser(mSelectedProfileName);
-            mCurrentProfile = mSettings.getCurrentUser();
-            mCurrentProfileText.setText(mCurrentProfile.getName());
-            mCurrentProfileImage.setImageDrawable(((User)mCurrentProfile).getPhoto());
-        } catch (SettingsException e) {
-            Toast.makeText(this, 
-                "User not found: "+mSelectedProfileName+". Reset app.\n"+e.getMessage(),
-                Toast.LENGTH_LONG).show();
-        }
-    }
+    
+    protected OnItemClickListener selectProfileListener = new OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view, int position,
+                    long id)
+            {
+                Intent intent = new Intent(UsersActivity.this,
+                        UserSelectionActivity.class);
+                
+                mAdapter.setSelected(position);
+                DetailedViewModel selected_model = 
+                    (DetailedViewModel) mAdapter.getItem(position);
+                mSelectedProfileName = selected_model.tag();
+                intent.putExtra(TAG_USER_NAME, mSelectedProfileName);
 
-    
-    public void editProfile(String previous_name, Profile p)
-    {
-    	User u = (User) p;
-        try{
-            mSettings.editUser(previous_name, u);
-            Toast.makeText(this, 
-                    "Edición correcta: "+previous_name+" -> "+u.getName(), Toast.LENGTH_SHORT).show();
-            if(previous_name.equals(mCurrentProfile.getName())){
-                mCurrentProfile = u;
-                mCurrentProfileText.setText(mCurrentProfile.getName());
-                mCurrentProfileImage.setImageDrawable(((User)mCurrentProfile).getPhoto());
+                UsersActivity.this.startActivity(intent);
             }
-            updateList();
-        }catch (SettingsManager.SettingsException e){
-            Toast.makeText(this,
-                    "Edición incorrecta: "+previous_name+" -X> "+u.getName(), Toast.LENGTH_SHORT).show();
-        }
-    }
     
-    public void deleteProfile(String name)
-    {
-        boolean ok = !mCurrentProfile.getName().equals(name);
-        if(ok){
-            try{
-                mSettings.removeUser(mSelectedProfileName);
-                Toast.makeText(this, 
-                        "Usuario borrado con éxito: "+mSelectedProfileName, Toast.LENGTH_SHORT).show();
-                updateList();
-            }catch (SettingsManager.SettingsException e){
-                Toast.makeText(this,
-                        "Se produjo un error al borrar el usuario: "+mSelectedProfileName, Toast.LENGTH_SHORT).show();
+        };
+    
+    protected OnClickListener addProfileListener = new OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(UsersActivity.this,
+                                           UserAddEditActivity.class);
+                UsersActivity.this.startActivity(intent);
             }
-        } else {
-            Toast.makeText(this, 
-                    "Seleccione otro usuario actual antes de borrarlo.", Toast.LENGTH_SHORT).show();
-        }
-    }
+        };
+
     
     
     

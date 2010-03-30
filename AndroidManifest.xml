@@ -33,17 +33,11 @@
         	<activity android:name=".settingsActivities.UsersActivity"
 	              android:label="@string/usersActivity"/>
                 <activity android:name=".settingsActivities.UserSelectionActivity"
-                      android:theme="@android:style/Theme.Dialog"
-                      android:icon="@drawable/icon_user"
-                      android:label="@string/user"/>
+                      android:theme="@android:style/Theme.Dialog"/>
 	        	<activity android:name=".settingsActivities.UserAddEditActivity"
-	        	      android:theme="@android:style/Theme.Dialog"
-	        	      android:icon="@drawable/action_add"
-	                  android:label="@string/usersActivity"/>
+	        	      android:theme="@android:style/Theme.Dialog"/>
 	            <activity android:name=".settingsActivities.UserCopyActivity"
-                      android:theme="@android:style/Theme.Dialog"
-                      android:icon="@drawable/action_copy"
-                      android:label="@string/usersActivity"/>
+                      android:theme="@android:style/Theme.Dialog"/>
             
         	<activity android:name=".settingsActivities.UseProfilesActivity"
 	              android:label="@string/useProfilesActivity"/>

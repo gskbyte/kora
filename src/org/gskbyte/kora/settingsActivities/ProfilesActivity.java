@@ -30,12 +30,13 @@ public abstract class ProfilesActivity extends Activity
 	
 	/* Request codes */
     public static final int ADD_REQUEST = 0;
-    public static final int COPY_REQUEST = 1;
-    public static final int EDIT_REQUEST = 2;
+    public static final int CHOOSE_REQUEST = 1;
+    public static final int COPY_REQUEST = 2;
+    public static final int EDIT_REQUEST = 3;
+    public static final int DELETE_REQUEST = 4;
 	
 	
     /* Dialog IDs */
-    public static final int ADD_DIALOG_ID = 0;
     public static final int COPY_DIALOG_ID = 1;
     public static final int EDIT_DIALOG_ID = 2;
     public static final int SELECT_DIALOG_ID = 3;
@@ -72,38 +73,13 @@ public abstract class ProfilesActivity extends Activity
 
         /* Iniciar adaptadores de listas */
         mAdapter=new SectionedListAdapter(this);
-        
-        /* Asociar eventos */
-        mListView.setOnItemClickListener(selectProfileListener);
-        mAddButton.setOnClickListener(addProfileListener);
 	}
 	
-	public abstract void chooseCurrentProfile();
-	public abstract void editProfile(String previous_id, Profile p);
-	public abstract void deleteProfile(String id);
-	public abstract void updateList();
+	public void onResume()
+	{
+	    super.onStart();
+	    updateView();
+	}
 	
-	protected OnItemClickListener selectProfileListener = new OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position,
-                    long id)
-            {
-                mAdapter.setSelected(position);
-                DetailedViewModel selected_model = 
-                    (DetailedViewModel) mAdapter.getItem(position);
-                mSelectedProfileName = selected_model.tag();
-                
-                showDialog(SELECT_DIALOG_ID);
-            }
-    
-        };
-
-    protected OnClickListener addProfileListener = new OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(ProfilesActivity.this,
-                                           UserAddEditActivity.class);
-                ProfilesActivity.this.
-                    startActivityForResult(intent, ADD_REQUEST);
-            }
-        };
+	public abstract void updateView();
 }

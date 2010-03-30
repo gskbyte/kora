@@ -1,12 +1,15 @@
 package org.gskbyte.kora.settingsActivities;
 
 import org.gskbyte.kora.R;
+import org.gskbyte.kora.settings.SettingsManager;
 import org.gskbyte.kora.settings.User;
+import org.gskbyte.kora.settings.SettingsManager.SettingsException;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.View.OnFocusChangeListener;
@@ -21,21 +24,13 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 
 public class UserAddEditActivity extends Activity
 {
-    private static final String TAG = "AddEditUserActivity";
-    
-    public static final String ARGUMENT_USER_TAG = "org.gskbyte.kora.AddEditUser";
-    public static final String RESULT_TAG = "org.gskbyte.kora.AddEditUser";
-
+    private static final String TAG = "UserAddEditActivity";
     
     public static final int PHOTO_REQUEST_CODE = 1;
-    
-    private static final int ADD_MODE = 0;
-    private static final int EDIT_MODE = 1;
-    
-    private int mMode;
-    private String mPreviousName;
+    private User mCurrentUser;
     
     private Resources mResources;
+    private SettingsManager mSettings;
     
     private ImageButton mPhotoButton;
     private EditText mNameEdit, mSchoolEdit, mAutoStartEdit;
@@ -48,7 +43,9 @@ public class UserAddEditActivity extends Activity
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_LEFT_ICON);
         setContentView(R.layout.user_add_edit);
-           
+        
+        mResources = getResources();
+        
         mPhotoButton = (ImageButton) findViewById(R.id.photoButton);
         mNameEdit = (EditText) findViewById(R.id.userNameEdit);
         mSchoolEdit = (EditText) findViewById(R.id.userSchoolEdit);
@@ -66,52 +63,65 @@ public class UserAddEditActivity extends Activity
         mAutoStartEdit.setOnFocusChangeListener(autoStartEditListener);
         mAcceptButton.setOnClickListener(acceptListener);
         mCancelButton.setOnClickListener(cancelListener);
-        Toast.makeText(this, "CREATE", Toast.LENGTH_SHORT).show();
         
-        //savedInstanceState.getSerializable(key)
+        try {
+            mSettings = SettingsManager.getInstance();
+        } catch (SettingsException e) {
+            Log.e(TAG, e.getMessage());
+            Toast.makeText(this, 
+                    "ERROR LOADING SETTINGS. Please contact author.",
+                    Toast.LENGTH_LONG);
+        }
     }
     
     public void onStart()
     {
         super.onStart();
-        Toast.makeText(this, "START", Toast.LENGTH_LONG).show();
-
-        setUser(null);
+        
+        try {
+            Bundle extras = getIntent().getExtras();
+            if(extras != null){
+                String userName = extras.getString(UsersActivity.TAG_USER_NAME);
+                mCurrentUser = mSettings.getUser(userName);
+            } else {
+                mCurrentUser = null;
+            }
+        } catch (SettingsException e) {
+            Log.e(TAG, e.getMessage());
+            Toast.makeText(this, 
+                    "ERROR LOADING USER. Please contact author.",
+                    Toast.LENGTH_LONG);
+        }
+        
+        setView();
     }
     
-    public void setUser(User user)
+    public void setView()
     {
-        if(user == null){
-            mMode = ADD_MODE;
-            
+        if(mCurrentUser == null){
             getWindow().setFeatureDrawableResource(Window.FEATURE_LEFT_ICON, R.drawable.action_add);
             setTitle(R.string.addUser);
             
             //mPhotoButton.setD
             mNameEdit.setText("");
             mSchoolEdit.setText("");
-            //mAutoStartEdit.setText("5");
 
             populateSpinners();
             
-            //mAutoStartCheckBox.setChecked(true);
-            //mAutoStartEdit.setText("5");
-            
         } else {
-            mMode = EDIT_MODE;
-            mPreviousName = user.getName();
-            
             getWindow().setFeatureDrawableResource(Window.FEATURE_LEFT_ICON, R.drawable.action_edit);
-            setTitle(R.string.editUser);
+            setTitle(mResources.getString(R.string.editUser)+ ": " +
+                    mCurrentUser.getName());
             
             //mPhotoButton.set
-            mNameEdit.setText(user.getName());
-            mSchoolEdit.setText(user.getSchool());
-            mAutoStartEdit.setText( Integer.toString(user.getAutoStartSeconds()) );
+            mNameEdit.setText(mCurrentUser.getName());
+            mSchoolEdit.setText(mCurrentUser.getSchool());
+            mAutoStartEdit.setText( Integer.toString(mCurrentUser.getAutoStartSeconds()) );
             
             populateSpinners();
+            // indicar perfil!
             
-            mAutoStartCheckBox.setChecked(user.wantsAutoStart());
+            mAutoStartCheckBox.setChecked(mCurrentUser.wantsAutoStart());
         }
     }
     
@@ -188,10 +198,33 @@ public class UserAddEditActivity extends Activity
             @Override
             public void onClick(View v)
             {
-                Intent i = new Intent();
                 User u = collectUserData();
-                i.putExtra(RESULT_TAG, u);
-                setResult(RESULT_OK, i);
+                if(mCurrentUser == null){ // modo añadir
+                    try{
+                        mSettings.addUser(u);
+                        Toast.makeText(UserAddEditActivity.this, 
+                                mResources.getString(R.string.addedUser) +
+                                ": "+u.getName(), Toast.LENGTH_SHORT).show();
+                    } catch (SettingsManager.SettingsException e){
+                        Toast.makeText(UserAddEditActivity.this,
+                                mResources.getString(R.string.addUserFail) +
+                                " "+u.getName(), Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    try{
+                        mSettings.editUser(mCurrentUser.getName(), u);
+                        Toast.makeText(UserAddEditActivity.this, 
+                                mResources.getString(R.string.editUserOk) +
+                                ": " + mCurrentUser.getName() +" -> "+u.getName(), 
+                                Toast.LENGTH_SHORT).show();
+                    }catch (SettingsManager.SettingsException e){
+                        Toast.makeText(UserAddEditActivity.this,
+                                mResources.getString(R.string.editUserBad) +
+                                ": " + mCurrentUser.getName() +" -X> "+u.getName(),
+                                Toast.LENGTH_SHORT).show();
+                    }
+                }
+                
                 finish();
             }
         };
@@ -199,7 +232,6 @@ public class UserAddEditActivity extends Activity
             @Override
             public void onClick(View v)
             {
-                setResult(RESULT_CANCELED);
                 finish();
             }
         };

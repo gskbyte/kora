@@ -3,61 +3,70 @@
                 android:layout_width="fill_parent" 
                 android:layout_height="fill_parent" 
                 xmlns:android="http://schemas.android.com/apk/res/android">
-    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:stretchColumns="1">
-        
-        <TableRow>
-            <ImageButton android:id="@+id/photoButton"
-            android:layout_width="100dip"
-            android:layout_height="100dip"
-            android:scaleType="fitXY"
-            
-            android:src="@drawable/icon_user_big"/>
-            
-            <LinearLayout android:orientation="vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            
-                <EditText android:id="@+id/userNameEdit"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:maxLength="16"
-                android:singleLine="true"
-                
-                android:hint="@string/name"/>
-            
-                <EditText android:id="@+id/userSchoolEdit"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:maxLength="16"
-                    android:singleLine="true"
-                    
-                    android:hint="@string/school"/>
-                    
-            </LinearLayout>
-        </TableRow>
-        
-        <TextView android:id="@+id/useProfileText" 
-            android:layout_width="wrap_content" 
-            android:layout_height="wrap_content"
-            android:layout_margin="5dip"
-            
-            android:text="Use profile text goes here"/>
-    
-        <TextView android:id="@+id/deviceProfileText" 
-            android:layout_width="wrap_content" 
-            android:layout_height="wrap_content"
-            android:layout_margin="5dip"
-            
-            android:text="Device profile text goes here"/>
-            
-        <TextView android:id="@+id/autoStartText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dip"
-            
-            android:text="Autostart text goes here"/>
-    </TableLayout>
+	<LinearLayout
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:orientation="vertical">
+	    <TableLayout
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:stretchColumns="1">
+	        
+	        <TableRow>
+	            <ImageButton android:id="@+id/photoButton"
+	            android:layout_width="100dip"
+	            android:layout_height="100dip"
+	            android:scaleType="fitXY"
+	            
+	            android:src="@drawable/icon_user_big"/>
+	            
+	            <LinearLayout android:orientation="vertical"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content">
+	            
+	                <EditText android:id="@+id/userNameEdit"
+	                android:layout_width="fill_parent"
+	                android:layout_height="wrap_content"
+	                android:maxLength="16"
+	                android:singleLine="true"
+	                
+	                android:hint="@string/name"/>
+	            
+	                <EditText android:id="@+id/userSchoolEdit"
+	                    android:layout_width="fill_parent"
+	                    android:layout_height="wrap_content"
+	                    android:maxLength="16"
+	                    android:singleLine="true"
+	                    
+	                    android:hint="@string/school"/>
+	                    
+	            </LinearLayout>
+	        </TableRow>
+	        
+	        <TextView android:id="@+id/useProfileText" 
+	            android:layout_width="wrap_content" 
+	            android:layout_height="wrap_content"
+	            android:layout_margin="5dip"
+	            
+	            android:text="Use profile text goes here"/>
+	    
+	        <TextView android:id="@+id/deviceProfileText" 
+	            android:layout_width="wrap_content" 
+	            android:layout_height="wrap_content"
+	            android:layout_margin="5dip"
+	            
+	            android:text="Device profile text goes here"/>
+	            
+	        <TextView android:id="@+id/autoStartText"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_margin="5dip"
+	            
+	            android:text="Autostart text goes here"/>
+	            
+	            
+	    </TableLayout>
+	    <include
+	        layout="@layout/ok_cancel_bar"/>
+	</LinearLayout>
 </ScrollView>
