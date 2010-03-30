@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:minWidth="200dip"
         
-        android:drawableLeft="@drawable/action_close"
+        android:drawableLeft="@drawable/action_return"
         android:text="@string/return_"/>
 </LinearLayout>
   

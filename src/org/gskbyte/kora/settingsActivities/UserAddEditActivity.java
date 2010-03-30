@@ -125,27 +125,6 @@ public class UserAddEditActivity extends Activity
         }
     }
     
-    protected User collectUserData()
-    {
-        String name = mNameEdit.getText().toString(),
-               school = mSchoolEdit.getText().toString(),
-               timeString = mAutoStartEdit.getText().toString(),
-               useProfile = "Default",
-               deviceProfile = "Default";
-        //Drawable photo = mPhotoButton.getDrawable();
-        boolean autoStart = mAutoStartCheckBox.isChecked();
-        int seconds = 10;
-        if(autoStart && timeString.length()>0){
-            seconds = Integer.parseInt(timeString);
-        }
-        
-        User ret = new User(name, false,
-                            school, null,
-                            autoStart, seconds,
-                            useProfile, deviceProfile);
-        return ret;
-    }
-    
     protected void populateSpinners()
     {
         
@@ -198,34 +177,72 @@ public class UserAddEditActivity extends Activity
             @Override
             public void onClick(View v)
             {
-                User u = collectUserData();
-                if(mCurrentUser == null){ // modo añadir
-                    try{
-                        mSettings.addUser(u);
-                        Toast.makeText(UserAddEditActivity.this, 
-                                mResources.getString(R.string.addedUser) +
-                                ": "+u.getName(), Toast.LENGTH_SHORT).show();
-                    } catch (SettingsManager.SettingsException e){
-                        Toast.makeText(UserAddEditActivity.this,
-                                mResources.getString(R.string.addUserFail) +
-                                " "+u.getName(), Toast.LENGTH_SHORT).show();
+                String name = mNameEdit.getText().toString(),
+                       school = mSchoolEdit.getText().toString(),
+                       timeString = mAutoStartEdit.getText().toString(),
+                       useProfile = "Default",
+                       deviceProfile = "Default";
+                //Drawable photo = mPhotoButton.getDrawable();
+                boolean autoStart = mAutoStartCheckBox.isChecked();
+                int seconds = 10;
+                if(autoStart && timeString.length()>0){
+                    seconds = Integer.parseInt(timeString);
+                }
+
+                // 0 = OK, -1 = campos vacíos
+                // valores de ettingsException = fallo
+                int result = 0;
+                
+                if(name.length()>0 && school.length()>0)
+                {
+                    User u = new User(name, false, school, null,
+                                      autoStart, seconds,
+                                      useProfile, deviceProfile);
+                    
+                    if(mCurrentUser == null){ // modo añadir
+                        try{
+                            mSettings.addUser(u);
+                        } catch (SettingsException e){
+                            result = e.type;
+                        }
+                    } else {
+                        try{
+                            mSettings.editUser(mCurrentUser.getName(), u);
+                        } catch (SettingsException e){
+                            result = e.type;
+                        }
                     }
                 } else {
-                    try{
-                        mSettings.editUser(mCurrentUser.getName(), u);
-                        Toast.makeText(UserAddEditActivity.this, 
-                                mResources.getString(R.string.editUserOk) +
-                                ": " + mCurrentUser.getName() +" -> "+u.getName(), 
-                                Toast.LENGTH_SHORT).show();
-                    }catch (SettingsManager.SettingsException e){
-                        Toast.makeText(UserAddEditActivity.this,
-                                mResources.getString(R.string.editUserBad) +
-                                ": " + mCurrentUser.getName() +" -X> "+u.getName(),
-                                Toast.LENGTH_SHORT).show();
-                    }
+                    result = -1;
                 }
                 
-                finish();
+                String s;
+                switch(result)
+                {
+                case 0:
+                    if(mCurrentUser == null){
+                        s = mResources.getString(R.string.addUserOk) + ": " + 
+                            name;
+                    } else {
+                        s = mResources.getString(R.string.editUserOk) + " " +
+                            name;
+                    }
+                    break;
+                case -1:
+                    s = mResources.getString(R.string.emptyUserNameAndSchoolFail);
+                    break;
+                case SettingsException.EXISTS:
+                    s = mResources.getString(R.string.existingUserFail) + ": " +
+                        name;
+                    break;
+                default:
+                    s = mResources.getString(R.string.settingsError);
+                    break;
+                }
+                
+                Toast.makeText(UserAddEditActivity.this, s, Toast.LENGTH_SHORT).show();
+                if(result==0)
+                    finish();
             }
         };
     private View.OnClickListener cancelListener = new View.OnClickListener(){

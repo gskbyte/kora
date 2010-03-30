@@ -164,7 +164,7 @@ public class UserSelectionActivity extends Activity
                                                 mCurrentUser.getName(), Toast.LENGTH_SHORT).show();
                                     }catch (SettingsManager.SettingsException e){
                                         Toast.makeText(UserSelectionActivity.this,
-                                                mResources.getString(R.string.deleteUserBad) + ":"  +
+                                                mResources.getString(R.string.deleteUserFail) + ":"  +
                                                 mCurrentUser.getName(), Toast.LENGTH_SHORT).show();
                                     }
                                     finish();

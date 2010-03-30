@@ -30,11 +30,11 @@ public class SettingsManager
         private static final long serialVersionUID = 1L;
         
         public Class affected = null;
-        public static final int NOT_SET = 0,
-                                BAD = 1,
-                                NOT_EXISTS = 2,
-                                EXISTS = 3,
-                                HAS_DEPENDENCIES = 4;
+        public static final int NOT_SET = 1,
+                                BAD = 2,
+                                NOT_EXISTS = 3,
+                                EXISTS = 4,
+                                HAS_DEPENDENCIES = 5;
         public int type = NOT_SET;
         public List<String> dependencies = null;
         

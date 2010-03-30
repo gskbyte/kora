@@ -57,15 +57,16 @@
         <string name="current">Current:</string>
         <string name="customs">Custom</string>
         <string name="defaults">Default</string>
+        <string name="settingsError">SETTINGS ERROR. Please contact author.</string>
     
         <!-- Users strings -->
             <string name="currentUser">Current user:</string>
-            <string name="addedUser">Added user</string>
-	        <string name="addUserFail">Failed when adding user</string>
+            <string name="addUserOk">Added user</string>
 	        <string name="editUserOk">Success editing user</string>
-            <string name="editUserBad">Failed editing user</string>
             <string name="deleteUserOk">Success deleting user</string>
-            <string name="deleteUserBad">Failed deleting user</string>
+            <string name="deleteUserFail">Failed deleting user</string>
+            <string name="existingUserFail">User already exists</string>
+            <string name="emptyUserNameAndSchoolFail">Fields "Name" and "School" must be filled</string>
 	        <!-- Add/Edit dialog -->
 	        <string name="addUser">Add user</string>
 	        <string name="editUser">Edit user</string>
