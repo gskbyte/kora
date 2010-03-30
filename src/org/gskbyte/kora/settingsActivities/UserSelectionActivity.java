@@ -3,58 +3,65 @@ package org.gskbyte.kora.settingsActivities;
 import org.gskbyte.kora.R;
 import org.gskbyte.kora.settings.User;
 
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
+import android.app.Activity;
 import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
-import android.view.View;
+import android.os.Bundle;
+import android.view.Window;
 import android.widget.Button;
+import android.widget.Toast;
 
-public class SelectUserDialog extends AlertDialog
+public class UserSelectionActivity extends Activity
 {
-    Resources resources;
-    UsersActivity activity;
+    private static final String TAG = "AddEditUserActivity";
     
+    Resources resources;
     Button chooseButton, copyButton, editButton, deleteButton;
-        
-    public SelectUserDialog(Context context, User user)
+
+    public void onCreate(Bundle savedInstanceState)
     {
-        super(context);
-        resources = context.getResources();
-        activity = (UsersActivity) context;
+        super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_LEFT_ICON);
+        setContentView(R.layout.add_edit_user_dialog);
+           
+        resources = getResources();
+        //activity = (UsersActivity) context;
         
-        View v = View.inflate(context, R.layout.select_user_dialog, null);
-        chooseButton = (Button) v.findViewById(R.id.chooseButton);
-        copyButton = (Button) v.findViewById(R.id.copyButton);
-        editButton = (Button) v.findViewById(R.id.editButton);
-        deleteButton = (Button) v.findViewById(R.id.deleteButton);
-        
+        chooseButton = (Button) findViewById(R.id.chooseButton);
+        copyButton = (Button) findViewById(R.id.copyButton);
+        editButton = (Button) findViewById(R.id.editButton);
+        deleteButton = (Button) findViewById(R.id.deleteButton);
+        /* 
         setUser(user);
-        
-        setButton(BUTTON_NEGATIVE, resources.getString(R.string.return_), new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                 cancel();
-            }
-        });
 
         chooseButton.setOnClickListener(chooseListener);
         copyButton.setOnClickListener(copyListener);
         editButton.setOnClickListener(editListener);
         deleteButton.setOnClickListener(deleteListener);
+  */      
+
         
-        setView(v);
+        //savedInstanceState.getSerializable(key)
     }
     
+    public void onStart()
+    {
+        super.onStart();
+        Toast.makeText(this, "START", Toast.LENGTH_LONG).show();
+
+        setUser(null);
+    }
+
     public void setUser(User user)
     {
-        setTitle(resources.getString(R.string.user) + ": " + user.getName());
-        setIcon(user.getPhoto());
+        setTitle(resources.getString(R.string.user) + ": " + user.getName());        
+        getWindow().setFeatureDrawable(Window.FEATURE_LEFT_ICON, user.getPhoto());
+        
         boolean isCustom = user.isCustom();
         editButton.setEnabled(isCustom);
         deleteButton.setEnabled(isCustom);
     }
     
+    /*
     private android.view.View.OnClickListener chooseListener = new android.view.View.OnClickListener() {
             @Override
             public void onClick(View v)
@@ -90,6 +97,5 @@ public class SelectUserDialog extends AlertDialog
                 dismiss();
             }
         };
-
-    
+    */
 }

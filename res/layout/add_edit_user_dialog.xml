@@ -86,27 +86,7 @@
 				android:numeric="integer"/>
 	     </TableRow>
 	 </TableLayout>
-	 <LinearLayout
-	    android:orientation="horizontal"
-	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"
-	    style="@android:style/ButtonBar">
-	        <Button android:id="@+id/acceptButton"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-                android:width="0px"
-                android:layout_weight="0.5"
-	            
-	            android:drawableLeft="@drawable/action_ok"
-	            android:text="@string/ok"/>
-	            
-	        <Button android:id="@+id/cancelButton"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-                android:width="0px"
-                android:layout_weight="0.5"
-	            
-	            android:drawableLeft="@drawable/action_cancel"
-	            android:text="@string/cancel"/>
-	</LinearLayout>
+	 
+	 <include
+        layout="@layout/ok_cancel_bar"/>
 </LinearLayout>

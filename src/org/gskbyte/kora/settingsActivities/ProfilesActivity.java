@@ -101,7 +101,7 @@ public abstract class ProfilesActivity extends Activity
     protected OnClickListener addProfileListener = new OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(ProfilesActivity.this,
-                                           AddEditUserActivity.class);
+                                           UserAddEditActivity.class);
                 ProfilesActivity.this.
                     startActivityForResult(intent, ADD_REQUEST);
             }

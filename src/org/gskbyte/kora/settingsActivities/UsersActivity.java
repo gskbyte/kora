@@ -53,7 +53,7 @@ public class UsersActivity extends ProfilesActivity
             switch(requestCode)
             {
             case ADD_REQUEST:
-                User u = (User)data.getSerializableExtra(AddEditUserActivity.RESULT_TAG);
+                User u = (User)data.getSerializableExtra(UserAddEditActivity.RESULT_TAG);
                 try{
                     mSettings.addUser(u);
                     Toast.makeText(this, 

@@ -1,17 +1,11 @@
 package org.gskbyte.kora.settingsActivities;
 
-import java.io.Serializable;
-
 import org.gskbyte.kora.R;
 import org.gskbyte.kora.settings.User;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -25,7 +19,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 
-public class AddEditUserActivity extends Activity
+public class UserAddEditActivity extends Activity
 {
     private static final String TAG = "AddEditUserActivity";
     
@@ -182,7 +176,7 @@ public class AddEditUserActivity extends Activity
                     
                     if(seconds<5){
                         mAutoStartEdit.setText("5");
-                        Toast.makeText(AddEditUserActivity.this, 
+                        Toast.makeText(UserAddEditActivity.this, 
                                 mResources.getString(R.string.minimumTime), 
                                 Toast.LENGTH_SHORT).show();
                     }
