@@ -177,6 +177,10 @@ public class UserAddEditActivity extends Activity
             @Override
             public void onClick(View v)
             {
+                // 0 = OK, -1 = campos vacíos
+                // valores de SettingsException = fallo
+                int result = 0;
+                
                 String name = mNameEdit.getText().toString(),
                        school = mSchoolEdit.getText().toString(),
                        timeString = mAutoStartEdit.getText().toString(),
@@ -189,9 +193,6 @@ public class UserAddEditActivity extends Activity
                     seconds = Integer.parseInt(timeString);
                 }
 
-                // 0 = OK, -1 = campos vacíos
-                // valores de ettingsException = fallo
-                int result = 0;
                 
                 if(name.length()>0 && school.length()>0)
                 {

@@ -92,36 +92,61 @@ public class UserCopyActivity extends Activity
         mAutoStartText.setText(autoText);
     }
     
-    public User collectUserData()
-    {
-        // Iniciar usuario
-        // Quedan por rellenar foto, nombre y colegio
-        return new User("", false, "", null, 
-                        mCurrentUser.wantsAutoStart(),
-                        mCurrentUser.getAutoStartSeconds(),
-                        mCurrentUser.getUseProfileName(),
-                        mCurrentUser.getDeviceProfileName());
-    }
     
     private View.OnClickListener acceptListener =
         new View.OnClickListener(){
             @Override
             public void onClick(View v)
             {
-                User u = collectUserData();
+                // 0 = OK, -1 = campos vacíos
+                // valores de SettingsException = fallo
+                int result = 0;
                 
-                try{
-                    mSettings.addUser(u);
-                    Toast.makeText(UserCopyActivity.this, 
-                            mResources.getString(R.string.addUserOk) +
-                            ": "+u.getName(), Toast.LENGTH_SHORT).show();
-                } catch (SettingsManager.SettingsException e){
-                    /*Toast.makeText(UserCopyActivity.this,
-                            mResources.getString(R.string.addUserFail) +
-                            " "+u.getName(), Toast.LENGTH_SHORT).show();*/
+                String name = mNameEdit.getText().toString(),
+                       school = mSchoolEdit.getText().toString();
+                
+                if(name.length()>0 && school.length()>0)
+                {
+                    User u = new User(name, false, school, null, 
+                            mCurrentUser.wantsAutoStart(),
+                            mCurrentUser.getAutoStartSeconds(),
+                            mCurrentUser.getUseProfileName(),
+                            mCurrentUser.getDeviceProfileName());
+                    
+                    try{
+                        mSettings.addUser(u);
+                        Toast.makeText(UserCopyActivity.this, 
+                                mResources.getString(R.string.addUserOk) +
+                                ": "+u.getName(), Toast.LENGTH_SHORT).show();
+                    } catch (SettingsManager.SettingsException e){
+                        result = e.type;
+                    }
+                } else {
+                    result = -1;
                 }
                 
-                finish();
+                String s;
+                switch(result)
+                {
+                case 0:
+                    s = mResources.getString(R.string.addUserOk) + ": " + 
+                        name;
+                    break;
+                case -1:
+                    s = mResources.getString(R.string.emptyUserNameAndSchoolFail);
+                    break;
+                case SettingsException.EXISTS:
+                    s = mResources.getString(R.string.existingUserFail) + ": " +
+                        name;
+                    break;
+                default:
+                    s = mResources.getString(R.string.settingsError);
+                    break;
+                }
+                
+                Toast.makeText(UserCopyActivity.this, s, Toast.LENGTH_SHORT).show();
+                if(result==0)
+                    finish();
             }
         };
         
