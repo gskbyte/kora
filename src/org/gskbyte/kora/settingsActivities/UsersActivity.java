@@ -6,28 +6,23 @@ import java.util.List;
 
 import org.gskbyte.kora.R;
 import org.gskbyte.kora.customViews.detailedListView.DetailedViewModel;
-import org.gskbyte.kora.settings.Profile;
 import org.gskbyte.kora.settings.SettingsManager;
 import org.gskbyte.kora.settings.User;
 import org.gskbyte.kora.settings.SettingsManager.SettingsException;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
-import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class UsersActivity extends ProfilesActivity
 {
     private static final String TAG = "UsersActivity";
     public static final String TAG_USER_NAME = "USER_NAME";
-
+    
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
@@ -35,13 +30,11 @@ public class UsersActivity extends ProfilesActivity
         /* Iniciar manejadores, cargar usuario actual */
         try {
             mSettings = SettingsManager.getInstance();
-            mCurrentProfile = mSettings.getCurrentUser();
+            mCurrentUser = mSettings.getCurrentUser();
         } catch (SettingsException e) {
             Log.e(TAG, e.getMessage());
         }
         
-        /* Ajustar vista al usuario actual */
-        mTitleText.setText(mResources.getString(R.string.current));
         
         /* Iniciar listeners */
         selectProfileListener = new OnItemClickListener() {
@@ -66,24 +59,36 @@ public class UsersActivity extends ProfilesActivity
             public void onClick(View v) {
                 Intent intent = new Intent(UsersActivity.this,
                                            UserAddEditActivity.class);
-                UsersActivity.this.startActivity(intent);
+                startActivity(intent);
             }
         };
+
+        /* Ajustar vista al usuario actual */
+        mAddButton.setText(mResources.getString(R.string.user));
+        mCurrentUserText.setText(mCurrentUser.getName());
+        mCurrentUserPhoto.setImageDrawable(mCurrentUser.getPhoto());
+        mCurrentUseProfileText.setText(mCurrentUser.getUseProfileName());
+        mCurrentDeviceProfileText.setText(mCurrentUser.getDeviceProfileName());
     }
     
-    public void updateCurrentUserView()
+    public void updateCurrentProfileView()
     {
         User c = mSettings.getCurrentUser();
-        if( !c.getName().equals(mCurrentProfile.getName()) ){
-            mCurrentProfile = c;
-            mCurrentProfileText.setText(c.getName());
-            mCurrentProfileImage.setImageDrawable(c.getPhoto());
+        if( !c.getName().equals(mCurrentUser.getName()) ){
+            mCurrentUser = c;
+            mCurrentUserText.setText(c.getName());
+            mCurrentUseProfileText.setText(c.getUseProfileName());
+            mCurrentDeviceProfileText.setText(c.getDeviceProfileName());
+            mCurrentUserPhoto.setImageDrawable(c.getPhoto());
         }
     }
     
     /* Rendimiento MUY mejorable: debería actualizar solo cuando hay cambios */
     public void updateListView()
     {
+        String useProfile = mResources.getString(R.string.useProfile) + ": ",
+               deviceProfile = mResources.getString(R.string.deviceProfile) + ": ";
+        
         // Usuarios personalizados
         Collection<User> customUsers = (Collection<User>) mSettings.getCustomUsers();
         List<DetailedViewModel> customs = new ArrayList<DetailedViewModel>();
@@ -91,7 +96,8 @@ public class UsersActivity extends ProfilesActivity
             customs.add(new DetailedViewModel(
                     u.getName(),
                     u.getName(),
-                    u.getUseProfileName()+ "\n"+ u.getDeviceProfileName(),
+                    useProfile + u.getUseProfileName()+ "\n" +
+                        deviceProfile + u.getDeviceProfileName(),
                     u.getPhoto()));
         
         String defaultsSectionName = mResources.getString(R.string.defaults);
@@ -106,7 +112,8 @@ public class UsersActivity extends ProfilesActivity
                 defaults.add(new DetailedViewModel(
                         u.getName(),
                         u.getName(),
-                        u.getUseProfileName()+ "\n"+ u.getDeviceProfileName(),
+                        useProfile + u.getUseProfileName()+ "\n" +
+                            deviceProfile + u.getDeviceProfileName(),
                         u.getPhoto()));
             
             if(customs.size()>0)

@@ -29,7 +29,7 @@
     <!-- Welcome strings -->
     <string name="startButton">Comenzar</string>
     <string name="settingsButton">Ajustes</string>
-    <string name="infoButton">Acerca de</string>
+    <string name="about">Acerca de</string>
     <string name="autostartText1">comenzará en</string>
     <string name="autostartText2">segundos.</string>
     
@@ -41,9 +41,11 @@
         <string name="acknowledgements">Agradecimientos y créditos</string>
         <string name="artwork">Arte</string>
         <string name="artworkString">Icono y fondo por Jeremy Todaro\nAlgunos iconos originales\ndel Proyecto Oxygen</string>
-    	<string name="collaborators">Colaboradores</string>
     
     <!-- Settings strings -->
+    <string name="user">Usuario</string>
+    <string name="useProfile">Perfil de uso</string>
+    <string name="deviceProfile">Perfil de dispositivo</string>
     <string name="usersTab">Usuarios</string>
     <string name="useProfilesTab">Perfiles de uso</string>
     <string name="deviceProfilesTab">Perfiles de dispositivo</string>
@@ -53,31 +55,40 @@
         <string name="current">Actual:</string>
         <string name="customs">Personalizados</string>
         <string name="defaults">Por defecto</string>
+        <string name="settingsError">ERROR DE PREFERENCIAS. Por favor, póngase en contacto con el autor.</string>
     
         <!-- Users strings -->
+            <string name="addUser">Añadir usuario</string>
         	<!-- Add/Edit dialog -->
-        	<string name="addUser">Añadir usuario</string>
         	<string name="editUser">Editar usuario</string>
 	        <string name="userPhoto">Foto</string>
 	        <string name="name">Nombre</string>
 	        <string name="school">Centro</string>
-	        <string name="useProfile">Perfil de uso</string>
-	        <string name="deviceProfile">Perfil de\ndispositivo</string>
 	        <string name="autoStart">Entrada\nautomática</string>
 	        <string name="seconds">segundos</string>
         	
         	<string name="minimumTime">El tiempo mínimo es 5 segundos</string>
-        	<!-- Selection dialog -->
-        	<string name="user">Usuario</string>
+        	<string name="addUserOk">Usuario añadido</string>
+            <string name="editUserOk">Éxito al editar el usuario</string>
+            <string name="existingUserFail">El usuario ya existe</string>
+            <string name="emptyUserNameAndSchoolFail">Campos "Nombre" y "Centro" deben rellenarse</string>
         	
         	<!-- Deletion dialog -->
         	<string name="userDeletionQuestion">¿Está seguro que desea borrar el usuario</string>
+        	<string name="deleteUserOk">Éxito borrando usuario</string>
+            <string name="deleteUserFail">Error al borrar el usuario</string>
         	
         <!-- Use profiles strings -->
-        <string name="interaction">Interacción</string>
-        <string name="visualization">Visualización</string>
-        <string name="feedback">Realimentación</string>
-        <string name="soundVoice">Sonido y Voz</string>
+            <string name="addUseProfile">Añadir perfil de uso</string>
+            <!-- Selection dialog -->
+            <string name="chooseUseProfileFor">Elegir para</string>
+            
+            <!-- Add/Edit dialog -->
+	        <string name="interaction">Interacción</string>
+	        <string name="visualization">Visualización</string>
+	        <string name="feedback">Realimentación</string>
+	        <string name="soundVoice">Sonido y Voz</string>
+	        
             <!-- Interaction -->
             <string name="mainInteraction">Interacción principal</string>
                 <string name="touchInteraction">Táctil</string>
@@ -133,6 +144,7 @@
                 <string name="customVoice">Voz personalizada</string>
         
         <!-- Device profiles strings -->
+        <string name="addDeviceProfile">Añadir perfil de dispositivo</string>
         
             <!--  nothing yet -->
             

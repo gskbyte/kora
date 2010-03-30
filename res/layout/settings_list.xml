@@ -13,40 +13,62 @@
 		
 		style="@android:style/ButtonBar">
 		
-        <ImageView android:id="@+id/image"
+		<ImageView
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+           
+             android:src="@drawable/action_choose"/>
+		
+        <ImageView android:id="@+id/userPhoto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-          
-            android:layout_marginLeft="5dip"
+            android:layout_centerVertical="true"
+            android:paddingLeft="15dip"
+            
             android:src="@drawable/icon_user"/>
-            
-		<TextView android:id="@+id/title"
-	    	android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/image"
-		    
-			android:textColor="#000000"
-		    android:text="@string/current"/>
-            
-        <TextView android:id="@+id/text"
+        
+        <TextView android:id="@+id/userName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/image"
-            android:layout_toRightOf="@id/image"
+            android:layout_toRightOf="@id/userPhoto"
             android:maxLines="1"
             
             android:textColor="#000000"
-            android:textSize="20sp"
-            android:text="text goes here"/>
-	      		
-		<Button android:id="@+id/addButton"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_centerVertical="true"
-			android:layout_alignParentRight="true"
-			
-			android:text="@string/addButton"
-			android:drawableLeft="@drawable/action_add"/>
+            android:textSize="18sp"
+            android:text="User name here"/>
+            
+        <TextView android:id="@+id/useProfileName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/userName"
+            android:layout_below="@id/userName"
+            android:maxLines="1"
+            
+            android:textColor="#000000"
+            android:textSize="10sp"
+            android:text="Use profile here"/>
+        
+        <TextView android:id="@+id/deviceProfileName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/userName"
+            android:layout_below="@id/useProfileName"
+            android:paddingBottom="5dip"
+            android:maxLines="1"
+            
+            android:textColor="#000000"
+            android:textSize="10sp"
+            android:text="Device profile here"/>
+            
+        <Button android:id="@+id/addButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:maxWidth="120dip"
+            
+            android:text="@string/addButton"
+            android:drawableLeft="@drawable/action_add"/>
 	</RelativeLayout>
 	
 	<ListView android:id="@+id/listView"

@@ -3,7 +3,6 @@
 	android:layout_width="wrap_content"
 	android:layout_height="wrap_content"
 	android:layout_gravity="center"
-    android:gravity="center"
 	android:orientation="vertical">
     <LinearLayout
 	    android:layout_width="wrap_content"
@@ -12,7 +11,6 @@
 	    <Button android:id="@+id/chooseButton"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:layout_gravity="center"
 	        android:minWidth="150dip"
 	        
 	        android:drawableLeft="@drawable/action_choose"
@@ -21,7 +19,6 @@
 	    <Button android:id="@+id/editButton"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:layout_gravity="center"
 	        android:minWidth="150dip"
 	        
 	        android:drawableLeft="@drawable/action_edit"
@@ -35,7 +32,6 @@
 	    <Button android:id="@+id/copyButton"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:layout_gravity="center"
 	        android:minWidth="150dip"
 	        
 	        android:drawableLeft="@drawable/action_copy"
@@ -44,7 +40,6 @@
 	    <Button android:id="@+id/deleteButton"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:layout_gravity="center"
 	        android:minWidth="150dip"
 	        
 	        android:drawableLeft="@drawable/action_delete"

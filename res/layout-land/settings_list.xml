@@ -16,35 +16,52 @@
         
         style="@android:style/ButtonBar">
         
-        <TextView android:id="@+id/title"
+        <ImageView
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+           
+             android:src="@drawable/action_choose"/>
+             
+        <ImageView android:id="@+id/userPhoto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="5dip"
-            
-            android:textColor="#000000"
-            android:text="@string/current"/>
-            
-        <ImageView android:id="@+id/image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@id/title"
           
             android:src="@drawable/icon_user"/>
-            
-             
-        <TextView android:id="@+id/text"
+        
+        <TextView android:id="@+id/userName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_below="@id/image"
+            android:layout_below="@id/userPhoto"
             
             android:scrollHorizontally="true"
             
             android:textColor="#000000"
-            android:textSize="15sp"
-            android:text="text goes here"/>
+            android:textSize="18sp"
+            android:text="User name here"/>
+             
+        <TextView android:id="@+id/useProfileName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/userName"
+            android:layout_centerHorizontal="true"
+            android:maxLines="1"
+            
+            android:textColor="#000000"
+            android:textSize="12sp"
+            android:text="User profile here"/>
+            
+        <TextView android:id="@+id/deviceProfileName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/useProfileName"
+            android:layout_centerHorizontal="true"
+            android:maxLines="1"
+            
+            android:textColor="#000000"
+            android:textSize="12sp"
+            android:text="Device profile here"/>
             
 	    <Button android:id="@+id/addButton"
 	        android:layout_width="fill_parent"

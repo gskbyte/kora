@@ -41,6 +41,12 @@
             
         	<activity android:name=".settingsActivities.UseProfilesActivity"
 	              android:label="@string/useProfilesActivity"/>
+                <activity android:name=".settingsActivities.UseProfileSelectionActivity"
+                      android:theme="@android:style/Theme.Dialog"/>
+                <activity android:name=".settingsActivities.UseProfileAddEditActivity"
+                      android:theme="@android:style/Theme.Dialog"/>
+                <activity android:name=".settingsActivities.UseProfileCopyActivity"
+                      android:theme="@android:style/Theme.Dialog"/>
 	              
         	<activity android:name=".settingsActivities.DeviceProfilesActivity"
 	              android:label="@string/deviceProfilesActivity"/>

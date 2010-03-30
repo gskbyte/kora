@@ -33,13 +33,13 @@
     <!-- Welcome strings -->
     <string name="startButton">Start</string>
     <string name="settingsButton">Settings</string>
-    <string name="infoButton">Info</string>
+    <string name="about">About</string>
     <string name="autostartText1">will start on</string>
     <string name="autostartText2">seconds.</string>
     
         <!-- Information strings -->
     	<string name="version">Version</string>
-    	<string name="versionNumber">0.0.2</string>
+    	<string name="versionNumber">0.0.4</string>
     	<string name="scautProject">The Sc@ut Project</string>
     	<string name="author">Author</string>
     	<string name="projectSupervisor">Supervisor</string>
@@ -48,6 +48,9 @@
         <string name="artworkString">Main icon and background\nby Jeremy Todaro.\nSome original icons from\nOxygen Project.</string>
     
     <!-- Settings strings -->
+    <string name="user">User</string>
+    <string name="useProfile">Use profile</string>
+    <string name="deviceProfile">Device profile</string>
     <string name="usersTab">Users</string>
     <string name="useProfilesTab">Use profiles</string>
     <string name="deviceProfilesTab">Device profiles</string>
@@ -60,38 +63,36 @@
         <string name="settingsError">SETTINGS ERROR. Please contact author.</string>
     
         <!-- Users strings -->
-            <string name="currentUser">Current user:</string>
-            <string name="addUserOk">Added user</string>
-	        <string name="editUserOk">Success editing user</string>
-            <string name="deleteUserOk">Success deleting user</string>
-            <string name="deleteUserFail">Failed deleting user</string>
-            <string name="existingUserFail">User already exists</string>
-            <string name="emptyUserNameAndSchoolFail">Fields "Name" and "School" must be filled</string>
+            <string name="addUser">Add user</string>
 	        <!-- Add/Edit dialog -->
-	        <string name="addUser">Add user</string>
 	        <string name="editUser">Edit user</string>
 	        <string name="userPhoto">Photo</string>
 	        <string name="name">Name</string>
 	        <string name="school">School</string>
-	        <string name="useProfile">Use profile</string>
-	        <string name="deviceProfile">Device profile</string>
 	        <string name="autoStart">Autostart</string>
 	        <string name="seconds">seconds</string>
 	        
 	        <string name="minimumTime">Minimum time is 5 seconds</string>
-	        <!-- Selection dialog -->
-	        <string name="user">User</string>
+	        <string name="addUserOk">Added user</string>
+            <string name="editUserOk">Success editing user</string>
+	        <string name="existingUserFail">User already exists</string>
+            <string name="emptyUserNameAndSchoolFail">Fields "Name" and "School" must be filled</string>
 	        
 	        <!-- Deletion dialog -->
 	        <string name="userDeletionQuestion">Are you sure you want to delete user</string>
+            <string name="deleteUserOk">Success deleting user</string>
+            <string name="deleteUserFail">Failed deleting user</string>
         
         <!-- Use profiles strings -->
-        <string name="currentUseProfile">Current use profile for</string>
-        <string name="chooseUseProfileFor">Choose for</string>
-        <string name="interaction">Interaction</string>
-        <string name="visualization">Visualization</string>
-        <string name="feedback">Feedback</string>
-        <string name="soundVoice">Sound and voice</string>
+            <string name="addUseProfile">Add use profile</string>
+            <!-- Selection dialog -->
+            <string name="chooseUseProfileFor">Choose for</string>
+            
+            <!-- Add/Edit dialog -->
+	        <string name="interaction">Interaction</string>
+	        <string name="visualization">Visualization</string>
+	        <string name="feedback">Feedback</string>
+	        <string name="soundVoice">Sound and voice</string>
             <!-- Interaction -->
             <string name="mainInteraction">Main interaction</string>
                 <string name="touchInteraction">Touch interaction</string>
@@ -147,7 +148,7 @@
                 <string name="customVoice">Custom voice</string>
         
         <!-- Device profiles strings -->
-        <string name="currentDeviceProfile">Current device profile for</string>
+        <string name="addDeviceProfile">Add device profile</string>
         
             <!--  nothing yet -->
             
