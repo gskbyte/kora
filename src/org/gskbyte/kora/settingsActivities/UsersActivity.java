@@ -39,30 +39,50 @@ public class UsersActivity extends ProfilesActivity
         } catch (SettingsException e) {
             Log.e(TAG, e.getMessage());
         }
+        
         /* Ajustar vista al usuario actual */
         mTitleText.setText(mResources.getString(R.string.current));
-        mCurrentProfileText.setText(mCurrentProfile.getName());
-        mCurrentProfileImage.setImageDrawable(((User)mCurrentProfile).getPhoto());
         
-        /* Iniciar lista de perfiles */
-        updateList();
-        mListView.setAdapter(mAdapter);
-        
-        /* Asociar eventos */
-        mListView.setOnItemClickListener(selectProfileListener);
-        mAddButton.setOnClickListener(addProfileListener);
-    }
-    
+        /* Iniciar listeners */
+        selectProfileListener = new OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view, int position,
+                    long id)
+            {
+                Intent intent = new Intent(UsersActivity.this,
+                        UserSelectionActivity.class);
+                
+                mAdapter.setSelected(position);
+                DetailedViewModel selected_model = 
+                    (DetailedViewModel) mAdapter.getItem(position);
+                mSelectedProfileName = selected_model.tag();
+                intent.putExtra(TAG_USER_NAME, mSelectedProfileName);
 
-    public void updateView()
-    {
-        updateList();
-        // actualizar vista de usuario
-        //mCurrentProfile = mSettings.getCurrentUser();
-        //mCurrentProfileText.setText(mCurrentProfile.getName());
+                UsersActivity.this.startActivity(intent);
+            }
+    
+        };
+        
+        addProfileListener = new OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(UsersActivity.this,
+                                           UserAddEditActivity.class);
+                UsersActivity.this.startActivity(intent);
+            }
+        };
     }
     
-    public void updateList()
+    public void updateCurrentUserView()
+    {
+        User c = mSettings.getCurrentUser();
+        if( !c.getName().equals(mCurrentProfile.getName()) ){
+            mCurrentProfile = c;
+            mCurrentProfileText.setText(c.getName());
+            mCurrentProfileImage.setImageDrawable(c.getPhoto());
+        }
+    }
+    
+    /* Rendimiento MUY mejorable: debería actualizar solo cuando hay cambios */
+    public void updateListView()
     {
         // Usuarios personalizados
         Collection<User> customUsers = (Collection<User>) mSettings.getCustomUsers();
@@ -100,35 +120,4 @@ public class UsersActivity extends ProfilesActivity
         
         mAdapter.notifyDataSetChanged();
     }
-    
-    
-    protected OnItemClickListener selectProfileListener = new OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View view, int position,
-                    long id)
-            {
-                Intent intent = new Intent(UsersActivity.this,
-                        UserSelectionActivity.class);
-                
-                mAdapter.setSelected(position);
-                DetailedViewModel selected_model = 
-                    (DetailedViewModel) mAdapter.getItem(position);
-                mSelectedProfileName = selected_model.tag();
-                intent.putExtra(TAG_USER_NAME, mSelectedProfileName);
-
-                UsersActivity.this.startActivity(intent);
-            }
-    
-        };
-    
-    protected OnClickListener addProfileListener = new OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(UsersActivity.this,
-                                           UserAddEditActivity.class);
-                UsersActivity.this.startActivity(intent);
-            }
-        };
-
-    
-    
-    
 }

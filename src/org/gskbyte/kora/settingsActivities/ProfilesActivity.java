@@ -73,13 +73,31 @@ public abstract class ProfilesActivity extends Activity
 
         /* Iniciar adaptadores de listas */
         mAdapter=new SectionedListAdapter(this);
+        mListView.setAdapter(mAdapter);
+	}
+	
+	public void onStart()
+	{
+	    super.onStart();
+        
+        /* Asociar eventos */
+	    mListView.setOnItemClickListener(selectProfileListener);
+	    mAddButton.setOnClickListener(addProfileListener);
 	}
 	
 	public void onResume()
 	{
-	    super.onStart();
-	    updateView();
+	    super.onResume();
+	    
+        /* Actualizar vista */
+	    updateCurrentUserView();
+        updateListView();
 	}
 	
-	public abstract void updateView();
+    public abstract void updateCurrentUserView();
+	public abstract void updateListView();
+	
+    protected OnItemClickListener selectProfileListener;
+    protected OnClickListener addProfileListener;
+
 }

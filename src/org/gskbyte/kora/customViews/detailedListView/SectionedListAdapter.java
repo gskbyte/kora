@@ -126,14 +126,8 @@ public class SectionedListAdapter extends ArrayAdapter<Object>
 
     public int getViewTypeCount()
     {
-        /*
-        // assume that headers count as one, then total all sections
-        int total = 1;
-        for(ArrayAdapter<?> adapter : this.sections.values())
-            total += adapter.getViewTypeCount();
-        return total;
-        */
-        return mModels.size();
+        /* Cabecera o contenido */
+        return 2;
     }
 
     public int getItemViewType(int position) {

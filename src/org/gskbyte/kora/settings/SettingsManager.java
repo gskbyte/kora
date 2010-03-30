@@ -7,6 +7,7 @@ import org.gskbyte.kora.R;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+
 public class SettingsManager
 {
     private static final String TAG = "SettingsManager";
@@ -25,6 +26,7 @@ public class SettingsManager
     private static SettingsManager instance = null;
     private static SharedPreferences sPreferences;
     
+    
     public final class SettingsException extends Exception
     {
         private static final long serialVersionUID = 1L;
@@ -40,13 +42,13 @@ public class SettingsManager
         
         private SettingsException(){;}// para invalidarlo
         
-        public SettingsException(int type, Class affected)
+        private SettingsException(int type, Class affected)
         {
             this.type = type;
             this.affected = affected;
         }
         
-        public void addDependency(String dep)
+        private void addDependency(String dep)
         {
             if(dependencies==null)
                 dependencies = new ArrayList<String>();
@@ -159,13 +161,13 @@ public class SettingsManager
            u == null || u.getName() == null || u.getName().length()==0)
             throw new SettingsException(SettingsException.BAD, User.class);
         
-        
-        
         if(!previous_name.equals(u.getName()))
             if(existsUser(u.getName()))
                 throw new SettingsException(SettingsException.EXISTS, User.class);
         removeUser(previous_name);
         addUser(u); // nunca lanzará excepción
+        if(sCurrentUser.getName().equals(previous_name))
+            sCurrentUser = u;
     }
     
     public void removeUser(String name) throws SettingsException
