@@ -21,7 +21,7 @@ public class UserSelectionActivity extends Activity
     {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_LEFT_ICON);
-        setContentView(R.layout.add_edit_user_dialog);
+        setContentView(R.layout.user_add_edit);
            
         resources = getResources();
         //activity = (UsersActivity) context;

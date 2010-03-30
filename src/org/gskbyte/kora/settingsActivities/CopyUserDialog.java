@@ -36,7 +36,7 @@ public class CopyUserDialog extends AlertDialog
         mActivity = (UsersActivity) context;
         mResources = context.getResources();
         
-        View v = View.inflate(context, R.layout.copy_user_dialog, null);
+        View v = View.inflate(context, R.layout.user_copy, null);
         mPhotoButton = (ImageButton) v.findViewById(R.id.photoButton);
         mNameEdit = (EditText) v.findViewById(R.id.userNameEdit);
         mSchoolEdit = (EditText) v.findViewById(R.id.userSchoolEdit);

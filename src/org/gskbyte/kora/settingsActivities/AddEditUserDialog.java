@@ -43,7 +43,7 @@ public class AddEditUserDialog extends AlertDialog
         mActivity = (UsersActivity) context;
         mResources = context.getResources();
         
-        View v = View.inflate(context, R.layout.add_edit_user_dialog, null);
+        View v = View.inflate(context, R.layout.user_add_edit, null);
         mPhotoButton = (ImageButton) v.findViewById(R.id.photoButton);
         mNameEdit = (EditText) v.findViewById(R.id.userNameEdit);
         mSchoolEdit = (EditText) v.findViewById(R.id.userSchoolEdit);

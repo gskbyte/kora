@@ -47,7 +47,7 @@ public class UserAddEditActivity extends Activity
     {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_LEFT_ICON);
-        setContentView(R.layout.add_edit_user_dialog);
+        setContentView(R.layout.user_add_edit);
            
         mPhotoButton = (ImageButton) findViewById(R.id.photoButton);
         mNameEdit = (EditText) findViewById(R.id.userNameEdit);

@@ -104,7 +104,7 @@
             android:numeric="integer"/>
     </RelativeLayout>
      
-     <include
+    <include
         layout="@layout/ok_cancel_bar"/>
         
 </LinearLayout>

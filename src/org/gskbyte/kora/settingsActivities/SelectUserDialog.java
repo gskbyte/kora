@@ -24,7 +24,7 @@ public class SelectUserDialog extends AlertDialog
         resources = context.getResources();
         activity = (UsersActivity) context;
         
-        View v = View.inflate(context, R.layout.select_user_dialog, null);
+        View v = View.inflate(context, R.layout.user_select, null);
         chooseButton = (Button) v.findViewById(R.id.chooseButton);
         copyButton = (Button) v.findViewById(R.id.copyButton);
         editButton = (Button) v.findViewById(R.id.editButton);
