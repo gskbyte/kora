@@ -186,7 +186,6 @@ public class SettingsManager
         User u = getUser(name);
         /* ¡Cambiar perfiles */
         
-        // se hace después para evitar excepciones
         sCurrentUser = u;
         sCurrentUseProfile = getUseProfile(u.getUseProfileName());
         //sCurrentDeviceProfile = getDeviceProfile(u.getDeviceProfileName());
@@ -225,13 +224,13 @@ public class SettingsManager
                 SettingsDbAdapter.USEPROFILE_ISDEFAULT + "=" + 0);
     }
     
-    public void addUseProfile(UseProfile u) throws SettingsException
+    public void addUseProfile(UseProfile up) throws SettingsException
     {
-        /*if(u == null || u.getName() == null || u.getName().length()==0)
-            throw new SettingsException(SettingsException.BAD, User.class);
+        if(up == null || up.getName() == null || up.getName().length()==0)
+            throw new SettingsException(SettingsException.BAD, UseProfile.class);
         // Comprobar que los perfiles son correctos!
-        if(!mDbAdapter.addUseProfile(u))
-            throw new SettingsException(SettingsException.EXISTS, User.class);*/
+        if(!sDbAdapter.addUseProfile(up))
+            throw new SettingsException(SettingsException.EXISTS, UseProfile.class);
     }
     
     public void editUseProfile(String previous_name, UseProfile u) throws SettingsException

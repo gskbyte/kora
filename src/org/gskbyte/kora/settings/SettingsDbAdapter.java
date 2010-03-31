@@ -331,14 +331,55 @@ public class SettingsDbAdapter
         return u;
     }
     
-    public boolean addUseProfile(UseProfile u)
+    public boolean addUseProfile(UseProfile up)
     {
-        return true;
+        try{                   
+            mDb.execSQL("INSERT INTO "+TABLE_USEPROFILE+" VALUES"+
+                "("+
+                    "'"+up.name+"'"+","+
+                    (up.isDefault ? 1 : 0)+ ","+
+                    up.mainInteraction + ","+
+                    up.touchMode + ","+
+                    up.focusTimeMillis + ","+
+                    up.voiceInteraction + ","+
+                    up.viewMode + ","+
+                    up.rows + ","+
+                    up.columns + ","+
+                    (up.text ? 1 : 0) + ","+
+                    up.fontSize + ","+
+                    up.typography + ","+
+                    up.iconMode + ","+
+                    up.paginationMode + ","+
+                    (up.vibration ? 1 : 0) + ","+
+                    (up.confirmation ? 1 : 0) + ","+
+                    up.confirmationTimeMillis + ","+
+                    up.contentHighlight + ","+
+                    (up.borderHighlight ? 1 : 0) + ","+
+                    up.soundMode + ","+
+                    (up.soundOnSelection ? 1 : 0) + ","+
+                    (up.soundOnHover ? 1 : 0) +
+                ");");
+            return true;
+        } catch (Exception e){
+            if(up != null)
+                Log.w(TAG, "Error adding user "+up.getName());
+            else
+                Log.w(TAG, "Error adding null user");
+            return false;
+        }
     }
     
-    public int removeUseProfile(String name)
+    public boolean removeUseProfile(String name)
     {
-        return 0;
+        try{    
+            
+            mDb.execSQL("DELETE FROM "+TABLE_USEPROFILE+
+                    " WHERE "+USEPROFILE_NAME+"='"+name+"';");
+            return true;
+        } catch (Exception e){
+            Log.w(TAG, "Error deleting use profile "+name);
+            return false;
+        }
     }
     
     public List<DeviceProfile> getDeviceProfiles(String selection)
@@ -371,8 +412,7 @@ public class SettingsDbAdapter
     
     private UseProfile cursor2UseProfile(Cursor c)
     {
-        UseProfile u = new UseProfile();
-        u.name = c.getString(0);
+        UseProfile u = new UseProfile(c.getString(0));
         u.isDefaultProfile = c.getInt(1) == 1 ? true : false;
         
         u.mainInteraction = c.getInt(2);

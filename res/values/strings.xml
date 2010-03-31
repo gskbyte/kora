@@ -89,10 +89,16 @@
             <string name="chooseUseProfileFor">Choose for</string>
             
             <!-- Add/Edit dialog -->
+            <string name="editUseProfile">Edit use profile</string>
 	        <string name="interaction">Interaction</string>
 	        <string name="visualization">Visualization</string>
 	        <string name="feedback">Feedback</string>
 	        <string name="soundVoice">Sound and voice</string>
+	        <string name="addUseProfileOk">Added use profile</string>
+            <string name="editUseProfileOk">Success editing use profile</string>
+            <string name="existingUseProfileFail">Use profile already exists</string>
+            <string name="emptyUseProfileNameFail">Field "Name" must be filled</string>
+	        
             <!-- Interaction -->
             <string name="mainInteraction">Main interaction</string>
                 <string name="touchInteraction">Touch interaction</string>

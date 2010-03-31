@@ -31,7 +31,7 @@
             </intent-filter>
         </activity>
         	<activity android:name=".settingsActivities.users.UsersActivity"
-	              android:label="@string/usersActivity"/>
+	                  android:label="@string/usersActivity"/>
                 <activity android:name=".settingsActivities.users.SelectionActivity"
                       android:theme="@android:style/Theme.Dialog"/>
 	        	<activity android:name=".settingsActivities.users.AddEditActivity"
@@ -40,12 +40,14 @@
                       android:theme="@android:style/Theme.Dialog"/>
             
         	<activity android:name=".settingsActivities.useProfiles.UseProfilesActivity"
-	              android:label="@string/useProfilesActivity"/>
+	                  android:label="@string/useProfilesActivity"/>
                 <activity android:name=".settingsActivities.useProfiles.SelectionActivity"
                       android:theme="@android:style/Theme.Dialog"
                       android:icon="@drawable/icon_use_profile"/>
                 <activity android:name=".settingsActivities.useProfiles.AddEditActivity"
                       android:theme="@android:style/Theme.Dialog"/>
+	                <activity android:name=".settingsActivities.useProfiles.InteractionActivity"
+	                      android:theme="@android:style/Theme.Dialog"/>
                 <activity android:name=".settingsActivities.useProfiles.CopyActivity"
                       android:theme="@android:style/Theme.Dialog"/>
 	              

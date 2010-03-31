@@ -4,6 +4,7 @@ import org.gskbyte.kora.R;
 import org.gskbyte.kora.settings.SettingsManager;
 import org.gskbyte.kora.settings.User;
 import org.gskbyte.kora.settings.SettingsManager.SettingsException;
+import org.gskbyte.kora.settingsActivities.ProfilesActivity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -81,7 +82,7 @@ public class AddEditActivity extends Activity
         try {
             Bundle extras = getIntent().getExtras();
             if(extras != null){
-                String userName = extras.getString(UsersActivity.TAG_USER_NAME);
+                String userName = extras.getString(ProfilesActivity.TAG_USER_NAME);
                 mCurrentUser = mSettings.getUser(userName);
             } else {
                 mCurrentUser = null;
@@ -91,6 +92,7 @@ public class AddEditActivity extends Activity
             Toast.makeText(this, 
                     "ERROR LOADING USER. Please contact author.",
                     Toast.LENGTH_LONG);
+            finish();
         }
         
         setView();
@@ -99,7 +101,8 @@ public class AddEditActivity extends Activity
     public void setView()
     {
         if(mCurrentUser == null){
-            getWindow().setFeatureDrawableResource(Window.FEATURE_LEFT_ICON, R.drawable.action_add);
+            getWindow().setFeatureDrawableResource(Window.FEATURE_LEFT_ICON,
+                                                   R.drawable.action_add);
             setTitle(R.string.addUser);
             
             //mPhotoButton.setD
@@ -109,7 +112,8 @@ public class AddEditActivity extends Activity
             populateSpinners();
             
         } else {
-            getWindow().setFeatureDrawableResource(Window.FEATURE_LEFT_ICON, R.drawable.action_edit);
+            getWindow().setFeatureDrawableResource(Window.FEATURE_LEFT_ICON,
+                                                   R.drawable.action_edit);
             setTitle(mResources.getString(R.string.editUser)+ ": " +
                     mCurrentUser.getName());
             

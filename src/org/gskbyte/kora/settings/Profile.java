@@ -7,7 +7,7 @@ import android.os.Parcelable;
 public abstract class Profile implements Comparable<Profile>, Serializable
 {
     String name;
-    protected boolean isDefault;
+    protected Boolean isDefault = false;
     
     public String getName()
     {

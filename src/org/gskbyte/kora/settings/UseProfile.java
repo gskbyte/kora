@@ -83,9 +83,8 @@ public class UseProfile extends Profile
     public boolean soundOnSelection = true;
     public boolean soundOnHover = true;
     
-    
-    
-    public UseProfile(){
-        
+    public UseProfile(String name)
+    {
+        this.name = name;
     }
 }
