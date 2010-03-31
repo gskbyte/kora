@@ -1,4 +1,4 @@
-package org.gskbyte.kora.settingsActivities;
+package org.gskbyte.kora.settingsActivities.useProfiles;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -7,32 +7,37 @@ import java.util.List;
 import org.gskbyte.kora.R;
 import org.gskbyte.kora.customViews.detailedListView.DetailedViewModel;
 import org.gskbyte.kora.settings.SettingsManager;
+import org.gskbyte.kora.settings.UseProfile;
 import org.gskbyte.kora.settings.User;
 import org.gskbyte.kora.settings.SettingsManager.SettingsException;
+import org.gskbyte.kora.settingsActivities.ProfilesActivity;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
-public class UsersActivity extends ProfilesActivity
+public class UseProfilesActivity extends ProfilesActivity
 {
     private static final String TAG = "UsersActivity";
+    
+    private User mCurrentUser;
+    private UseProfile mCurrentUseProfile;
     
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-
-        /* Terminar de ajustar vista */
-        mAddButton.setText(mResources.getString(R.string.user));
         
         /* Iniciar manejadores, cargar usuario actual */
         try {
             mSettings = SettingsManager.getInstance();
             mCurrentUser = mSettings.getCurrentUser();
+            mCurrentUseProfile = mSettings.getCurrentUseProfile();
         } catch (SettingsException e) {
             Log.e(TAG, e.getMessage());
         }
@@ -43,61 +48,62 @@ public class UsersActivity extends ProfilesActivity
             public void onItemClick(AdapterView<?> parent, View view, int position,
                     long id)
             {
-                Intent intent = new Intent(UsersActivity.this,
-                        UserSelectionActivity.class);
+                Intent intent = new Intent(UseProfilesActivity.this,
+                        SelectionActivity.class);
                 
                 mAdapter.setSelected(position);
                 DetailedViewModel selected_model = 
                     (DetailedViewModel) mAdapter.getItem(position);
                 mSelectedProfileName = selected_model.tag();
-                intent.putExtra(TAG_USER_NAME, mSelectedProfileName);
+                intent.putExtra(TAG_USEPROFILE_NAME, mSelectedProfileName);
 
-                UsersActivity.this.startActivity(intent);
+                UseProfilesActivity.this.startActivity(intent);
             }
     
         };
         
         addProfileListener = new OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(UsersActivity.this,
-                                           UserAddEditActivity.class);
+                Intent intent = new Intent(UseProfilesActivity.this,
+                                           AddEditActivity.class);
                 startActivity(intent);
             }
         };
+
+        /* Ajustar vista al usuario actual */
+        mAddButton.setText(mResources.getString(R.string.useProfile));
+        mCurrentUserText.setText(mCurrentUser.getName());
+        mCurrentUserPhoto.setImageDrawable(mCurrentUser.getPhoto());
+        mCurrentUseProfileText.setText(mCurrentUser.getUseProfileName());
+        mCurrentDeviceProfileText.setText(mCurrentUser.getDeviceProfileName());
     }
     
-    /* Rendimiento MUY mejorable: debería actualizar solo cuando hay cambios */
     public void updateListView()
     {
-        String useProfile = mResources.getString(R.string.useProfile) + ": ",
-               deviceProfile = mResources.getString(R.string.deviceProfile) + ": ";
+        /* See updateListView() on UsersActivity */
+        Collection<UseProfile> customUseProfiles =
+            (Collection<UseProfile>) mSettings.getCustomUseProfiles();
+        Drawable icon = mResources.getDrawable(R.drawable.icon_use_profile);
         
-        // Usuarios personalizados
-        Collection<User> customUsers = (Collection<User>) mSettings.getCustomUsers();
         List<DetailedViewModel> customs = new ArrayList<DetailedViewModel>();
-        for(User u : customUsers)
+        for(UseProfile up : customUseProfiles)
             customs.add(new DetailedViewModel(
-                    u.getName(),
-                    u.getName(),
-                    useProfile + u.getUseProfileName()+ "\n" +
-                        deviceProfile + u.getDeviceProfileName(),
-                    u.getPhoto()));
+                    up.getName(),
+                    up.getName(),
+                    "",
+                    null));
         
         String defaultsSectionName = mResources.getString(R.string.defaults);
-        // Si no existe la sección de perfiles por defecto, es que no hay nada.
-        // Crearlo todo entonces, en caso contrario borrar los personalizados
-        // y meter los nuevos
         if(mAdapter.getSectionIndex(defaultsSectionName) == -1){
-            // Usuarios por defecto
-            Collection<User> defaultUsers = (Collection<User>) mSettings.getDefaultUsers();
+            Collection<UseProfile> defaultUseProfiles =
+                (Collection<UseProfile>) mSettings.getDefaultUseProfiles();
             List<DetailedViewModel> defaults = new ArrayList<DetailedViewModel>();
-            for(User u : defaultUsers)
+            for(UseProfile up : defaultUseProfiles)
                 defaults.add(new DetailedViewModel(
-                        u.getName(),
-                        u.getName(),
-                        useProfile + u.getUseProfileName()+ "\n" +
-                            deviceProfile + u.getDeviceProfileName(),
-                        u.getPhoto()));
+                        up.getName(),
+                        up.getName(),
+                        "",
+                        null));
             
             if(customs.size()>0)
                 mAdapter.addSection(mResources.getString(R.string.customs), customs);
@@ -110,4 +116,5 @@ public class UsersActivity extends ProfilesActivity
         
         mAdapter.notifyDataSetChanged();
     }
+
 }

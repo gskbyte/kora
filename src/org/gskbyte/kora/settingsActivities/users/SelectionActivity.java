@@ -1,4 +1,4 @@
-package org.gskbyte.kora.settingsActivities;
+package org.gskbyte.kora.settingsActivities.users;
 
 import org.gskbyte.kora.R;
 import org.gskbyte.kora.settings.SettingsManager;
@@ -18,7 +18,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.Toast;
 
-public class UserSelectionActivity extends Activity
+public class SelectionActivity extends Activity
 {
     private static final String TAG = "UserSelectionActivity";
     
@@ -99,7 +99,7 @@ public class UserSelectionActivity extends Activity
                     mSettings.setCurrentUser(mSelectedUser.getName());
                 } catch (SettingsException e) {
                     Log.e(TAG, e.getMessage());
-                    Toast.makeText(UserSelectionActivity.this, 
+                    Toast.makeText(SelectionActivity.this, 
                         "USER NOT FOUND: "+mSelectedUser.getName(),
                         Toast.LENGTH_LONG).show();
                 }
@@ -110,11 +110,11 @@ public class UserSelectionActivity extends Activity
             @Override
             public void onClick(View v)
             {
-                Intent intent = new Intent(UserSelectionActivity.this,
-                        UserCopyActivity.class);
+                Intent intent = new Intent(SelectionActivity.this,
+                        CopyActivity.class);
                 intent.putExtra(UsersActivity.TAG_USER_NAME,
                         mSelectedUser.getName());
-                UserSelectionActivity.this.startActivity(intent);
+                SelectionActivity.this.startActivity(intent);
                 finish();
             }
         };
@@ -124,11 +124,11 @@ public class UserSelectionActivity extends Activity
             @Override
             public void onClick(View v)
             {
-                Intent intent = new Intent(UserSelectionActivity.this,
-                        UserAddEditActivity.class);
+                Intent intent = new Intent(SelectionActivity.this,
+                        AddEditActivity.class);
                 intent.putExtra(UsersActivity.TAG_USER_NAME,
                         mSelectedUser.getName());
-                UserSelectionActivity.this.startActivity(intent);
+                SelectionActivity.this.startActivity(intent);
                 finish();
             }
         };
@@ -138,7 +138,7 @@ public class UserSelectionActivity extends Activity
             public void onClick(View v)
             {
                 if(mDeleteDialog==null){
-                    AlertDialog.Builder builder = new AlertDialog.Builder(UserSelectionActivity.this);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(SelectionActivity.this);
                     builder.setMessage(
                             mResources.getString(R.string.userDeletionQuestion)+
                             " " + mSelectedUser.getName() + "?")
@@ -149,11 +149,11 @@ public class UserSelectionActivity extends Activity
                                 public void onClick(DialogInterface dialog, int id) {
                                     try{
                                         mSettings.removeUser(mSelectedUser.getName());
-                                        Toast.makeText(UserSelectionActivity.this, 
+                                        Toast.makeText(SelectionActivity.this, 
                                                 mResources.getString(R.string.deleteUserOk) + ":"  +
                                                 mSelectedUser.getName(), Toast.LENGTH_SHORT).show();
                                     }catch (SettingsManager.SettingsException e){
-                                        Toast.makeText(UserSelectionActivity.this,
+                                        Toast.makeText(SelectionActivity.this,
                                                 mResources.getString(R.string.deleteUserFail) + ":"  +
                                                 mSelectedUser.getName(), Toast.LENGTH_SHORT).show();
                                     }

@@ -1,4 +1,4 @@
-package org.gskbyte.kora.settingsActivities;
+package org.gskbyte.kora.settingsActivities.useProfiles;
 
 import org.gskbyte.kora.R;
 
@@ -6,7 +6,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Window;
 
-public class UseProfileAddEditActivity extends Activity
+public class AddEditActivity extends Activity
 {
     private static final String TAG = "UseProfileAddEditActivity";
     

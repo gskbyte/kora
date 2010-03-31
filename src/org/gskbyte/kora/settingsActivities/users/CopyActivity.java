@@ -1,4 +1,4 @@
-package org.gskbyte.kora.settingsActivities;
+package org.gskbyte.kora.settingsActivities.users;
 
 import org.gskbyte.kora.R;
 import org.gskbyte.kora.settings.SettingsManager;
@@ -17,7 +17,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class UserCopyActivity extends Activity
+public class CopyActivity extends Activity
 {
     private static final String TAG = "UserCopyActivity";
     private User mCurrentUser;
@@ -115,7 +115,7 @@ public class UserCopyActivity extends Activity
                     
                     try{
                         mSettings.addUser(u);
-                        Toast.makeText(UserCopyActivity.this, 
+                        Toast.makeText(CopyActivity.this, 
                                 mResources.getString(R.string.addUserOk) +
                                 ": "+u.getName(), Toast.LENGTH_SHORT).show();
                     } catch (SettingsManager.SettingsException e){
@@ -144,7 +144,7 @@ public class UserCopyActivity extends Activity
                     break;
                 }
                 
-                Toast.makeText(UserCopyActivity.this, s, Toast.LENGTH_SHORT).show();
+                Toast.makeText(CopyActivity.this, s, Toast.LENGTH_SHORT).show();
                 if(result==0)
                     finish();
             }

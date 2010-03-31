@@ -1,4 +1,4 @@
-package org.gskbyte.kora.settingsActivities;
+package org.gskbyte.kora.settingsActivities.useProfiles;
 
 import org.gskbyte.kora.R;
 import org.gskbyte.kora.settings.SettingsManager;
@@ -19,7 +19,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.Toast;
 
-public class UseProfileSelectionActivity extends Activity
+public class SelectionActivity extends Activity
 {
     private static final String TAG = "UserSelectionActivity";
     

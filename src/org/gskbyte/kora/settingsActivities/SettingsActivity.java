@@ -1,6 +1,9 @@
 package org.gskbyte.kora.settingsActivities;
 
 import org.gskbyte.kora.R;
+import org.gskbyte.kora.settingsActivities.deviceProfiles.DeviceProfilesActivity;
+import org.gskbyte.kora.settingsActivities.useProfiles.UseProfilesActivity;
+import org.gskbyte.kora.settingsActivities.users.UsersActivity;
 
 import android.app.TabActivity;
 import android.content.Intent;
