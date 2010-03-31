@@ -4,7 +4,8 @@
 	android:layout_width="fill_parent"
 	android:layout_height="wrap_content"
 	android:orientation="vertical"
-	android:layout_gravity="center_horizontal">
+	android:layout_gravity="center_horizontal"
+	android:minWidth="200dip">
   
     <Button android:id="@+id/chooseButton"
         android:layout_width="wrap_content"
@@ -14,7 +15,7 @@
         
         android:drawableLeft="@drawable/action_choose"
         android:text="@string/choose"/>
-        
+    
     <Button android:id="@+id/copyButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -32,7 +33,7 @@
         
         android:drawableLeft="@drawable/action_edit"
         android:text="@string/edit"/>
-    
+        
     <Button android:id="@+id/deleteButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -44,5 +45,4 @@
     
     <include
         layout="@layout/return_bar"/>
-        
 </LinearLayout>

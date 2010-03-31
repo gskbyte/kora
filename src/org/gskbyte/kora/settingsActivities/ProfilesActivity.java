@@ -21,6 +21,10 @@ public abstract class ProfilesActivity extends Activity
 {
 	private static final String TAG = "ProfilesActivity";
 	
+    public static final String TAG_USER_NAME = "USER_NAME";
+    public static final String TAG_USEPROFILE_NAME = "USEPROFILE_NAME";
+    public static final String TAG_DEVICEPROFILE_NAME = "DEVICEPROFILE_NAME";
+
 	/* Request codes */
     public static final int ADD_REQUEST = 0;
     public static final int CHOOSE_REQUEST = 1;
@@ -87,7 +91,19 @@ public abstract class ProfilesActivity extends Activity
         updateListView();
 	}
 	
-    public abstract void updateCurrentProfileView();
+	/* TODO: ¡Actualizar SOLO si cambia algo! */
+	public void updateCurrentProfileView()
+    {
+        User c = mSettings.getCurrentUser();
+        //if( mSettings.hasCurrentUserChanged() ){
+            mCurrentUser = c;
+            mCurrentUserText.setText(c.getName());
+            mCurrentUseProfileText.setText(c.getUseProfileName());
+            mCurrentDeviceProfileText.setText(c.getDeviceProfileName());
+            mCurrentUserPhoto.setImageDrawable(c.getPhoto());
+        //}
+    }
+	
 	public abstract void updateListView();
 	
     protected OnItemClickListener selectProfileListener;

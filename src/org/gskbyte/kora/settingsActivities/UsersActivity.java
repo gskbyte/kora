@@ -21,11 +21,13 @@ import android.widget.AdapterView.OnItemClickListener;
 public class UsersActivity extends ProfilesActivity
 {
     private static final String TAG = "UsersActivity";
-    public static final String TAG_USER_NAME = "USER_NAME";
     
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
+        /* Terminar de ajustar vista */
+        mAddButton.setText(mResources.getString(R.string.user));
         
         /* Iniciar manejadores, cargar usuario actual */
         try {
@@ -62,25 +64,6 @@ public class UsersActivity extends ProfilesActivity
                 startActivity(intent);
             }
         };
-
-        /* Ajustar vista al usuario actual */
-        mAddButton.setText(mResources.getString(R.string.user));
-        mCurrentUserText.setText(mCurrentUser.getName());
-        mCurrentUserPhoto.setImageDrawable(mCurrentUser.getPhoto());
-        mCurrentUseProfileText.setText(mCurrentUser.getUseProfileName());
-        mCurrentDeviceProfileText.setText(mCurrentUser.getDeviceProfileName());
-    }
-    
-    public void updateCurrentProfileView()
-    {
-        User c = mSettings.getCurrentUser();
-        if( !c.getName().equals(mCurrentUser.getName()) ){
-            mCurrentUser = c;
-            mCurrentUserText.setText(c.getName());
-            mCurrentUseProfileText.setText(c.getUseProfileName());
-            mCurrentDeviceProfileText.setText(c.getDeviceProfileName());
-            mCurrentUserPhoto.setImageDrawable(c.getPhoto());
-        }
     }
     
     /* Rendimiento MUY mejorable: debería actualizar solo cuando hay cambios */

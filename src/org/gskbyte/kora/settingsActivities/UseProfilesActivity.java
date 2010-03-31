@@ -12,6 +12,7 @@ import org.gskbyte.kora.settings.User;
 import org.gskbyte.kora.settings.SettingsManager.SettingsException;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -23,7 +24,6 @@ import android.widget.AdapterView.OnItemClickListener;
 public class UseProfilesActivity extends ProfilesActivity
 {
     private static final String TAG = "UsersActivity";
-    public static final String TAG_USEPROFILE_NAME = "USEPROFILE_NAME";
     
     private User mCurrentUser;
     private UseProfile mCurrentUseProfile;
@@ -36,7 +36,7 @@ public class UseProfilesActivity extends ProfilesActivity
         try {
             mSettings = SettingsManager.getInstance();
             mCurrentUser = mSettings.getCurrentUser();
-            //mCurrentUseProfile = mSettings.getCurrentUseProfile();
+            mCurrentUseProfile = mSettings.getCurrentUseProfile();
         } catch (SettingsException e) {
             Log.e(TAG, e.getMessage());
         }
@@ -47,16 +47,16 @@ public class UseProfilesActivity extends ProfilesActivity
             public void onItemClick(AdapterView<?> parent, View view, int position,
                     long id)
             {
-                /*Intent intent = new Intent(UsersActivity.this,
-                        UserSelectionActivity.class);
+                Intent intent = new Intent(UseProfilesActivity.this,
+                        UseProfileSelectionActivity.class);
                 
                 mAdapter.setSelected(position);
                 DetailedViewModel selected_model = 
                     (DetailedViewModel) mAdapter.getItem(position);
                 mSelectedProfileName = selected_model.tag();
-                intent.putExtra(TAG_USER_NAME, mSelectedProfileName);
+                intent.putExtra(TAG_USEPROFILE_NAME, mSelectedProfileName);
 
-                UsersActivity.this.startActivity(intent);*/
+                UseProfilesActivity.this.startActivity(intent);
             }
     
         };
@@ -77,32 +77,43 @@ public class UseProfilesActivity extends ProfilesActivity
         mCurrentDeviceProfileText.setText(mCurrentUser.getDeviceProfileName());
     }
     
-    public void onStart()
-    {
-        super.onStart();
-        Toast.makeText(this, "START", Toast.LENGTH_SHORT);
-    }
-    
-    public void onResume()
-    {
-        super.onResume();
-        Toast.makeText(this, "RESUME", Toast.LENGTH_LONG);
-    }
-
-    public void updateCurrentProfileView()
-    {
-        /*User c = mSettings.getCurrentUser();
-        if( !c.getName().equals(mCurrentProfile.getName()) ){
-            mCurrentProfile = c;
-            mCurrentProfileText.setText(c.getName());
-            mCurrentProfileImage.setImageDrawable(c.getPhoto());
-        }*/
-    }
-    
-    /* Rendimiento MUY mejorable: debería actualizar solo cuando hay cambios */
     public void updateListView()
     {
+        /* See updateListView() on UsersActivity */
+        Collection<UseProfile> customUseProfiles =
+            (Collection<UseProfile>) mSettings.getCustomUseProfiles();
+        Drawable icon = mResources.getDrawable(R.drawable.icon_use_profile);
         
+        List<DetailedViewModel> customs = new ArrayList<DetailedViewModel>();
+        for(UseProfile up : customUseProfiles)
+            customs.add(new DetailedViewModel(
+                    up.getName(),
+                    up.getName(),
+                    "",
+                    null));
+        
+        String defaultsSectionName = mResources.getString(R.string.defaults);
+        if(mAdapter.getSectionIndex(defaultsSectionName) == -1){
+            Collection<UseProfile> defaultUseProfiles =
+                (Collection<UseProfile>) mSettings.getDefaultUseProfiles();
+            List<DetailedViewModel> defaults = new ArrayList<DetailedViewModel>();
+            for(UseProfile up : defaultUseProfiles)
+                defaults.add(new DetailedViewModel(
+                        up.getName(),
+                        up.getName(),
+                        "",
+                        null));
+            
+            if(customs.size()>0)
+                mAdapter.addSection(mResources.getString(R.string.customs), customs);
+            mAdapter.addSection(defaultsSectionName, defaults);
+        } else {
+            mAdapter.removeSection(mResources.getString(R.string.customs));
+            if(customs.size()>0)
+                mAdapter.addSection(0, mResources.getString(R.string.customs), customs);
+        }
+        
+        mAdapter.notifyDataSetChanged();
     }
 
 }

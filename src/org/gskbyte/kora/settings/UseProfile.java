@@ -52,7 +52,6 @@ public class UseProfile extends Profile
         
     }
     // General settings
-    public String name = "";
     public boolean isDefaultProfile = false;
     
     // Interaction settings

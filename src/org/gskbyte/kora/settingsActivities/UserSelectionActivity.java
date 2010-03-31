@@ -24,7 +24,7 @@ public class UserSelectionActivity extends Activity
     
     private Resources mResources;
     private SettingsManager mSettings;
-    private User mCurrentUser;
+    private User mSelectedUser;
     private Button mChooseButton, mCopyButton, mEditButton, mDeleteButton,
                    mReturnButton;
     
@@ -66,8 +66,7 @@ public class UserSelectionActivity extends Activity
         try {
             Bundle extras = getIntent().getExtras();
             String userName = extras.getString(UsersActivity.TAG_USER_NAME);
-            mSettings = SettingsManager.getInstance();
-            mCurrentUser = mSettings.getUser(userName);
+            mSelectedUser = mSettings.getUser(userName);
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
             Toast.makeText(this, 
@@ -78,23 +77,14 @@ public class UserSelectionActivity extends Activity
         setView();
     }
     
-    public void onResume()
-    {
-        super.onResume();
-        Toast.makeText(this, 
-                "CACA.",
-                Toast.LENGTH_LONG);
-        /* Actualizar vista por si algo cambia */
-    }
-
     public void setView()
     {
         setTitle(mResources.getString(R.string.user) + ": " +
-                 mCurrentUser.getName());        
+                 mSelectedUser.getName());        
         getWindow().setFeatureDrawable(Window.FEATURE_LEFT_ICON,
-                                       mCurrentUser.getPhoto());
+                                       mSelectedUser.getPhoto());
         
-        boolean isCustom = mCurrentUser.isCustom();
+        boolean isCustom = mSelectedUser.isCustom();
         mEditButton.setEnabled(isCustom);
         mDeleteButton.setEnabled(isCustom);
     }
@@ -106,11 +96,11 @@ public class UserSelectionActivity extends Activity
             public void onClick(View v)
             {
                 try {
-                    mSettings.setCurrentUser(mCurrentUser.getName());
+                    mSettings.setCurrentUser(mSelectedUser.getName());
                 } catch (SettingsException e) {
                     Log.e(TAG, e.getMessage());
                     Toast.makeText(UserSelectionActivity.this, 
-                        "USER NOT FOUND: "+mCurrentUser.getName(),
+                        "USER NOT FOUND: "+mSelectedUser.getName(),
                         Toast.LENGTH_LONG).show();
                 }
                 finish();
@@ -123,7 +113,7 @@ public class UserSelectionActivity extends Activity
                 Intent intent = new Intent(UserSelectionActivity.this,
                         UserCopyActivity.class);
                 intent.putExtra(UsersActivity.TAG_USER_NAME,
-                        mCurrentUser.getName());
+                        mSelectedUser.getName());
                 UserSelectionActivity.this.startActivity(intent);
                 finish();
             }
@@ -137,7 +127,7 @@ public class UserSelectionActivity extends Activity
                 Intent intent = new Intent(UserSelectionActivity.this,
                         UserAddEditActivity.class);
                 intent.putExtra(UsersActivity.TAG_USER_NAME,
-                        mCurrentUser.getName());
+                        mSelectedUser.getName());
                 UserSelectionActivity.this.startActivity(intent);
                 finish();
             }
@@ -151,21 +141,21 @@ public class UserSelectionActivity extends Activity
                     AlertDialog.Builder builder = new AlertDialog.Builder(UserSelectionActivity.this);
                     builder.setMessage(
                             mResources.getString(R.string.userDeletionQuestion)+
-                            " " + mCurrentUser.getName() + "?")
+                            " " + mSelectedUser.getName() + "?")
                     .setIcon(mResources.getDrawable(R.drawable.icon_important))
                     .setCancelable(false)
                     .setPositiveButton(R.string.yes, 
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                     try{
-                                        mSettings.removeUser(mCurrentUser.getName());
+                                        mSettings.removeUser(mSelectedUser.getName());
                                         Toast.makeText(UserSelectionActivity.this, 
                                                 mResources.getString(R.string.deleteUserOk) + ":"  +
-                                                mCurrentUser.getName(), Toast.LENGTH_SHORT).show();
+                                                mSelectedUser.getName(), Toast.LENGTH_SHORT).show();
                                     }catch (SettingsManager.SettingsException e){
                                         Toast.makeText(UserSelectionActivity.this,
                                                 mResources.getString(R.string.deleteUserFail) + ":"  +
-                                                mCurrentUser.getName(), Toast.LENGTH_SHORT).show();
+                                                mSelectedUser.getName(), Toast.LENGTH_SHORT).show();
                                     }
                                     finish();
                                 }

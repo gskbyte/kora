@@ -7,8 +7,6 @@
 	<Button android:id="@+id/chooseButton"
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"
-	    android:layout_gravity="center"
-	    android:minWidth="150dip"
 	    
 	    android:drawableLeft="@drawable/action_choose"
 	    android:text="@string/chooseUseProfileFor"/>
@@ -22,23 +20,26 @@
 		<Button android:id="@+id/editButton"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:layout_gravity="center"
+            android:minWidth="100dip"
 	        
 	        android:drawableLeft="@drawable/action_edit"
 	        android:text="@string/edit"/>
         <Button android:id="@+id/copyButton"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:layout_gravity="center"
+            android:minWidth="100dip"
 	        
 	        android:drawableLeft="@drawable/action_copy"
 	        android:text="@string/copy"/>
         <Button android:id="@+id/deleteButton"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:layout_gravity="center"
+            android:minWidth="100dip"
 	        
 	        android:drawableLeft="@drawable/action_delete"
 	        android:text="@string/delete"/>
     </LinearLayout>
+    
+    <include
+        layout="@layout/return_bar"/>
 </LinearLayout>

@@ -188,6 +188,8 @@ public class SettingsManager
         
         // se hace después para evitar excepciones
         sCurrentUser = u;
+        sCurrentUseProfile = getUseProfile(u.getUseProfileName());
+        //sCurrentDeviceProfile = getDeviceProfile(u.getDeviceProfileName());
     }
     
     

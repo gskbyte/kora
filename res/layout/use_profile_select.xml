@@ -3,7 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_gravity="center"
+    android:orientation="vertical"
+    android:minWidth="200dip">
   
     <Button android:id="@+id/chooseButton"
         android:layout_width="wrap_content"
@@ -40,4 +42,8 @@
         
         android:drawableLeft="@drawable/action_delete"
         android:text="@string/delete"/>
+        
+        
+    <include
+        layout="@layout/return_bar"/>
 </LinearLayout>
