@@ -222,6 +222,26 @@ public class SettingsDbAdapter
         mDbHelper.close();
     }
     
+    public List<String> getUsersList()
+    {
+        Cursor cursor =
+            mDb.query(true, TABLE_USER, 
+                    new String[] {
+                        USER_NAME
+                        }, 
+                    null, null,
+                    null, null, USER_NAME, null);
+        List<String> names = new ArrayList<String>();
+        if (cursor != null) {
+            cursor.moveToFirst();
+            while(!cursor.isAfterLast()){
+                names.add(cursor.getString(0));
+                cursor.moveToNext();
+            }
+        }
+        return names;
+    }
+    
     public List<User> getUsers(String selection)
     {
         Cursor cursor =
@@ -285,6 +305,26 @@ public class SettingsDbAdapter
             Log.w(TAG, "Error deleting user "+name);
             return false;
         }
+    }
+    
+    public List<String> getUseProfilesList()
+    {
+        Cursor cursor =
+            mDb.query(true, TABLE_USEPROFILE, 
+                    new String[] {
+                        USEPROFILE_NAME
+                        }, 
+                    null, null,
+                    null, null, USEPROFILE_NAME, null);
+        List<String> names = new ArrayList<String>();
+        if (cursor != null) {
+            cursor.moveToFirst();
+            while(!cursor.isAfterLast()){
+                names.add(cursor.getString(0));
+                cursor.moveToNext();
+            }
+        }
+        return names;
     }
     
     public List<UseProfile> getUseProfiles(String selection)
@@ -380,6 +420,26 @@ public class SettingsDbAdapter
             Log.w(TAG, "Error deleting use profile "+name);
             return false;
         }
+    }
+    
+    public List<String> getDeviceProfilesList()
+    {
+        Cursor cursor =
+            mDb.query(true, TABLE_DEVICEPROFILE, 
+                    new String[] {
+                        DEVICEPROFILE_NAME
+                        }, 
+                    null, null,
+                    null, null, DEVICEPROFILE_NAME, null);
+        List<String> names = new ArrayList<String>();
+        if (cursor != null) {
+            cursor.moveToFirst();
+            while(!cursor.isAfterLast()){
+                names.add(cursor.getString(0));
+                cursor.moveToNext();
+            }
+        }
+        return names;
     }
     
     public List<DeviceProfile> getDeviceProfiles(String selection)

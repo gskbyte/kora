@@ -1,7 +1,12 @@
 package org.gskbyte.kora.settingsActivities.users;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.gskbyte.kora.R;
+import org.gskbyte.kora.settings.DeviceProfile;
 import org.gskbyte.kora.settings.SettingsManager;
+import org.gskbyte.kora.settings.UseProfile;
 import org.gskbyte.kora.settings.User;
 import org.gskbyte.kora.settings.SettingsManager.SettingsException;
 import org.gskbyte.kora.settingsActivities.ProfilesActivity;
@@ -14,6 +19,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.View.OnFocusChangeListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -129,9 +135,47 @@ public class AddEditActivity extends Activity
         }
     }
     
-    protected void populateSpinners()
+    void populateSpinners()
     {
+        // Pillar todos los perfiles de uso y de dispositivos
+        List<String> useProfilesList = mSettings.getUseProfilesList();
+        ArrayAdapter<String> uPAdapter =
+            new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,
+                    useProfilesList);
+        uPAdapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
+        mUseProfileSpinner.setAdapter(uPAdapter);
         
+        List<String> deviceProfilesList = mSettings.getDeviceProfilesList();
+        ArrayAdapter<String> dPAdapter =
+            new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,
+                    deviceProfilesList);
+        dPAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mDeviceProfileSpinner.setAdapter(dPAdapter);
+        
+        // Establecer el elemento elegido
+        String useProfileName, deviceProfileName;
+        if(mCurrentUser==null){
+            useProfileName = deviceProfileName = "Default";
+        } else {
+            useProfileName = mCurrentUser.getUseProfileName();
+            deviceProfileName = mCurrentUser.getDeviceProfileName();
+        }
+        
+        int useProfilePos = 0;
+        for(String s : useProfilesList){
+            if(s.equals(useProfileName))
+                break;
+            ++useProfilePos;
+        }
+        mUseProfileSpinner.setSelection(useProfilePos);
+        
+        int deviceProfilePos = 0;
+        for(String s : deviceProfilesList){
+            if(s.equals(deviceProfileName))
+                break;
+            ++deviceProfilePos;
+        }
+        mDeviceProfileSpinner.setSelection(deviceProfilePos);
     }
     
     /* Listeners */
@@ -188,8 +232,8 @@ public class AddEditActivity extends Activity
                 String name = mNameEdit.getText().toString(),
                        school = mSchoolEdit.getText().toString(),
                        timeString = mAutoStartEdit.getText().toString(),
-                       useProfile = "Default",
-                       deviceProfile = "Default";
+                       useProfile = (String)mUseProfileSpinner.getAdapter().getItem(mUseProfileSpinner.getSelectedItemPosition()),
+                       deviceProfile = (String)mDeviceProfileSpinner.getAdapter().getItem(mDeviceProfileSpinner.getSelectedItemPosition());
                 //Drawable photo = mPhotoButton.getDrawable();
                 boolean autoStart = mAutoStartCheckBox.isChecked();
                 int seconds = 10;

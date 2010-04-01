@@ -191,6 +191,10 @@ public class SettingsManager
         //sCurrentDeviceProfile = getDeviceProfile(u.getDeviceProfileName());
     }
     
+    public List<String> getUseProfilesList()
+    {
+        return sDbAdapter.getUseProfilesList();
+    }
     
     public boolean existsUseProfile(String name)
     {
@@ -259,6 +263,10 @@ public class SettingsManager
         return sCurrentUseProfile;
     }
     
+    public List<String> getDeviceProfilesList()
+    {
+        return sDbAdapter.getDeviceProfilesList();
+    }
     
     public boolean existsDeviceProfile(String name)
     {
