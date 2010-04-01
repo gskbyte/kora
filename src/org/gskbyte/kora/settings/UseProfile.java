@@ -5,9 +5,9 @@ public class UseProfile extends Profile
     // Interaction modes
     public class interaction{
         public static final int touch_mode = 0x0000;	
-        public static final int multitouch_and_drag = 0x0001;
-        public static final int touch_and_drag = 0x0002;
-        public static final int single_touch = 0x0003;
+        public static final int multitouch_and_drag = touch_mode;
+        public static final int press_and_drag = 0x0001;
+        public static final int simple_press = 0x0002;
         
         public static final int scan_mode = 0x0100;
         
@@ -56,8 +56,8 @@ public class UseProfile extends Profile
     
     // Interaction settings
     public int mainInteraction = interaction.touch_mode;
-    public int touchMode = interaction.multitouch_and_drag;
-    public int focusTimeMillis = 2500;
+    public int touchMode = interaction.press_and_drag;
+    public int scanTimeMillis = 2500;
     public int voiceInteraction = interaction.no_voice;
     
         

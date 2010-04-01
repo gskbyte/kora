@@ -7,7 +7,6 @@ import android.graphics.drawable.Drawable;
 public class User extends Profile implements Serializable
 {
     transient private static final long serialVersionUID = -486208937377205579L;
-
     transient private static Drawable defaultPhoto = null;
     
     private String school = "";

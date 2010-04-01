@@ -1,10 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="wrap_content"
-	android:layout_height="wrap_content">
-	
-    <include
-        layout="@layout/list_header"/>
-        
-</LinearLayout>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content">
+    
+    <include android:id="@+id/returnBar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        layout="@layout/ok_cancel_bar"/>
+    
+	<ScrollView
+        android:layout_width="fill_parent" 
+        android:layout_height="wrap_content"
+        android:layout_above="@id/returnBar">
+	<LinearLayout
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:orientation="vertical"
+		android:minWidth="250dip"
+		android:layout_margin="10dip">
+		
+		<TextView
+		    android:layout_width="fill_parent"  
+		    android:layout_height="wrap_content"
+		    style="?android:attr/listSeparatorTextViewStyle"
+		    
+		    android:text="@string/mainInteraction"/>
+	    
+		    <LinearLayout
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:orientation="vertical"
+		        android:paddingLeft="5dip">
+		    
+		    <RadioGroup android:id="@+id/mainInteractionRadioGroup"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:orientation="vertical">
+		    
+		        <RadioButton android:id="@+id/touchInteractionRadio"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+			        
+		            android:text="@string/touchInteraction"/>
+		           
+			       <RadioGroup android:id="@+id/touchRadioGroup"
+			           android:layout_width="wrap_content"
+			           android:layout_height="wrap_content"
+			           android:orientation="vertical"
+			           android:paddingLeft="10dip">
+		        
+				       <RadioButton android:id="@+id/multitouchRadio"
+			               android:layout_width="wrap_content"
+			               android:layout_height="wrap_content"
+                           android:enabled="false"
+			               
+			               android:textSize="12sp"
+			               android:text="@string/multitouchInteraction"/>
+		            
+		               <RadioButton android:id="@+id/pressAndDragRadio"
+			               android:layout_width="wrap_content"
+			               android:layout_height="wrap_content"
+                           android:enabled="false"
+			               
+                           android:textSize="12sp"
+			               android:text="@string/pressAndDragInteraction"/>
+		       
+			           <RadioButton android:id="@+id/simpleTouchRadio"
+			               android:layout_width="wrap_content"
+			               android:layout_height="wrap_content"
+                           android:enabled="false"
+			               
+                           android:textSize="12sp"
+			               android:text="@string/simpleTouchInteraction"/>
+	               </RadioGroup>
+		    
+		           <RadioButton android:id="@+id/scanInteractionRadio"
+		               android:layout_width="wrap_content"
+		               android:layout_height="wrap_content"
+		               
+		               android:text="@string/scanInteraction"/>
+		           
+				   <LinearLayout
+			           android:layout_width="wrap_content"
+			           android:layout_height="wrap_content"
+			           android:orientation="horizontal"
+			           android:paddingLeft="15dip"
+			           android:layout_gravity="center_vertical">
+		           
+			           <TextView android:id="@+id/scanSecondsText"
+			               android:layout_width="wrap_content"
+			               android:layout_height="wrap_content"
+			               android:layout_marginRight="10dip"
+                           android:enabled="false"
+			               
+			               android:text="@string/scanTime"/>
+		           
+			           <EditText android:id="@+id/scanSecondsEdit"
+			               android:layout_width="wrap_content"
+			               android:layout_height="wrap_content"
+			               android:enabled="false"
+			               android:inputType="number"
+			               
+			               android:hint="@string/milliseconds"/>
+		       </LinearLayout>
+		   </RadioGroup>
+        </LinearLayout>
+	    
+	    <TextView
+	        android:layout_width="fill_parent"  
+	        android:layout_height="wrap_content"
+	        style="?android:attr/listSeparatorTextViewStyle"
+	        
+	        android:text="@string/voiceInteraction"/>
+		    <LinearLayout
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:orientation="vertical"
+	                android:paddingLeft="5dip">
+			    <TextView
+			        android:layout_width="fill_parent"  
+			        android:layout_height="wrap_content"
+			        
+			        android:text="NOT YET IMPLEMENTED"/>
+            </LinearLayout>
+	</LinearLayout>
+	</ScrollView>
+</RelativeLayout>

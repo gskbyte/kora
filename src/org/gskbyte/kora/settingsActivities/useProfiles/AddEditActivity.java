@@ -3,7 +3,6 @@ package org.gskbyte.kora.settingsActivities.useProfiles;
 import org.gskbyte.kora.R;
 import org.gskbyte.kora.settings.SettingsManager;
 import org.gskbyte.kora.settings.UseProfile;
-import org.gskbyte.kora.settings.User;
 import org.gskbyte.kora.settings.SettingsManager.SettingsException;
 import org.gskbyte.kora.settingsActivities.ProfilesActivity;
 
@@ -21,7 +20,12 @@ import android.widget.Toast;
 public class AddEditActivity extends Activity
 {
     private static final String TAG = "UseProfileAddEditActivity";
+    private static final int ADD_MODE = 0, 
+                             EDIT_MODE = 1;
+    public static final String TAG_USE_PROFILE = "UseProfile";
+    public static final int RESULT_TAG = 1;
     
+    private int mMode;
     private Resources mResources;
     private SettingsManager mSettings;
     private UseProfile mCurrentUseProfile;
@@ -70,15 +74,16 @@ public class AddEditActivity extends Activity
     public void onStart()
     {
         super.onStart();
-        mCurrentUseProfile = null;
         
         try {
             Bundle extras = getIntent().getExtras();
             if(extras != null){
-                String name = extras.getString(ProfilesActivity.TAG_USER_NAME);
+                String name = extras.getString(ProfilesActivity.TAG_USEPROFILE_NAME);
                 mCurrentUseProfile = mSettings.getUseProfile(name);
+                mMode = EDIT_MODE;
             } else {
-                mCurrentUseProfile = null;
+                mCurrentUseProfile = new UseProfile("temp");
+                mMode = ADD_MODE;
             }
         } catch (SettingsException e) {
             Log.e(TAG, e.getMessage());
@@ -91,9 +96,20 @@ public class AddEditActivity extends Activity
         setView();
     }
     
-    public void setView()
+    protected void onActivityResult(int requestCode, int resultCode,
+                                    Intent data)
     {
-        if(mCurrentUseProfile == null){
+        // Simplemente, sustituir el perfil de uso por el que me pasan
+        if(requestCode == RESULT_TAG && resultCode == Activity.RESULT_OK){
+            Bundle extras = data.getExtras();
+            mCurrentUseProfile = (UseProfile) extras.getSerializable(TAG_USE_PROFILE);
+        }
+        AddEditActivity.this.setVisible(true);
+    }
+    
+    private void setView()
+    {
+        if(mMode == ADD_MODE){
             getWindow().setFeatureDrawableResource(Window.FEATURE_LEFT_ICON,
                                                    R.drawable.action_add);
             setTitle(R.string.addUseProfile);
@@ -114,74 +130,79 @@ public class AddEditActivity extends Activity
         public void onClick(View v)
         {
             Intent i = new Intent(AddEditActivity.this, InteractionActivity.class);
-            startActivity(i);
+            i.putExtra(TAG_USE_PROFILE, mCurrentUseProfile);
+            AddEditActivity.this.setVisible(false);
+            startActivityForResult(i, RESULT_TAG);
         }
     };
 
     
-    private View.OnClickListener acceptListener = new View.OnClickListener(){
-        @Override
-        public void onClick(View v)
-        {
-            // 0 = OK, -1 = campos vacíos
-            // valores de SettingsException = fallo
-            int result = 0;
-            
-            String name = mNameEdit.getText().toString();
-            
-            if(name.length()>0)
+    private View.OnClickListener acceptListener =
+        new View.OnClickListener(){
+            @Override
+            public void onClick(View v)
             {
-                UseProfile up = new UseProfile(name);
+                // 0 = OK, -1 = campos vacíos
+                // valores de SettingsException = fallo
+                int result = 0;
                 
-                if(mCurrentUseProfile == null){ // modo añadir
-                    try{
-                        mSettings.addUseProfile(up);
-                    } catch (SettingsException e){
-                        result = e.type;
+                String name = mNameEdit.getText().toString();
+                
+                if(name.length()>0)
+                {
+                    String oldname = mCurrentUseProfile.getName();
+                    mCurrentUseProfile.setName(name);
+                    
+                    if(mMode == ADD_MODE){ // modo añadir
+                        try{
+                            mSettings.addUseProfile(mCurrentUseProfile);
+                        } catch (SettingsException e){
+                            result = e.type;
+                        }
+                    } else {
+                        try{
+                            mSettings.editUseProfile(oldname,
+                                                     mCurrentUseProfile);
+                        } catch (SettingsException e){
+                            result = e.type;
+                        }
                     }
                 } else {
-                    try{
-                        mSettings.editUseProfile(mCurrentUseProfile.getName(),
-                                                 up);
-                    } catch (SettingsException e){
-                        result = e.type;
+                    result = -1;
+                }
+                
+                String s;
+                switch(result)
+                {
+                case 0:
+                    if(mMode == ADD_MODE){
+                        s = mResources.getString(R.string.addUseProfileOk) + ": " + 
+                            name;
+                    } else {
+                        s = mResources.getString(R.string.editUseProfileOk) + " " +
+                            name;
                     }
-                }
-            } else {
-                result = -1;
-            }
-            
-            String s;
-            switch(result)
-            {
-            case 0:
-                if(mCurrentUseProfile == null){
-                    s = mResources.getString(R.string.addUseProfileOk) + ": " + 
+                    break;
+                case -1:
+                    s = mResources.getString(R.string.emptyUseProfileNameFail);
+                    break;
+                case SettingsException.EXISTS:
+                    s = mResources.getString(R.string.existingUseProfileFail) + ": " +
                         name;
-                } else {
-                    s = mResources.getString(R.string.editUseProfileOk) + " " +
-                        name;
+                    break;
+                default:
+                    s = mResources.getString(R.string.settingsError);
+                    break;
                 }
-                break;
-            case -1:
-                s = mResources.getString(R.string.emptyUseProfileNameFail);
-                break;
-            case SettingsException.EXISTS:
-                s = mResources.getString(R.string.existingUseProfileFail) + ": " +
-                    name;
-                break;
-            default:
-                s = mResources.getString(R.string.settingsError);
-                break;
+                
+                Toast.makeText(AddEditActivity.this, s, Toast.LENGTH_SHORT).show();
+                if(result==0)
+                    finish();
             }
-            
-            Toast.makeText(AddEditActivity.this, s, Toast.LENGTH_SHORT).show();
-            if(result==0)
-                finish();
-        }
-    };
+        };
     
-    private View.OnClickListener cancelListener = new View.OnClickListener(){
+    private View.OnClickListener cancelListener =
+        new View.OnClickListener(){
             @Override
             public void onClick(View v)
             {

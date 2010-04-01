@@ -47,7 +47,18 @@
                 <activity android:name=".settingsActivities.useProfiles.AddEditActivity"
                       android:theme="@android:style/Theme.Dialog"/>
 	                <activity android:name=".settingsActivities.useProfiles.InteractionActivity"
-	                      android:theme="@android:style/Theme.Dialog"/>
+	                      android:theme="@android:style/Theme.Dialog"
+	                      android:label="@string/interaction"
+	                      android:icon="@drawable/icon_interaction"/>
+	                  <activity android:name=".settingsActivities.useProfiles.VisualizationActivity"
+                          android:theme="@android:style/Theme.Dialog"
+                          android:label="@string/visualization"/>
+                      <activity android:name=".settingsActivities.useProfiles.FeedbackActivity"
+                          android:theme="@android:style/Theme.Dialog"
+                          android:label="@string/feedback"/>
+                      <activity android:name=".settingsActivities.useProfiles.SoundVoiceActivity"
+                          android:theme="@android:style/Theme.Dialog"
+                          android:label="@string/soundVoice"/>
                 <activity android:name=".settingsActivities.useProfiles.CopyActivity"
                       android:theme="@android:style/Theme.Dialog"/>
 	              

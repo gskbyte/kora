@@ -47,7 +47,7 @@ public class SelectionActivity extends Activity
 
         //mChooseButton.setOnClickListener(chooseListener);
         //mCopyButton.setOnClickListener(copyListener);
-        //mEditButton.setOnClickListener(editListener);
+        mEditButton.setOnClickListener(editListener);
         //mDeleteButton.setOnClickListener(deleteListener);
         mReturnButton.setOnClickListener(returnListener);
         
@@ -96,7 +96,19 @@ public class SelectionActivity extends Activity
         mDeleteButton.setEnabled(isCustom);
     }
     
-    
+    private android.view.View.OnClickListener editListener = 
+        new android.view.View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                Intent intent = new Intent(SelectionActivity.this,
+                        AddEditActivity.class);
+                intent.putExtra(UseProfilesActivity.TAG_USEPROFILE_NAME,
+                        mSelectedUseProfile.getName());
+                SelectionActivity.this.startActivity(intent);
+                finish();
+            }
+        };
     
     private android.view.View.OnClickListener returnListener = 
         new android.view.View.OnClickListener() {

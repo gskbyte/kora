@@ -105,8 +105,9 @@
                     <string name="multitouchInteraction">Multitouch</string>
                     <string name="pressAndDragInteraction">Touch and drag</string>
                     <string name="simpleTouchInteraction">Simple touch</string>
-                <string name="BARRIDO">Interaction</string>
-                    <string name="BARRIDOtime">BARRIDO time</string>
+                <string name="scanInteraction">Scan interaction</string>
+                    <string name="scanTime">Scan time (ms)</string>
+                    <string name="milliseconds">milliseconds</string>
             <string name="voiceInteraction">Voice interaction</string>
             <!-- Visualization -->
             <string name="lookAndFeel">Look and feel</string>

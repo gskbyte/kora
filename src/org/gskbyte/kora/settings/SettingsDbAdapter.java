@@ -380,7 +380,7 @@ public class SettingsDbAdapter
                     (up.isDefault ? 1 : 0)+ ","+
                     up.mainInteraction + ","+
                     up.touchMode + ","+
-                    up.focusTimeMillis + ","+
+                    up.scanTimeMillis + ","+
                     up.voiceInteraction + ","+
                     up.viewMode + ","+
                     up.rows + ","+
@@ -477,7 +477,7 @@ public class SettingsDbAdapter
         
         u.mainInteraction = c.getInt(2);
         u.touchMode = c.getInt(3);
-        u.focusTimeMillis = c.getInt(4);
+        u.scanTimeMillis = c.getInt(4);
         u.voiceInteraction = c.getInt(5);
         
         u.viewMode = c.getInt(6);
