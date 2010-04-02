@@ -46,9 +46,10 @@ public class UseProfile extends Profile
     }
     
     public class feedback{
-        public static final int content_highlight_none = 0x2401;
-        public static final int content_highlight_zoom = 0x2401;
-        public static final int content_highlight_increase_brightness = 0x2402;
+        public static final int content_highlight_none = 0x2400;
+        public static final int content_highlight_standard = 0x2401;
+        public static final int content_highlight_zoom = 0x2402;
+        public static final int content_highlight_increase_brightness = 0x2403;
         
     }
     

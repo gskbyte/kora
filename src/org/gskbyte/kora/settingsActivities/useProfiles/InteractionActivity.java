@@ -56,7 +56,7 @@ public class InteractionActivity extends Activity
         mCancelButton = (Button) findViewById(R.id.cancelButton);
         
         /* Add listeners */
-        mTouchRadio.setOnCheckedChangeListener(mTouchListener);
+        mTouchRadio.setOnCheckedChangeListener(touchListener);
         
         mAcceptButton.setOnClickListener(acceptListener);
         mCancelButton.setOnClickListener(cancelListener);
@@ -85,10 +85,10 @@ public class InteractionActivity extends Activity
     {
         /* Set main interaction mode */
         if(mUseProfile.mainInteraction == UseProfile.interaction.touch_mode){
-            mTouchListener.onCheckedChanged(mTouchRadio, true);
+            touchListener.onCheckedChanged(mTouchRadio, true);
         } else {
             mScanRadio.setChecked(true);
-            mTouchListener.onCheckedChanged(mTouchRadio, false);
+            touchListener.onCheckedChanged(mTouchRadio, false);
         }
         
         /* Set touch interaction mode */
@@ -108,7 +108,7 @@ public class InteractionActivity extends Activity
         mScanSecondsEdit.setText(String.valueOf(mUseProfile.scanTimeMillis));
     }
     
-    private OnCheckedChangeListener mTouchListener =
+    private OnCheckedChangeListener touchListener =
         new OnCheckedChangeListener(){
             @Override
             public void onCheckedChanged(CompoundButton buttonView,

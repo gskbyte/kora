@@ -25,24 +25,10 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
 
-/**
- * A GridLayout positions its children in a static grid, defined by a fixed number of rows
- * and columns. The size of the rows and columns is dynamically computed depending on the
- * size of the GridLayout itself. As a result, GridLayout children's layout parameters
- * are ignored.
- *
- * The number of rows and columns are specified in XML using the attributes android:numRows
- * and android:numColumns.
- *
- * The GridLayout cannot be used when its size is unspecified.
- *
- * @attr ref com.google.android.photostream.R.styleable#GridLayout_numColumns
- * @attr ref com.google.android.photostream.R.styleable#GridLayout_numRows  
- */
 public class GridLayout extends ViewGroup
 {
-    private int mNumColumns;
     private int mNumRows;
+    private int mNumColumns;
 
     private int mColumnWidth;
     private int mRowHeight;
@@ -64,22 +50,21 @@ public class GridLayout extends ViewGroup
         super(context, attrs, defStyle);
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.GridLayout, defStyle, 0);
 
-        mNumColumns = a.getInt(R.styleable.GridLayout_numColumns, 1);
         mNumRows = a.getInt(R.styleable.GridLayout_numRows, 1);
-
-        mMargin = 10;
+        mNumColumns = a.getInt(R.styleable.GridLayout_numColumns, 1);
+        mMargin = a.getInt(R.styleable.GridLayout_innerMargin, 5);
         
         a.recycle();
-    }
-    
-    public int getNColumns()
-    {
-    	return mNumColumns;
     }
     
     public int getNRows()
     {
         return mNumRows;
+    }
+    
+    public int getNColumns()
+    {
+    	return mNumColumns;
     }
     
     public void setDimensions(int nrows, int ncolumns)

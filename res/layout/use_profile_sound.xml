@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+    xmlns:gskbyte="http://schemas.android.com/apk/res/org.gskbyte.kora"
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content">
+    
+    <include android:id="@+id/okCancelBar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        layout="@layout/ok_cancel_bar"/>
+    
+    <ScrollView
+        android:layout_width="fill_parent" 
+        android:layout_height="wrap_content"
+        android:layout_above="@id/okCancelBar">
+        
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:minWidth="250dip"
+        android:layout_marginLeft="10dip">
+        
+        <TextView
+            android:layout_width="fill_parent"  
+            android:layout_height="wrap_content"
+            style="?android:attr/listSeparatorTextViewStyle"
+            
+            android:text="@string/soundMode"/>
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checkedButton="@+id/noSoundRadio"
+            android:orientation="vertical"
+            android:paddingLeft="5dip">
+            
+            <RadioButton android:id="@+id/noSoundRadio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                
+                android:text="@string/noSound"/>
+            
+            <RadioButton android:id="@+id/simpleSoundsRadio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                
+                android:text="@string/simpleSounds"/>
+                
+            <RadioButton android:id="@+id/voiceRadio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                
+                android:text="@string/voice"/>
+        </RadioGroup>
+        
+        <TextView
+            android:layout_width="fill_parent"  
+            android:layout_height="wrap_content"
+            style="?android:attr/listSeparatorTextViewStyle"
+            
+            android:text="@string/soundEvents"/>
+        <LinearLayout
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="vertical"
+	        android:minWidth="250dip"
+	        android:layout_marginLeft="5dip">
+	        <CheckBox android:id="@+id/onItemSelectionCheckBox"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            
+	            android:checked="true"
+	            android:text="@string/onItemSelection"/>
+	        
+            <CheckBox android:id="@+id/onActionCheckBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                
+                android:checked="true"
+                android:text="@string/onAction"/>
+        </LinearLayout>
+	            
+	    <TextView
+            android:layout_width="fill_parent"  
+            android:layout_height="wrap_content"
+            style="?android:attr/listSeparatorTextViewStyle"
+            
+            android:text="@string/voiceOptions"/>
+	        
+	        <RadioGroup
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:checkedButton="@+id/defaultVoiceRadio"
+	            android:orientation="vertical"
+	            android:paddingLeft="5dip">
+	            
+	            <RadioButton android:id="@+id/defaultVoiceRadio"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                
+	                android:text="@string/defaultVoice"/>
+	            
+	            <RadioButton android:id="@+id/customVoiceRadio"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                
+	                android:text="@string/customVoice"/>
+	        </RadioGroup>
+    </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

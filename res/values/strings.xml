@@ -143,15 +143,20 @@
                 <string name="automaticPaging">Automatic</string>
                 <string name="lastButton">Last button</string>
             <!-- Feedback -->
-            <string name="vibration"></string>
-            <string name="confirmation"></string>
-            <string name="highlightContent">Highlight content</string>
+            <string name="vibration">Vibration</string>
+            <string name="confirmation">Confirmation</string>
+            <string name="highlight">Highlight</string>
+                <string name="noHighlight">None</string>
+                <string name="standardHighlight">Standard</string>
                 <string name="zoomIn">Zoom in</string>
                 <string name="increaseBrightness">Increase brightness</string>
-            <string name="hightlightBorder">Highlight border</string>
+            <string name="highlightBorder">Highlight border</string>
             
             <!-- Sound & Voice -->
+            <string name="soundMode">Sound mode</string>
+            <string name="soundEvents">Sound events</string>
             <string name="noSound">No sound</string>
+            <string name="voiceOptions">Voice options</string>
             <string name="simpleSounds">Simple sounds</string>
                 <string name="onItemSelection">When an item is selected</string>
                 <string name="onAction">When an action is done</string>

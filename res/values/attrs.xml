@@ -3,6 +3,7 @@
     <declare-styleable name="GridLayout">
         <attr name="numColumns" format="integer" />
         <attr name="numRows" format="integer" />
+        <attr name="innerMargin" format="integer" />
     </declare-styleable>
     <declare-styleable name="KoraSeekBar">
         <attr name="steps" format="integer" />

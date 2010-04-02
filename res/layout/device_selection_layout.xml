@@ -1,48 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-android:layout_width="fill_parent"
-android:layout_height="fill_parent">
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
 
 	<LinearLayout android:id="@+id/navigationButtons"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
-		android:layout_alignParentBottom="true"
-		>
+		android:layout_alignParentBottom="true">
 		
 		<Button android:text="-r"
 			android:id="@+id/lessRows"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_weight="1"
-			android:drawableLeft="@drawable/action_previous"
-			/>
+			android:drawableLeft="@drawable/action_previous"/>
 			
 		<Button android:text="+r"
 			android:id="@+id/moreRows"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_weight="1"
-			android:drawableRight="@drawable/action_next"
-			/>
+			android:drawableRight="@drawable/action_next"/>
 			
 	   <Button android:text="-c"
             android:id="@+id/lessColumns"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:drawableRight="@drawable/action_next"
-            />
+            android:drawableRight="@drawable/action_next"/>
             
        <Button android:text="+c"
             android:id="@+id/moreColumns"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:drawableRight="@drawable/action_next"
-            />
-	
+            android:drawableRight="@drawable/action_next"/>
 	</LinearLayout>
 	
 	<org.gskbyte.kora.customViews.GridLayout
@@ -51,7 +43,5 @@ android:layout_height="fill_parent">
 	    android:layout_height="fill_parent"
 	    
 	    
-	    android:layout_above="@id/navigationButtons"
-	    />
-
+	    android:layout_above="@id/navigationButtons"/>
 </RelativeLayout>

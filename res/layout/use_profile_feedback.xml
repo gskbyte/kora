@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content">
+    
+    <include android:id="@+id/okCancelBar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        layout="@layout/ok_cancel_bar"/>
+    
+    <ScrollView
+        android:layout_width="fill_parent" 
+        android:layout_height="wrap_content"
+        android:layout_above="@id/okCancelBar">
+        
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:minWidth="250dip"
+        android:layout_marginLeft="10dip">
+        
+        <TextView
+            android:layout_width="fill_parent"  
+            android:layout_height="wrap_content"
+            style="?android:attr/listSeparatorTextViewStyle"
+            
+            android:text="@string/vibration"/>
+        
+        <CheckBox android:id="@+id/vibrationCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dip"
+            
+            android:checked="true"
+            android:text="@string/vibration"/>
+            
+        <TextView
+            android:layout_width="fill_parent"  
+            android:layout_height="wrap_content"
+            style="?android:attr/listSeparatorTextViewStyle"
+            
+            android:text="@string/confirmation"/>
+        
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dip"
+            android:orientation="horizontal">
+        
+	        <CheckBox android:id="@+id/confirmationCheckBox"
+	            android:layout_height="wrap_content"
+	            android:layout_width="wrap_content"
+	            
+	            android:checked="true"
+	            android:text="@string/confirmation"/>
+	            
+	        <EditText android:id="@+id/confirmationTimeEdit"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_marginLeft="10dip"
+		        android:inputType="number"
+		        android:hint="@string/milliseconds"/>
+		        
+		</LinearLayout>
+        
+        <TextView
+            android:layout_width="fill_parent"  
+            android:layout_height="wrap_content"
+            style="?android:attr/listSeparatorTextViewStyle"
+            
+            android:text="@string/highlight"/>
+        
+            <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkedButton="@+id/standardHighlightRadio"
+                android:orientation="vertical"
+                android:paddingLeft="5dip">
+                
+                <RadioButton android:id="@+id/noHighlightRadio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    
+                    android:text="@string/noHighlight"/>
+                
+                <RadioButton android:id="@+id/standardHighlightRadio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    
+                    android:text="@string/standardHighlight"/>
+                
+                <RadioButton android:id="@+id/zoomInRadio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    
+                    android:text="@string/zoomIn"/>
+                    
+                <RadioButton android:id="@+id/increaseBrightnessRadio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    
+                    android:text="@string/increaseBrightness"/>
+            </RadioGroup>
+            
+        <TextView
+            android:layout_width="fill_parent"  
+            android:layout_height="wrap_content"
+            style="?android:attr/listSeparatorTextViewStyle"
+            
+            android:text="@string/highlightBorder"/>
+            <CheckBox android:id="@+id/highlightBorderCheckBox"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="5dip"
+                
+                android:checked="true"
+                android:text="@string/highlightBorder"/>
+    </LinearLayout>
+    </ScrollView>
+</RelativeLayout>
