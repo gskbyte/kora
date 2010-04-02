@@ -17,7 +17,6 @@
     <string name="return_">Volver</string>
     <string name="close">Cerrar</string>
     
-    
     <!-- Activity Strings -->
     <string name="welcomeActivity">Kora</string>
     <string name="controlActivity">Selección de dispositivo</string>
@@ -41,6 +40,8 @@
         <string name="acknowledgements">Agradecimientos y créditos</string>
         <string name="artwork">Arte</string>
         <string name="artworkString">Icono y fondo por Jeremy Todaro\nAlgunos iconos originales\ndel Proyecto Oxygen</string>
+        <string name="codeParts">Partes de\ncódigo</string>
+        <string name="codePartsString">ColorPickerDialog de\nGoogle API Demos.\nGridLayout original de\nPhotoStream.</string>
     
     <!-- Settings strings -->
     <string name="user">Usuario</string>
@@ -84,64 +85,80 @@
             <string name="chooseUseProfileFor">Elegir para</string>
             
             <!-- Add/Edit dialog -->
-	        <string name="interaction">Interacción</string>
-	        <string name="visualization">Visualización</string>
-	        <string name="feedback">Realimentación</string>
-	        <string name="soundVoice">Sonido y Voz</string>
-	        
+            <string name="editUseProfile">Editar perfil de uso</string>
+            <string name="interaction">Interacción</string>
+            <string name="visualization">Visualización</string>
+            <string name="feedback">Realimentación</string>
+            <string name="soundVoice">Sonido y voz</string>
+            <string name="addUseProfileOk">Perfil de uso añadido</string>
+            <string name="editUseProfileOk">Éxito editando perfil de uso</string>
+            <string name="existingUseProfileFail">Perfil de uso existente</string>
+            <string name="emptyUseProfileNameFail">El campo "Nombre" debe rellenarse</string>
+            
             <!-- Interaction -->
             <string name="mainInteraction">Interacción principal</string>
                 <string name="touchInteraction">Táctil</string>
                     <string name="multitouchInteraction">Multitáctil</string>
                     <string name="pressAndDragInteraction">Pulsar y arrastrar</string>
                     <string name="simpleTouchInteraction">Sencilla </string>
-                <string name="BARRIDO">Interacción</string>
-                    <string name="BARRIDOtime">tiempo de BARRIDO </string>
-            <string name="voiceInteraction">Voz</string>
+                    <string name="scanInteraction">Barrido</string>
+	                    <string name="scanTime">Tiempo de barrido (ms)</string>
+	                    <string name="milliseconds">milisegundos</string>
+            <string name="voiceInteraction">Interacción por voz</string>
             <!-- Visualization -->
             <string name="lookAndFeel">Aspecto</string>
                 <string name="defaultLAF">Por defecto</string>
-                <string name="plainColors">Colores básicos</string>
-                <string name="differentPlainColor">Colores básicos diferentes</string>
+                <string name="plainColor">Color plano</string>
+                <string name="differentPlainColor">Colores diferentes</string>
                 <string name="highContrastColor">Alto contraste</string>
                 <string name="blackAndWhite">Blanco y negro</string>
-            <string name="disposition">Organización</string>
+            <string name="layout">Organización</string>
                 <string name="columns">Columnas</string>
                 <string name="rows">Filas</string>
             <string name="text">Texto</string>
-                <string name="textShow">Mostrar</string>
+                <string name="textShow">Mostrar texto</string>
                 <string name="textSize">Tamaño</string>
-                <string name="textTypography">Tipografía</string>
+                    <string name="textSmall">Pequeño</string>
+                    <string name="textMedium">Mediano</string>
+                    <string name="textLarge">Grande</string>
+                <string name="textTypography">Tipo de letra</string>
                     <string name="sans">Sans</string>
                     <string name="calligraphic">Caligráfica</string>
-                    <string name="comic">Comic</string>
-                <string name="textEffects">Efectos</string>
+                    <string name="caps">Versalitas (mayúsculas)</string>
                 <string name="textColor">Color</string>
+                    <string name="textBlack">Negro</string>
+                    <string name="textWhite">Blanco</string>
+                    <string name="textCustomColor">Personalizado</string>
             <string name="imagesAndIcons">Imagenes e iconos</string>
                 <string name="icon">Icono</string>
-                <string name="highContrastIcon">Icono de alto contraste</string>
-                <string name="photo">Foto</string>
+                <string name="highContrastIcon">Icono en alto contraste</string>
+                <string name="photoIcon">Foto</string>
                 <string name="animation">Animación</string>
             <string name="paging">Paginado</string>
                 <string name="standardPaging">Estándar</string>
                 <string name="automaticPaging">Automático</string>
-                <string name="firstAndLastButtons">botones primero y último</string>
+                <string name="lastButtos">Último botón</string>
             <!-- Feedback -->
-            <string name="vibration">vibración</string>
-            <string name="confirmation">confirmación</string>
-            <string name="highlightContent">Resaltar contenido</string>
-                <string name="zoomIn">Ampliar zoom</string>
+            <string name="vibration">Vibración</string>
+            <string name="confirmation">Confirmación</string>
+            <string name="highlight">Resaltado</string>
+                <string name="noHighlight">Ninguno</string>
+                <string name="standardHighlight">Estándar</string>
+                <string name="zoomIn">Ampliar</string>
                 <string name="increaseBrightness">Incrementar brillo</string>
             <string name="hightlightBorder">Resaltar borde</string>
             
             <!-- Sound & Voice -->
+            <string name="soundMode">Sonidos</string>
+            <string name="soundEvents">Eventos sonoros</string>
             <string name="noSound">Sin sonido</string>
-            <string name="simpleSounds">Sonidos simples</string>
-                <string name="onItemSelection">Cuando un elemento sea seleccionado</string>
-                <string name="onAction">Cuando la acción sea realizada</string>
+            <string name="voiceOptions">Opciones de voz</string>
+            <string name="simpleSounds">Sonidos sencillos</string>
+                <string name="onItemSelection">Cuando se selecciona un elemento</string>
+                <string name="onAction">Cuando se realiza una acción</string>
             <string name="voice">Voz</string>
-                <string name="defaultVoice">Voz por defecto</string>
-                <string name="customVoice">Voz personalizada</string>
+                <string name="defaultVoice">Por defecto</string>
+                <string name="customVoice">Personalizada</string>
         
         <!-- Device profiles strings -->
         <string name="addDeviceProfile">Añadir perfil de dispositivo</string>

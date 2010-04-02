@@ -15,8 +15,6 @@ public class FeedbackActivity extends ProfilePropertiesActivity
 {
     private static final String TAG = "FeedbackActivity";
     
-    private UseProfile mUseProfile;
-    
     private CheckBox mVibrationCheckBox;
     
     private CheckBox mConfirmationCheckBox;
@@ -46,7 +44,6 @@ public class FeedbackActivity extends ProfilePropertiesActivity
         mZoomRadio = (RadioButton) findViewById(R.id.zoomInRadio);
         mBrightnessRadio = (RadioButton) findViewById(R.id.increaseBrightnessRadio);
         mHighlightBorderCheckBox = (CheckBox) findViewById(R.id.highlightBorderCheckBox);
-        
         
         /* Add listeners */
         mConfirmationCheckBox.setOnCheckedChangeListener(confirmationListener);

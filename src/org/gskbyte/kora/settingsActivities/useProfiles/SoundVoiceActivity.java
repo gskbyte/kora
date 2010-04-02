@@ -72,7 +72,7 @@ public class SoundVoiceActivity extends ProfilePropertiesActivity
         onItemSelectionCheckBox.setChecked(mUseProfile.soundOnSelection);
         onActionCheckBox.setChecked(mUseProfile.soundOnAction);
         
-        switch(mUseProfile.soundMode){
+        switch(mUseProfile.voiceMode){
         case UseProfile.sound.voice_default:
             defaultVoiceRadio.setChecked(true);
             break;
@@ -96,9 +96,9 @@ public class SoundVoiceActivity extends ProfilePropertiesActivity
         mUseProfile.soundOnAction = onActionCheckBox.isChecked();
         
         if(defaultVoiceRadio.isChecked()) {
-            mUseProfile.soundMode = UseProfile.sound.voice_default;
+            mUseProfile.voiceMode = UseProfile.sound.voice_default;
         } else {
-            mUseProfile.soundMode = UseProfile.sound.voice_custom;
+            mUseProfile.voiceMode = UseProfile.sound.voice_custom;
         }
     }
     

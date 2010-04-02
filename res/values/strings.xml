@@ -21,7 +21,6 @@
     <string name="return_">Return</string>
     <string name="close">Close</string>
     
-    
     <!-- Activity Strings -->
     <string name="welcomeActivity">Kora</string>
     <string name="controlActivity">Device selection</string>
@@ -105,15 +104,15 @@
                     <string name="multitouchInteraction">Multitouch</string>
                     <string name="pressAndDragInteraction">Touch and drag</string>
                     <string name="simpleTouchInteraction">Simple touch</string>
-                <string name="scanInteraction">Scan interaction</string>
+                <string name="scanInteraction">Scan</string>
                     <string name="scanTime">Scan time (ms)</string>
                     <string name="milliseconds">milliseconds</string>
             <string name="voiceInteraction">Voice interaction</string>
             <!-- Visualization -->
             <string name="lookAndFeel">Look and feel</string>
                 <string name="defaultLAF">Default</string>
-                <string name="plainColors">Plain color</string>
-                <string name="differentPlainColor">Different plain colors</string>
+                <string name="plainColor">Plain color</string>
+                <string name="differentPlainColor">Different colors</string>
                 <string name="highContrastColor">High contrast</string>
                 <string name="blackAndWhite">Black and white</string>
             <string name="layout">Layout</string>
@@ -135,7 +134,7 @@
 	                <string name="textCustomColor">Custom color</string>
             <string name="imagesAndIcons">Images and icons</string>
                 <string name="icon">Icon</string>
-                <string name="highContrastIcon">High contrast</string>
+                <string name="highContrastIcon">High contrast icon</string>
                 <string name="photoIcon">Photo</string>
                 <string name="animation">Animation</string>
             <string name="paging">Paging</string>

@@ -91,7 +91,6 @@ public class VisualizationActivity extends ProfilePropertiesActivity
             break;
         case UseProfile.visualization.view_plain_color:
             mPlainRadio.setChecked(true);
-            mTextColorButton.setColor(mUseProfile.backgroundColor);
             break;
         case UseProfile.visualization.view_plain_differenced_color:
             mDifferentPlainRadio.setChecked(true);
@@ -103,6 +102,8 @@ public class VisualizationActivity extends ProfilePropertiesActivity
             mBlackAndWhiteRadio.setChecked(true);
             break;
         }
+        
+        mTextColorButton.setColor(mUseProfile.backgroundColor);
         mRowsSeekBar.setValue(mUseProfile.rows);
         mColumnsSeekBar.setValue(mUseProfile.columns);
         
@@ -120,13 +121,13 @@ public class VisualizationActivity extends ProfilePropertiesActivity
             break;
         }
         switch(mUseProfile.typography){
-        case UseProfile.visualization.text_font_sans:
+        case UseProfile.visualization.font_sans:
             mSansRadio.setChecked(true);
             break;
-        case UseProfile.visualization.calligraphic_font:
+        case UseProfile.visualization.font_calligraphic:
             mCalligraphicRadio.setChecked(true);
             break;
-        case UseProfile.visualization.caps_font:
+        case UseProfile.visualization.font_caps:
             mCapsRadio.setChecked(true);
             break;
         }
@@ -166,10 +167,10 @@ public class VisualizationActivity extends ProfilePropertiesActivity
             mPagingStandardAutomaticRadio.setText(mResources.getString(R.string.automaticPaging));
         switch(mUseProfile.paginationMode){
         case UseProfile.visualization.pagination_standard:
-            mIconRadio.setChecked(true);
+            mPagingStandardAutomaticRadio.setChecked(true);
             break;
         case UseProfile.visualization.pagination_buttons:
-            mIconHighContrastRadio.setChecked(true);
+            mPagingLastButtonRadio.setChecked(true);
             break;
         }
     }
@@ -183,12 +184,13 @@ public class VisualizationActivity extends ProfilePropertiesActivity
             mUseProfile.viewMode = UseProfile.visualization.view_plain_color;
         } else if (mDifferentPlainRadio.isChecked()) {
             mUseProfile.viewMode = UseProfile.visualization.view_plain_differenced_color;
-            mUseProfile.backgroundColor = mBackgroundColorButton.getColor();
         } else if (mHighContrastRadio.isChecked()) {
             mUseProfile.viewMode = UseProfile.visualization.view_hi_contrast_color;
         } else {
             mUseProfile.viewMode = UseProfile.visualization.view_black_and_white;
         }
+        
+        mUseProfile.backgroundColor = mBackgroundColorButton.getColor();
         mUseProfile.rows = mRowsSeekBar.getValue();
         mUseProfile.columns = mColumnsSeekBar.getValue();
         
@@ -204,6 +206,14 @@ public class VisualizationActivity extends ProfilePropertiesActivity
         case 2:
             mUseProfile.fontSize = UseProfile.visualization.text_size_large;
             break;
+        }
+        
+        if(mSansRadio.isChecked()) {
+            mUseProfile.typography = UseProfile.visualization.font_sans;
+        } else if(mCalligraphicRadio.isChecked()) {
+            mUseProfile.typography = UseProfile.visualization.font_calligraphic;
+        } else {
+            mUseProfile.typography = UseProfile.visualization.font_caps;
         }
         
         if(mTextBlackRadio.isChecked()) {
