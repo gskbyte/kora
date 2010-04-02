@@ -15,11 +15,10 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.LinearLayout;
 
 public class VisualizationActivity extends Activity
 {
@@ -28,20 +27,20 @@ public class VisualizationActivity extends Activity
     private Resources mResources;
     private UseProfile mUseProfile;
     
-    private RadioButton defaultLAFRadio, plainRadio, differentPlainRadio,
-                        highContrastRadio, blackAndWhiteRadio;
+    private RadioButton mDefaultLAFRadio, mPlainRadio, mDifferentPlainRadio,
+                        mHighContrastRadio, mBlackAndWhiteRadio;
     
-    private KoraIntegerSeekBar rowsSeekBar, columnsSeekBar;
+    private KoraIntegerSeekBar mRowsSeekBar, mColumnsSeekBar;
     
-    private CheckBox showTextCheckBox;
-    private KoraArraySeekBar textSizeSeekBar;
-    private RadioButton sansRadio, calligraphicRadio, comicRadio,
-                        textBlackRadio, textWhiteRadio, textCustomColorRadio;
+    private CheckBox mShowTextCheckBox;
+    private KoraArraySeekBar mTextSizeSeekBar;
+    private RadioButton mSansRadio, mCalligraphicRadio, mCapsRadio,
+                        mTextBlackRadio, mTextWhiteRadio, mTextCustomColorRadio;
     
-    private RadioButton iconRadio, iconHighContrastRadio, iconPhotoRadio,
-                        iconAnimationRadio;
+    private RadioButton mIconRadio, mIconHighContrastRadio, mIconPhotoRadio,
+                        mIconAnimationRadio;
     
-    private RadioButton pagingStandardAutomaticRadio, pagingLastButtonRadio;
+    private RadioButton mPagingStandardAutomaticRadio, mPagingLastButtonRadio;
     
     private Button mAcceptButton, mCancelButton;
 
@@ -57,37 +56,37 @@ public class VisualizationActivity extends Activity
         /* Load resources and views */
         mResources = getResources();
         
-        defaultLAFRadio = (RadioButton) findViewById(R.id.defaultLAFRadio);
-        plainRadio = (RadioButton) findViewById(R.id.plainRadio);
-        differentPlainRadio = (RadioButton) findViewById(R.id.differentPlainRadio);
-        highContrastRadio = (RadioButton) findViewById(R.id.highContrastRadio);
-        blackAndWhiteRadio = (RadioButton) findViewById(R.id.blackAndWhiteRadio);
+        mDefaultLAFRadio = (RadioButton) findViewById(R.id.defaultLAFRadio);
+        mPlainRadio = (RadioButton) findViewById(R.id.plainRadio);
+        mDifferentPlainRadio = (RadioButton) findViewById(R.id.differentPlainRadio);
+        mHighContrastRadio = (RadioButton) findViewById(R.id.highContrastRadio);
+        mBlackAndWhiteRadio = (RadioButton) findViewById(R.id.blackAndWhiteRadio);
         
-        rowsSeekBar = (KoraIntegerSeekBar) findViewById(R.id.rowsSeekBar);
-        columnsSeekBar = (KoraIntegerSeekBar) findViewById(R.id.columnsSeekBar);
+        mRowsSeekBar = (KoraIntegerSeekBar) findViewById(R.id.rowsSeekBar);
+        mColumnsSeekBar = (KoraIntegerSeekBar) findViewById(R.id.columnsSeekBar);
         
-        showTextCheckBox = (CheckBox) findViewById(R.id.showTextCheckBox);
-        textSizeSeekBar = (KoraArraySeekBar) findViewById(R.id.textSizeSeekBar);
-        sansRadio = (RadioButton) findViewById(R.id.sansRadio);
-        calligraphicRadio = (RadioButton) findViewById(R.id.calligraphicRadio);
-        comicRadio = (RadioButton) findViewById(R.id.comicRadio);
-        textBlackRadio = (RadioButton) findViewById(R.id.textBlackRadio);
-        textWhiteRadio = (RadioButton) findViewById(R.id.textWhiteRadio);
-        textCustomColorRadio = (RadioButton) findViewById(R.id.textCustomColorRadio);
+        mShowTextCheckBox = (CheckBox) findViewById(R.id.showTextCheckBox);
+        mTextSizeSeekBar = (KoraArraySeekBar) findViewById(R.id.textSizeSeekBar);
+        mSansRadio = (RadioButton) findViewById(R.id.sansRadio);
+        mCalligraphicRadio = (RadioButton) findViewById(R.id.calligraphicRadio);
+        mCapsRadio = (RadioButton) findViewById(R.id.capsRadio);
+        mTextBlackRadio = (RadioButton) findViewById(R.id.textBlackRadio);
+        mTextWhiteRadio = (RadioButton) findViewById(R.id.textWhiteRadio);
+        mTextCustomColorRadio = (RadioButton) findViewById(R.id.textCustomColorRadio);
         
-        iconRadio = (RadioButton) findViewById(R.id.iconRadio);
-        iconHighContrastRadio = (RadioButton) findViewById(R.id.iconHighContrastRadio);
-        iconPhotoRadio = (RadioButton) findViewById(R.id.iconPhotoRadio);
-        iconAnimationRadio = (RadioButton) findViewById(R.id.iconAnimationRadio);
+        mIconRadio = (RadioButton) findViewById(R.id.iconRadio);
+        mIconHighContrastRadio = (RadioButton) findViewById(R.id.iconHighContrastRadio);
+        mIconPhotoRadio = (RadioButton) findViewById(R.id.iconPhotoRadio);
+        mIconAnimationRadio = (RadioButton) findViewById(R.id.iconAnimationRadio);
         
-        pagingStandardAutomaticRadio = (RadioButton) findViewById(R.id.pagingStandardAutomaticRadio);
-        pagingLastButtonRadio = (RadioButton) findViewById(R.id.pagingLastButtonRadio);
+        mPagingStandardAutomaticRadio = (RadioButton) findViewById(R.id.pagingStandardAutomaticRadio);
+        mPagingLastButtonRadio = (RadioButton) findViewById(R.id.pagingLastButtonRadio);
         
         mAcceptButton = (Button) findViewById(R.id.acceptButton);
         mCancelButton = (Button) findViewById(R.id.cancelButton);
         
         /* Add listeners */
-        
+        mShowTextCheckBox.setOnCheckedChangeListener(showTextListener);
         mAcceptButton.setOnClickListener(acceptListener);
         mCancelButton.setOnClickListener(cancelListener);
     }
@@ -113,8 +112,168 @@ public class VisualizationActivity extends Activity
     
     private void setView()
     {
+        /* Set visualization mode */
+        switch(mUseProfile.viewMode){
+        case UseProfile.visualization.view_standard:
+            mDefaultLAFRadio.setChecked(true);
+            break;
+        case UseProfile.visualization.view_plain_color:
+            mPlainRadio.setChecked(true);
+            break;
+        case UseProfile.visualization.view_plain_differenced_color:
+            mDifferentPlainRadio.setChecked(true);
+            break;
+        case UseProfile.visualization.view_hi_contrast_color:
+            mHighContrastRadio.setChecked(true);
+            break;
+        case UseProfile.visualization.view_black_and_white:
+            mBlackAndWhiteRadio.setChecked(true);
+            break;
+        }
+        mRowsSeekBar.setValue(mUseProfile.rows);
+        mColumnsSeekBar.setValue(mUseProfile.columns);
         
+        /* Set text mode */
+        mShowTextCheckBox.setChecked(mUseProfile.showText);
+        switch(mUseProfile.fontSize){
+        case UseProfile.visualization.text_size_small:
+            mTextSizeSeekBar.setIndex(0);
+            break;
+        case UseProfile.visualization.text_size_medium:
+            mTextSizeSeekBar.setIndex(1);
+            break;
+        case UseProfile.visualization.text_size_large:
+            mTextSizeSeekBar.setIndex(2);
+            break;
+        }
+        switch(mUseProfile.typography){
+        case UseProfile.visualization.text_font_sans:
+            mSansRadio.setChecked(true);
+            break;
+        case UseProfile.visualization.calligraphic_font:
+            mCalligraphicRadio.setChecked(true);
+            break;
+        case UseProfile.visualization.caps_font:
+            mCapsRadio.setChecked(true);
+            break;
+        }
+        switch(mUseProfile.textColor){
+        case 0xFF000000:
+            mTextBlackRadio.setChecked(true);
+            break;
+        case 0xFFFFFFFF:
+            mTextWhiteRadio.setChecked(true);
+            break;
+        default:
+            mTextCustomColorRadio.setChecked(true);
+            break;
+        }
+        
+        /* Set icon mode */
+        switch(mUseProfile.iconMode){
+        case UseProfile.visualization.icon_pictogram:
+            mIconRadio.setChecked(true);
+            break;
+        case UseProfile.visualization.icon_high_contrast:
+            mIconHighContrastRadio.setChecked(true);
+            break;
+        case UseProfile.visualization.icon_photo:
+            mIconPhotoRadio.setChecked(true);
+            break;
+        case UseProfile.visualization.icon_animation:
+            mIconAnimationRadio.setChecked(true);
+            break;
+        }
+        
+        /* Set paging mode */
+        if(mUseProfile.mainInteraction == UseProfile.interaction.touch_mode)
+            mPagingStandardAutomaticRadio.setText(mResources.getString(R.string.standardPaging));
+        else
+            mPagingStandardAutomaticRadio.setText(mResources.getString(R.string.automaticPaging));
+        switch(mUseProfile.paginationMode){
+        case UseProfile.visualization.pagination_standard:
+            mIconRadio.setChecked(true);
+            break;
+        case UseProfile.visualization.pagination_buttons:
+            mIconHighContrastRadio.setChecked(true);
+            break;
+        }
     }
+    
+    private void captureData()
+    {
+        // Visualization mode
+        if(mDefaultLAFRadio.isChecked()){
+            mUseProfile.viewMode = UseProfile.visualization.view_standard;
+        } else if (mPlainRadio.isChecked()) {
+            mUseProfile.viewMode = UseProfile.visualization.view_plain_color;
+        } else if (mDifferentPlainRadio.isChecked()) {
+            mUseProfile.viewMode = UseProfile.visualization.view_plain_differenced_color;
+        } else if (mHighContrastRadio.isChecked()) {
+            mUseProfile.viewMode = UseProfile.visualization.view_hi_contrast_color;
+        } else {
+            mUseProfile.viewMode = UseProfile.visualization.view_black_and_white;
+        }
+        mUseProfile.rows = mRowsSeekBar.getValue();
+        mUseProfile.columns = mColumnsSeekBar.getValue();
+        
+        // Text mode
+        mUseProfile.showText = mShowTextCheckBox.isChecked();
+        switch(mTextSizeSeekBar.getIndex()){
+        case 0:
+            mUseProfile.fontSize = UseProfile.visualization.text_size_small;
+            break;
+        case 1:
+            mUseProfile.fontSize = UseProfile.visualization.text_size_medium;
+            break;
+        case 2:
+            mUseProfile.fontSize = UseProfile.visualization.text_size_large;
+            break;
+        }
+        
+        if(mTextBlackRadio.isChecked()) {
+            mUseProfile.textColor = 0xFF000000;
+        } else if(mTextWhiteRadio.isChecked()) {
+            mUseProfile.textColor = 0xFFFFFFFF;
+        } else {
+            // PONER COLOR ELEGIDO AL TEXTO!!!
+        }
+        
+        // Icon mode
+        if(mIconRadio.isChecked()) {
+            mUseProfile.iconMode = UseProfile.visualization.icon_pictogram;
+        } else if(mIconHighContrastRadio.isChecked()) {
+            mUseProfile.iconMode = UseProfile.visualization.icon_high_contrast;
+        } else if(mIconPhotoRadio.isChecked()) {
+            mUseProfile.iconMode = UseProfile.visualization.icon_photo;
+        } else {
+            mUseProfile.iconMode = UseProfile.visualization.icon_animation;
+        }
+        
+        // Paging mode
+        if(mPagingStandardAutomaticRadio.isChecked()) {
+            mUseProfile.paginationMode = UseProfile.visualization.pagination_standard;
+        } else {
+            mUseProfile.paginationMode = UseProfile.visualization.pagination_buttons;
+        }
+    }
+    
+    private OnCheckedChangeListener showTextListener =
+        new OnCheckedChangeListener(){
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView,
+                    boolean isChecked)
+            {
+                // Mierda, no puedo aplicarlo al layout
+                mTextSizeSeekBar.setEnabled(isChecked);
+                mSansRadio.setEnabled(isChecked);
+                mCalligraphicRadio.setEnabled(isChecked);
+                mCapsRadio.setEnabled(isChecked);
+                mTextBlackRadio.setEnabled(isChecked);
+                mTextWhiteRadio.setEnabled(isChecked);
+                mTextCustomColorRadio.setEnabled(isChecked);
+            }
+        };
     
     private View.OnClickListener acceptListener =
         new View.OnClickListener(){
@@ -122,7 +281,7 @@ public class VisualizationActivity extends Activity
             public void onClick(View v)
             {
                 /* Data capturing */
-                
+                captureData();
                 Intent intent = new Intent();
                 intent.putExtra(AddEditActivity.TAG_USE_PROFILE, mUseProfile);
                 setResult(Activity.RESULT_OK, intent);

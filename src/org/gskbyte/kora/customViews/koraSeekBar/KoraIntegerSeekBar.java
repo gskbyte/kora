@@ -72,6 +72,13 @@ public class KoraIntegerSeekBar extends KoraSeekBar
         return mMinimum + mSeekBar.getProgress();
     }
     
+    public void setValue(int i)
+    {
+        if(i>=mMinimum && i<=mMaximum){
+            mSeekBar.setProgress( (i*((mMaximum-mMinimum)<<10)/mSteps)>>10 );
+        }
+    }
+    
     public int getMinimum()
     {
         return mMinimum;

@@ -1,5 +1,7 @@
 package org.gskbyte.kora.settings;
 
+import android.graphics.Color;
+
 public class UseProfile extends Profile
 {
     // Interaction modes
@@ -27,14 +29,19 @@ public class UseProfile extends Profile
         public static final int calligraphic_font = 0x1101;
         public static final int caps_font = 0x1102;
         
-        public static final int icon_pictogram = 0x1200;
-        public static final int icon_photo = 0x1201;
-        public static final int icon_animation = 0x1202;
+        public static final int text_size_small = 0x1200;
+        public static final int text_size_medium = 0x1201;
+        public static final int text_size_large = 0x1202;
         
-        public static final int pagination_standard = 0x1300;
+        public static final int icon_pictogram = 0x1300;
+        public static final int icon_high_contrast = 0x1301;
+        public static final int icon_photo = 0x1302;
+        public static final int icon_animation = 0x1303;
+        
+        public static final int pagination_standard = 0x1400;
         public static final int pagination_automatic = pagination_standard; // alias for scan mode
         
-        public static final int pagination_buttons = 0x1301;
+        public static final int pagination_buttons = 0x1401;
         public static final int pagination_manual = pagination_buttons; // alias for scan mode
     }
     
@@ -62,9 +69,10 @@ public class UseProfile extends Profile
     public int viewMode = visualization.view_standard;
     public int rows = 2;
     public int columns = 2;
-    public boolean text = true;
-    public int fontSize = 20;
+    public boolean showText = true;
+    public int fontSize = visualization.text_size_small;
     public int typography = visualization.text_font_sans;
+    public int textColor = 0xFF000000;
     public int iconMode = visualization.icon_pictogram;
     public int paginationMode = visualization.pagination_standard;
     

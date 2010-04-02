@@ -388,7 +388,7 @@ public class SettingsDbAdapter
                     up.viewMode + ","+
                     up.rows + ","+
                     up.columns + ","+
-                    (up.text ? 1 : 0) + ","+
+                    (up.showText ? 1 : 0) + ","+
                     up.fontSize + ","+
                     up.typography + ","+
                     up.iconMode + ","+
@@ -486,7 +486,7 @@ public class SettingsDbAdapter
         u.viewMode = c.getInt(6);
         u.rows = c.getInt(7);
         u.columns = c.getInt(8);
-        u.text = c.getInt(9) == 1 ? true : false;
+        u.showText = c.getInt(9) == 1 ? true : false;
         u.fontSize = c.getInt(10);
         u.typography = c.getInt(11);
         u.iconMode = c.getInt(12);

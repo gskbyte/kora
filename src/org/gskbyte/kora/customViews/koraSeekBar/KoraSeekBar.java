@@ -69,6 +69,11 @@ public class KoraSeekBar extends LinearLayout
         return mSeekBar.getProgress();
     }
     
+    public void setIndex(int i)
+    {
+        mSeekBar.setProgress(i);
+    }
+    
     public int getNumSteps()
     {
         return mSteps;
@@ -77,5 +82,16 @@ public class KoraSeekBar extends LinearLayout
     public void setNumSteps(int nteps)
     {
         mSeekBar.setMax(mSteps-1);
+    }
+    
+    public boolean isEnabled()
+    {
+        return mSeekBar.isEnabled();
+    }
+    
+    public void setEnabled(boolean b)
+    {
+        mSeekBar.setEnabled(b);
+        mValueText.setEnabled(b);
     }
 }

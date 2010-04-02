@@ -116,20 +116,20 @@
             
             android:text="@string/text"/>
             
-            <LinearLayout
+	        <CheckBox android:id="@+id/showTextCheckBox"
+	            android:layout_height="wrap_content"
+	            android:layout_width="wrap_content"
+	            
+	            android:checked="true"
+	            android:text="@string/textShow"/>
+	            
+            <LinearLayout android:id="@+id/textLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:paddingLeft="5dip">
             
-	            <CheckBox android:id="@+id/showTextCheckBox"
-					android:layout_height="wrap_content"
-					android:layout_width="wrap_content"
-					
-					android:checked="true"
-	                android:text="@string/textShow"/>
-	                
-	            <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	            <TableLayout
 	                android:layout_width="wrap_content"
 	                android:layout_height="wrap_content"
 	                
@@ -176,11 +176,11 @@
 		                    
                             android:text="@string/calligraphic"/>
 	  	                  
-		                <RadioButton android:id="@+id/comicRadio"
+		                <RadioButton android:id="@+id/capsRadio"
 		                    android:layout_width="wrap_content"
 		                    android:layout_height="wrap_content"
 		                    
-		                    android:text="@string/comic"/>
+		                    android:text="@string/caps"/>
                     </RadioGroup>
                 <TextView
                     android:layout_width="fill_parent"  
@@ -239,7 +239,7 @@
 	                        android:layout_width="wrap_content"
 	                        android:layout_height="wrap_content"
 	                        
-	                        android:text="@string/textWhite"/>
+	                        android:text="@string/highContrastIcon"/>
 	                    
 	                    <RadioButton android:id="@+id/iconPhotoRadio"
 	                        android:layout_width="wrap_content"
@@ -253,7 +253,7 @@
 	                        
 	                        android:text="@string/animation"/>
 	                </RadioGroup>
-            
+            </LinearLayout>
             <TextView
                 android:layout_width="fill_parent"  
                 android:layout_height="wrap_content"
@@ -280,7 +280,6 @@
                         android:text="@string/lastButton"/>
                 </RadioGroup>
             
-            </LinearLayout>
 	</LinearLayout>
 	</ScrollView>
 </RelativeLayout>

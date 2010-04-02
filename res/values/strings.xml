@@ -128,7 +128,7 @@
                 <string name="textTypography">Typography</string>
                     <string name="sans">Sans font</string>
                     <string name="calligraphic">Calligraphic</string>
-                    <string name="comic">Comic</string>
+                    <string name="caps">Caps</string>
                 <string name="textColor">Color</string>
 	                <string name="textBlack">Black</string>
 	                <string name="textWhite">White</string>
