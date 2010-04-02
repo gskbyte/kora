@@ -51,6 +51,7 @@ public class UseProfile extends Profile
         public static final int voice_sounds = 0x3002;
         
     }
+    
     // General settings
     public boolean isDefaultProfile = false;
     

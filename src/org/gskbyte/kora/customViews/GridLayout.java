@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.gskbyte.kora.customViews.gridLayout;
+package org.gskbyte.kora.customViews;
 
 import org.gskbyte.kora.R;
 

@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+    xmlns:gskbyte="http://schemas.android.com/apk/res/org.gskbyte.kora"
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content">
+    
+    <include android:id="@+id/okCancelBar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        layout="@layout/ok_cancel_bar"/>
+    
+    <ScrollView
+        android:layout_width="fill_parent" 
+        android:layout_height="wrap_content"
+        android:layout_above="@id/okCancelBar">
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:minWidth="250dip"
+        android:layout_marginLeft="10dip">
+        
+        <TextView
+            android:layout_width="fill_parent"  
+            android:layout_height="wrap_content"
+            style="?android:attr/listSeparatorTextViewStyle"
+            
+            android:text="@string/lookAndFeel"/>
+        
+            <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkedButton="@+id/defaultLAFRadio"
+                android:orientation="vertical"
+                android:paddingLeft="5dip">
+                
+                <RadioButton android:id="@+id/defaultLAFRadio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    
+                    android:text="@string/defaultLAF"/>
+                
+                <RadioButton android:id="@+id/plainRadio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    
+                    android:text="@string/plainColors"/>
+                    
+                <RadioButton android:id="@+id/differentPlainRadio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    
+                    android:text="@string/differentPlainColor"/>
+                    
+                <RadioButton android:id="@+id/highContrastRadio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    
+                    android:text="@string/highContrastColor"/>
+                
+                <RadioButton android:id="@+id/blackAndWhiteRadio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    
+                    android:text="@string/blackAndWhite"/>
+            </RadioGroup>
+        
+        <TextView
+            android:layout_width="fill_parent"  
+            android:layout_height="wrap_content"
+            style="?android:attr/listSeparatorTextViewStyle"
+            
+            android:text="@string/layout"/>
+            
+            <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            
+	            android:stretchColumns="1">
+                <TableRow>
+                    <TextView
+                        android:layout_width="wrap_content"  
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        
+                        android:text="@string/rows"/>
+                        
+                    <org.gskbyte.kora.customViews.koraSeekBar.KoraIntegerSeekBar
+                        android:id="@+id/rowsSeekBar"
+                        android:layout_width="wrap_content" 
+                        android:layout_height="wrap_content"
+                        gskbyte:minimum="1"
+                        gskbyte:maximum="4"/>
+                </TableRow>
+	            <TableRow>
+	                <TextView
+			            android:layout_width="wrap_content"  
+			            android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+			            
+			            android:text="@string/columns"/>
+		            <org.gskbyte.kora.customViews.koraSeekBar.KoraIntegerSeekBar
+				        android:id="@+id/columnsSeekBar"
+				        android:layout_width="wrap_content" 
+				        android:layout_height="wrap_content"
+				        gskbyte:minimum="1"
+                        gskbyte:maximum="4"/>
+	            </TableRow>
+            </TableLayout>
+            
+        <TextView
+            android:layout_width="fill_parent"  
+            android:layout_height="wrap_content"
+            style="?android:attr/listSeparatorTextViewStyle"
+            
+            android:text="@string/text"/>
+            
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="5dip">
+            
+	            <CheckBox android:id="@+id/showTextCheckBox"
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content"
+					
+					android:checked="true"
+	                android:text="@string/textShow"/>
+	                
+	            <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                
+	                android:stretchColumns="1">
+	                <TableRow>
+		                <TextView
+	                        android:layout_width="wrap_content"  
+	                        android:layout_height="wrap_content"
+	                        android:layout_gravity="center_vertical"
+	                        
+	                        android:text="@string/textSize"/>
+	                        
+	                    <org.gskbyte.kora.customViews.koraSeekBar.KoraArraySeekBar
+	                        android:id="@+id/fontSeekBar"
+	                        android:layout_width="wrap_content" 
+	                        android:layout_height="wrap_content"
+	                        gskbyte:array_id="@array/textSizes"/>
+	                </TableRow>
+                </TableLayout>
+                
+                <TextView
+		            android:layout_width="fill_parent"  
+		            android:layout_height="wrap_content"
+		            android:textStyle="bold"
+		            
+		            android:text="@string/textTypography"/>
+		            
+		            <RadioGroup
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checkedButton="@+id/sansRadio"
+                        android:orientation="vertical"
+                        android:paddingLeft="5dip">
+                  
+	                    <RadioButton android:id="@+id/sansRadio"
+	                        android:layout_width="wrap_content"
+	                        android:layout_height="wrap_content"
+	                        
+	                        android:text="@string/sans"/>
+                  
+		                <RadioButton android:id="@+id/calligraphicRadio"
+		                    android:layout_width="wrap_content"
+		                    android:layout_height="wrap_content"
+		                    
+                            android:text="@string/calligraphic"/>
+	  	                  
+		                <RadioButton android:id="@+id/comicRadio"
+		                    android:layout_width="wrap_content"
+		                    android:layout_height="wrap_content"
+		                    
+		                    android:text="@string/comic"/>
+                    </RadioGroup>
+                <TextView
+                    android:layout_width="fill_parent"  
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    
+                    android:text="@string/textColor"/>
+                    
+                    <RadioGroup
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checkedButton="@+id/textBlackRadio"
+                        android:orientation="vertical"
+                        android:paddingLeft="5dip">
+                        
+                        <RadioButton android:id="@+id/textBlackRadio"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            
+                            android:text="@string/textBlack"/>
+                            
+                       <RadioButton android:id="@+id/textWhiteRadio"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            
+                            android:text="@string/textWhite"/>
+                        
+                        <RadioButton android:id="@+id/textHighContrastRadio"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            
+                            android:text="@string/textHighContrast"/>
+                  
+                        <RadioButton android:id="@+id/textShadowRadio"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            
+                            android:text="@string/textShadow"/>
+                    </RadioGroup>
+            
+	            <TextView
+		            android:layout_width="fill_parent"  
+		            android:layout_height="wrap_content"
+		            style="?android:attr/listSeparatorTextViewStyle"
+		            
+		            android:text="@string/imagesAndIcons"/>
+	            
+	                <RadioGroup
+	                    android:layout_width="wrap_content"
+	                    android:layout_height="wrap_content"
+	                    android:checkedButton="@+id/iconRadio"
+	                    android:orientation="vertical"
+	                    android:paddingLeft="5dip">
+	                    
+	                    <RadioButton android:id="@+id/iconRadio"
+	                        android:layout_width="wrap_content"
+	                        android:layout_height="wrap_content"
+	                        
+	                        android:text="@string/icon"/>
+	                        
+	                   <RadioButton android:id="@+id/iconHighContrastRadio"
+	                        android:layout_width="wrap_content"
+	                        android:layout_height="wrap_content"
+	                        
+	                        android:text="@string/textWhite"/>
+	                    
+	                    <RadioButton android:id="@+id/iconPhotoRadio"
+	                        android:layout_width="wrap_content"
+	                        android:layout_height="wrap_content"
+	                        
+	                        android:text="@string/photoIcon"/>
+	              
+	                    <RadioButton android:id="@+id/iconAnimationRadio"
+	                        android:layout_width="wrap_content"
+	                        android:layout_height="wrap_content"
+	                        
+	                        android:text="@string/animation"/>
+	                </RadioGroup>
+            
+            <TextView
+                android:layout_width="fill_parent"  
+                android:layout_height="wrap_content"
+                style="?android:attr/listSeparatorTextViewStyle"
+                
+                android:text="@string/paging"/>
+                <RadioGroup
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkedButton="@+id/pagingStandardAutomaticRadio"
+                    android:orientation="vertical"
+                    android:paddingLeft="5dip">
+                    
+                    <RadioButton android:id="@+id/pagingStandardAutomaticRadio"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        
+                        android:text="@string/standardPaging"/>
+                        
+                   <RadioButton android:id="@+id/pagingLastButtonRadio"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        
+                        android:text="@string/lastButton"/>
+                </RadioGroup>
+            
+            </LinearLayout>
+	</LinearLayout>
+	</ScrollView>
+</RelativeLayout>

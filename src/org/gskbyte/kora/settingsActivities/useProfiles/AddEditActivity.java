@@ -57,6 +57,9 @@ public class AddEditActivity extends Activity
         
         /* Add listeners */
         mInteractionButton.setOnClickListener(interactionListener);
+        mVisualizationButton.setOnClickListener(visualizationListener);
+        mFeedbackButton.setOnClickListener(feedbackListener);
+        mSoundButton.setOnClickListener(soundListener);
         
         mAcceptButton.setOnClickListener(acceptListener);
         mCancelButton.setOnClickListener(cancelListener);
@@ -130,6 +133,39 @@ public class AddEditActivity extends Activity
         public void onClick(View v)
         {
             Intent i = new Intent(AddEditActivity.this, InteractionActivity.class);
+            i.putExtra(TAG_USE_PROFILE, mCurrentUseProfile);
+            AddEditActivity.this.setVisible(false);
+            startActivityForResult(i, RESULT_TAG);
+        }
+    };
+    
+    private View.OnClickListener visualizationListener = new View.OnClickListener(){
+        @Override
+        public void onClick(View v)
+        {
+            Intent i = new Intent(AddEditActivity.this, VisualizationActivity.class);
+            i.putExtra(TAG_USE_PROFILE, mCurrentUseProfile);
+            AddEditActivity.this.setVisible(false);
+            startActivityForResult(i, RESULT_TAG);
+        }
+    };
+    
+    private View.OnClickListener feedbackListener = new View.OnClickListener(){
+        @Override
+        public void onClick(View v)
+        {
+            Intent i = new Intent(AddEditActivity.this, FeedbackActivity.class);
+            i.putExtra(TAG_USE_PROFILE, mCurrentUseProfile);
+            AddEditActivity.this.setVisible(false);
+            startActivityForResult(i, RESULT_TAG);
+        }
+    };
+    
+    private View.OnClickListener soundListener = new View.OnClickListener(){
+        @Override
+        public void onClick(View v)
+        {
+            Intent i = new Intent(AddEditActivity.this, SoundVoiceActivity.class);
             i.putExtra(TAG_USE_PROFILE, mCurrentUseProfile);
             AddEditActivity.this.setVisible(false);
             startActivityForResult(i, RESULT_TAG);

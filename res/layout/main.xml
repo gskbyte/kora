@@ -43,4 +43,5 @@
 		android:text="@string/startButton"
 		android:textSize="40sp" 
 		android:drawableLeft="@drawable/action_start"/>
+		
 </RelativeLayout>

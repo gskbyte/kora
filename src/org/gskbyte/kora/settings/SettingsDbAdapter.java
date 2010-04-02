@@ -239,6 +239,7 @@ public class SettingsDbAdapter
                 cursor.moveToNext();
             }
         }
+        cursor.close();
         return names;
     }
     
@@ -266,6 +267,7 @@ public class SettingsDbAdapter
                 cursor.moveToNext();
             }
         }
+        cursor.close();
         return u;
     }
     
@@ -296,8 +298,7 @@ public class SettingsDbAdapter
     
     public boolean removeUser(String name)
     {
-        try{    
-            
+        try{
             mDb.execSQL("DELETE FROM "+TABLE_USER+
                     " WHERE "+USER_NAME+"='"+name+"';");
             return true;
@@ -324,6 +325,7 @@ public class SettingsDbAdapter
                 cursor.moveToNext();
             }
         }
+        cursor.close();
         return names;
     }
     
@@ -368,6 +370,7 @@ public class SettingsDbAdapter
                 cursor.moveToNext();
             }
         }
+        cursor.close();
         return u;
     }
     
@@ -411,8 +414,7 @@ public class SettingsDbAdapter
     
     public boolean removeUseProfile(String name)
     {
-        try{    
-            
+        try{
             mDb.execSQL("DELETE FROM "+TABLE_USEPROFILE+
                     " WHERE "+USEPROFILE_NAME+"='"+name+"';");
             return true;
@@ -439,6 +441,7 @@ public class SettingsDbAdapter
                 cursor.moveToNext();
             }
         }
+        cursor.close();
         return names;
     }
     

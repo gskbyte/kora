@@ -4,7 +4,7 @@ import org.gskbyte.kora.R;
 import org.gskbyte.kora.R.drawable;
 import org.gskbyte.kora.R.id;
 import org.gskbyte.kora.R.layout;
-import org.gskbyte.kora.customViews.gridLayout.GridLayout;
+import org.gskbyte.kora.customViews.GridLayout;
 import org.gskbyte.kora.customViews.koraButton.KoraButton;
 
 import android.app.Activity;

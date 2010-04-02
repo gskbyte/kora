@@ -1,16 +1,12 @@
 package org.gskbyte.kora.settingsActivities.useProfiles;
 
 import org.gskbyte.kora.R;
-import org.gskbyte.kora.settings.SettingsManager;
 import org.gskbyte.kora.settings.UseProfile;
-import org.gskbyte.kora.settings.SettingsManager.SettingsException;
-import org.gskbyte.kora.settingsActivities.ProfilesActivity;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -89,12 +85,10 @@ public class InteractionActivity extends Activity
     {
         /* Set main interaction mode */
         if(mUseProfile.mainInteraction == UseProfile.interaction.touch_mode){
-            mTouchRadio.setChecked(true);
+            mTouchListener.onCheckedChanged(mTouchRadio, true);
         } else {
             mScanRadio.setChecked(true);
-            mScanSecondsEdit.setText(String.valueOf(mUseProfile.scanTimeMillis));
-            mScanSecondsText.setEnabled(true);
-            mScanSecondsEdit.setEnabled(true);
+            mTouchListener.onCheckedChanged(mTouchRadio, false);
         }
         
         /* Set touch interaction mode */
@@ -167,6 +161,7 @@ public class InteractionActivity extends Activity
             @Override
             public void onClick(View v)
             {
+                setResult(Activity.RESULT_CANCELED);
                 finish();
             }
         };
