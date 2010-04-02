@@ -103,7 +103,7 @@ public class VisualizationActivity extends ProfilePropertiesActivity
             break;
         }
         
-        mTextColorButton.setColor(mUseProfile.backgroundColor);
+        mBackgroundColorButton.setColor(mUseProfile.backgroundColor);
         mRowsSeekBar.setValue(mUseProfile.rows);
         mColumnsSeekBar.setValue(mUseProfile.columns);
         
