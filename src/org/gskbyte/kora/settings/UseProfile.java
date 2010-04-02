@@ -51,10 +51,6 @@ public class UseProfile extends Profile
         public static final int voice_sounds = 0x3002;
         
     }
-    
-    // General settings
-    public boolean isDefaultProfile = false;
-    
     // Interaction settings
     public int mainInteraction = interaction.touch_mode;
     public int touchMode = interaction.press_and_drag;

@@ -65,7 +65,6 @@ public class SelectionActivity extends Activity
     {
         super.onStart();
         
-        
         try {
             Bundle extras = getIntent().getExtras();
             String useProfileName =  extras.getString(UseProfilesActivity.TAG_USEPROFILE_NAME);
@@ -90,8 +89,6 @@ public class SelectionActivity extends Activity
                 " " +mCurrentUser.getName());
         
         boolean isCustom = mSelectedUseProfile.isCustom();
-        
-        // Desactivar o hacer algo si están siendo usados
         mEditButton.setEnabled(isCustom);
         mDeleteButton.setEnabled(isCustom);
     }

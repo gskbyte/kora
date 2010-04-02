@@ -476,7 +476,7 @@ public class SettingsDbAdapter
     private UseProfile cursor2UseProfile(Cursor c)
     {
         UseProfile u = new UseProfile(c.getString(0));
-        u.isDefaultProfile = c.getInt(1) == 1 ? true : false;
+        u.isDefault = c.getInt(1) == 1 ? true : false;
         
         u.mainInteraction = c.getInt(2);
         u.touchMode = c.getInt(3);

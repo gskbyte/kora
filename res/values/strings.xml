@@ -132,8 +132,7 @@
                 <string name="textColor">Color</string>
 	                <string name="textBlack">Black</string>
 	                <string name="textWhite">White</string>
-	                <string name="textHighContrast">High contrast</string>
-	                <string name="textShadow">Shadowed</string>
+	                <string name="textCustomColor">Custom color</string>
             <string name="imagesAndIcons">Images and icons</string>
                 <string name="icon">Icon</string>
                 <string name="highContrastIcon">highContrastIcon</string>

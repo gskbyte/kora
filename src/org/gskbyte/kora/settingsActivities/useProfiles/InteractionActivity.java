@@ -165,6 +165,4 @@ public class InteractionActivity extends Activity
                 finish();
             }
         };
-        
-    
 }
