@@ -4,44 +4,37 @@ import org.gskbyte.kora.R;
 import org.gskbyte.kora.customViews.koraSeekBar.KoraArraySeekBar;
 import org.gskbyte.kora.customViews.koraSeekBar.KoraIntegerSeekBar;
 import org.gskbyte.kora.settings.UseProfile;
+import org.gskbyte.kora.customViews.ColorButton;
+import org.gskbyte.kora.customViews.ColorPickerDialog;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageButton;
 import android.widget.RadioButton;
-import android.widget.Toast;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 
-public class VisualizationActivity extends Activity
+public class VisualizationActivity extends ProfilePropertiesActivity
 {
     private static final String TAG = "VisualizationActivity";
     
-    private Resources mResources;
-    private UseProfile mUseProfile;
-    
     private RadioButton mDefaultLAFRadio, mPlainRadio, mDifferentPlainRadio,
                         mHighContrastRadio, mBlackAndWhiteRadio;
-    
+    private ColorButton mBackgroundColorButton;
     private KoraIntegerSeekBar mRowsSeekBar, mColumnsSeekBar;
     
     private CheckBox mShowTextCheckBox;
     private KoraArraySeekBar mTextSizeSeekBar;
     private RadioButton mSansRadio, mCalligraphicRadio, mCapsRadio,
                         mTextBlackRadio, mTextWhiteRadio, mTextCustomColorRadio;
+    private ColorButton mTextColorButton;
     
     private RadioButton mIconRadio, mIconHighContrastRadio, mIconPhotoRadio,
                         mIconAnimationRadio;
     
     private RadioButton mPagingStandardAutomaticRadio, mPagingLastButtonRadio;
-    
-    private Button mAcceptButton, mCancelButton;
 
     
     public void onCreate(Bundle savedInstanceState)
@@ -52,14 +45,15 @@ public class VisualizationActivity extends Activity
         getWindow().setFeatureDrawableResource(Window.FEATURE_LEFT_ICON,
                                                R.drawable.icon_visualization);
         
-        /* Load resources and views */
-        mResources = getResources();
+        initButtonBar();
         
+        /* Load views */
         mDefaultLAFRadio = (RadioButton) findViewById(R.id.defaultLAFRadio);
         mPlainRadio = (RadioButton) findViewById(R.id.plainRadio);
         mDifferentPlainRadio = (RadioButton) findViewById(R.id.differentPlainRadio);
         mHighContrastRadio = (RadioButton) findViewById(R.id.highContrastRadio);
         mBlackAndWhiteRadio = (RadioButton) findViewById(R.id.blackAndWhiteRadio);
+        mBackgroundColorButton = (ColorButton) findViewById(R.id.backgroundColorButton);
         
         mRowsSeekBar = (KoraIntegerSeekBar) findViewById(R.id.rowsSeekBar);
         mColumnsSeekBar = (KoraIntegerSeekBar) findViewById(R.id.columnsSeekBar);
@@ -72,6 +66,7 @@ public class VisualizationActivity extends Activity
         mTextBlackRadio = (RadioButton) findViewById(R.id.textBlackRadio);
         mTextWhiteRadio = (RadioButton) findViewById(R.id.textWhiteRadio);
         mTextCustomColorRadio = (RadioButton) findViewById(R.id.textCustomColorRadio);
+        mTextColorButton = (ColorButton) findViewById(R.id.textColorButton);
         
         mIconRadio = (RadioButton) findViewById(R.id.iconRadio);
         mIconHighContrastRadio = (RadioButton) findViewById(R.id.iconHighContrastRadio);
@@ -81,35 +76,13 @@ public class VisualizationActivity extends Activity
         mPagingStandardAutomaticRadio = (RadioButton) findViewById(R.id.pagingStandardAutomaticRadio);
         mPagingLastButtonRadio = (RadioButton) findViewById(R.id.pagingLastButtonRadio);
         
-        mAcceptButton = (Button) findViewById(R.id.acceptButton);
-        mCancelButton = (Button) findViewById(R.id.cancelButton);
-        
         /* Add listeners */
+        mPlainRadio.setOnCheckedChangeListener(backgroundColorListener);
         mShowTextCheckBox.setOnCheckedChangeListener(showTextListener);
-        mAcceptButton.setOnClickListener(acceptListener);
-        mCancelButton.setOnClickListener(cancelListener);
-    }
-
-    public void onStart()
-    {
-        super.onStart();
-        
-        /* Take the UseProfile and adjust view */
-        try {
-            Bundle extras = getIntent().getExtras();
-            mUseProfile = (UseProfile) extras.getSerializable(AddEditActivity.TAG_USE_PROFILE);
-        } catch (Exception e) {
-            Log.e(TAG, e.getMessage());
-            Toast.makeText(this, 
-                    "ERROR GETTING USE PROFILE. Please contact author.",
-                    Toast.LENGTH_LONG);
-            finish();
-        }
-        
-        setView();
+        mTextCustomColorRadio.setOnCheckedChangeListener(textColorListener);
     }
     
-    private void setView()
+    protected void setView()
     {
         /* Set visualization mode */
         switch(mUseProfile.viewMode){
@@ -118,6 +91,7 @@ public class VisualizationActivity extends Activity
             break;
         case UseProfile.visualization.view_plain_color:
             mPlainRadio.setChecked(true);
+            mTextColorButton.setColor(mUseProfile.backgroundColor);
             break;
         case UseProfile.visualization.view_plain_differenced_color:
             mDifferentPlainRadio.setChecked(true);
@@ -165,6 +139,7 @@ public class VisualizationActivity extends Activity
             break;
         default:
             mTextCustomColorRadio.setChecked(true);
+            mTextColorButton.setColor(mUseProfile.textColor);
             break;
         }
         
@@ -199,7 +174,7 @@ public class VisualizationActivity extends Activity
         }
     }
     
-    private void captureData()
+    protected void captureData()
     {
         // Visualization mode
         if(mDefaultLAFRadio.isChecked()){
@@ -208,6 +183,7 @@ public class VisualizationActivity extends Activity
             mUseProfile.viewMode = UseProfile.visualization.view_plain_color;
         } else if (mDifferentPlainRadio.isChecked()) {
             mUseProfile.viewMode = UseProfile.visualization.view_plain_differenced_color;
+            mUseProfile.backgroundColor = mBackgroundColorButton.getColor();
         } else if (mHighContrastRadio.isChecked()) {
             mUseProfile.viewMode = UseProfile.visualization.view_hi_contrast_color;
         } else {
@@ -235,7 +211,7 @@ public class VisualizationActivity extends Activity
         } else if(mTextWhiteRadio.isChecked()) {
             mUseProfile.textColor = 0xFFFFFFFF;
         } else {
-            // PONER COLOR ELEGIDO AL TEXTO!!!
+            mUseProfile.textColor = mTextColorButton.getColor();
         }
         
         // Icon mode
@@ -257,6 +233,20 @@ public class VisualizationActivity extends Activity
         }
     }
     
+    private OnCheckedChangeListener backgroundColorListener =
+        new OnCheckedChangeListener(){
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView,
+                    boolean isChecked)
+            {
+                if(isChecked) {
+                    mBackgroundColorButton.setVisibility(View.VISIBLE);
+                } else {
+                    mBackgroundColorButton.setVisibility(View.GONE);
+                }
+            }
+        };
+    
     private OnCheckedChangeListener showTextListener =
         new OnCheckedChangeListener(){
             @Override
@@ -273,28 +263,18 @@ public class VisualizationActivity extends Activity
                 mTextCustomColorRadio.setEnabled(isChecked);
             }
         };
-    
-    private View.OnClickListener acceptListener =
-        new View.OnClickListener(){
+        
+    private OnCheckedChangeListener textColorListener =
+        new OnCheckedChangeListener(){
             @Override
-            public void onClick(View v)
+            public void onCheckedChanged(CompoundButton buttonView,
+                    boolean isChecked)
             {
-                /* Data capturing */
-                captureData();
-                Intent intent = new Intent();
-                intent.putExtra(AddEditActivity.TAG_USE_PROFILE, mUseProfile);
-                setResult(Activity.RESULT_OK, intent);
-                finish();
-            }
-        };
-    
-    private View.OnClickListener cancelListener = 
-        new View.OnClickListener(){
-            @Override
-            public void onClick(View v)
-            {
-                setResult(Activity.RESULT_CANCELED);
-                finish();
+                if(isChecked) {
+                    mTextColorButton.setVisibility(View.VISIBLE);
+                } else {
+                    mTextColorButton.setVisibility(View.GONE);
+                }
             }
         };
 }

@@ -1,30 +1,20 @@
 package org.gskbyte.kora.settingsActivities.useProfiles;
 
 import org.gskbyte.kora.R;
-import org.gskbyte.kora.customViews.koraSeekBar.KoraArraySeekBar;
-import org.gskbyte.kora.customViews.koraSeekBar.KoraIntegerSeekBar;
 import org.gskbyte.kora.settings.UseProfile;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
 import android.view.Window;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.Toast;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 
-public class FeedbackActivity extends Activity
+public class FeedbackActivity extends ProfilePropertiesActivity
 {
     private static final String TAG = "FeedbackActivity";
     
-    private Resources mResources;
     private UseProfile mUseProfile;
     
     private CheckBox mVibrationCheckBox;
@@ -34,8 +24,6 @@ public class FeedbackActivity extends Activity
     
     private RadioButton mNoHighlightRadio, mStandardRadio, mZoomRadio, mBrightnessRadio;
     private CheckBox mHighlightBorderCheckBox;
-    
-    private Button mAcceptButton, mCancelButton;
 
     public void onCreate(Bundle savedInstanceState)
     {
@@ -45,9 +33,9 @@ public class FeedbackActivity extends Activity
         getWindow().setFeatureDrawableResource(Window.FEATURE_LEFT_ICON,
                                                R.drawable.icon_feedback);
         
-        /* Load resources and views */
-        mResources = getResources();
+        initButtonBar();
         
+        /* Load views */
         mVibrationCheckBox = (CheckBox) findViewById(R.id.vibrationCheckBox);
         
         mConfirmationCheckBox = (CheckBox) findViewById(R.id.confirmationCheckBox);
@@ -59,16 +47,12 @@ public class FeedbackActivity extends Activity
         mBrightnessRadio = (RadioButton) findViewById(R.id.increaseBrightnessRadio);
         mHighlightBorderCheckBox = (CheckBox) findViewById(R.id.highlightBorderCheckBox);
         
-        mAcceptButton = (Button) findViewById(R.id.acceptButton);
-        mCancelButton = (Button) findViewById(R.id.cancelButton);
         
         /* Add listeners */
         mConfirmationCheckBox.setOnCheckedChangeListener(confirmationListener);
-        mAcceptButton.setOnClickListener(acceptListener);
-        mCancelButton.setOnClickListener(cancelListener);
     }
     
-    private void setView()
+    protected void setView()
     {
         mVibrationCheckBox.setChecked(mUseProfile.vibration);
         
@@ -92,7 +76,7 @@ public class FeedbackActivity extends Activity
         mHighlightBorderCheckBox.setChecked(mUseProfile.borderHighlight);
     }
     
-    private void captureData()
+    protected void captureData()
     {
         mUseProfile.vibration = mVibrationCheckBox.isChecked();
         
@@ -120,29 +104,5 @@ public class FeedbackActivity extends Activity
         {
             mConfirmationMillisEdit.setEnabled(isChecked);
         }
-};
-    
-    private View.OnClickListener acceptListener =
-        new View.OnClickListener(){
-            @Override
-            public void onClick(View v)
-            {
-                /* Data capturing */
-                captureData();
-                Intent intent = new Intent();
-                intent.putExtra(AddEditActivity.TAG_USE_PROFILE, mUseProfile);
-                setResult(Activity.RESULT_OK, intent);
-                finish();
-            }
-        };
-    
-    private View.OnClickListener cancelListener = 
-        new View.OnClickListener(){
-            @Override
-            public void onClick(View v)
-            {
-                setResult(Activity.RESULT_CANCELED);
-                finish();
-            }
-        };
+    };
 }

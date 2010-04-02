@@ -1,9 +1,9 @@
 package org.gskbyte.kora.settings;
 
-import android.graphics.Color;
-
 public class UseProfile extends Profile
 {
+    private static final long serialVersionUID = 1L;
+
     // Interaction modes
     public class interaction{
         public static final int touch_mode = 0x0000;	
@@ -58,6 +58,8 @@ public class UseProfile extends Profile
         public static final int simple_sounds = 0x3001;
         public static final int voice_sounds = 0x3002;
         
+        public static final int voice_default = 0x3100;
+        public static final int voice_custom = 0x3101;
     }
     // Interaction settings
     public int mainInteraction = interaction.touch_mode;
@@ -68,6 +70,7 @@ public class UseProfile extends Profile
         
     // Visualization settings
     public int viewMode = visualization.view_standard;
+    public int backgroundColor = 0xFFFFFFFF;
     public int rows = 2;
     public int columns = 2;
     public boolean showText = true;
@@ -87,7 +90,8 @@ public class UseProfile extends Profile
     // Sound settings
     public int soundMode = sound.no_sounds;
     public boolean soundOnSelection = true;
-    public boolean soundOnHover = true;
+    public boolean soundOnAction = true;
+    public int voiceMode = sound.voice_default;
     
     public UseProfile(String name)
     {

@@ -19,15 +19,15 @@ import android.widget.RadioButton;
 import android.widget.Toast;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 
-public class SoundVoiceActivity extends Activity
+public class SoundVoiceActivity extends ProfilePropertiesActivity
 {
     private static final String TAG = "SoundVoiceActivity";
     
-    private Resources mResources;
-    private UseProfile mUseProfile;
-        
-    private Button mAcceptButton, mCancelButton;
-
+    RadioButton noSoundRadio, simpleSoundsRadio, voiceRadio;
+    
+    CheckBox onItemSelectionCheckBox, onActionCheckBox;
+    
+    RadioButton defaultVoiceRadio, customVoiceRadio;
     
     public void onCreate(Bundle savedInstanceState)
     {
@@ -37,49 +37,79 @@ public class SoundVoiceActivity extends Activity
         getWindow().setFeatureDrawableResource(Window.FEATURE_LEFT_ICON,
                                                R.drawable.icon_sound);
         
-        /* Load resources and views */
-        mResources = getResources();
+        initButtonBar();
         
+        /* Load views */
+        noSoundRadio = (RadioButton) findViewById(R.id.noSoundRadio);
+        simpleSoundsRadio = (RadioButton) findViewById(R.id.simpleSoundsRadio);
+        voiceRadio = (RadioButton) findViewById(R.id.voiceRadio);
         
-        mAcceptButton = (Button) findViewById(R.id.acceptButton);
-        mCancelButton = (Button) findViewById(R.id.cancelButton);
+        onItemSelectionCheckBox = (CheckBox) findViewById(R.id.onItemSelectionCheckBox);
+        onActionCheckBox = (CheckBox) findViewById(R.id.onActionCheckBox);
+        
+        defaultVoiceRadio = (RadioButton) findViewById(R.id.defaultVoiceRadio);
+        customVoiceRadio = (RadioButton) findViewById(R.id.customVoiceRadio);
         
         /* Add listeners */
-        mAcceptButton.setOnClickListener(acceptListener);
-        mCancelButton.setOnClickListener(cancelListener);
+        voiceRadio.setOnCheckedChangeListener(voiceListener);
     }
     
-    private void setView()
+    protected void setView()
     {
+        /* Set main sound mode */
+        switch(mUseProfile.soundMode){
+        case UseProfile.sound.no_sounds:
+            noSoundRadio.setChecked(true);
+            break;
+        case UseProfile.sound.simple_sounds:
+            simpleSoundsRadio.setChecked(true);
+            break;
+        case UseProfile.sound.voice_sounds:
+            voiceRadio.setChecked(true);
+            break;
+        }
         
+        onItemSelectionCheckBox.setChecked(mUseProfile.soundOnSelection);
+        onActionCheckBox.setChecked(mUseProfile.soundOnAction);
+        
+        switch(mUseProfile.soundMode){
+        case UseProfile.sound.voice_default:
+            defaultVoiceRadio.setChecked(true);
+            break;
+        case UseProfile.sound.voice_custom:
+            customVoiceRadio.setChecked(true);
+            break;
+        }
     }
     
-    private void captureData()
+    protected void captureData()
     {
+        if(noSoundRadio.isChecked()) {
+            mUseProfile.soundMode = UseProfile.sound.no_sounds;
+        } else if(simpleSoundsRadio.isChecked()) {
+            mUseProfile.soundMode = UseProfile.sound.simple_sounds;
+        } else {
+            mUseProfile.soundMode = UseProfile.sound.voice_sounds;
+        }
         
+        mUseProfile.soundOnSelection = onItemSelectionCheckBox.isChecked();
+        mUseProfile.soundOnAction = onActionCheckBox.isChecked();
+        
+        if(defaultVoiceRadio.isChecked()) {
+            mUseProfile.soundMode = UseProfile.sound.voice_default;
+        } else {
+            mUseProfile.soundMode = UseProfile.sound.voice_custom;
+        }
     }
     
-    private View.OnClickListener acceptListener =
-        new View.OnClickListener(){
+    private OnCheckedChangeListener voiceListener =
+        new OnCheckedChangeListener(){
             @Override
-            public void onClick(View v)
+            public void onCheckedChanged(CompoundButton buttonView,
+                    boolean isChecked)
             {
-                /* Data capturing */
-                captureData();
-                Intent intent = new Intent();
-                intent.putExtra(AddEditActivity.TAG_USE_PROFILE, mUseProfile);
-                setResult(Activity.RESULT_OK, intent);
-                finish();
-            }
-        };
-    
-    private View.OnClickListener cancelListener = 
-        new View.OnClickListener(){
-            @Override
-            public void onClick(View v)
-            {
-                setResult(Activity.RESULT_CANCELED);
-                finish();
+                defaultVoiceRadio.setEnabled(isChecked);
+                customVoiceRadio.setEnabled(isChecked);
             }
         };
 }

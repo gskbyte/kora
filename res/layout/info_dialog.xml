@@ -78,7 +78,15 @@
                     android:scrollHorizontally="true"
 	                android:text="@string/artworkString"/>
 	        </TableRow>
-	        
+	        <TableRow>
+                <TextView
+                    android:paddingRight="5dip"
+                    android:text="@string/codeParts"/>
+                <TextView
+                    android:paddingLeft="5dip"
+                    android:scrollHorizontally="true"
+                    android:text="@string/codePartsString"/>
+            </TableRow>
 		    <TextView
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"

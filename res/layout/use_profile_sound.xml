@@ -99,12 +99,14 @@
 	                android:layout_width="wrap_content"
 	                android:layout_height="wrap_content"
 	                
+	                android:enabled="false"
 	                android:text="@string/defaultVoice"/>
 	            
 	            <RadioButton android:id="@+id/customVoiceRadio"
 	                android:layout_width="wrap_content"
 	                android:layout_height="wrap_content"
 	                
+                    android:enabled="false"
 	                android:text="@string/customVoice"/>
 	        </RadioGroup>
     </LinearLayout>

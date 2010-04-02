@@ -400,7 +400,7 @@ public class SettingsDbAdapter
                     (up.borderHighlight ? 1 : 0) + ","+
                     up.soundMode + ","+
                     (up.soundOnSelection ? 1 : 0) + ","+
-                    (up.soundOnHover ? 1 : 0) +
+                    (up.soundOnAction ? 1 : 0) +
                 ");");
             return true;
         } catch (Exception e){
@@ -500,7 +500,7 @@ public class SettingsDbAdapter
         
         u.soundMode = c.getInt(19);
         u.soundOnSelection = c.getInt(20) == 1 ? true : false;
-        u.soundOnHover = c.getInt(21) == 1 ? true : false;
+        u.soundOnAction = c.getInt(21) == 1 ? true : false;
         
         return u;
     }

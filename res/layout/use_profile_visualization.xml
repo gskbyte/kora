@@ -28,13 +28,12 @@
             
             android:text="@string/lookAndFeel"/>
         
-            <RadioGroup
+            <RadioGroup android:id="@+id/lookAndFeelRadioGroup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checkedButton="@+id/defaultLAFRadio"
                 android:orientation="vertical"
                 android:paddingLeft="5dip">
-                
                 <RadioButton android:id="@+id/defaultLAFRadio"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -46,7 +45,15 @@
                     android:layout_height="wrap_content"
                     
                     android:text="@string/plainColors"/>
+                
+			    <org.gskbyte.kora.customViews.ColorButton android:id="@+id/backgroundColorButton"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:layout_marginLeft="30dip"
+                    android:visibility="gone"
                     
+			        android:minWidth="50dip"/>
+        
                 <RadioButton android:id="@+id/differentPlainRadio"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -213,6 +220,14 @@
                             android:layout_height="wrap_content"
                             
                             android:text="@string/textCustomColor"/>
+                        
+                        <org.gskbyte.kora.customViews.ColorButton android:id="@+id/textColorButton"
+		                    android:layout_width="wrap_content"
+		                    android:layout_height="wrap_content"
+		                    android:layout_marginLeft="30dip"
+		                    android:visibility="gone"
+		                    
+		                    android:minWidth="50dip"/>
                     </RadioGroup>
             
 	            <TextView
@@ -282,4 +297,5 @@
             
 	</LinearLayout>
 	</ScrollView>
+	
 </RelativeLayout>
