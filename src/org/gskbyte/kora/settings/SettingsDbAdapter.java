@@ -13,7 +13,7 @@ import android.util.Log;
 public class SettingsDbAdapter
 {
     public static final String DATABASE_NAME = "kora.db";
-    public static final int DATABASE_VERSION = 3;
+    public static final int DATABASE_VERSION = 4;
     
     public static final int RESULT_OK = 0,
                             QUERY_FAIL = 1,
@@ -64,6 +64,15 @@ public class SettingsDbAdapter
          USER_AUTOSTARTSECONDS = "autostartSeconds",
          USER_USEPROFILE = "useProfile",
          USER_DEVICEPROFILE = "deviceProfile";
+    
+    private static final String INDEX_USEPROFILE_NAME = "useProfileNameIndex",
+         INDEX_DEVICEPROFILE_NAME = "deviceProfileNameIndex";/*,
+         INDEX_DEFAULT_USERS = "defaultUsersIndex",
+         INDEX_CUSTOM_USERS = "customUsersIndex",
+         INDEX_DEFAULT_USEPROFILES = "defaultUseProfilesIndex",
+         INDEX_CUSTOM_USEPROFILES = "customUseProfilesIndex",
+         INDEX_DEFAULT_DEVICEPROFILES = "defaultDeviceProfileIndex",
+         INDEX_CUSTOM_DEVICEPROFILES = "customDeviceProfileIndex";*/
     
     private static final String TABLE_CREATE_USEPROFILE =
         "create table "+TABLE_USEPROFILE+"\n"+
@@ -120,6 +129,14 @@ public class SettingsDbAdapter
             "FOREIGN KEY("+USER_DEVICEPROFILE+") REFERENCES "+
                         TABLE_DEVICEPROFILE+"("+DEVICEPROFILE_NAME+")"+
         ");";
+    
+    private static final String INDEX_CREATE_USEPROFILE_NAME = 
+        "create index "+INDEX_USEPROFILE_NAME+" on "+TABLE_USER+" ("+
+        USER_USEPROFILE+");";
+    
+    private static final String INDEX_CREATE_DEVICEPROFILE_NAME = 
+        "create index "+INDEX_DEVICEPROFILE_NAME+" on "+TABLE_USER+" ("+
+        USER_DEVICEPROFILE+");";
     
     private static final String INSERT_DEFAULT_USEPROFILE = 
         "INSERT INTO "+TABLE_USEPROFILE+" VALUES"+
@@ -202,6 +219,9 @@ public class SettingsDbAdapter
             db.execSQL(TABLE_CREATE_DEVICEPROFILE);
             db.execSQL(TABLE_CREATE_USER);
 
+            db.execSQL(INDEX_CREATE_USEPROFILE_NAME);
+            db.execSQL(INDEX_CREATE_DEVICEPROFILE_NAME);
+            
             db.execSQL(INSERT_DEFAULT_USEPROFILE);
             db.execSQL(INSERT_DEFAULT_DEVICEPROFILE);
             db.execSQL(INSERT_DEFAULT_USER);
