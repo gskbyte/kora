@@ -151,7 +151,7 @@ public class SettingsManager
         if(u == null || u.getName() == null || u.getName().length()==0)
             throw new SettingsException(SettingsException.BAD, User.class);
         // Comprobar que los perfiles son correctos!
-        if(!sDbAdapter.addUser(u))
+        if(sDbAdapter.addUser(u) != SettingsDbAdapter.RESULT_OK)
             throw new SettingsException(SettingsException.EXISTS, User.class);
     }
     
@@ -172,7 +172,7 @@ public class SettingsManager
     
     public void removeUser(String name) throws SettingsException
     {
-        if(!sDbAdapter.removeUser(name))
+        if(sDbAdapter.removeUser(name) != SettingsDbAdapter.RESULT_OK)
             throw new SettingsException(SettingsException.NOT_EXISTS, User.class);
     }
     
@@ -231,31 +231,50 @@ public class SettingsManager
     public void addUseProfile(UseProfile up) throws SettingsException
     {
         if(up == null || up.getName() == null || up.getName().length()==0)
-            throw new SettingsException(SettingsException.BAD, UseProfile.class);
+            throw new SettingsException(SettingsException.BAD,
+                    UseProfile.class);
         // Comprobar que los perfiles son correctos!
-        if(!sDbAdapter.addUseProfile(up))
-            throw new SettingsException(SettingsException.EXISTS, UseProfile.class);
+        if(sDbAdapter.addUseProfile(up) != SettingsDbAdapter.RESULT_OK)
+            throw new SettingsException(SettingsException.EXISTS,
+                    UseProfile.class);
     }
     
-    public void editUseProfile(String previous_name, UseProfile u) throws SettingsException
+    public void editUseProfile(String previous_name, UseProfile up) throws SettingsException
     {
-        /*if(previous_name == null || previous_name.length()==0 ||
-           u == null || u.getName() == null || u.getName().length()==0)
+        if(previous_name == null || previous_name.length()==0 ||
+           up == null || up.getName() == null || up.getName().length()==0)
             throw new SettingsException(SettingsException.BAD, User.class);
         
+        // If name is not changed, act normally
+        boolean different_name = !previous_name.equals(up.getName());
         
-        
-        if(!previous_name.equals(u.getName()))
-            if(existsUser(u.getName()))
+        if(different_name)
+            if(existsUseProfile(up.getName()))
                 throw new SettingsException(SettingsException.EXISTS, User.class);
-        removeUser(previous_name);
-        addUser(u); // nunca lanzará excepción*/
+        // Delete previous configuration
+        if(sDbAdapter.removeUseProfile(previous_name, false) != SettingsDbAdapter.RESULT_OK)
+            throw new SettingsException(SettingsException.NOT_EXISTS,
+                    UseProfile.class);
+        // And add the new one
+        addUseProfile(up);
+        
+        // If the name has changed, the users have to be modified
+        List<User> users = sDbAdapter.getUsers(SettingsDbAdapter.USER_USEPROFILE+"='"+previous_name+"'");
+        for(User u : users){
+            u.setUseProfileName(up.name);
+            editUser(u.name, u);
+        }
     }
     
     public void removeUseProfile(String name) throws SettingsException
     {
-        /*if(!mDbAdapter.removeUseProfile(name))
-            throw new SettingsException(SettingsException.NOT_EXISTS, User.class);*/
+        if(sDbAdapter.removeUseProfile(name, true) == SettingsDbAdapter.QUERY_FAIL)
+            throw new SettingsException(SettingsException.NOT_EXISTS,
+                    UseProfile.class);
+        else if(sDbAdapter.removeUseProfile(name, true) == SettingsDbAdapter.HAS_DEPENDENCIES)
+            throw new SettingsException(SettingsException.HAS_DEPENDENCIES,
+                    UseProfile.class);
+            
     }
     
     public UseProfile getCurrentUseProfile()

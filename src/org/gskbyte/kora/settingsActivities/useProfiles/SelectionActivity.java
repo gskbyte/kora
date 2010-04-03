@@ -15,7 +15,6 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -48,7 +47,7 @@ public class SelectionActivity extends Activity
         //mChooseButton.setOnClickListener(chooseListener);
         //mCopyButton.setOnClickListener(copyListener);
         mEditButton.setOnClickListener(editListener);
-        //mDeleteButton.setOnClickListener(deleteListener);
+        mDeleteButton.setOnClickListener(deleteListener);
         mReturnButton.setOnClickListener(returnListener);
         
         try {
@@ -88,9 +87,12 @@ public class SelectionActivity extends Activity
         mChooseButton.setText(mResources.getString(R.string.chooseUseProfileFor) +
                 " " +mCurrentUser.getName());
         
-        boolean isCustom = mSelectedUseProfile.isCustom();
-        mEditButton.setEnabled(isCustom);
-        mDeleteButton.setEnabled(isCustom);
+        boolean isCustomUser = mCurrentUser.isCustom();
+        mChooseButton.setEnabled(isCustomUser);
+        
+        boolean isCustomProfile = mSelectedUseProfile.isCustom();
+        mEditButton.setEnabled(isCustomProfile);
+        mDeleteButton.setEnabled(isCustomProfile);
     }
     
     private android.view.View.OnClickListener editListener = 
@@ -104,6 +106,53 @@ public class SelectionActivity extends Activity
                         mSelectedUseProfile.getName());
                 SelectionActivity.this.startActivity(intent);
                 finish();
+            }
+        };
+    
+        private android.view.View.OnClickListener deleteListener = new android.view.View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                if(mDeleteDialog==null){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(SelectionActivity.this);
+                    builder.setMessage(
+                            mResources.getString(R.string.useProfileDeletionQuestion)+
+                            " " + mSelectedUseProfile.getName() + "?")
+                    .setIcon(mResources.getDrawable(R.drawable.icon_important))
+                    .setCancelable(false)
+                    .setPositiveButton(R.string.yes, 
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    try{
+                                        mSettings.removeUseProfile(mSelectedUseProfile.getName());
+                                        Toast.makeText(SelectionActivity.this, 
+                                                mResources.getString(R.string.deleteUseProfileOk) + ":"  +
+                                                mSelectedUseProfile.getName(), Toast.LENGTH_SHORT).show();
+                                    }catch (SettingsManager.SettingsException e){
+                                        if(e.type==SettingsException.NOT_EXISTS){
+                                            Toast.makeText(SelectionActivity.this,
+                                                mResources.getString(R.string.deleteUseProfileFail) + ":"  +
+                                                mSelectedUseProfile.getName(), Toast.LENGTH_SHORT).show();
+                                        } else { // HAS_DEPENDENCIES
+                                            Toast.makeText(SelectionActivity.this,
+                                                mResources.getString(R.string.deleteUseProfileFailUsed),
+                                                Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                    finish();
+                                }
+                    })
+                    .setNegativeButton(R.string.no,
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                    finish();
+                                }
+                    });
+                    mDeleteDialog = builder.create();
+                }
+                
+                mDeleteDialog.show();
             }
         };
     

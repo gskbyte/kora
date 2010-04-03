@@ -12,8 +12,12 @@ import android.util.Log;
 
 public class SettingsDbAdapter
 {
-    public static final String DATABASE_NAME = "kora";
+    public static final String DATABASE_NAME = "kora.db";
     public static final int DATABASE_VERSION = 3;
+    
+    public static final int RESULT_OK = 0,
+                            QUERY_FAIL = 1,
+                            HAS_DEPENDENCIES = 2;
     
     public static final String TABLE_USEPROFILE = "use_profile",
          USEPROFILE_NAME = "name",
@@ -111,9 +115,9 @@ public class SettingsDbAdapter
             USER_AUTOSTARTSECONDS+" INTEGER,"+
             USER_USEPROFILE+" TEXT,"+
             USER_DEVICEPROFILE+" TEXT, "+
-            "FOREIGN KEY ("+USER_USEPROFILE+") REFERENCES "+
+            "FOREIGN KEY("+USER_USEPROFILE+") REFERENCES "+
                         TABLE_USEPROFILE+"("+USEPROFILE_NAME+"),"+
-            "FOREIGN KEY ("+USER_DEVICEPROFILE+") REFERENCES "+
+            "FOREIGN KEY("+USER_DEVICEPROFILE+") REFERENCES "+
                         TABLE_DEVICEPROFILE+"("+DEVICEPROFILE_NAME+")"+
         ");";
     
@@ -193,7 +197,7 @@ public class SettingsDbAdapter
         public void onCreate(SQLiteDatabase db)
         {
             Log.e(TAG, "Creando base de datos");
-            
+
             db.execSQL(TABLE_CREATE_USEPROFILE);
             db.execSQL(TABLE_CREATE_DEVICEPROFILE);
             db.execSQL(TABLE_CREATE_USER);
@@ -281,7 +285,7 @@ public class SettingsDbAdapter
         return u;
     }
     
-    public boolean addUser(User u)
+    public int addUser(User u)
     {
         try{                   
             mDb.execSQL("INSERT INTO "+TABLE_USER+" VALUES"+
@@ -295,26 +299,32 @@ public class SettingsDbAdapter
                     "'"+u.getUseProfileName()+"'"+","+
                     "'"+u.getDeviceProfileName()+"'"+
                 ");");
-            return true;
+            return RESULT_OK;
         } catch (Exception e){
             if(u != null)
                 Log.w(TAG, "Error adding user "+u.getName());
             else
                 Log.w(TAG, "Error adding null user");
-            return false;
+            return QUERY_FAIL;
         }
     }
     
-    
-    public boolean removeUser(String name)
+    // I have to look for the user before deleting because Android doesn't
+    // throw an exception. SQLite is very limited on Android.
+    public int removeUser(String name)
     {
         try{
-            mDb.execSQL("DELETE FROM "+TABLE_USER+
-                    " WHERE "+USER_NAME+"='"+name+"';");
-            return true;
+            List<User> res = getUsers(USER_NAME+"='"+name+"'");
+            if(res.size()==1){
+                mDb.execSQL("DELETE FROM "+TABLE_USER+
+                        " WHERE "+USER_NAME+"='"+name+"';");
+                return RESULT_OK;
+            } else {
+                return QUERY_FAIL;
+            }
         } catch (Exception e){
             Log.w(TAG, "Error deleting user "+name);
-            return false;
+            return QUERY_FAIL;
         }
     }
     
@@ -376,19 +386,19 @@ public class SettingsDbAdapter
                         }, 
                     selection, null,
                     null, null, USEPROFILE_NAME, null);
-        List<UseProfile> u = new ArrayList<UseProfile>();
+        List<UseProfile> ups = new ArrayList<UseProfile>();
         if (cursor != null) {
             cursor.moveToFirst();
             while(!cursor.isAfterLast()){
-                u.add(cursor2UseProfile(cursor));
+                ups.add(cursor2UseProfile(cursor));
                 cursor.moveToNext();
             }
         }
         cursor.close();
-        return u;
+        return ups;
     }
     
-    public boolean addUseProfile(UseProfile up)
+    public int addUseProfile(UseProfile up)
     {
         try{
             String s ="INSERT INTO "+TABLE_USEPROFILE+" VALUES"+
@@ -421,25 +431,37 @@ public class SettingsDbAdapter
             up.voiceMode +
         ");";
             mDb.execSQL(s);
-            return true;
+            return RESULT_OK;
         } catch (Exception e){
             if(up != null)
                 Log.e(TAG, "Error adding user "+up.getName());
             else
                 Log.e(TAG, "Error adding null user");
-            return false;
+            return QUERY_FAIL;
         }
     }
     
-    public boolean removeUseProfile(String name)
+    // Limitations again
+    public int removeUseProfile(String name, boolean check_dependencies)
     {
         try{
-            mDb.execSQL("DELETE FROM "+TABLE_USEPROFILE+
-                    " WHERE "+USEPROFILE_NAME+"='"+name+"';");
-            return true;
+            List<UseProfile> res = getUseProfiles(USEPROFILE_NAME+"='"+name+"'");
+            if(res.size()==1){
+                if(check_dependencies){
+                    List<User> users = getUsers(USER_USEPROFILE+"='"+name+"'");
+                    if(users.size()>0){
+                        return HAS_DEPENDENCIES;
+                    }
+                }
+                mDb.execSQL("DELETE FROM "+TABLE_USEPROFILE+
+                        " WHERE "+USEPROFILE_NAME+"='"+name+"';");
+                return RESULT_OK;
+            } else {
+                return QUERY_FAIL;
+            }
         } catch (Exception e){
             Log.e(TAG, "Error deleting use profile "+name);
-            return false;
+            return QUERY_FAIL;
         }
     }
     
@@ -469,14 +491,14 @@ public class SettingsDbAdapter
         return null;
     }
     
-    public boolean addDeviceProfile(DeviceProfile u)
+    public int addDeviceProfile(DeviceProfile u)
     {
-        return true;
+        return RESULT_OK;
     }
     
     public int removeDeviceProfile(String name)
     {
-        return 0;
+        return RESULT_OK;
     }
     
     private User cursor2User(Cursor c)

@@ -75,7 +75,7 @@
 	        <string name="addUserOk">Added user</string>
             <string name="editUserOk">Success editing user</string>
 	        <string name="existingUserFail">User already exists</string>
-            <string name="emptyUserNameAndSchoolFail">Fields "Name" and "School" must be filled</string>
+            <string name="emptyUserNameAndSchoolFail">Fields \"Name\" and \"School\" must be filled</string>
 	        
 	        <!-- Deletion dialog -->
 	        <string name="userDeletionQuestion">Are you sure you want to delete user</string>
@@ -97,71 +97,77 @@
             <string name="editUseProfileOk">Success editing use profile</string>
             <string name="existingUseProfileFail">Use profile already exists</string>
             <string name="emptyUseProfileNameFail">Field "Name" must be filled</string>
-	        
-            <!-- Interaction -->
-            <string name="mainInteraction">Main interaction</string>
-                <string name="touchInteraction">Touch interaction</string>
-                    <string name="multitouchInteraction">Multitouch</string>
-                    <string name="pressAndDragInteraction">Touch and drag</string>
-                    <string name="simpleTouchInteraction">Simple touch</string>
-                <string name="scanInteraction">Scan</string>
-                    <string name="scanTime">Scan time (ms)</string>
-                    <string name="milliseconds">milliseconds</string>
-            <string name="voiceInteraction">Voice interaction</string>
-            <!-- Visualization -->
-            <string name="lookAndFeel">Look and feel</string>
-                <string name="defaultLAF">Default</string>
-                <string name="plainColor">Plain color</string>
-                <string name="differentPlainColor">Different colors</string>
-                <string name="highContrastColor">High contrast</string>
-                <string name="blackAndWhite">Black and white</string>
-            <string name="layout">Layout</string>
-                <string name="columns">Columns</string>
-                <string name="rows">Rows</string>
-            <string name="text">Text</string>
-                <string name="textShow">Show text</string>
-                <string name="textSize">Size</string>
-                    <string name="textSmall">Small</string>
-                    <string name="textMedium">Medium</string>
-                    <string name="textLarge">Large</string>
-                <string name="textTypography">Typography</string>
-                    <string name="sans">Sans font</string>
-                    <string name="calligraphic">Calligraphic</string>
-                    <string name="caps">Caps</string>
-                <string name="textColor">Color</string>
-	                <string name="textBlack">Black</string>
-	                <string name="textWhite">White</string>
-	                <string name="textCustomColor">Custom color</string>
-            <string name="imagesAndIcons">Images and icons</string>
-                <string name="icon">Icon</string>
-                <string name="highContrastIcon">High contrast icon</string>
-                <string name="photoIcon">Photo</string>
-                <string name="animation">Animation</string>
-            <string name="paging">Paging</string>
-                <string name="standardPaging">Standard</string>
-                <string name="automaticPaging">Automatic</string>
-                <string name="lastButton">Last button</string>
-            <!-- Feedback -->
-            <string name="vibration">Vibration</string>
-            <string name="confirmation">Confirmation</string>
-            <string name="highlight">Highlight</string>
-                <string name="noHighlight">None</string>
-                <string name="standardHighlight">Standard</string>
-                <string name="zoomIn">Zoom in</string>
-                <string name="increaseBrightness">Increase brightness</string>
-            <string name="highlightBorder">Highlight border</string>
+	            <!-- Interaction -->
+	            <string name="mainInteraction">Main interaction</string>
+	                <string name="touchInteraction">Touch interaction</string>
+	                    <string name="multitouchInteraction">Multitouch</string>
+	                    <string name="pressAndDragInteraction">Touch and drag</string>
+	                    <string name="simpleTouchInteraction">Simple touch</string>
+	                <string name="scanInteraction">Scan</string>
+	                    <string name="scanTime">Scan time (ms)</string>
+	                    <string name="milliseconds">milliseconds</string>
+	            <string name="voiceInteraction">Voice interaction</string>
+	            <!-- Visualization -->
+	            <string name="lookAndFeel">Look and feel</string>
+	                <string name="defaultLAF">Default</string>
+	                <string name="plainColor">Plain color</string>
+	                <string name="differentPlainColor">Different colors</string>
+	                <string name="highContrastColor">High contrast</string>
+	                <string name="blackAndWhite">Black and white</string>
+	            <string name="layout">Layout</string>
+	                <string name="columns">Columns</string>
+	                <string name="rows">Rows</string>
+	            <string name="text">Text</string>
+	                <string name="textShow">Show text</string>
+	                <string name="textSize">Size</string>
+	                    <string name="textSmall">Small</string>
+	                    <string name="textMedium">Medium</string>
+	                    <string name="textLarge">Large</string>
+	                <string name="textTypography">Typography</string>
+	                    <string name="sans">Sans font</string>
+	                    <string name="calligraphic">Calligraphic</string>
+	                    <string name="caps">Caps</string>
+	                <string name="textColor">Color</string>
+		                <string name="textBlack">Black</string>
+		                <string name="textWhite">White</string>
+		                <string name="textCustomColor">Custom color</string>
+	            <string name="imagesAndIcons">Images and icons</string>
+	                <string name="icon">Icon</string>
+	                <string name="highContrastIcon">High contrast icon</string>
+	                <string name="photoIcon">Photo</string>
+	                <string name="animation">Animation</string>
+	            <string name="paging">Paging</string>
+	                <string name="standardPaging">Standard</string>
+	                <string name="automaticPaging">Automatic</string>
+	                <string name="lastButton">Last button</string>
+	            <!-- Feedback -->
+	            <string name="vibration">Vibration</string>
+	            <string name="confirmation">Confirmation</string>
+	            <string name="highlight">Highlight</string>
+	                <string name="noHighlight">None</string>
+	                <string name="standardHighlight">Standard</string>
+	                <string name="zoomIn">Zoom in</string>
+	                <string name="increaseBrightness">Increase brightness</string>
+	            <string name="highlightBorder">Highlight border</string>
+	            
+	            <!-- Sound & Voice -->
+	            <string name="soundMode">Sound mode</string>
+	            <string name="soundEvents">Sound events</string>
+	            <string name="noSound">No sound</string>
+	            <string name="voiceOptions">Voice options</string>
+	            <string name="simpleSounds">Simple sounds</string>
+	                <string name="onItemSelection">When an item is selected</string>
+	                <string name="onAction">When an action is done</string>
+	            <string name="voice">Voice</string>
+	                <string name="defaultVoice">Default voice</string>
+	                <string name="customVoice">Custom voice</string>
+                
+            <!-- Deletion dialog -->
+            <string name="useProfileDeletionQuestion">Are you sure you want to delete use profile</string>
+            <string name="deleteUseProfileOk">Success deleting use profile</string>
+            <string name="deleteUseProfileFail">Failed deleting use profile</string>
+            <string name="deleteUseProfileFailUsed">Can\'t delete use profile: it\'s being used</string>
             
-            <!-- Sound & Voice -->
-            <string name="soundMode">Sound mode</string>
-            <string name="soundEvents">Sound events</string>
-            <string name="noSound">No sound</string>
-            <string name="voiceOptions">Voice options</string>
-            <string name="simpleSounds">Simple sounds</string>
-                <string name="onItemSelection">When an item is selected</string>
-                <string name="onAction">When an action is done</string>
-            <string name="voice">Voice</string>
-                <string name="defaultVoice">Default voice</string>
-                <string name="customVoice">Custom voice</string>
         
         <!-- Device profiles strings -->
         <string name="addDeviceProfile">Add device profile</string>
