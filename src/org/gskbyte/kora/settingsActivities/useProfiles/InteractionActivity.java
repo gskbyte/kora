@@ -22,7 +22,6 @@ public class InteractionActivity extends ProfilePropertiesActivity
     
     private TextView mScanSecondsText;
     private EditText mScanSecondsEdit;
-    private Button mAcceptButton, mCancelButton;
 
     public void onCreate(Bundle savedInstanceState)
     {

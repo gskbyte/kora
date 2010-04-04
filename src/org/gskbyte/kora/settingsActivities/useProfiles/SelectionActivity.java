@@ -44,8 +44,8 @@ public class SelectionActivity extends Activity
         mDeleteButton = (Button) findViewById(R.id.deleteButton);
         mReturnButton = (Button) findViewById(R.id.returnButton);
 
-        //mChooseButton.setOnClickListener(chooseListener);
-        //mCopyButton.setOnClickListener(copyListener);
+        mChooseButton.setOnClickListener(chooseListener);
+        mCopyButton.setOnClickListener(copyListener);
         mEditButton.setOnClickListener(editListener);
         mDeleteButton.setOnClickListener(deleteListener);
         mReturnButton.setOnClickListener(returnListener);
@@ -95,6 +95,42 @@ public class SelectionActivity extends Activity
         mDeleteButton.setEnabled(isCustomProfile);
     }
     
+    private android.view.View.OnClickListener chooseListener = 
+        new android.view.View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                String userName = mCurrentUser.getName(),
+                       useProfileName = mSelectedUseProfile.getName();
+                mCurrentUser.setUseProfileName(useProfileName);
+                try {
+                    mSettings.editUser(userName, mCurrentUser);
+                    Toast.makeText(SelectionActivity.this, 
+                           userName + " " + mResources.getString(R.string.nowUses) +
+                           " " + useProfileName, Toast.LENGTH_SHORT).show();
+                } catch (SettingsException e) {
+                    Toast.makeText(SelectionActivity.this,
+                            mResources.getString(R.string.settingsError),
+                            Toast.LENGTH_SHORT).show();
+                }
+                finish();
+            }
+        };
+    
+    private android.view.View.OnClickListener copyListener = 
+        new android.view.View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                Intent intent = new Intent(SelectionActivity.this,
+                        CopyActivity.class);
+                intent.putExtra(UseProfilesActivity.TAG_USEPROFILE_NAME,
+                        mSelectedUseProfile.getName());
+                SelectionActivity.this.startActivity(intent);
+                finish();
+            }
+        };
+    
     private android.view.View.OnClickListener editListener = 
         new android.view.View.OnClickListener() {
             @Override
@@ -109,7 +145,8 @@ public class SelectionActivity extends Activity
             }
         };
     
-        private android.view.View.OnClickListener deleteListener = new android.view.View.OnClickListener() {
+    private android.view.View.OnClickListener deleteListener = 
+        new android.view.View.OnClickListener() {
             @Override
             public void onClick(View v)
             {

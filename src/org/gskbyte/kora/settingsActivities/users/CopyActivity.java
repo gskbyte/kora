@@ -35,6 +35,9 @@ public class CopyActivity extends Activity
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_LEFT_ICON);
         setContentView(R.layout.user_copy);
+        getWindow().setFeatureDrawableResource(Window.FEATURE_LEFT_ICON,
+                R.drawable.action_copy);
+        setTitle(R.string.copyUser);
         
         mResources = getResources();
         
@@ -72,6 +75,7 @@ public class CopyActivity extends Activity
         
         setView();
     }
+    
     public void setView()
     {
         mNameEdit.setText("");
@@ -115,9 +119,6 @@ public class CopyActivity extends Activity
                     
                     try{
                         mSettings.addUser(u);
-                        Toast.makeText(CopyActivity.this, 
-                                mResources.getString(R.string.addUserOk) +
-                                ": "+u.getName(), Toast.LENGTH_SHORT).show();
                     } catch (SettingsManager.SettingsException e){
                         result = e.type;
                     }

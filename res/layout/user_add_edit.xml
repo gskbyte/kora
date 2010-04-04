@@ -12,14 +12,20 @@
 	     <TableRow>
 	        <ImageButton android:id="@+id/photoButton"
 				android:layout_width="wrap_content"
-				android:layout_height="fill_parent"
+				android:layout_height="wrap_content"
 	            android:scaleType="fitXY"
+	            android:layout_gravity="center"
+                android:minWidth="120dip"
+                android:minHeight="120dip"
+	            android:maxWidth="120dip"
+                android:maxHeight="120dip"
 			    
 			    android:src="@drawable/icon_user_big"/>
 			
 			<LinearLayout android:orientation="vertical"
-			    android:layout_width="wrap_content"
-			    android:layout_height="wrap_content">
+			    android:layout_width="fill_parent"
+			    android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical">
 			
 		        <EditText android:id="@+id/userNameEdit"
 					android:layout_width="fill_parent"

@@ -4,16 +4,15 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:orientation="vertical"
-    android:paddingLeft="5dip"
-    android:paddingRight="5dip"
-    android:paddingBottom="10dip">
+    android:orientation="vertical">
     
     <EditText android:id="@+id/useProfileNameEdit"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:maxLength="16"
         android:singleLine="true"
+	    android:layout_marginLeft="5dip"
+	    android:layout_marginRight="5dip"
         
         android:hint="@string/name"/>
     <LinearLayout
@@ -39,6 +38,7 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingBottom="5dip"
         android:orientation="horizontal">
             <Button android:id="@+id/feedbackButton"
                 android:layout_width="wrap_content"

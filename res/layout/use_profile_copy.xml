@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    
+    <include android:id="@+id/okCancelBar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        layout="@layout/ok_cancel_bar"/>
+    
+	<EditText android:id="@+id/useProfileNameEdit"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentTop="true"
+	    android:maxLength="16"
+	    android:minWidth="200dip"
+        android:padding="5dip"
+        
+	    android:singleLine="true"
+	    android:hint="@string/name"/>
+
+    <ScrollView
+        android:layout_below="@id/useProfileNameEdit"
+        android:layout_above="@id/okCancelBar"
+        android:layout_width="fill_parent" 
+        android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+	    
+	    <TextView
+	        android:layout_width="fill_parent"  
+	        android:layout_height="wrap_content"
+	        style="?android:attr/listSeparatorTextViewStyle"
+	        
+	        android:text="@string/interaction"/>
+	    <TableLayout
+	        android:layout_width="wrap_content" 
+	        android:layout_height="wrap_content"
+	        android:layout_margin="2dip"
+	        android:padding="5dip">
+	        <TableRow>
+		        <TextView
+		            android:layout_width="wrap_content"  
+		            android:layout_height="wrap_content"
+		            android:paddingRight="5dip"
+	            
+	                android:text="@string/mainInteraction"/>
+	            <TextView android:id="@+id/mainInteractionText"
+                    android:layout_width="wrap_content"  
+                    android:layout_height="wrap_content"
+                
+                    android:text="main_interaction"/>
+            </TableRow>
+	    </TableLayout>
+	    
+	    <TextView
+	        android:layout_width="fill_parent"  
+	        android:layout_height="wrap_content"
+	        style="?android:attr/listSeparatorTextViewStyle"
+	        
+	        android:text="@string/visualization"/>
+	    <TableLayout
+            android:layout_width="wrap_content" 
+            android:layout_height="wrap_content"
+            android:layout_margin="2dip"
+            android:padding="5dip">
+            <TableRow>
+                <TextView
+                    android:layout_width="wrap_content"  
+                    android:layout_height="wrap_content"
+                    android:paddingRight="5dip"
+                
+                    android:text="@string/lookAndFeel"/>
+                <TextView android:id="@+id/lookAndFeelText"
+                    android:layout_width="wrap_content"  
+                    android:layout_height="wrap_content"
+                
+                    android:text="look_and_feel"/>
+            </TableRow>
+            <TableRow>
+                <TextView
+                    android:layout_width="wrap_content"  
+                    android:layout_height="wrap_content"
+                    android:paddingRight="5dip"
+                
+                    android:text="@string/layout"/>
+                <TextView android:id="@+id/layoutText"
+                    android:layout_width="wrap_content"  
+                    android:layout_height="wrap_content"
+                
+                    android:text="rows_and_columns"/>
+            </TableRow>
+            <TableRow>
+                <TextView
+                    android:layout_width="wrap_content"  
+                    android:layout_height="wrap_content"
+                    android:paddingRight="5dip"
+                
+                    android:text="@string/text"/>
+                <TextView android:id="@+id/textText"
+                    android:layout_width="wrap_content"  
+                    android:layout_height="wrap_content"
+                
+                    android:text="text_properties"/>
+            </TableRow>
+            <TableRow>
+                <TextView
+                    android:layout_width="wrap_content"  
+                    android:layout_height="wrap_content"
+                    android:paddingRight="5dip"
+                
+                    android:text="@string/imagesAndIcons"/>
+                <TextView android:id="@+id/imagesAndIconsText"
+                    android:layout_width="wrap_content"  
+                    android:layout_height="wrap_content"
+                
+                    android:text="images_and_icons"/>
+            </TableRow>
+            <TableRow>
+                <TextView
+                    android:layout_width="wrap_content"  
+                    android:layout_height="wrap_content"
+                    android:paddingRight="5dip"
+                
+                    android:text="@string/paging"/>
+                <TextView android:id="@+id/pagingText"
+                    android:layout_width="wrap_content"  
+                    android:layout_height="wrap_content"
+                
+                    android:text="paging"/>
+            </TableRow>
+        </TableLayout>
+        
+	    <TextView
+	        android:layout_width="fill_parent"  
+	        android:layout_height="wrap_content"
+	        style="?android:attr/listSeparatorTextViewStyle"
+	        
+	        android:text="@string/feedback"/>
+	    <TableLayout
+            android:layout_width="wrap_content" 
+            android:layout_height="wrap_content"
+            android:layout_margin="2dip"
+            android:padding="5dip">
+            <TableRow>
+                <TextView
+                    android:layout_width="wrap_content"  
+                    android:layout_height="wrap_content"
+                    android:paddingRight="5dip"
+                
+                    android:text="@string/vibration"/>
+                <TextView android:id="@+id/vibrationText"
+                    android:layout_width="wrap_content"  
+                    android:layout_height="wrap_content"
+                
+                    android:text="vibration"/>
+            </TableRow>
+            <TableRow>
+                <TextView
+                    android:layout_width="wrap_content"  
+                    android:layout_height="wrap_content"
+                    android:paddingRight="5dip"
+                
+                    android:text="@string/confirmation"/>
+                <TextView android:id="@+id/confirmationText"
+                    android:layout_width="wrap_content"  
+                    android:layout_height="wrap_content"
+                
+                    android:text="confirmation"/>
+            </TableRow>
+            <TableRow>
+                <TextView
+                    android:layout_width="wrap_content"  
+                    android:layout_height="wrap_content"
+                    android:paddingRight="5dip"
+                
+                    android:text="@string/highlight"/>
+                <TextView android:id="@+id/highlightText"
+                    android:layout_width="wrap_content"  
+                    android:layout_height="wrap_content"
+                
+                    android:text="highlight"/>
+            </TableRow>
+            <TableRow>
+                <TextView
+                    android:layout_width="wrap_content"  
+                    android:layout_height="wrap_content"
+                    android:paddingRight="5dip"
+                
+                    android:text="@string/highlightBorder"/>
+                <TextView android:id="@+id/highlightBorderText"
+                    android:layout_width="wrap_content"  
+                    android:layout_height="wrap_content"
+                
+                    android:text="highlight_border"/>
+            </TableRow>
+        </TableLayout>
+	    
+	    <TextView
+	        android:layout_width="fill_parent"  
+	        android:layout_height="wrap_content"
+	        style="?android:attr/listSeparatorTextViewStyle"
+	        
+	        android:text="@string/soundVoice"/>
+	    <TableLayout
+            android:layout_width="wrap_content" 
+            android:layout_height="wrap_content"
+            android:layout_margin="2dip"
+            android:padding="5dip">
+            <TableRow>
+                <TextView
+                    android:layout_width="wrap_content"  
+                    android:layout_height="wrap_content"
+                    android:paddingRight="5dip"
+                
+                    android:text="@string/soundMode"/>
+                <TextView android:id="@+id/soundModeText"
+                    android:layout_width="wrap_content"  
+                    android:layout_height="wrap_content"
+                
+                    android:text="soundMode"/>
+            </TableRow>
+        </TableLayout>
+	</LinearLayout>
+	</ScrollView>
+</RelativeLayout>

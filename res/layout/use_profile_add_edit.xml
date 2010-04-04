@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     android:orientation="vertical">
     
     <EditText android:id="@+id/useProfileNameEdit"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dip"
         android:maxLength="16"
         android:singleLine="true"
         
@@ -55,6 +53,7 @@
                 android:text="@string/soundVoice"
                 android:drawableTop="@drawable/icon_sound"/>
     </LinearLayout>
-    <include
+    <include android:layout_width="fill_parent" 
+        android:layout_height="fill_parent"
         layout="@layout/ok_cancel_bar"/>
 </LinearLayout>
