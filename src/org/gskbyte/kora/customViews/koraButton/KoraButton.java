@@ -1,9 +1,6 @@
 package org.gskbyte.kora.customViews.koraButton;
 
-import org.gskbyte.kora.device.Device;
-
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -13,15 +10,8 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.ShapeDrawable;
-import android.graphics.drawable.shapes.OvalShape;
-import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.MeasureSpec;
-import android.webkit.WebIconDatabase.IconListener;
-import android.widget.Toast;
 
 public class KoraButton extends View
 {
@@ -111,6 +101,34 @@ public class KoraButton extends View
             textPaint.setAntiAlias(true);
             textPaint.setColor(Color.BLACK);
             textPaint.setTypeface(mAttributes.typeface);
+            textPaint.setTextSize(80);
+            
+            int maxWidth = mWidth / 2;
+            
+            boolean ok = false;
+            Rect    bounds = new Rect();
+            float size = 80;
+            
+            if(mAttributes.orientation == Attributes.VERTICAL){
+                textPaint.setTextAlign(Paint.Align.CENTER);
+                maxWidth = mWidth;
+            }
+            while(!ok){
+                textPaint.getTextBounds(mText, 0, mText.length(), bounds);
+                if(bounds.width()<maxWidth){
+                    ok = true;
+                } else {
+                    size -= 0.25;
+                    textPaint.setTextSize(size);
+                }
+            }
+            
+            canvas.drawText(mText, mTextX, mTextY, textPaint);
+            /*
+            Paint textPaint = new Paint();
+            textPaint.setAntiAlias(true);
+            textPaint.setColor(Color.BLACK);
+            textPaint.setTypeface(mAttributes.typeface);
             if(mAttributes.orientation == Attributes.VERTICAL){
                 textPaint.setTextAlign(Paint.Align.CENTER);
                 textPaint.setTextSize(mAttributes.textScale*(Math.min(mWidth, mHeight)>>2));
@@ -118,6 +136,7 @@ public class KoraButton extends View
                 textPaint.setTextSize(mAttributes.textScale*Math.min(mWidth, mHeight)/3);
             }
             canvas.drawText(mText, mTextX, mTextY, textPaint);
+            */
         }
     }
 
