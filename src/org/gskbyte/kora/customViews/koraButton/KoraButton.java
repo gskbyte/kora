@@ -25,6 +25,11 @@ public class KoraButton extends View
         public static final float TEXT_BIG = 35,
                                   TEXT_MEDIUM = 25,
                                   TEXT_SMALL = 15;
+
+
+        public static final int INDEX_NORMAL = 0,
+                                INDEX_FOCUSED = 1,
+                                INDEX_SELECTED = 2;
         
         public static final int BG_NORMAL_COLOR = Color.WHITE,
                                 BG_FOCUSED_COLOR = Color.WHITE,
@@ -57,10 +62,6 @@ public class KoraButton extends View
     
     public static final String TAG = "KoraButton";
 
-    public static final int STATE_NORMAL = 0,
-                            STATE_FOCUSED = 1,
-                            STATE_SELECTED = 2;
-    
     // Superficie para dibujar
     protected static Paint sPaint = new Paint();
     protected static float sMinTextSize = -1;
@@ -68,7 +69,7 @@ public class KoraButton extends View
     // Propiedades generales del botón
     private String mText;
     private Bitmap mIcon;
-    protected int mState;
+    protected boolean mFocused, mSelected;
     protected Attributes mAttrs;
     protected int mOrientation;
 
@@ -110,7 +111,7 @@ public class KoraButton extends View
         
         mText = text;
         mIcon = icon;
-        mState = STATE_NORMAL;
+        mFocused = mSelected = false;;
         
         if(attr!=null)
             mAttrs = attr;
@@ -130,9 +131,9 @@ public class KoraButton extends View
             Rect previouslyFocusedRect)
     {
         if (gainFocus) {
-            mState = STATE_FOCUSED;
+            mFocused = true;
         } else {
-            mState = STATE_NORMAL;
+            mFocused = false;
         }
 
         invalidate();
@@ -143,12 +144,24 @@ public class KoraButton extends View
         sPaint.setAntiAlias(true);
         
         // Borde
-        sPaint.setColor(mAttrs.borderColors[mState]);
+        if(mFocused)
+            sPaint.setColor(mAttrs.borderColors[Attributes.INDEX_FOCUSED]);
+        else if (mSelected)
+            sPaint.setColor(mAttrs.borderColors[Attributes.INDEX_SELECTED]);
+        else
+            sPaint.setColor(mAttrs.borderColors[Attributes.INDEX_NORMAL]);
+        
         RectF borderRect = new RectF(0, 0, mWidth, mHeight);
         canvas.drawRoundRect(borderRect, 5, 5, sPaint);
         
         // Fondo
-        sPaint.setColor(mAttrs.backgroundColors[mState]);
+        if(mFocused)
+        sPaint.setColor(mAttrs.backgroundColors[Attributes.INDEX_FOCUSED]);
+        else if (mSelected)
+            sPaint.setColor(mAttrs.backgroundColors[Attributes.INDEX_SELECTED]);
+        else
+            sPaint.setColor(mAttrs.backgroundColors[Attributes.INDEX_NORMAL]);
+        
         RectF backRect  = new RectF(mBorderSize, mBorderSize,
                              mWidth-mBorderSize, mHeight-mBorderSize);
         canvas.drawRoundRect(backRect, 6, 6, sPaint);
@@ -314,20 +327,22 @@ public class KoraButton extends View
 
         switch(action){
             case MotionEvent.ACTION_DOWN:
-                this.mState = STATE_FOCUSED;
+                mFocused = true;
                 invalidate();
                 break;
             case MotionEvent.ACTION_UP:
                 int x = (int) event.getX(),
                     y = (int) event.getY();
                 
-                if(x<mWidth && y<mHeight && mState==STATE_FOCUSED){
-                    mState = STATE_SELECTED;
+                if(x<mWidth && y<mHeight && mFocused){
+                    mSelected = !mSelected;
                     if(mClickListener!=null)
                         mClickListener.onClick(this);
                 } else {
-                    mState = STATE_NORMAL;
+                    mSelected = false;
                 }
+                mFocused = false;
+                
                 invalidate();
                 break;
         }

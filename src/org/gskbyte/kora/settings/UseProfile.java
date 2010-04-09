@@ -12,9 +12,16 @@ public class UseProfile extends Profile
             public static final int simple_press = 2;
         
         public static final int scan_mode = 1;
+            public static final int simple_scan = 0;
+            public static final int row_column_scan = 1;
         
         public static final int no_voice = 0;
         // more voice modes here
+
+        public static final int pagination_standard = 0;
+        public static final int pagination_automatic = pagination_standard; // alias for scan mode
+        public static final int pagination_buttons = 1;
+        public static final int pagination_manual = pagination_buttons; // alias for scan mode
     }
     
     // Visualization modes
@@ -41,11 +48,6 @@ public class UseProfile extends Profile
         public static final int icon_high_contrast = 1;
         public static final int icon_photo = 2;
         public static final int icon_animation = 3;
-        
-        public static final int pagination_standard = 0;
-        public static final int pagination_automatic = pagination_standard; // alias for scan mode
-        public static final int pagination_buttons = 1;
-        public static final int pagination_manual = pagination_buttons; // alias for scan mode
     }
     
     public class feedback{
@@ -67,8 +69,10 @@ public class UseProfile extends Profile
     // Interaction settings
     public int mainInteraction = interaction.touch_mode;
     public int touchMode = interaction.press_and_drag;
+    public int scanMode = interaction.simple_scan;
     public int scanTimeMillis = 2500;
     public int voiceInteraction = interaction.no_voice;
+    public int paginationMode = interaction.pagination_standard;
     
     // Visualization settings
     public int viewMode = visualization.view_standard;
@@ -81,7 +85,6 @@ public class UseProfile extends Profile
     public int typography = visualization.font_sans;
     public int textColor = 0xFF000000;
     public int iconMode = visualization.icon_pictogram;
-    public int paginationMode = visualization.pagination_standard;
     
     // Feedback settings
     public boolean vibration = false;

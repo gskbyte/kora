@@ -189,7 +189,7 @@ public class SettingsDbAdapter
     private static final String INSERT_DEFAULT_USER2 = 
         "INSERT INTO "+TABLE_USER+" VALUES"+
         "("+
-            "'Jose'"+","+
+            "'Admin'"+","+
             1+","+
             "''"+","+
             "''"+","+
