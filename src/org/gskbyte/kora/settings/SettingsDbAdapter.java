@@ -558,7 +558,7 @@ public class SettingsDbAdapter
         return new User(c.getString(0),
                         c.getInt(1)==1 ? true : false,
                         c.getString(2),
-                        null, // cargar foto!
+                        c.getString(3),
                         c.getInt(4)==1 ? true : false,
                         c.getInt(5),
                         c.getString(6),

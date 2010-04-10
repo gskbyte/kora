@@ -1,5 +1,7 @@
 package org.gskbyte.kora;
 
+import java.io.File;
+
 import org.gskbyte.kora.R;
 import org.gskbyte.kora.handlingActivities.DeviceSelectionActivity;
 import org.gskbyte.kora.settings.SettingsManager;
@@ -13,6 +15,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -57,7 +60,7 @@ public class WelcomeActivity extends Activity {
 		mStartButton.setOnClickListener(startButtonListener);
 		mSettingsButton.setOnClickListener(settingsButtonListener);
 		mInfoButton.setOnClickListener(infoButtonListener);
-
+		
 		// Cargar datos de programa (usuarios, perfiles, etc)
 		try {
             SettingsManager.init(this);

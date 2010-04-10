@@ -1,12 +1,13 @@
 package org.gskbyte.kora.settingsActivities.users;
 
-import java.util.ArrayList;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.util.List;
 
 import org.gskbyte.kora.R;
-import org.gskbyte.kora.settings.DeviceProfile;
 import org.gskbyte.kora.settings.SettingsManager;
-import org.gskbyte.kora.settings.UseProfile;
 import org.gskbyte.kora.settings.User;
 import org.gskbyte.kora.settings.SettingsManager.SettingsException;
 import org.gskbyte.kora.settingsActivities.ProfilesActivity;
@@ -14,7 +15,16 @@ import org.gskbyte.kora.settingsActivities.ProfilesActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.graphics.BitmapFactory.Options;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -45,6 +55,8 @@ public class AddEditActivity extends Activity
     private CheckBox mAutoStartCheckBox;
     private Button mAcceptButton, mCancelButton;
     
+    private String mPhotoPath;
+    
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
@@ -73,35 +85,80 @@ public class AddEditActivity extends Activity
         
         try {
             mSettings = SettingsManager.getInstance();
+            Bundle extras = getIntent().getExtras();
+            if(extras != null){
+                String userName = extras.getString(ProfilesActivity.TAG_USER_NAME);
+                mCurrentUser = mSettings.getUser(userName);
+                mPhotoPath = mCurrentUser.getPhotoPath();
+            } else {
+                //mCurrentUser = null;
+                //mPhotoPath = null;
+            }
         } catch (SettingsException e) {
             Log.e(TAG, e.getMessage());
             Toast.makeText(this, 
                     "ERROR LOADING SETTINGS. Please contact author.",
                     Toast.LENGTH_LONG);
         }
+        setView();
     }
     
-    public void onStart()
+    protected void onActivityResult(int requestCode, int resultCode,
+            Intent data)
     {
-        super.onStart();
+        super.onActivityResult(requestCode, resultCode, data);
         
-        try {
-            Bundle extras = getIntent().getExtras();
-            if(extras != null){
-                String userName = extras.getString(ProfilesActivity.TAG_USER_NAME);
-                mCurrentUser = mSettings.getUser(userName);
-            } else {
-                mCurrentUser = null;
+        // Simplemente, sustituir el perfil de uso por el que me pasan
+        if(requestCode == PHOTO_REQUEST_CODE){
+            if(resultCode == Activity.RESULT_OK){
+                Uri u = data.getData();
+                Cursor c = managedQuery(u, null, null, null, null);
+                if (c.moveToFirst()) {
+                    String s = c.getString(1);
+
+                    try {
+                        Bitmap b = BitmapFactory.decodeFile(s);
+                        Matrix matrix = new Matrix();
+                        
+                        int width  = b.getWidth(),
+                            height = b.getHeight();
+                        
+                        matrix.postScale(128f/width, 128f/height);
+                        b = Bitmap.createBitmap(b, 0, 0, width, height, matrix, true);
+                        
+                        boolean slash_found=false;
+                        int dot_pos = -1;
+                        int i = s.length()-1;
+                        while(!slash_found){
+                            switch(s.charAt(i)){
+                            case '/':
+                                slash_found=true;
+                                break;
+                            case '.':
+                                dot_pos = i;
+                            default:
+                                --i;
+                                break;
+                            }
+                        }
+                        String filename = s.substring(i+1, dot_pos)+".png";
+                        FileOutputStream fOut = openFileOutput(filename, MODE_WORLD_READABLE); 
+                        
+                        if(fOut!=null)
+                            b.compress(Bitmap.CompressFormat.PNG, 100, fOut);
+                        else
+                            Toast.makeText(this, "null", Toast.LENGTH_LONG).show();
+                        
+                        BitmapDrawable bmd = new BitmapDrawable(b);
+                        mPhotoButton.setImageDrawable(bmd);
+                        mPhotoPath = filename;
+                        fOut.close();
+                    } catch (Exception e) {
+                        Log.e(TAG, e.getMessage());
+                    }
+                }
             }
-        } catch (SettingsException e) {
-            Log.e(TAG, e.getMessage());
-            Toast.makeText(this, 
-                    "ERROR LOADING USER. Please contact author.",
-                    Toast.LENGTH_LONG);
-            finish();
         }
-        
-        setView();
     }
     
     public void setView()
@@ -111,7 +168,7 @@ public class AddEditActivity extends Activity
                                                    R.drawable.action_add);
             setTitle(R.string.addUser);
             
-            //mPhotoButton.setD
+            mPhotoButton.setImageDrawable(User.getDefaultPhoto());
             mNameEdit.setText("");
             mSchoolEdit.setText("");
 
@@ -123,13 +180,12 @@ public class AddEditActivity extends Activity
             setTitle(mResources.getString(R.string.editUser)+ ": " +
                     mCurrentUser.getName());
             
-            //mPhotoButton.set
+            mPhotoButton.setImageDrawable(mCurrentUser.getPhoto());
             mNameEdit.setText(mCurrentUser.getName());
             mSchoolEdit.setText(mCurrentUser.getSchool());
             mAutoStartEdit.setText( Integer.toString(mCurrentUser.getAutoStartSeconds()) );
             
             populateSpinners();
-            // indicar perfil!
             
             mAutoStartCheckBox.setChecked(mCurrentUser.wantsAutoStart());
         }
@@ -188,8 +244,7 @@ public class AddEditActivity extends Activity
             // tells your intent to get the contents
             // opens the URI for your image directory on your sdcard
             intent.setType("image/*"); 
-            //AddEditUserActivity.this.startActivityForResult(intent,
-            //                                 UsersActivity.PHOTO_REQUEST_CODE);
+            startActivityForResult(intent, AddEditActivity.PHOTO_REQUEST_CODE);
         }
     };
     
@@ -234,17 +289,15 @@ public class AddEditActivity extends Activity
                        timeString = mAutoStartEdit.getText().toString(),
                        useProfile = (String)mUseProfileSpinner.getAdapter().getItem(mUseProfileSpinner.getSelectedItemPosition()),
                        deviceProfile = (String)mDeviceProfileSpinner.getAdapter().getItem(mDeviceProfileSpinner.getSelectedItemPosition());
-                //Drawable photo = mPhotoButton.getDrawable();
                 boolean autoStart = mAutoStartCheckBox.isChecked();
                 int seconds = 10;
                 if(autoStart && timeString.length()>0){
                     seconds = Integer.parseInt(timeString);
                 }
-
                 
                 if(name.length()>0 && school.length()>0)
                 {
-                    User u = new User(name, false, school, null,
+                    User u = new User(name, false, school, mPhotoPath,
                                       autoStart, seconds,
                                       useProfile, deviceProfile);
                     

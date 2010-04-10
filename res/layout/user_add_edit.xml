@@ -10,8 +10,8 @@
          android:padding="5dip">
 	     <TableRow>
 	        <ImageButton android:id="@+id/photoButton"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
+				android:layout_width="120dip"
+				android:layout_height="120dip"
 	            android:scaleType="fitXY"
 	            android:layout_gravity="center"
                 android:minWidth="120dip"

@@ -92,7 +92,8 @@ public class SettingsManager
         sResources = context.getResources();
         
         // Cargar último usuario, si no existe, establecer Default
-        User.setDefaultPhoto(sResources.getDrawable(R.drawable.icon_user));
+        User.setDefaultPhoto(sResources.getDrawable(R.drawable.icon_user),
+                             sContext);
                 
         sDbAdapter = new SettingsDbAdapter(sContext);
         sDbAdapter.open();

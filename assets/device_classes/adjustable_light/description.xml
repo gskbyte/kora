@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DeviceClass name="AdjustableLight">
+    <Control name="switch" 
+        type="binary"
+        knx_id=""/>
+    <Control name="intensity"
+        type="binary"
+        knx_id=""/>
+</DeviceClass>

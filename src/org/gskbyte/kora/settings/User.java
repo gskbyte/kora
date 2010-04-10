@@ -1,22 +1,29 @@
 package org.gskbyte.kora.settings;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.Serializable;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 
 public class User extends Profile implements Serializable
 {
     transient private static final long serialVersionUID = -486208937377205579L;
-    transient private static Drawable defaultPhoto = null;
+    transient private static Drawable sDefaultPhoto = null;
+    transient private static Context sContext = null;
     
-    private String school = "";
-    transient private Drawable photo = null;
-    private String photoPath = "";
-    private boolean autoStart = true;
-    private int autoStartTimeSeconds = 10;
+    private String mSchool = "";
+    transient private Drawable mPhoto = null;
+    private String mPhotoPath = "";
+    private boolean mAutoStart = true;
+    private int mAutoStartTimeSeconds = 10;
     
-    private String useProfileName;
-    private String deviceProfileName;
+    private String mUseProfileName;
+    private String mDeviceProfileName;
     
     public User(String name, boolean isDefault, 
                 String school, String photoPath,
@@ -26,92 +33,103 @@ public class User extends Profile implements Serializable
         this.name = name;
         this.isDefault = isDefault;
         
-        this.school = school;
-        if(photoPath == null || photoPath.length()==0){
-            this.photoPath = "";
-            this.photo = defaultPhoto;
-        }
-        else
-            ;//this.photo = photo;
-        this.autoStart = autoStart;
-        this.autoStartTimeSeconds = autoStartTimeSeconds;
-        this.useProfileName = useProfileName;
-        this.deviceProfileName = deviceProfileName;
+        this.mSchool = school;
+        this.mPhotoPath = photoPath;
+        this.mAutoStart = autoStart;
+        this.mAutoStartTimeSeconds = autoStartTimeSeconds;
+        this.mUseProfileName = useProfileName;
+        this.mDeviceProfileName = deviceProfileName;
     }
     
-    public static void setDefaultPhoto(Drawable photo)
+    public static Drawable getDefaultPhoto()
     {
-        defaultPhoto = photo;
+        return sDefaultPhoto;
+    }
+    
+    public static void setDefaultPhoto(Drawable photo, Context ctx)
+    {
+        sDefaultPhoto = photo;
+        sContext = ctx;
     }
 
     public Drawable getPhoto()
     {
-        return photo;
-    }
-
-    public void setPhoto(Drawable photo)
-    {
-        this.photo = photo;
+        if(mPhoto==null){
+            if(mPhotoPath == null || mPhotoPath.length()==0){
+                return sDefaultPhoto;
+            } else {
+                try {
+                    FileInputStream fIn = sContext.openFileInput(mPhotoPath);
+                    Bitmap b = BitmapFactory.decodeStream(fIn);
+                    mPhoto = new BitmapDrawable(b);
+                    fIn.close();
+                } catch (Exception e) {
+                    mPhotoPath = "";
+                    mPhoto = sDefaultPhoto;
+                }
+            }
+        }
+        
+        return mPhoto;
     }
 
     public String getPhotoPath()
     {
-        return this.photoPath;
+        return this.mPhotoPath;
     }
     
     public void setPhoto(String path)
     {
-        photoPath = path;
-        // CARGAR FOTO
+        mPhotoPath = path;
     }
     
     public String getSchool()
     {
-        return school;
+        return mSchool;
     }
 
     public void setSchool(String school)
     {
-        this.school = school;
+        this.mSchool = school;
     }
 
     public boolean wantsAutoStart()
     {
-        return autoStart;
+        return mAutoStart;
     }
 
     public void setAutoStart(boolean autoStart)
     {
-        this.autoStart = autoStart;
+        this.mAutoStart = autoStart;
     }
 
     public int getAutoStartSeconds()
     {
-        return autoStartTimeSeconds;
+        return mAutoStartTimeSeconds;
     }
 
     public void setAutoStartTimeSeconds(int autoStartTimeSeconds)
     {
-        this.autoStartTimeSeconds = autoStartTimeSeconds;
+        this.mAutoStartTimeSeconds = autoStartTimeSeconds;
     }
 
     public String getUseProfileName()
     {
-        return useProfileName;
+        return mUseProfileName;
     }
 
     public void setUseProfileName(String useProfileName)
     {
-        this.useProfileName = useProfileName;
+        this.mUseProfileName = useProfileName;
     }
     
     public String getDeviceProfileName()
     {
-        return deviceProfileName;
+        return mDeviceProfileName;
     }
 
     public void setDeviceProfileName(String deviceProfileName)
     {
-        this.deviceProfileName = deviceProfileName;
+        this.mDeviceProfileName = deviceProfileName;
     }
 }

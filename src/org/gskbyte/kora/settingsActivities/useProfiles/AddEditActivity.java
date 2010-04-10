@@ -102,6 +102,8 @@ public class AddEditActivity extends Activity
     protected void onActivityResult(int requestCode, int resultCode,
                                     Intent data)
     {
+        super.onActivityResult(requestCode, resultCode, data);
+        
         // Simplemente, sustituir el perfil de uso por el que me pasan
         if(requestCode == RESULT_TAG && resultCode == Activity.RESULT_OK){
             Bundle extras = data.getExtras();
