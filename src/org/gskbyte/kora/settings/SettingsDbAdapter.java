@@ -13,7 +13,7 @@ import android.util.Log;
 public class SettingsDbAdapter
 {
     public static final String DATABASE_NAME = "kora.db";
-    public static final int DATABASE_VERSION = 5;
+    public static final int DATABASE_VERSION = 6;
     
     public static final int RESULT_OK = 0,
                             QUERY_FAIL = 1,
@@ -33,6 +33,7 @@ public class SettingsDbAdapter
          USEPROFILE_BACKGROUNDCOLOR = "backgroundColor",
          USEPROFILE_ROWS = "rows",
          USEPROFILE_COLUMNS = "columns",
+         USEPROFILE_MARGIN = "margin",
          USEPROFILE_ORIENTATIONS = "orientation",
          USEPROFILE_SHOWTEXT = "showText",
          USEPROFILE_FONTSIZE = "fontSize",
@@ -93,6 +94,7 @@ public class SettingsDbAdapter
             USEPROFILE_BACKGROUNDCOLOR+" INTEGER,\n"+
             USEPROFILE_ROWS+" INTEGER,\n"+
             USEPROFILE_COLUMNS+" INTEGER,\n"+
+            USEPROFILE_MARGIN+" INTEGER,\n"+
             USEPROFILE_ORIENTATIONS+" INTEGER,\n"+
             USEPROFILE_SHOWTEXT+" INTEGER,\n"+
             USEPROFILE_FONTSIZE+" INTEGER,\n"+
@@ -164,6 +166,7 @@ public class SettingsDbAdapter
             0xFFFFFFFF+","+
             2+","+
             2+","+
+            UseProfile.visualization.margin_small+","+
             UseProfile.visualization.orientation_both+","+
             1+","+
             UseProfile.visualization.text_size_small+","+
@@ -404,6 +407,7 @@ public class SettingsDbAdapter
                         USEPROFILE_BACKGROUNDCOLOR,
                         USEPROFILE_ROWS,
                         USEPROFILE_COLUMNS,
+                        USEPROFILE_MARGIN,
                         USEPROFILE_ORIENTATIONS,
                         USEPROFILE_SHOWTEXT,
                         USEPROFILE_FONTSIZE,
@@ -457,6 +461,7 @@ public class SettingsDbAdapter
                 up.backgroundColor + ","+
                 up.rows + ","+
                 up.columns + ","+
+                up.margin + ","+
                 up.orientations + ","+
                 (up.showText ? 1 : 0) + ","+
                 up.fontSize + ","+
@@ -577,25 +582,26 @@ public class SettingsDbAdapter
         u.backgroundColor = c.getInt(9);
         u.rows = c.getInt(10);
         u.columns = c.getInt(11);
-        u.orientations = c.getInt(12);
-        u.showText = c.getInt(13) == 1 ? true : false;
-        u.fontSize = c.getInt(14);
-        u.typography = c.getInt(15);
-        u.typographyCaps = c.getInt(16) == 1 ? true : false;
-        u.textColor = c.getInt(17);
-        u.iconMode = c.getInt(18);
-        u.customImage = c.getInt(19) == 1 ? true : false;
+        u.margin = c.getInt(12);
+        u.orientations = c.getInt(13);
+        u.showText = c.getInt(14) == 1 ? true : false;
+        u.fontSize = c.getInt(15);
+        u.typography = c.getInt(16);
+        u.typographyCaps = c.getInt(17) == 1 ? true : false;
+        u.textColor = c.getInt(18);
+        u.iconMode = c.getInt(19);
+        u.customImage = c.getInt(20) == 1 ? true : false;
         
-        u.vibration = c.getInt(20) == 1 ? true : false;
-        u.confirmation = c.getInt(21) == 1 ? true : false;
-        u.confirmationTimeMillis = c.getInt(22);
-        u.contentHighlight = c.getInt(23);
-        u.borderHighlight = c.getInt(24) == 1 ? true : false;
+        u.vibration = c.getInt(21) == 1 ? true : false;
+        u.confirmation = c.getInt(22) == 1 ? true : false;
+        u.confirmationTimeMillis = c.getInt(23);
+        u.contentHighlight = c.getInt(24);
+        u.borderHighlight = c.getInt(25) == 1 ? true : false;
         
-        u.soundMode = c.getInt(25);
-        u.soundOnSelection = c.getInt(26) == 1 ? true : false;
-        u.soundOnAction = c.getInt(27) == 1 ? true : false;
-        u.voiceMode = c.getInt(28);
+        u.soundMode = c.getInt(26);
+        u.soundOnSelection = c.getInt(27) == 1 ? true : false;
+        u.soundOnAction = c.getInt(28) == 1 ? true : false;
+        u.voiceMode = c.getInt(29);
         
         return u;
     }
