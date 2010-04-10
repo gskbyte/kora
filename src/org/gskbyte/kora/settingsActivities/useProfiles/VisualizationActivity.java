@@ -24,17 +24,19 @@ public class VisualizationActivity extends ProfilePropertiesActivity
                         mHighContrastRadio, mBlackAndWhiteRadio;
     private ColorButton mBackgroundColorButton;
     private KoraIntegerSeekBar mRowsSeekBar, mColumnsSeekBar;
+    private KoraArraySeekBar mMarginSeekBar;
+    private RadioButton mBothOrientationsRadio, mVerticalRadio, mHorizontalRadio;
     
     private CheckBox mShowTextCheckBox;
     private KoraArraySeekBar mTextSizeSeekBar;
-    private RadioButton mSansRadio, mCalligraphicRadio, mCapsRadio,
+    private RadioButton mSansRadio, mMasalleraRadio, mMonofurRadio,
                         mTextBlackRadio, mTextWhiteRadio, mTextCustomColorRadio;
+    private CheckBox mCapsCheckBox;
     private ColorButton mTextColorButton;
     
     private RadioButton mIconRadio, mIconHighContrastRadio, mIconPhotoRadio,
                         mIconAnimationRadio;
-    
-    private RadioButton mPagingStandardAutomaticRadio, mPagingLastButtonRadio;
+    private CheckBox mCustomImageCheckBox;
 
     
     public void onCreate(Bundle savedInstanceState)
@@ -57,24 +59,27 @@ public class VisualizationActivity extends ProfilePropertiesActivity
         
         mRowsSeekBar = (KoraIntegerSeekBar) findViewById(R.id.rowsSeekBar);
         mColumnsSeekBar = (KoraIntegerSeekBar) findViewById(R.id.columnsSeekBar);
+        mMarginSeekBar = (KoraArraySeekBar) findViewById(R.id.marginSeekBar);
+        mBothOrientationsRadio = (RadioButton) findViewById(R.id.bothOrientationsRadio);
+        mVerticalRadio = (RadioButton) findViewById(R.id.verticalRadio);
+        mHorizontalRadio = (RadioButton) findViewById(R.id.horizontalRadio);
         
         mShowTextCheckBox = (CheckBox) findViewById(R.id.showTextCheckBox);
         mTextSizeSeekBar = (KoraArraySeekBar) findViewById(R.id.textSizeSeekBar);
         mSansRadio = (RadioButton) findViewById(R.id.sansRadio);
-        mCalligraphicRadio = (RadioButton) findViewById(R.id.calligraphicRadio);
-        mCapsRadio = (RadioButton) findViewById(R.id.capsRadio);
+        mMasalleraRadio = (RadioButton) findViewById(R.id.monofurRadio);
+        mMonofurRadio = (RadioButton) findViewById(R.id.masalleraRadio);
         mTextBlackRadio = (RadioButton) findViewById(R.id.textBlackRadio);
         mTextWhiteRadio = (RadioButton) findViewById(R.id.textWhiteRadio);
         mTextCustomColorRadio = (RadioButton) findViewById(R.id.textCustomColorRadio);
         mTextColorButton = (ColorButton) findViewById(R.id.textColorButton);
+        mCapsCheckBox = (CheckBox) findViewById(R.id.capsCheckBox);
         
         mIconRadio = (RadioButton) findViewById(R.id.iconRadio);
         mIconHighContrastRadio = (RadioButton) findViewById(R.id.iconHighContrastRadio);
         mIconPhotoRadio = (RadioButton) findViewById(R.id.iconPhotoRadio);
         mIconAnimationRadio = (RadioButton) findViewById(R.id.iconAnimationRadio);
-        
-        mPagingStandardAutomaticRadio = (RadioButton) findViewById(R.id.pagingStandardAutomaticRadio);
-        mPagingLastButtonRadio = (RadioButton) findViewById(R.id.pagingLastButtonRadio);
+        mCustomImageCheckBox = (CheckBox) findViewById(R.id.customImageCheckBox);
         
         /* Add listeners */
         mPlainRadio.setOnCheckedChangeListener(backgroundColorListener);
@@ -102,33 +107,34 @@ public class VisualizationActivity extends ProfilePropertiesActivity
             mBlackAndWhiteRadio.setChecked(true);
             break;
         }
-        
         mBackgroundColorButton.setColor(mUseProfile.backgroundColor);
         mRowsSeekBar.setValue(mUseProfile.rows);
         mColumnsSeekBar.setValue(mUseProfile.columns);
+        mMarginSeekBar.setIndex(mUseProfile.margin);
+        switch(mUseProfile.orientations){
+        case UseProfile.visualization.orientation_both:
+            mBothOrientationsRadio.setChecked(true);
+            break;
+        case UseProfile.visualization.orientation_vertical:
+            mVerticalRadio.setChecked(true);
+            break;
+        case UseProfile.visualization.orientation_horizontal:
+            mHorizontalRadio.setChecked(true);
+            break;
+        }
         
         /* Set text mode */
         mShowTextCheckBox.setChecked(mUseProfile.showText);
-        switch(mUseProfile.fontSize){
-        case UseProfile.visualization.text_size_small:
-            mTextSizeSeekBar.setIndex(0);
-            break;
-        case UseProfile.visualization.text_size_medium:
-            mTextSizeSeekBar.setIndex(1);
-            break;
-        case UseProfile.visualization.text_size_large:
-            mTextSizeSeekBar.setIndex(2);
-            break;
-        }
+        mTextSizeSeekBar.setIndex(mUseProfile.fontSize);
         switch(mUseProfile.typography){
         case UseProfile.visualization.font_sans:
             mSansRadio.setChecked(true);
             break;
-        case UseProfile.visualization.font_calligraphic:
-            mCalligraphicRadio.setChecked(true);
+        case UseProfile.visualization.font_masallera:
+            mMasalleraRadio.setChecked(true);
             break;
-        case UseProfile.visualization.font_caps:
-            mCapsRadio.setChecked(true);
+        case UseProfile.visualization.font_monofur:
+            mMonofurRadio.setChecked(true);
             break;
         }
         switch(mUseProfile.textColor){
@@ -143,6 +149,7 @@ public class VisualizationActivity extends ProfilePropertiesActivity
             mTextColorButton.setColor(mUseProfile.textColor);
             break;
         }
+        mCapsCheckBox.setChecked(mUseProfile.typographyCaps);
         
         /* Set icon mode */
         switch(mUseProfile.iconMode){
@@ -159,20 +166,7 @@ public class VisualizationActivity extends ProfilePropertiesActivity
             mIconAnimationRadio.setChecked(true);
             break;
         }
-        
-        /* Set paging mode */
-        if(mUseProfile.mainInteraction == UseProfile.interaction.touch_mode)
-            mPagingStandardAutomaticRadio.setText(mResources.getString(R.string.standardPaging));
-        else
-            mPagingStandardAutomaticRadio.setText(mResources.getString(R.string.automaticPaging));
-        switch(mUseProfile.paginationMode){
-        case UseProfile.visualization.pagination_standard:
-            mPagingStandardAutomaticRadio.setChecked(true);
-            break;
-        case UseProfile.visualization.pagination_buttons:
-            mPagingLastButtonRadio.setChecked(true);
-            break;
-        }
+        mCustomImageCheckBox.setChecked(mUseProfile.customImage);
     }
     
     protected void captureData()
@@ -193,9 +187,19 @@ public class VisualizationActivity extends ProfilePropertiesActivity
         mUseProfile.backgroundColor = mBackgroundColorButton.getColor();
         mUseProfile.rows = mRowsSeekBar.getValue();
         mUseProfile.columns = mColumnsSeekBar.getValue();
+        mUseProfile.margin = mMarginSeekBar.getIndex();
+        if(mBothOrientationsRadio.isChecked()){
+            mUseProfile.orientations = UseProfile.visualization.orientation_both;
+        } else if(mVerticalRadio.isChecked()) {
+            mUseProfile.orientations = UseProfile.visualization.orientation_vertical;
+        } else {
+            mUseProfile.orientations = UseProfile.visualization.orientation_horizontal;
+        }
         
         // Text mode
         mUseProfile.showText = mShowTextCheckBox.isChecked();
+        mUseProfile.fontSize = mTextSizeSeekBar.getIndex();
+        /*
         switch(mTextSizeSeekBar.getIndex()){
         case 0:
             mUseProfile.fontSize = UseProfile.visualization.text_size_small;
@@ -206,14 +210,14 @@ public class VisualizationActivity extends ProfilePropertiesActivity
         case 2:
             mUseProfile.fontSize = UseProfile.visualization.text_size_large;
             break;
-        }
+        }*/
         
         if(mSansRadio.isChecked()) {
             mUseProfile.typography = UseProfile.visualization.font_sans;
-        } else if(mCalligraphicRadio.isChecked()) {
-            mUseProfile.typography = UseProfile.visualization.font_calligraphic;
+        } else if(mMasalleraRadio.isChecked()) {
+            mUseProfile.typography = UseProfile.visualization.font_masallera;
         } else {
-            mUseProfile.typography = UseProfile.visualization.font_caps;
+            mUseProfile.typography = UseProfile.visualization.font_monofur;
         }
         
         if(mTextBlackRadio.isChecked()) {
@@ -223,6 +227,8 @@ public class VisualizationActivity extends ProfilePropertiesActivity
         } else {
             mUseProfile.textColor = mTextColorButton.getColor();
         }
+        
+        mUseProfile.typographyCaps = mCapsCheckBox.isChecked();
         
         // Icon mode
         if(mIconRadio.isChecked()) {
@@ -235,12 +241,7 @@ public class VisualizationActivity extends ProfilePropertiesActivity
             mUseProfile.iconMode = UseProfile.visualization.icon_animation;
         }
         
-        // Paging mode
-        if(mPagingStandardAutomaticRadio.isChecked()) {
-            mUseProfile.paginationMode = UseProfile.visualization.pagination_standard;
-        } else {
-            mUseProfile.paginationMode = UseProfile.visualization.pagination_buttons;
-        }
+        mUseProfile.customImage = mCustomImageCheckBox.isChecked();
     }
     
     private OnCheckedChangeListener backgroundColorListener =
@@ -266,11 +267,12 @@ public class VisualizationActivity extends ProfilePropertiesActivity
                 // Mierda, no puedo aplicarlo al layout
                 mTextSizeSeekBar.setEnabled(isChecked);
                 mSansRadio.setEnabled(isChecked);
-                mCalligraphicRadio.setEnabled(isChecked);
-                mCapsRadio.setEnabled(isChecked);
+                mMasalleraRadio.setEnabled(isChecked);
+                mMonofurRadio.setEnabled(isChecked);
                 mTextBlackRadio.setEnabled(isChecked);
                 mTextWhiteRadio.setEnabled(isChecked);
                 mTextCustomColorRadio.setEnabled(isChecked);
+                mCapsCheckBox.setEnabled(isChecked);
             }
         };
         

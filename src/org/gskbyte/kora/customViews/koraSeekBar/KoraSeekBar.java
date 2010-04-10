@@ -14,6 +14,7 @@ public class KoraSeekBar extends LinearLayout
 {
     protected static final int DEFAULT_NSTEPS = 10;
     
+    protected TextView mTitleText;
     protected SeekBar mSeekBar;
     protected TextView mValueText;
     
@@ -30,6 +31,7 @@ public class KoraSeekBar extends LinearLayout
         
         LayoutInflater.from(context).inflate(R.layout.seekbar, this, true);
 
+        mTitleText = (TextView) findViewById(R.id.title);
         mSeekBar = (SeekBar) findViewById(R.id.seekbar);
         mValueText = (TextView) findViewById(R.id.value);
 
@@ -43,6 +45,7 @@ public class KoraSeekBar extends LinearLayout
         
         LayoutInflater.from(context).inflate(R.layout.seekbar, this, true);
 
+        mTitleText = (TextView) findViewById(R.id.title);
         mSeekBar = (SeekBar) findViewById(R.id.seekbar);
         mValueText = (TextView) findViewById(R.id.value);
         
@@ -51,12 +54,41 @@ public class KoraSeekBar extends LinearLayout
                                                           R.styleable.KoraSeekBar, 
                                                           0, 0);
             mSteps = a.getInt(R.styleable.KoraSeekBar_steps, DEFAULT_NSTEPS);
+            String title = a.getString(R.styleable.KoraSeekBar_title);
+            if(title!=null){
+                mTitleText.setText(title);
+            } else {
+                mTitleText.setVisibility(GONE);
+            }
             
             a.recycle();
         } else {
             mSteps = DEFAULT_NSTEPS;
         }
         mSeekBar.setMax(mSteps-1);
+    }
+    
+    public String getTitle()
+    {
+        return mTitleText.getText().toString();
+    }
+    
+    public void setTitle(String s)
+    {
+        mTitleText.setText(s);
+    }
+    
+    public boolean isTitleShow()
+    {
+        return mTitleText.getVisibility() == GONE;
+    }
+    
+    public void setTitleVisible(boolean v)
+    {
+        if(v)
+            mTitleText.setVisibility(VISIBLE);
+        else
+            mTitleText.setVisibility(GONE);
     }
     
     public String getText()

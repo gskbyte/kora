@@ -1,6 +1,7 @@
 package org.gskbyte.kora.settingsActivities.useProfiles;
 
 import org.gskbyte.kora.R;
+import org.gskbyte.kora.customViews.koraSeekBar.KoraFloatSeekBar;
 import org.gskbyte.kora.settings.UseProfile;
 
 import android.os.Bundle;
@@ -18,7 +19,7 @@ public class FeedbackActivity extends ProfilePropertiesActivity
     private CheckBox mVibrationCheckBox;
     
     private CheckBox mConfirmationCheckBox;
-    private EditText mConfirmationMillisEdit;
+    private KoraFloatSeekBar mConfirmationSeekBar;
     
     private RadioButton mNoHighlightRadio, mStandardRadio, mZoomRadio, mBrightnessRadio;
     private CheckBox mHighlightBorderCheckBox;
@@ -37,7 +38,7 @@ public class FeedbackActivity extends ProfilePropertiesActivity
         mVibrationCheckBox = (CheckBox) findViewById(R.id.vibrationCheckBox);
         
         mConfirmationCheckBox = (CheckBox) findViewById(R.id.confirmationCheckBox);
-        mConfirmationMillisEdit = (EditText) findViewById(R.id.confirmationTimeEdit);
+        mConfirmationSeekBar = (KoraFloatSeekBar) findViewById(R.id.confirmationTimeSeekBar);
         
         mNoHighlightRadio =  (RadioButton) findViewById(R.id.noHighlightRadio);
         mStandardRadio = (RadioButton) findViewById(R.id.standardHighlightRadio);
@@ -54,7 +55,7 @@ public class FeedbackActivity extends ProfilePropertiesActivity
         mVibrationCheckBox.setChecked(mUseProfile.vibration);
         
         mConfirmationCheckBox.setChecked(mUseProfile.confirmation);
-        mConfirmationMillisEdit.setText(String.valueOf(mUseProfile.confirmationTimeMillis));
+        mConfirmationSeekBar.setValue(mUseProfile.confirmationTimeMillis/1000f);
         
         switch(mUseProfile.contentHighlight){
         case UseProfile.feedback.content_highlight_none:
@@ -78,8 +79,7 @@ public class FeedbackActivity extends ProfilePropertiesActivity
         mUseProfile.vibration = mVibrationCheckBox.isChecked();
         
         mUseProfile.confirmation = mConfirmationCheckBox.isChecked();
-        mUseProfile.confirmationTimeMillis =
-            Integer.parseInt(mConfirmationMillisEdit.getText().toString());
+        mUseProfile.confirmationTimeMillis = (int)(mConfirmationSeekBar.getValue()*1000f);
         
         if(mNoHighlightRadio.isChecked()) {
             mUseProfile.contentHighlight = UseProfile.feedback.content_highlight_none;
@@ -99,7 +99,7 @@ public class FeedbackActivity extends ProfilePropertiesActivity
         public void onCheckedChanged(CompoundButton buttonView,
                 boolean isChecked)
         {
-            mConfirmationMillisEdit.setEnabled(isChecked);
+            mConfirmationSeekBar.setEnabled(isChecked);
         }
     };
 }

@@ -35,14 +35,18 @@ public class UseProfile extends Profile
         public static final int orientation_both = 0;
         public static final int orientation_vertical = 1;
         public static final int orientation_horizontal = 2;
+        
+        public static final int margin_small = 0;
+        public static final int margin_medium = 1;
+        public static final int margin_large = 2;
 
         public static final int text_size_small = 0;
         public static final int text_size_medium = 1;
         public static final int text_size_large = 2;
         
         public static final int font_sans = 0;
-        public static final int font_calligraphic = 1;
-        public static final int font_caps = 2;
+        public static final int font_masallera = 1;
+        public static final int font_monofur = 2;
         
         public static final int icon_pictogram = 0;
         public static final int icon_high_contrast = 1;
@@ -71,20 +75,23 @@ public class UseProfile extends Profile
     public int touchMode = interaction.press_and_drag;
     public int scanMode = interaction.simple_scan;
     public int scanTimeMillis = 2500;
-    public int voiceInteraction = interaction.no_voice;
     public int paginationMode = interaction.pagination_standard;
+    public int voiceInteraction = interaction.no_voice;
     
     // Visualization settings
     public int viewMode = visualization.view_standard;
     public int backgroundColor = 0xFF000000;
     public int rows = 2;
     public int columns = 2;
+    public int margin = visualization.margin_small;
     public int orientations = visualization.orientation_both;
     public boolean showText = true;
     public int fontSize = visualization.text_size_small;
     public int typography = visualization.font_sans;
+    public boolean typographyCaps = false;
     public int textColor = 0xFF000000;
     public int iconMode = visualization.icon_pictogram;
+    public boolean customImage = false;
     
     // Feedback settings
     public boolean vibration = false;

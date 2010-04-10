@@ -101,6 +101,16 @@ public class CopyActivity extends Activity
             break;
         }
         
+        if(mUseProfile.paginationMode ==
+            UseProfile.interaction.pagination_standard){
+            if(mUseProfile.mainInteraction == UseProfile.interaction.touch_mode)
+                mPagingText.setText(R.string.standardPaging);
+            else
+                mPagingText.setText(R.string.automaticPaging);
+        } else {
+            mPagingText.setText(R.string.lastButton);
+        }
+        
         switch(mUseProfile.viewMode){
         case UseProfile.visualization.view_standard:
             mLookAndFeelText.setText(R.string.defaultLAF);
@@ -139,16 +149,6 @@ public class CopyActivity extends Activity
         case UseProfile.visualization.icon_animation:
             mImagesAndIconsText.setText(R.string.animation);
             break;
-        }
-
-        if(mUseProfile.paginationMode ==
-            UseProfile.visualization.pagination_standard){
-            if(mUseProfile.mainInteraction == UseProfile.interaction.touch_mode)
-                mPagingText.setText(R.string.standardPaging);
-            else
-                mPagingText.setText(R.string.automaticPaging);
-        } else {
-            mPagingText.setText(R.string.lastButton);
         }
         
         if(mUseProfile.vibration)

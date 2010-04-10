@@ -104,8 +104,13 @@
 	                    <string name="pressAndDragInteraction">Touch and drag</string>
 	                    <string name="simpleTouchInteraction">Simple touch</string>
 	                <string name="scanInteraction">Scan</string>
-	                    <string name="scanTime">Scan time (ms)</string>
-	                    <string name="milliseconds">milliseconds</string>
+	                    <string name="simpleScan">Elementwise</string>
+	                    <string name="rowColumnScan">Row-column</string>
+                            <string name="scanTime">Interval (seg)</string>
+                <string name="paging">Paging</string>
+                    <string name="standardPaging">Standard</string>
+                    <string name="automaticPaging">Automatic</string>
+                    <string name="lastButton">Last button</string>
 	            <string name="voiceInteraction">Voice interaction</string>
 	            <!-- Visualization -->
 	            <string name="lookAndFeel">Look and feel</string>
@@ -117,6 +122,10 @@
 	            <string name="layout">Layout</string>
 	                <string name="columns">Columns</string>
 	                <string name="rows">Rows</string>
+                    <string name="margin">Margin</string>
+	                <string name="vertical">Vertical</string>
+                    <string name="horizontal">Horizontal</string>
+                    <string name="bothOrientations">Both orientations</string>
 	            <string name="text">Text</string>
 	                <string name="textShow">Show text</string>
 	                <string name="textSize">Size</string>
@@ -136,10 +145,7 @@
 	                <string name="highContrastIcon">High contrast icon</string>
 	                <string name="photoIcon">Photo</string>
 	                <string name="animation">Animation</string>
-	            <string name="paging">Paging</string>
-	                <string name="standardPaging">Standard</string>
-	                <string name="automaticPaging">Automatic</string>
-	                <string name="lastButton">Last button</string>
+                    <string name="customImage">Use custom image when possible</string>
 	            <!-- Feedback -->
 	            <string name="vibration">Vibration</string>
 	            <string name="confirmation">Confirmation</string>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:gskbyte="http://schemas.android.com/apk/res/org.gskbyte.kora"
     android:layout_width="fill_parent" 
     android:layout_height="wrap_content">
     
@@ -29,7 +30,7 @@
 		    android:text="@string/mainInteraction"/>
 	    
 		    <LinearLayout
-		        android:layout_width="wrap_content"
+		        android:layout_width="fill_parent"
 		        android:layout_height="wrap_content"
 		        android:orientation="vertical"
 		        android:paddingLeft="5dip">
@@ -79,36 +80,71 @@
 	               </RadioGroup>
 		    
 	           <RadioButton android:id="@+id/scanInteractionRadio"
-	               android:layout_width="wrap_content"
+	               android:layout_width="fill_parent"
 	               android:layout_height="wrap_content"
 	               
 	               android:text="@string/scanInteraction"/>
 		           
-				   <LinearLayout
-			           android:layout_width="wrap_content"
-			           android:layout_height="wrap_content"
-			           android:orientation="horizontal"
-			           android:paddingLeft="20dip"
-			           android:layout_gravity="center_vertical">
-		           
-			           <TextView android:id="@+id/scanSecondsText"
-			               android:layout_width="wrap_content"
-			               android:layout_height="wrap_content"
-			               android:layout_marginRight="10dip"
+		           <RadioGroup android:id="@+id/scanRadioGroup"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:checkedButton="@+id/simpleScanRadio"
+                       android:orientation="vertical"
+                       android:paddingLeft="20dip">
+                
+                       <RadioButton android:id="@+id/simpleScanRadio"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
                            android:enabled="false"
-			               
-			               android:text="@string/scanTime"/>
-		           
-			           <EditText android:id="@+id/scanSecondsEdit"
-			               android:layout_width="wrap_content"
-			               android:layout_height="wrap_content"
-			               android:enabled="false"
-			               android:inputType="number"
-			               
-			               android:hint="@string/milliseconds"/>
-		       </LinearLayout>
+                           
+                           android:textSize="12sp"
+                           android:text="@string/simpleScan"/>
+                    
+                       <RadioButton android:id="@+id/rowColumnScanRadio"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:enabled="false"
+                           
+                           android:textSize="12sp"
+                           android:text="@string/rowColumnScan"/>
+                   </RadioGroup>
 		   </RadioGroup>
+		   
+           <org.gskbyte.kora.customViews.koraSeekBar.KoraFloatSeekBar
+               android:id="@+id/scanTimeSeekBar"
+               android:layout_width="fill_parent" 
+               android:layout_height="wrap_content"
+               gskbyte:title="@string/scanTime"
+               gskbyte:minValue="0.5"
+               gskbyte:maxValue="10"
+               gskbyte:steps="20"/>
         </LinearLayout>
+        
+        <TextView
+            android:layout_width="fill_parent"  
+            android:layout_height="wrap_content"
+            style="?android:attr/listSeparatorTextViewStyle"
+            
+            android:text="@string/paging"/>
+            <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkedButton="@+id/pagingStandardAutomaticRadio"
+                android:orientation="vertical"
+                android:paddingLeft="5dip">
+                
+                <RadioButton android:id="@+id/pagingStandardAutomaticRadio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    
+                    android:text="@string/standardPaging"/>
+                    
+               <RadioButton android:id="@+id/pagingLastButtonRadio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    
+                    android:text="@string/lastButton"/>
+            </RadioGroup>
 	    <!-- 
 	    <TextView
 	        android:layout_width="fill_parent"  

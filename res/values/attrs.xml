@@ -5,14 +5,19 @@
         <attr name="numRows" format="integer" />
         <attr name="innerMargin" format="integer" />
     </declare-styleable>
+    
     <declare-styleable name="KoraSeekBar">
         <attr name="steps" format="integer" />
+        <attr name="title" format="string" />
     </declare-styleable>
     <declare-styleable name="KoraIntegerSeekBar">
         <attr name="minimum" format="integer" />
         <attr name="maximum" format="integer" />
     </declare-styleable>
-    
+    <declare-styleable name="KoraFloatSeekBar">
+        <attr name="minValue" format="float" />
+        <attr name="maxValue" format="float" />
+    </declare-styleable>
     <declare-styleable name="KoraArraySeekBar">
         <attr name="array_id" format="integer"/>
     </declare-styleable>
@@ -21,7 +26,7 @@
         <item>@string/lookAndFeel</item>
     </integer-array>
     
-    <integer-array name="textSizes"> 
+    <integer-array name="threeSizes"> 
 	    <item>@string/textSmall</item> 
 	    <item>@string/textMedium</item> 
         <item>@string/textLarge</item> 

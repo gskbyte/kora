@@ -13,7 +13,7 @@ import android.util.Log;
 public class SettingsDbAdapter
 {
     public static final String DATABASE_NAME = "kora.db";
-    public static final int DATABASE_VERSION = 4;
+    public static final int DATABASE_VERSION = 5;
     
     public static final int RESULT_OK = 0,
                             QUERY_FAIL = 1,
@@ -24,7 +24,9 @@ public class SettingsDbAdapter
          USEPROFILE_ISDEFAULT = "isDefault",
          USEPROFILE_MAININTERACTION = "mainInteraction",
          USEPROFILE_TOUCHMODE = "touchMode",
+         USEPROFILE_SCANMODE = "scanMode",
          USEPROFILE_SCANMILLIS = "scanMillis",
+         USEPROFILE_PAGINATIONMODE = "paginationMode",
          USEPROFILE_VOICEINTERACTION = "voiceInteraction",
          
          USEPROFILE_VIEWMODE = "viewMode",
@@ -35,9 +37,10 @@ public class SettingsDbAdapter
          USEPROFILE_SHOWTEXT = "showText",
          USEPROFILE_FONTSIZE = "fontSize",
          USEPROFILE_TYPOGRAPHY = "typography",
+         USEPROFILE_TYPOGRAPHYCAPS = "typographyCaps",
          USEPROFILE_TEXTCOLOR = "textColor",
          USEPROFILE_ICONMODE = "iconMode",
-         USEPROFILE_PAGINATIONMODE = "paginationMode",
+         USEPROFILE_CUSTOMIMAGE = "customImage",
          
          USEPROFILE_VIBRATION = "vibration",
          USEPROFILE_CONFIRMATION = "confirmation",
@@ -81,8 +84,11 @@ public class SettingsDbAdapter
             USEPROFILE_ISDEFAULT+" INTEGER,\n"+
             USEPROFILE_MAININTERACTION+" INTEGER,\n"+
             USEPROFILE_TOUCHMODE+" INTEGER,\n"+
+            USEPROFILE_SCANMODE+" INTEGER,\n"+
             USEPROFILE_SCANMILLIS+" INTEGER,\n"+
+            USEPROFILE_PAGINATIONMODE+" INTEGER,\n"+
             USEPROFILE_VOICEINTERACTION+" INTEGER,\n"+
+            
             USEPROFILE_VIEWMODE+" INTEGER,\n"+
             USEPROFILE_BACKGROUNDCOLOR+" INTEGER,\n"+
             USEPROFILE_ROWS+" INTEGER,\n"+
@@ -91,14 +97,17 @@ public class SettingsDbAdapter
             USEPROFILE_SHOWTEXT+" INTEGER,\n"+
             USEPROFILE_FONTSIZE+" INTEGER,\n"+
             USEPROFILE_TYPOGRAPHY+" INTEGER,\n"+
+            USEPROFILE_TYPOGRAPHYCAPS+" INTEGER,\n"+
             USEPROFILE_TEXTCOLOR+" INTEGER,\n"+
             USEPROFILE_ICONMODE+" INTEGER,\n"+
-            USEPROFILE_PAGINATIONMODE+" INTEGER,\n"+
+            USEPROFILE_CUSTOMIMAGE+" INTEGER,\n"+
+            
             USEPROFILE_VIBRATION+" INTEGER,\n"+
             USEPROFILE_CONFIRMATION+" INTEGER,\n"+
             USEPROFILE_CONFIRMATIONMILLIS+" INTEGER,\n"+
             USEPROFILE_CONTENTHIGHLIGHT+" INTEGER,\n"+
             USEPROFILE_BORDERHIGHLIGHT+" INTEGER,\n"+
+            
             USEPROFILE_SOUNDMODE+" INTEGER,\n"+
             USEPROFILE_SOUNDONSELECTION+" INTEGER,\n"+
             USEPROFILE_SOUNDONACTION+" INTEGER,\n"+
@@ -143,10 +152,14 @@ public class SettingsDbAdapter
         "("+
             "'Default'"+","+
             1+","+
+            
             UseProfile.interaction.touch_mode+","+
             UseProfile.interaction.press_and_drag+","+
+            UseProfile.interaction.simple_scan+","+
             2500+","+
+            UseProfile.interaction.pagination_standard+","+
             UseProfile.interaction.no_voice+","+
+            
             UseProfile.visualization.view_standard+","+
             0xFFFFFFFF+","+
             2+","+
@@ -155,14 +168,17 @@ public class SettingsDbAdapter
             1+","+
             UseProfile.visualization.text_size_small+","+
             UseProfile.visualization.font_sans+","+
+            0+","+
             0xFF000000+","+
             UseProfile.visualization.icon_pictogram+","+
-            UseProfile.visualization.pagination_standard+","+
+            0+","+
+            
             0+","+
             0+","+
             3000+","+
             UseProfile.feedback.content_highlight_none+","+
             0+","+
+            
             UseProfile.sound.no_sounds+","+
             0+","+
             0+","+
@@ -376,9 +392,12 @@ public class SettingsDbAdapter
                     new String[] {
                         USEPROFILE_NAME,
                         USEPROFILE_ISDEFAULT,
+                        
                         USEPROFILE_MAININTERACTION,
                         USEPROFILE_TOUCHMODE,
+                        USEPROFILE_SCANMODE,
                         USEPROFILE_SCANMILLIS,
+                        USEPROFILE_PAGINATIONMODE,
                         USEPROFILE_VOICEINTERACTION,
                         
                         USEPROFILE_VIEWMODE,
@@ -389,9 +408,10 @@ public class SettingsDbAdapter
                         USEPROFILE_SHOWTEXT,
                         USEPROFILE_FONTSIZE,
                         USEPROFILE_TYPOGRAPHY,
+                        USEPROFILE_TYPOGRAPHYCAPS,
                         USEPROFILE_TEXTCOLOR,
                         USEPROFILE_ICONMODE,
-                        USEPROFILE_PAGINATIONMODE,
+                        USEPROFILE_CUSTOMIMAGE,
                         
                         USEPROFILE_VIBRATION,
                         USEPROFILE_CONFIRMATION,
@@ -423,33 +443,40 @@ public class SettingsDbAdapter
         try{
             String s ="INSERT INTO "+TABLE_USEPROFILE+" VALUES"+
             "("+
-            "'"+up.name+"'"+","+
-            (up.isDefault ? 1 : 0)+ ","+
-            up.mainInteraction + ","+
-            up.touchMode + ","+
-            up.scanTimeMillis + ","+
-            up.voiceInteraction + ","+
-            up.viewMode + ","+
-            up.backgroundColor + ","+
-            up.rows + ","+
-            up.columns + ","+
-            up.orientations + ","+
-            (up.showText ? 1 : 0) + ","+
-            up.fontSize + ","+
-            up.typography + ","+
-            up.textColor + ","+
-            up.iconMode + ","+
-            up.paginationMode + ","+
-            (up.vibration ? 1 : 0) + ","+
-            (up.confirmation ? 1 : 0) + ","+
-            up.confirmationTimeMillis + ","+
-            up.contentHighlight + ","+
-            (up.borderHighlight ? 1 : 0) + ","+
-            up.soundMode + ","+
-            (up.soundOnSelection ? 1 : 0) + ","+
-            (up.soundOnAction ? 1 : 0) + ","+
-            up.voiceMode +
-        ");";
+                "'"+up.name+"'"+","+
+                (up.isDefault ? 1 : 0)+ ","+
+                
+                up.mainInteraction + ","+
+                up.touchMode + ","+
+                up.scanMode + ","+
+                up.scanTimeMillis + ","+
+                up.paginationMode + ","+
+                up.voiceInteraction + ","+
+                
+                up.viewMode + ","+
+                up.backgroundColor + ","+
+                up.rows + ","+
+                up.columns + ","+
+                up.orientations + ","+
+                (up.showText ? 1 : 0) + ","+
+                up.fontSize + ","+
+                up.typography + ","+
+                (up.typographyCaps ? 1 : 0) + ","+
+                up.textColor + ","+
+                up.iconMode + ","+
+                (up.customImage ? 1 : 0) + ","+
+                
+                (up.vibration ? 1 : 0) + ","+
+                (up.confirmation ? 1 : 0) + ","+
+                up.confirmationTimeMillis + ","+
+                up.contentHighlight + ","+
+                (up.borderHighlight ? 1 : 0) + ","+
+                
+                up.soundMode + ","+
+                (up.soundOnSelection ? 1 : 0) + ","+
+                (up.soundOnAction ? 1 : 0) + ","+
+                up.voiceMode +
+            ");";
             mDb.execSQL(s);
             return RESULT_OK;
         } catch (Exception e){
@@ -541,31 +568,34 @@ public class SettingsDbAdapter
         
         u.mainInteraction = c.getInt(2);
         u.touchMode = c.getInt(3);
-        u.scanTimeMillis = c.getInt(4);
-        u.voiceInteraction = c.getInt(5);
+        u.scanMode = c.getInt(4);
+        u.scanTimeMillis = c.getInt(5);
+        u.paginationMode = c.getInt(6);
+        u.voiceInteraction = c.getInt(7);
         
-        u.viewMode = c.getInt(6);
-        u.backgroundColor = c.getInt(7);
-        u.rows = c.getInt(8);
-        u.columns = c.getInt(9);
-        u.orientations = c.getInt(10);
-        u.showText = c.getInt(11) == 1 ? true : false;
-        u.fontSize = c.getInt(12);
-        u.typography = c.getInt(13);
-        u.textColor = c.getInt(14);
-        u.iconMode = c.getInt(15);
-        u.paginationMode = c.getInt(16);
+        u.viewMode = c.getInt(8);
+        u.backgroundColor = c.getInt(9);
+        u.rows = c.getInt(10);
+        u.columns = c.getInt(11);
+        u.orientations = c.getInt(12);
+        u.showText = c.getInt(13) == 1 ? true : false;
+        u.fontSize = c.getInt(14);
+        u.typography = c.getInt(15);
+        u.typographyCaps = c.getInt(16) == 1 ? true : false;
+        u.textColor = c.getInt(17);
+        u.iconMode = c.getInt(18);
+        u.customImage = c.getInt(19) == 1 ? true : false;
         
-        u.vibration = c.getInt(17) == 1 ? true : false;
-        u.confirmation = c.getInt(18) == 1 ? true : false;
-        u.confirmationTimeMillis = c.getInt(19);
-        u.contentHighlight = c.getInt(20);
-        u.borderHighlight = c.getInt(21) == 1 ? true : false;
+        u.vibration = c.getInt(20) == 1 ? true : false;
+        u.confirmation = c.getInt(21) == 1 ? true : false;
+        u.confirmationTimeMillis = c.getInt(22);
+        u.contentHighlight = c.getInt(23);
+        u.borderHighlight = c.getInt(24) == 1 ? true : false;
         
-        u.soundMode = c.getInt(22);
-        u.soundOnSelection = c.getInt(23) == 1 ? true : false;
-        u.soundOnAction = c.getInt(24) == 1 ? true : false;
-        u.voiceMode = c.getInt(25);
+        u.soundMode = c.getInt(25);
+        u.soundOnSelection = c.getInt(26) == 1 ? true : false;
+        u.soundOnAction = c.getInt(27) == 1 ? true : false;
+        u.voiceMode = c.getInt(28);
         
         return u;
     }

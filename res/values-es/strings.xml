@@ -100,9 +100,14 @@
 	                    <string name="multitouchInteraction">Multitáctil</string>
 	                    <string name="pressAndDragInteraction">Pulsar y arrastrar</string>
 	                    <string name="simpleTouchInteraction">Sencilla </string>
-	                    <string name="scanInteraction">Barrido</string>
-		                    <string name="scanTime">Intervalo (ms)</string>
-		                    <string name="milliseconds">milisegundos</string>
+	                <string name="scanInteraction">Barrido</string>
+                        <string name="simpleScan">Elemento a elemento</string>
+                        <string name="rowColumnScan">Fila-columna</string>
+		                    <string name="scanTime">Intervalo (seg)</string>
+                <string name="paging">Paginado</string>
+                    <string name="standardPaging">Estándar</string>
+                    <string name="automaticPaging">Automático</string>
+                    <string name="lastButton">Último botón</string>
 	            <string name="voiceInteraction">Interacción por voz</string>
 	            <!-- Visualization -->
 	            <string name="lookAndFeel">Aspecto</string>
@@ -111,9 +116,13 @@
 	                <string name="differentPlainColor">Colores diferentes</string>
 	                <string name="highContrastColor">Alto contraste</string>
 	                <string name="blackAndWhite">Blanco y negro</string>
-	            <string name="layout">Organización</string>
+	            <string name="layout">Disposición</string>
 	                <string name="columns">Columnas</string>
 	                <string name="rows">Filas</string>
+                    <string name="margin">Margen</string>
+	                <string name="vertical">Vertical</string>
+                    <string name="horizontal">Horizontal</string>
+                    <string name="bothOrientations">Ambas orientaciones</string>
 	            <string name="text">Texto</string>
 	                <string name="textShow">Mostrar texto</string>
 	                <string name="textSize">Tamaño</string>
@@ -133,10 +142,7 @@
 	                <string name="highContrastIcon">Icono en alto contraste</string>
 	                <string name="photoIcon">Foto</string>
 	                <string name="animation">Animación</string>
-	            <string name="paging">Paginado</string>
-	                <string name="standardPaging">Estándar</string>
-	                <string name="automaticPaging">Automático</string>
-	                <string name="lastButton">Último botón</string>
+                    <string name="customImage">Utilizar personalizada cuando sea posible</string>
 	            <!-- Feedback -->
 	            <string name="vibration">Vibración</string>
 	            <string name="confirmation">Confirmación</string>

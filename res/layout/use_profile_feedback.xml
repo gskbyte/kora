@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:gskbyte="http://schemas.android.com/apk/res/org.gskbyte.kora"
     android:layout_width="fill_parent" 
     android:layout_height="wrap_content">
     
@@ -44,27 +45,21 @@
             
             android:text="@string/confirmation"/>
         
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dip"
-            android:orientation="horizontal">
-        
 	        <CheckBox android:id="@+id/confirmationCheckBox"
 	            android:layout_height="wrap_content"
 	            android:layout_width="wrap_content"
 	            
 	            android:checked="true"
 	            android:text="@string/confirmation"/>
-	            
-	        <EditText android:id="@+id/confirmationTimeEdit"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:layout_marginLeft="10dip"
-		        android:inputType="number"
-		        android:hint="@string/milliseconds"/>
-		        
-		</LinearLayout>
+	        
+	        <org.gskbyte.kora.customViews.koraSeekBar.KoraFloatSeekBar
+               android:id="@+id/confirmationTimeSeekBar"
+               android:layout_width="fill_parent" 
+               android:layout_height="wrap_content"
+               gskbyte:title="@string/seconds"
+               gskbyte:minValue="1"
+               gskbyte:maxValue="10"
+               gskbyte:steps="19"/>
         
         <TextView
             android:layout_width="fill_parent"  

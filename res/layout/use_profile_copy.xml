@@ -55,6 +55,19 @@
                 
                     android:text="main_interaction"/>
             </TableRow>
+            <TableRow>
+                <TextView
+                    android:layout_width="wrap_content"  
+                    android:layout_height="wrap_content"
+                    android:paddingRight="5dip"
+                
+                    android:text="@string/paging"/>
+                <TextView android:id="@+id/pagingText"
+                    android:layout_width="wrap_content"  
+                    android:layout_height="wrap_content"
+                
+                    android:text="paging"/>
+            </TableRow>
 	    </TableLayout>
 	    
 	    <TextView
@@ -119,19 +132,6 @@
                     android:layout_height="wrap_content"
                 
                     android:text="images_and_icons"/>
-            </TableRow>
-            <TableRow>
-                <TextView
-                    android:layout_width="wrap_content"  
-                    android:layout_height="wrap_content"
-                    android:paddingRight="5dip"
-                
-                    android:text="@string/paging"/>
-                <TextView android:id="@+id/pagingText"
-                    android:layout_width="wrap_content"  
-                    android:layout_height="wrap_content"
-                
-                    android:text="paging"/>
             </TableRow>
         </TableLayout>
         

@@ -1,16 +1,11 @@
 package org.gskbyte.kora.customViews.koraSeekBar;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.gskbyte.kora.R;
 
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
-import android.view.LayoutInflater;
 import android.widget.SeekBar;
-import android.widget.TextView;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 
 public class KoraArraySeekBar extends KoraSeekBar
@@ -25,7 +20,7 @@ public class KoraArraySeekBar extends KoraSeekBar
     public KoraArraySeekBar(Context context, String[] values)
     {
         super(context);
-        if(values != null || values.length==0){
+        if(values != null && values.length>0){
             mValues = values;
             mSteps = values.length;
             mSeekBar.setMax(mSteps-1);
@@ -55,7 +50,7 @@ public class KoraArraySeekBar extends KoraSeekBar
         
         mSeekBar.setOnSeekBarChangeListener(seekListener);
         
-        mValueText.setMinWidth(80);
+        mValueText.setMinWidth(70);
     }
     
     public void setNumSteps(int nteps)
