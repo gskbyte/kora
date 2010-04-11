@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<DeviceClass name="AdjustableLight">
+<DeviceClass name="AdjustableLight"
+    defaultIcon="icons/default.png"
+    highContrastIcon="icons/highContrast.png">
     <Control name="switch" 
         type="binary"
         knx_id=""/>
     <Control name="intensity"
-        type="binary"
+        type="scalar"
         knx_id=""/>
 </DeviceClass>
