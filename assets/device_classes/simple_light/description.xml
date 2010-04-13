@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<DeviceClass name="SimpleLight">
+<DeviceType name="SimpleLight"
+    defaultIcon="icons/default.png"
+    highContrastIcon="icons/highContrast.png">
+
     <Control name="switch"
-        type="binary"
-        knx_id=""/>
-</DeviceClass>
+        type="binary"/>
+</DeviceType>
