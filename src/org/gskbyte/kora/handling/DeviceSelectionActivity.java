@@ -1,4 +1,4 @@
-package org.gskbyte.kora.handlingActivities;
+package org.gskbyte.kora.handling;
 
 import org.gskbyte.kora.R;
 import org.gskbyte.kora.customViews.GridLayout;

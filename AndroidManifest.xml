@@ -17,7 +17,7 @@
             </intent-filter>
         </activity>
         
-        <activity android:name=".handlingActivities.DeviceSelectionActivity"
+        <activity android:name=".handling.DeviceSelectionActivity"
               android:label="@string/controlActivity">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
