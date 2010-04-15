@@ -1,6 +1,9 @@
 package org.gskbyte.kora.customViews.koraButton;
 
+import org.gskbyte.kora.R;
+
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -11,6 +14,7 @@ import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.graphics.Paint.Align;
 import android.graphics.drawable.Drawable;
+import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -67,7 +71,7 @@ public class KoraButton extends View
     protected static float sMinTextSize = -1;
     
     // Propiedades generales del botón
-    private String mText;
+    private String mText = "";
     private Bitmap mIcon;
     protected boolean mFocused, mSelected;
     protected Attributes mAttrs;
@@ -120,6 +124,38 @@ public class KoraButton extends View
         
         setFocusable(true);
         setClickable(true);
+    }
+    
+    public KoraButton(Context context, AttributeSet attrs)
+    {
+        this(context, attrs, 0);
+    }
+
+    public KoraButton(Context context, AttributeSet attrs, int defStyle)
+    {
+        super(context, attrs, defStyle);
+        
+        mAttrs = new Attributes();
+        
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.KoraButton, defStyle, 0);
+        
+        mAttrs.showText = a.getBoolean(R.styleable.KoraButton_showText, false);
+        mText = a.getString(R.styleable.KoraButton_text);
+        mAttrs.textColor = a.getColor(R.styleable.KoraButton_textColor, Color.BLACK);
+        int iconRes = a.getResourceId(R.styleable.KoraButton_icon, 0);
+        
+        if(iconRes != 0)
+            mIcon = BitmapFactory.decodeResource(
+                    context.getResources(), iconRes);
+        else
+            mIcon = BitmapFactory.decodeResource(
+                    context.getResources(), R.drawable.icon_empty);
+        /* Pillar atributos del vector y utilizarlos */
+        
+        setFocusable(true);
+        setClickable(true);
+        
+        a.recycle();
     }
     
     public static void resetMinTextSize()
@@ -188,7 +224,7 @@ public class KoraButton extends View
     {
         mWidth = MeasureSpec.getSize(widthMeasureSpec);
         mHeight = MeasureSpec.getSize(heightMeasureSpec);
-        
+           
         switch(mAttrs.allowed_orientations){
         case Attributes.VERTICAL:
             mOrientation = Attributes.VERTICAL;
@@ -210,13 +246,13 @@ public class KoraButton extends View
         if(mAttrs.showText) {
             calculateTextBounds();
         }
-            
+        
         setMeasuredDimension(mWidth, mHeight);
     }
     
     protected void calculateBorder()
     {
-        // 1/16 del mínimo
+        // 1/16 del mínimo lado
         mBorderSize = Math.min(mWidth, mHeight)>>4;
     }
     

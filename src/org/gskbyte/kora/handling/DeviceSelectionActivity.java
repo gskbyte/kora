@@ -28,10 +28,10 @@ public class DeviceSelectionActivity extends Activity
 
         setContentView(R.layout.device_selection_layout);
         
-        mNavigationButtons = (LinearLayout) findViewById(R.id.navigationButtons);
+        //mNavigationButtons = (LinearLayout) findViewById(R.id.navigationButtons);
         mGrid = (GridLayout) findViewById(R.id.deviceGrid);
         
-        mNavigationButtons.setVisibility(View.GONE);
+        //mNavigationButtons.setVisibility(View.GONE);
         
         mGrid.setClipToPadding(false);
         mGrid.setDimensions(3, 2);
@@ -69,7 +69,7 @@ public class DeviceSelectionActivity extends Activity
             {
                 Toast.makeText(DeviceSelectionActivity.this, "HOLA", Toast.LENGTH_LONG).show();
             }});
-        
+        /*
         Button lessRows = (Button) findViewById(R.id.lessRows);
         lessRows.setOnClickListener(new OnClickListener(){
 	        @Override
@@ -105,6 +105,7 @@ public class DeviceSelectionActivity extends Activity
                 mGrid.setDimensions(mGrid.getNRows(), mGrid.getNColumns()+1);
             }
         });
+        */
     }
     
     

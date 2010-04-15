@@ -1,13 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:gskbyte="http://schemas.android.com/apk/res/org.gskbyte.kora"
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent">
 
-	<LinearLayout android:id="@+id/navigationButtons"
+	<org.gskbyte.kora.customViews.GridLayout 
+	    android:id="@+id/navigationButtons"
 		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:layout_alignParentBottom="true">
+		android:layout_height="50dip"
+        android:layout_alignParentBottom="true"
+        
+		gskbyte:numRows="1"
+		gskbyte:numColumns="2">
 		
+		<org.gskbyte.kora.customViews.koraButton.KoraButton
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            gskbyte:showText="true"
+            gskbyte:text="back"
+            gskbyte:icon="@drawable/action_previous"
+		    />
+		    
+		
+		<org.gskbyte.kora.customViews.koraButton.KoraButton
+            android:id="@+id/next"
+            android:maxHeight="50dip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            gskbyte:showText="true"
+            gskbyte:text="next"
+            gskbyte:icon="@drawable/action_next"
+            />
+		
+		<!-- 
 		<Button android:text="-r"
 			android:id="@+id/lessRows"
 			android:layout_width="wrap_content"
@@ -34,8 +60,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:drawableRight="@drawable/action_next"/>
-	</LinearLayout>
+            android:drawableRight="@drawable/action_next"/> 
+            
+            -->
+	</org.gskbyte.kora.customViews.GridLayout> 
 	
 	<org.gskbyte.kora.customViews.GridLayout
 	    android:id="@+id/deviceGrid"

@@ -4,6 +4,8 @@ public class DeviceManager
 {
     public static void init()
     {
+        loadDeviceTypes();
+        startConnection();
         
     }
     

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 rootfolder="svg/"
-sizes="32 48 64"
+sizes="48 32 64"
 files=`ls $rootfolder`
 
 for size in $sizes; do
