@@ -125,7 +125,7 @@ public class VisualizationActivity extends ProfilePropertiesActivity
         
         /* Set text mode */
         mShowTextCheckBox.setChecked(mUseProfile.showText);
-        mTextSizeSeekBar.setIndex(mUseProfile.fontSize);
+        mTextSizeSeekBar.setIndex(mUseProfile.textSize);
         switch(mUseProfile.typography){
         case UseProfile.visualization.font_sans:
             mSansRadio.setChecked(true);
@@ -198,7 +198,7 @@ public class VisualizationActivity extends ProfilePropertiesActivity
         
         // Text mode
         mUseProfile.showText = mShowTextCheckBox.isChecked();
-        mUseProfile.fontSize = mTextSizeSeekBar.getIndex();
+        mUseProfile.textSize = mTextSizeSeekBar.getIndex();
         /*
         switch(mTextSizeSeekBar.getIndex()){
         case 0:

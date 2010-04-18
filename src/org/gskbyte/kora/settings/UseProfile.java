@@ -50,8 +50,9 @@ public class UseProfile extends Profile
         
         public static final int icon_pictogram = 0;
         public static final int icon_high_contrast = 1;
-        public static final int icon_photo = 2;
-        public static final int icon_animation = 3;
+        public static final int icon_black_white = 2;
+        public static final int icon_photo = 3;
+        public static final int icon_animation = 4;
     }
     
     public class feedback{
@@ -86,7 +87,7 @@ public class UseProfile extends Profile
     public int margin = visualization.margin_small;
     public int orientations = visualization.orientation_both;
     public boolean showText = true;
-    public int fontSize = visualization.text_size_small;
+    public int textSize = visualization.text_size_small;
     public int typography = visualization.font_sans;
     public boolean typographyCaps = false;
     public int textColor = 0xFF000000;

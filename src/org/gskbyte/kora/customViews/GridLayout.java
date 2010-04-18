@@ -74,7 +74,7 @@ public class GridLayout extends ViewGroup
             mNumColumns = ncolumns;
             requestLayout();
             invalidate();
-        } // TODO TIRAR EXCEPCIÓN
+        }
     }
     
     public int getMargin()

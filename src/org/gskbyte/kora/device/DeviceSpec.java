@@ -20,6 +20,7 @@ public class DeviceSpec
                             VALUE_FLOAT   = 4,
                             VALUE_STRING  = 5;
     
+    protected String mReadableName;
     protected String mSystemName;
     protected int mDeviceType;
     protected int mAccessType;
@@ -47,6 +48,11 @@ public class DeviceSpec
     }
     
     // getters y setters
+    
+    public String getName()
+    {
+    	return mReadableName;
+    }
     
     public String getSystemName()
     {

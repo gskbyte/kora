@@ -3,6 +3,7 @@ package org.gskbyte.kora;
 import java.io.File;
 
 import org.gskbyte.kora.R;
+import org.gskbyte.kora.device.DeviceManager;
 import org.gskbyte.kora.handling.DeviceSelectionActivity;
 import org.gskbyte.kora.settings.SettingsManager;
 import org.gskbyte.kora.settings.User;
@@ -66,6 +67,9 @@ public class WelcomeActivity extends Activity {
         } catch (SettingsException e) {
             Log.e(TAG, e.getMessage());
         }
+        
+        // Iniciar gestor de dispositivos
+        DeviceManager.init(this);
 	}
 	
 	public void onResume()

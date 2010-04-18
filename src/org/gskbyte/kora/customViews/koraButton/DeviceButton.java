@@ -14,7 +14,7 @@ public class DeviceButton extends KoraButton
     {
 		// Valores propios de configuración de este botón
 		public int icon = DeviceRepresentation.ICON_DEFAULT;
-		public boolean custom_icon = false;
+		public boolean customIcon = false;
     }
 	
 	public DeviceButton(Context context, Attributes attr,
@@ -28,7 +28,7 @@ public class DeviceButton extends KoraButton
 		mAttrs = attr;
 		
 		// establecer icono
-		if(attr.custom_icon){
+		if(attr.customIcon){
 			; // si alguna vez entro, avisen!
 		} else {
 			mIcon = d.getIcon(attr.icon);

@@ -464,7 +464,7 @@ public class SettingsDbAdapter
                 up.margin + ","+
                 up.orientations + ","+
                 (up.showText ? 1 : 0) + ","+
-                up.fontSize + ","+
+                up.textSize + ","+
                 up.typography + ","+
                 (up.typographyCaps ? 1 : 0) + ","+
                 up.textColor + ","+
@@ -585,7 +585,7 @@ public class SettingsDbAdapter
         u.margin = c.getInt(12);
         u.orientations = c.getInt(13);
         u.showText = c.getInt(14) == 1 ? true : false;
-        u.fontSize = c.getInt(15);
+        u.textSize = c.getInt(15);
         u.typography = c.getInt(16);
         u.typographyCaps = c.getInt(17) == 1 ? true : false;
         u.textColor = c.getInt(18);

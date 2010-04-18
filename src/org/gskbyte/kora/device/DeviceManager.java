@@ -17,16 +17,15 @@ public class DeviceManager
     
     protected static Context sContext;
     
-    protected static Vector<Device> sDevices = 
-        new Vector<Device>();
-    protected static HashMap<String, Integer> sDevicesMap = 
-        new HashMap<String, Integer>();
-    protected static HashMap<String, DeviceRepresentation> sDeviceRepsMap = 
-        new HashMap<String, DeviceRepresentation>();
+    protected static Vector<Device> sDevices;
+    protected static HashMap<String, Integer> sDevicesMap;
+    protected static HashMap<String, DeviceRepresentation> sDeviceRepsMap;
         
     public static void init(Context c)
     {
         sContext = c;
+        
+        sDeviceRepsMap = new HashMap<String, DeviceRepresentation>();
         
         // cargar representaciones de dispositivos
         AssetManager am = c.getAssets();
@@ -54,6 +53,9 @@ public class DeviceManager
     
     public static void connect()
     {
+        sDevices = new Vector<Device>();
+        sDevicesMap = new HashMap<String, Integer>();
+        
         // conectar a BlueRose, pedir lista de DeviceSpec, y crear devices en consecuencia
     	
     	Vector<DeviceSpec> specs = new Vector<DeviceSpec>();

@@ -26,7 +26,7 @@ public class KoraButton extends View
                                 VERTICAL = 2,
                                 BOTH = 3; // HORIZONTAL | VERTICAL
         
-        public static final float TEXT_BIG = 35,
+        public static final float TEXT_LARGE = 35,
                                   TEXT_MEDIUM = 25,
                                   TEXT_SMALL = 15;
 
@@ -44,22 +44,22 @@ public class KoraButton extends View
                                 BORDER_SELECTED_COLOR = 0xFF7FB6E8;
         
         // Orientación
-        public int allowed_orientations = BOTH;
-        public float max_proportion = 2.25f; // máxima relación v/h para poner horizontal
+        public int allowedOrientations = BOTH;
+        public float maxProportion = 2.25f; // máxima relación v/h para poner horizontal
         
         // Texto
-        public boolean show_text = true;
-        public float text_max_size = TEXT_MEDIUM;
+        public boolean showText = true;
+        public float textMaxSize = TEXT_MEDIUM;
         public Typeface typeface = Typeface.DEFAULT;
-        public int text_color = Color.BLACK;
+        public int textColor = Color.BLACK;
         
         // Fondo
-        public int[] background_colors = { BG_NORMAL_COLOR,
+        public int[] backgroundColors = { BG_NORMAL_COLOR,
                                            BG_FOCUSED_COLOR,
                                            BG_SELECTED_COLOR };
         
         // Borde
-        public int[] border_colors ={ BG_NORMAL_COLOR,
+        public int[] borderColors ={ BG_NORMAL_COLOR,
                                       BORDER_FOCUSED_COLOR,
                                       BORDER_SELECTED_COLOR };
     }
@@ -138,9 +138,9 @@ public class KoraButton extends View
         
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.KoraButton, defStyle, 0);
         
-        mAttrs.show_text = a.getBoolean(R.styleable.KoraButton_showText, false);
+        mAttrs.showText = a.getBoolean(R.styleable.KoraButton_showText, false);
         mText = a.getString(R.styleable.KoraButton_text);
-        mAttrs.text_color = a.getColor(R.styleable.KoraButton_textColor, Color.BLACK);
+        mAttrs.textColor = a.getColor(R.styleable.KoraButton_textColor, Color.BLACK);
         int iconRes = a.getResourceId(R.styleable.KoraButton_icon, 0);
         
         if(iconRes != 0)
@@ -180,22 +180,22 @@ public class KoraButton extends View
         
         // Borde
         if(mFocused)
-            sPaint.setColor(mAttrs.border_colors[Attributes.INDEX_FOCUSED]);
+            sPaint.setColor(mAttrs.borderColors[Attributes.INDEX_FOCUSED]);
         else if (mSelected)
-            sPaint.setColor(mAttrs.border_colors[Attributes.INDEX_SELECTED]);
+            sPaint.setColor(mAttrs.borderColors[Attributes.INDEX_SELECTED]);
         else
-            sPaint.setColor(mAttrs.border_colors[Attributes.INDEX_NORMAL]);
+            sPaint.setColor(mAttrs.borderColors[Attributes.INDEX_NORMAL]);
         
         RectF borderRect = new RectF(0, 0, mWidth, mHeight);
         canvas.drawRoundRect(borderRect, 5, 5, sPaint);
         
         // Fondo
         if(mFocused)
-        sPaint.setColor(mAttrs.background_colors[Attributes.INDEX_FOCUSED]);
+        sPaint.setColor(mAttrs.backgroundColors[Attributes.INDEX_FOCUSED]);
         else if (mSelected)
-            sPaint.setColor(mAttrs.background_colors[Attributes.INDEX_SELECTED]);
+            sPaint.setColor(mAttrs.backgroundColors[Attributes.INDEX_SELECTED]);
         else
-            sPaint.setColor(mAttrs.background_colors[Attributes.INDEX_NORMAL]);
+            sPaint.setColor(mAttrs.backgroundColors[Attributes.INDEX_NORMAL]);
         
         RectF backRect  = new RectF(mBorderSize, mBorderSize,
                              mWidth-mBorderSize, mHeight-mBorderSize);
@@ -207,8 +207,8 @@ public class KoraButton extends View
         canvas.drawBitmap(b, mIconX, mIconY, null);
 
         // Texto
-        if(mAttrs.show_text) {
-            sPaint.setColor(mAttrs.text_color);
+        if(mAttrs.showText) {
+            sPaint.setColor(mAttrs.textColor);
             sPaint.setTextSize(sMinTextSize);
             if(mOrientation == Attributes.VERTICAL) {
                 sPaint.setTextAlign(Align.CENTER);
@@ -224,7 +224,7 @@ public class KoraButton extends View
         mWidth = MeasureSpec.getSize(widthMeasureSpec);
         mHeight = MeasureSpec.getSize(heightMeasureSpec);
            
-        switch(mAttrs.allowed_orientations){
+        switch(mAttrs.allowedOrientations){
         case Attributes.VERTICAL:
             mOrientation = Attributes.VERTICAL;
             break;
@@ -233,7 +233,7 @@ public class KoraButton extends View
             break;
         default:
         case Attributes.BOTH:
-            if(mWidth>mAttrs.max_proportion*mHeight)
+            if(mWidth>mAttrs.maxProportion*mHeight)
                 mOrientation = Attributes.HORIZONTAL;
             else
                 mOrientation = Attributes.VERTICAL;
@@ -242,7 +242,7 @@ public class KoraButton extends View
 
         calculateBorder();
         calculateIconBounds();
-        if(mAttrs.show_text) {
+        if(mAttrs.showText) {
             calculateTextBounds();
         }
         
@@ -275,7 +275,7 @@ public class KoraButton extends View
         int border = mBorderSize+2,
             doubleBorder = (mBorderSize+2)<<1;
         
-        if(mAttrs.show_text) {
+        if(mAttrs.showText) {
             if(mOrientation == Attributes.VERTICAL) {
                 maxWidth = mWidth - doubleBorder;
                 maxHeight = ((mHeight-doubleBorder)*3)/4 ;
@@ -317,16 +317,16 @@ public class KoraButton extends View
         if(mOrientation == Attributes.VERTICAL) {
             maxWidth = mWidth - border;
             maxHeight = (mHeight-border)/4;
-            mTextSize = mAttrs.text_max_size;
+            mTextSize = mAttrs.textMaxSize;
         } else {
             maxWidth = ((mWidth-border)*3)/4;
             maxHeight = mHeight - border;
-            mTextSize = mAttrs.text_max_size*1.5f;
+            mTextSize = mAttrs.textMaxSize*1.5f;
         }
         
         boolean ok = false;
         Rect bounds = new Rect();
-        sPaint.setTextSize(mAttrs.text_max_size);
+        sPaint.setTextSize(mAttrs.textMaxSize);
         while(!ok){
             sPaint.getTextBounds(mText, 0, mText.length(), bounds);
             if(bounds.width()<=maxWidth &&
