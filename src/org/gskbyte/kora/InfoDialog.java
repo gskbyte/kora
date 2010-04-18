@@ -4,11 +4,8 @@ import org.gskbyte.kora.R;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 public class InfoDialog extends AlertDialog {
 	

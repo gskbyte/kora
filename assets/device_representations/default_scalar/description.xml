@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deviceRepresentation name="defaultScalar">
+    <icon name="default" path="icons/default.png"/>
+    <icon name="highContrast" path="icons/highContrast.png"/>
+    <icon name="blackWhite" path="icons/bw.png"/>
+    <icon name="photo" path="icons/default.png"/>
+    
+    <!-- añadir iconos a controles! -->
+    <control name="control" type="scalar"/>
+</deviceRepresentation>

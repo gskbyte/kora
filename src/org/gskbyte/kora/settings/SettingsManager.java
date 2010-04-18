@@ -31,7 +31,7 @@ public class SettingsManager
     {
         private static final long serialVersionUID = 1L;
         
-        public Class affected = null;
+		public Class affected = null;
         public static final int NOT_SET = 1,
                                 BAD = 2,
                                 NOT_EXISTS = 3,
@@ -47,13 +47,13 @@ public class SettingsManager
             this.type = type;
             this.affected = affected;
         }
-        
+        /*
         private void addDependency(String dep)
         {
             if(dependencies==null)
                 dependencies = new ArrayList<String>();
             dependencies.add(dep);
-        }
+        }*/
         
         public String getMessage()
         {

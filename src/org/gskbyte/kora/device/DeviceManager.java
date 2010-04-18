@@ -19,13 +19,11 @@ public class DeviceManager
     
     protected static Vector<Device> sDevices = 
         new Vector<Device>();
-    protected static HashMap<String, Integer> sDeviceMap = 
+    protected static HashMap<String, Integer> sDevicesMap = 
         new HashMap<String, Integer>();
     protected static HashMap<String, DeviceRepresentation> sDeviceRepsMap = 
         new HashMap<String, DeviceRepresentation>();
-    
-    // almacenar representaciones
-    
+        
     public static void init(Context c)
     {
         sContext = c;
@@ -40,9 +38,7 @@ public class DeviceManager
                 try{
                     InputStream is = am.open(file);
                     DeviceRepresentation dr = new DeviceRepresentation(is, DEVICE_REPS_FOLDER+"/"+f+"/");
-                    //sDeviceRepsMap.put(dr.getSystemName(), dr);
-                    int i = 5;
-                    i = 4;
+                    sDeviceRepsMap.put(dr.getName(), dr);
                 } catch (IOException e) {
                     Log.e(TAG, "Can't open device representation: "+ f +
                                ". Is description.xml missing?");
@@ -54,13 +50,57 @@ public class DeviceManager
             Log.e(TAG, "Can't open device representations folder." +
                        " Critical error.");
         }
-        
-        
     }
     
     public static void connect()
     {
         // conectar a BlueRose, pedir lista de DeviceSpec, y crear devices en consecuencia
+    	
+    	Vector<DeviceSpec> specs = new Vector<DeviceSpec>();
+    	
+    	DeviceSpec s1 = new DeviceSpec("roomLight",
+    			DeviceSpec.DEVICE_LIGHT,
+    			DeviceSpec.ACCESS_READ_WRITE,
+    			DeviceSpec.VALUE_BOOLEAN,
+    			new Boolean(false),
+    			new Boolean(true));
+    	
+    	DeviceSpec s2 = new DeviceSpec("tableLight",
+    			DeviceSpec.DEVICE_ADJUSTABLE_LIGHT,
+    			DeviceSpec.ACCESS_READ_WRITE,
+    			DeviceSpec.VALUE_INT,
+    			new Integer(10),
+    			new Integer(0));
+    	
+    	specs.add(s1);
+    	specs.add(s2);
+    	
+    	for(DeviceSpec s : specs){
+    		DeviceRepresentation dr;
+    		switch(s.getDeviceType()){
+    		case DeviceSpec.DEVICE_LIGHT:
+    			dr = sDeviceRepsMap.get("simpleLight");
+    			break;
+    		case DeviceSpec.DEVICE_ADJUSTABLE_LIGHT:
+    			dr = sDeviceRepsMap.get("adjustableLight");
+    			break;
+    			
+    			/* RESTO DE TIPOS */
+    			
+    		case DeviceSpec.DEVICE_BINARY:
+    			dr = sDeviceRepsMap.get("defaultBinary");
+    			break;
+    		case DeviceSpec.DEVICE_SCALAR:
+			default:
+    			dr = sDeviceRepsMap.get("defaultScalar");
+    			break;
+    		}
+    		
+    		// CAMBIAR ESTO       VVVVVVVVVVVVVVVVV
+    		Device d = new Device(s.getSystemName(), s, dr);
+    		sDevices.add(d);
+    		sDevicesMap.put(d.getSystemName(), sDevices.size()-1);
+    	}
     }
     
     public static void disconnect()
@@ -75,11 +115,21 @@ public class DeviceManager
     
     public static Device getDevice(int index)
     {
-        return null;
+        return sDevices.elementAt(index);
     }
     
     public static Device getDevice(String sysName)
     {
-        return null;
+    	int index = sDevicesMap.get(sysName);
+    	if(index>=0)
+    		return sDevices.elementAt(index);
+    	else
+    		return null;
+    }
+    
+    public static String getDeviceSystemName(int index)
+    {
+    	int size = sDevices.size();
+    	return sDevices.get(index).getSystemName();
     }
 }

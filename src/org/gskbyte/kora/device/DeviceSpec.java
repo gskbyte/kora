@@ -4,12 +4,15 @@ public class DeviceSpec
 {
     public static final int ACCESS_READ = 1,
                             ACCESS_WRITE = 2,
-                            ACCESS_READ_WIRTE = 3; // READ | WRITE
+                            ACCESS_READ_WRITE = 3; // READ | WRITE
 
-    public static final int DEVICE_LIGHT = 0,
-                            DEVICE_DOOR = 1,
-                            DEVICE_SUNBLIND = 2,
-                            DEVICE_THERMOMETER = 3;
+    public static final int DEVICE_SCALAR = 0,
+    						DEVICE_BINARY = 1,
+    						DEVICE_LIGHT = 2,
+    						DEVICE_ADJUSTABLE_LIGHT = 3,
+                            DEVICE_DOOR = 4,
+                            DEVICE_SUNBLIND = 5,
+                            DEVICE_THERMOMETER = 6;
     
     public static final int VALUE_BOOLEAN = 1,
                             VALUE_INT     = 2,
@@ -44,4 +47,34 @@ public class DeviceSpec
     }
     
     // getters y setters
+    
+    public String getSystemName()
+    {
+    	return mSystemName;
+    }
+    
+    public int getDeviceType()
+    {
+    	return mDeviceType;
+    }
+    
+    public int getAccessType()
+    {
+    	return mAccessType;
+    }
+    
+    public int getValueType()
+    {
+    	return mValueType;
+    }
+    
+    public Object getMix()
+    {
+    	return mMinValue;
+    }
+    
+    public Object getMax()
+    {
+    	return mMaxValue;
+    }
 }

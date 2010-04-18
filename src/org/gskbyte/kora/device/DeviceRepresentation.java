@@ -31,7 +31,6 @@ public class DeviceRepresentation
     
     protected static AssetManager sAssetManager;
     
-    protected String mSystemName;
     protected String mName;
     
     protected Vector<Bitmap> mIcons = new Vector<Bitmap>();
@@ -70,9 +69,9 @@ public class DeviceRepresentation
         }
     }
     
-    public String getSystemName()
+    public String getName()
     {
-        return mSystemName;
+        return mName;
     }
     
     public Bitmap getIcon(int which)

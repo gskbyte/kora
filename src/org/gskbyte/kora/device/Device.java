@@ -5,7 +5,7 @@ import android.graphics.Bitmap;
 public class Device extends DeviceSpec
 {
 	protected String mName;
-	protected Bitmap mIcon;
+	//protected Bitmap mCustomIcon; // alguna vez se usará
 	protected DeviceRepresentation mRepr;
 	
 	// representación de controles?
