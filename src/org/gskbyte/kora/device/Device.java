@@ -1,19 +1,24 @@
 package org.gskbyte.kora.device;
 
-public class Device
+import android.graphics.Bitmap;
+
+public class Device extends DeviceSpec
 {
 	private String mName;
-	private DeviceType mType;
+	protected Bitmap mIcon;
 	
-	// private Bitmap mCustomIcon;
-	// o
-	// private Vector<Bitmap> mCustomIcons;
+	// representación de controles?
 	
-	// private HashMap<Controls> ...
-	
-	/// COMPLETAR ESTE CONSTRUCTOR (provisional)
-	public Device(String name, DeviceType type)
+	public Device(String name, DeviceSpec s, DeviceRepresentation dr)
 	{
-		mName = name;
+	    super(s);
+	    mName = name;
 	}
+	
+	public String getName()
+	{
+	    return mName;
+	}
+	
+	
 }

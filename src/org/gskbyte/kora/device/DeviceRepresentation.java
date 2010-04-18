@@ -5,7 +5,7 @@ import java.util.Vector;
 
 import android.graphics.Bitmap;
 
-public class DeviceType
+public class DeviceRepresentation
 {
     public static final int ICON_DEFAULT = 0,
                             ICON_HIGH_CONTRAST = 1,
@@ -14,17 +14,18 @@ public class DeviceType
                             ICON_PHOTO = 4;
 
     protected String mSystemName;
+    protected String mName;
     
     protected Vector<Bitmap> icons = new Vector<Bitmap>(5);
     protected HashMap<String, AbstractDeviceControl> mControls = 
         new HashMap<String, AbstractDeviceControl>();
     
-    public DeviceType(String assetFolder)
+    public DeviceRepresentation(String assetFolder)
     {
         
     }
     
-    public DeviceType(/* XML Object*/)
+    public DeviceRepresentation(/* XML Object*/)
     {
         
     }
