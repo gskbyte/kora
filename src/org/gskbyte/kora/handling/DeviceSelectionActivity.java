@@ -4,14 +4,13 @@ import org.gskbyte.kora.R;
 import org.gskbyte.kora.customViews.GridLayout;
 import org.gskbyte.kora.customViews.koraButton.KoraButton;
 import org.gskbyte.kora.customViews.koraButton.KoraButton.Attributes;
+import org.gskbyte.kora.device.DeviceManager;
 
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.AttributeSet;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -26,6 +25,8 @@ public class DeviceSelectionActivity extends Activity
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        DeviceManager.init(this);
+        
         setContentView(R.layout.device_selection_layout);
         
         //mNavigationButtons = (LinearLayout) findViewById(R.id.navigationButtons);

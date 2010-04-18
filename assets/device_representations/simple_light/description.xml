@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<DeviceType name="SimpleLight"
-    defaultIcon="icons/default.png"
-    highContrastIcon="icons/highContrast.png">
+<deviceRepresentation name="simpleLight">
 
-    <Control name="switch"
-        type="binary"/>
-</DeviceType>
+    <icon name="default" path="icons/default.png"/>
+    <icon name="highContrast" path="icons/highContrast.png"/>
+    <icon name="blackWhite" path="icons/bw.png"/>
+    <icon name="photo" path="icons/photo.png"/>
+    
+    <!-- añadir iconos a controles! -->
+    <control name="switch" type="binary"/>
+    
+    
+</deviceRepresentation>

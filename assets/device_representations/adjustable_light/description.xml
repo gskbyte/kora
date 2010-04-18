@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<DeviceClass name="AdjustableLight"
-    defaultIcon="icons/default.png"
-    highContrastIcon="icons/highContrast.png">
-    <Control name="switch" 
-        type="binary"
-        knx_id=""/>
-    <Control name="intensity"
-        type="scalar"
-        knx_id=""/>
-</DeviceClass>
+<deviceRepresentation name="adjustableLight">
+    <icon name="default" path="icons/default.png"/>
+    <icon name="highContrast" path="icons/highContrast.png"/>
+    <icon name="blackWhite" path="icons/bw.png"/>
+    
+    <!-- añadir iconos a controles! -->
+    <control name="switch" type="binary"/>
+    <control name="intensity" type="scalar"/>
+    
+    
+</deviceRepresentation>
