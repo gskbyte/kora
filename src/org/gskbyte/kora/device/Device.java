@@ -4,8 +4,9 @@ import android.graphics.Bitmap;
 
 public class Device extends DeviceSpec
 {
-	private String mName;
+	protected String mName;
 	protected Bitmap mIcon;
+	protected DeviceRepresentation mRepr;
 	
 	// representación de controles?
 	
@@ -13,6 +14,7 @@ public class Device extends DeviceSpec
 	{
 	    super(s);
 	    mName = name;
+	    mRepr = dr;
 	}
 	
 	public String getName()
@@ -20,5 +22,10 @@ public class Device extends DeviceSpec
 	    return mName;
 	}
 	
+	public Bitmap getIcon(int which)
+	{
+		return mRepr.getIcon(which);
+	}
 	
+	// operaciones para escribir en el dispositivo
 }

@@ -1,6 +1,5 @@
 package org.gskbyte.kora.device;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;

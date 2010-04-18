@@ -71,8 +71,8 @@ public class KoraButton extends View
     protected static float sMinTextSize = -1;
     
     // Propiedades generales del botón
-    private String mText = "";
-    private Bitmap mIcon;
+    protected String mText = "";
+    protected Bitmap mIcon;
     protected boolean mFocused, mSelected;
     protected Attributes mAttrs;
     protected int mOrientation;
@@ -86,10 +86,9 @@ public class KoraButton extends View
     
     protected OnClickListener mClickListener;
     
-    public KoraButton(Context context, String text, Drawable icon,
-            Attributes attr)
+    protected KoraButton(Context context)
     {
-        super(context);
+    	super(context);
     }
     
     public KoraButton(Context context, String text, int iconId)
@@ -115,7 +114,7 @@ public class KoraButton extends View
         
         mText = text;
         mIcon = icon;
-        mFocused = mSelected = false;;
+        mFocused = mSelected = false;
         
         if(attr!=null)
             mAttrs = attr;
