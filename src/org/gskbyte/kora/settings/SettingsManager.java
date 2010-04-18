@@ -1,5 +1,4 @@
 package org.gskbyte.kora.settings;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.gskbyte.kora.R;
@@ -23,11 +22,9 @@ public class SettingsManager
     private static Context sContext = null;
     private static Resources sResources = null;
     
-    private static SettingsManager instance = null;
     private static SharedPreferences sPreferences;
     
-    
-    public final class SettingsException extends Exception
+    public static class SettingsException extends Exception
     {
         private static final long serialVersionUID = 1L;
         
@@ -65,8 +62,18 @@ public class SettingsManager
         }
     }
     
-    protected SettingsManager() throws SettingsException
+    public static void init(Context context) throws SettingsException
     {
+        sContext = context;
+        sResources = context.getResources();
+        
+        // Cargar último usuario, si no existe, establecer Default
+        User.setDefaultPhoto(sResources.getDrawable(R.drawable.icon_user),
+                             sContext);
+                
+        sDbAdapter = new SettingsDbAdapter(sContext);
+        sDbAdapter.open();
+        
         /* Cargar configuración previa */
         sPreferences =  sContext.getSharedPreferences(PREFERENCES_TAG,
                                                       Context.MODE_PRIVATE);
@@ -83,20 +90,6 @@ public class SettingsManager
         
         //DeviceManager.init(res);
         //DeviceProfile dp = UseProfileManager.load(u.getUseProfileName());
-
-    }
-    
-    public static void init(Context context)
-    {
-        sContext = context;
-        sResources = context.getResources();
-        
-        // Cargar último usuario, si no existe, establecer Default
-        User.setDefaultPhoto(sResources.getDrawable(R.drawable.icon_user),
-                             sContext);
-                
-        sDbAdapter = new SettingsDbAdapter(sContext);
-        sDbAdapter.open();
     }
     
     public static void finish()
@@ -108,14 +101,7 @@ public class SettingsManager
         editor.commit();
     }
     
-    public static SettingsManager getInstance() throws SettingsException
-    {
-        if(instance == null)
-            instance = new SettingsManager();
-        return instance;
-    }
-    
-    public boolean existsUser(String name)
+    public static boolean existsUser(String name)
     {
         try{
             getUser(name);
@@ -125,7 +111,7 @@ public class SettingsManager
         }
     }
     
-    public User getUser(String name) throws SettingsException
+    public static User getUser(String name) throws SettingsException
     {
         List<User> res = sDbAdapter.getUsers(
                 SettingsDbAdapter.USER_NAME+"='"+name+"'");
@@ -135,19 +121,19 @@ public class SettingsManager
             throw new SettingsException(SettingsException.NOT_EXISTS, User.class);
     }
     
-    public List<User> getDefaultUsers()
+    public static List<User> getDefaultUsers()
     {
         return sDbAdapter.getUsers(
                 SettingsDbAdapter.USER_ISDEFAULT + "=" + 1);
     }
     
-    public List<User> getCustomUsers()
+    public static List<User> getCustomUsers()
     {
         return sDbAdapter.getUsers(
                 SettingsDbAdapter.USER_ISDEFAULT + "=" + 0);
     }
     
-    public void addUser(User u) throws SettingsException
+    public static void addUser(User u) throws SettingsException
     {
         if(u == null || u.getName() == null || u.getName().length()==0)
             throw new SettingsException(SettingsException.BAD, User.class);
@@ -156,7 +142,7 @@ public class SettingsManager
             throw new SettingsException(SettingsException.EXISTS, User.class);
     }
     
-    public void editUser(String previous_name, User u) throws SettingsException
+    public static void editUser(String previous_name, User u) throws SettingsException
     {
         if(previous_name == null || previous_name.length()==0 ||
            u == null || u.getName() == null || u.getName().length()==0)
@@ -171,18 +157,18 @@ public class SettingsManager
             sCurrentUser = u;
     }
     
-    public void removeUser(String name) throws SettingsException
+    public static void removeUser(String name) throws SettingsException
     {
         if(sDbAdapter.removeUser(name) != SettingsDbAdapter.RESULT_OK)
             throw new SettingsException(SettingsException.NOT_EXISTS, User.class);
     }
     
-    public User getCurrentUser()
+    public static User getCurrentUser()
     {
         return sCurrentUser;
     }
     
-    public void setCurrentUser(String name) throws SettingsException
+    public static void setCurrentUser(String name) throws SettingsException
     {
         User u = getUser(name);
         /* ¡Cambiar perfiles */
@@ -192,12 +178,12 @@ public class SettingsManager
         //sCurrentDeviceProfile = getDeviceProfile(u.getDeviceProfileName());
     }
     
-    public List<String> getUseProfilesList()
+    public static List<String> getUseProfilesList()
     {
         return sDbAdapter.getUseProfilesList();
     }
     
-    public boolean existsUseProfile(String name)
+    public static boolean existsUseProfile(String name)
     {
         try{
             getUseProfile(name);
@@ -207,7 +193,7 @@ public class SettingsManager
         }
     }
     
-    public UseProfile getUseProfile(String name) throws SettingsException
+    public static UseProfile getUseProfile(String name) throws SettingsException
     {
         List<UseProfile> res = sDbAdapter.getUseProfiles(
                 SettingsDbAdapter.USEPROFILE_NAME+"='"+name+"'");
@@ -217,19 +203,19 @@ public class SettingsManager
             throw new SettingsException(SettingsException.NOT_EXISTS, User.class);
     }
     
-    public List<UseProfile> getDefaultUseProfiles()
+    public static List<UseProfile> getDefaultUseProfiles()
     {
         return sDbAdapter.getUseProfiles(
                 SettingsDbAdapter.USEPROFILE_ISDEFAULT + "=" + 1);
     }
     
-    public List<UseProfile> getCustomUseProfiles()
+    public static List<UseProfile> getCustomUseProfiles()
     {
         return sDbAdapter.getUseProfiles(
                 SettingsDbAdapter.USEPROFILE_ISDEFAULT + "=" + 0);
     }
     
-    public void addUseProfile(UseProfile up) throws SettingsException
+    public static void addUseProfile(UseProfile up) throws SettingsException
     {
         if(up == null || up.getName() == null || up.getName().length()==0)
             throw new SettingsException(SettingsException.BAD,
@@ -240,7 +226,7 @@ public class SettingsManager
                     UseProfile.class);
     }
     
-    public void editUseProfile(String previous_name, UseProfile up) throws SettingsException
+    public static void editUseProfile(String previous_name, UseProfile up) throws SettingsException
     {
         if(previous_name == null || previous_name.length()==0 ||
            up == null || up.getName() == null || up.getName().length()==0)
@@ -267,7 +253,7 @@ public class SettingsManager
         }
     }
     
-    public void removeUseProfile(String name) throws SettingsException
+    public static void removeUseProfile(String name) throws SettingsException
     {
         if(sDbAdapter.removeUseProfile(name, true) == SettingsDbAdapter.QUERY_FAIL)
             throw new SettingsException(SettingsException.NOT_EXISTS,
@@ -278,17 +264,17 @@ public class SettingsManager
             
     }
     
-    public UseProfile getCurrentUseProfile()
+    public static UseProfile getCurrentUseProfile()
     {
         return sCurrentUseProfile;
     }
     
-    public List<String> getDeviceProfilesList()
+    public static List<String> getDeviceProfilesList()
     {
         return sDbAdapter.getDeviceProfilesList();
     }
     
-    public boolean existsDeviceProfile(String name)
+    public static boolean existsDeviceProfile(String name)
     {
         try{
             getDeviceProfile(name);
@@ -298,7 +284,7 @@ public class SettingsManager
         }
     }
     
-    public DeviceProfile getDeviceProfile(String name) throws SettingsException
+    public static DeviceProfile getDeviceProfile(String name) throws SettingsException
     {
         List<DeviceProfile> res = sDbAdapter.getDeviceProfiles(
                 SettingsDbAdapter.DEVICEPROFILE_NAME+"='"+name+"'");
@@ -308,32 +294,32 @@ public class SettingsManager
             throw new SettingsException(SettingsException.NOT_EXISTS, User.class);
     }
     
-    public List<DeviceProfile> getDefaultDeviceProfiles()
+    public static List<DeviceProfile> getDefaultDeviceProfiles()
     {
         return sDbAdapter.getDeviceProfiles(
                 SettingsDbAdapter.DEVICEPROFILE_ISDEFAULT + "=" + 1);
     }
     
-    public List<DeviceProfile> getCustomDeviceProfiles()
+    public static List<DeviceProfile> getCustomDeviceProfiles()
     {
         return sDbAdapter.getDeviceProfiles(
                 SettingsDbAdapter.DEVICEPROFILE_ISDEFAULT + "=" + 0);
     }
     
-    public void addDeviceProfile(DeviceProfile u) throws SettingsException
+    public static void addDeviceProfile(DeviceProfile u) throws SettingsException
     {
     }
     
-    public void editDeviceProfile(String previous_name, DeviceProfile u) throws SettingsException
+    public static void editDeviceProfile(String previous_name, DeviceProfile u) throws SettingsException
     {
         
     }
     
-    public void removeDeviceProfile(String name) throws SettingsException
+    public static void removeDeviceProfile(String name) throws SettingsException
     {
     }
     
-    public DeviceProfile getCurrentDeviceProfile()
+    public static DeviceProfile getCurrentDeviceProfile()
     {
         return sCurrentDeviceProfile;
     }

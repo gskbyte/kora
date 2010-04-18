@@ -27,7 +27,6 @@ public class AddEditActivity extends Activity
     
     private int mMode;
     private Resources mResources;
-    private SettingsManager mSettings;
     private UseProfile mCurrentUseProfile;
     
     private EditText mNameEdit;
@@ -63,15 +62,6 @@ public class AddEditActivity extends Activity
         
         mAcceptButton.setOnClickListener(acceptListener);
         mCancelButton.setOnClickListener(cancelListener);
-
-        try {
-            mSettings = SettingsManager.getInstance();
-        } catch (SettingsException e) {
-            Log.e(TAG, e.getMessage());
-            Toast.makeText(this, 
-                    "ERROR LOADING SETTINGS. Please contact author.",
-                    Toast.LENGTH_LONG);
-        }
     }
     
     public void onStart()
@@ -82,7 +72,7 @@ public class AddEditActivity extends Activity
             Bundle extras = getIntent().getExtras();
             if(extras != null){
                 String name = extras.getString(ProfilesActivity.TAG_USEPROFILE_NAME);
-                mCurrentUseProfile = mSettings.getUseProfile(name);
+                mCurrentUseProfile = SettingsManager.getUseProfile(name);
                 mMode = EDIT_MODE;
             } else {
                 mCurrentUseProfile = new UseProfile("temp");
@@ -193,13 +183,13 @@ public class AddEditActivity extends Activity
                     
                     if(mMode == ADD_MODE){ // modo añadir
                         try{
-                            mSettings.addUseProfile(mCurrentUseProfile);
+                        	SettingsManager.addUseProfile(mCurrentUseProfile);
                         } catch (SettingsException e){
                             result = e.type;
                         }
                     } else {
                         try{
-                            mSettings.editUseProfile(oldname,
+                        	SettingsManager.editUseProfile(oldname,
                                                      mCurrentUseProfile);
                         } catch (SettingsException e){
                             result = e.type;

@@ -23,7 +23,6 @@ public class CopyActivity extends Activity
     private User mCurrentUser;
     
     private Resources mResources;
-    private SettingsManager mSettings;
     
     private ImageButton mPhotoButton;
     private EditText mNameEdit, mSchoolEdit;
@@ -59,10 +58,9 @@ public class CopyActivity extends Activity
         try {
             Bundle extras = getIntent().getExtras();
             
-            mSettings = SettingsManager.getInstance();
             if(extras != null){
                 String userName = extras.getString(UsersActivity.TAG_USER_NAME);
-                mCurrentUser = mSettings.getUser(userName);
+                mCurrentUser = SettingsManager.getUser(userName);
             } else {
                 mCurrentUser = null;
             }
@@ -118,7 +116,7 @@ public class CopyActivity extends Activity
                             mCurrentUser.getDeviceProfileName());
                     
                     try{
-                        mSettings.addUser(u);
+                    	SettingsManager.addUser(u);
                     } catch (SettingsManager.SettingsException e){
                         result = e.type;
                     }

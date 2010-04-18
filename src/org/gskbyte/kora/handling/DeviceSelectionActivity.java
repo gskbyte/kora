@@ -1,27 +1,33 @@
 package org.gskbyte.kora.handling;
 
+import java.util.Vector;
+
 import org.gskbyte.kora.R;
 import org.gskbyte.kora.customViews.GridLayout;
+import org.gskbyte.kora.customViews.koraButton.KoraButton;
 import org.gskbyte.kora.customViews.koraButton.DeviceButton;
 import org.gskbyte.kora.customViews.koraButton.DeviceButton.Attributes;
-import org.gskbyte.kora.customViews.koraButton.KoraButton;
 import org.gskbyte.kora.device.DeviceManager;
 import org.gskbyte.kora.device.DeviceRepresentation;
+import org.gskbyte.kora.settings.SettingsManager;
+import org.gskbyte.kora.settings.UseProfile;
 
 import android.app.Activity;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 public class DeviceSelectionActivity extends Activity
 {
     private static final String TAG = "DeviceSelectionActivity";
 
-    GridLayout mGrid;
-    LinearLayout mNavigationButtons;
+    private GridLayout mGrid;
+    private Vector<KoraButton> mDeviceButtons;
+    
+    private LinearLayout mNavigationButtons;
+    private KoraButton mBackButton, mNextButton;
+    
+    private boolean mShowPagingButtons;
+    private KoraButton.Attributes mAttr;
     
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -33,8 +39,12 @@ public class DeviceSelectionActivity extends Activity
         
         //mNavigationButtons = (LinearLayout) findViewById(R.id.navigationButtons);
         mGrid = (GridLayout) findViewById(R.id.deviceGrid);
+        mNavigationButtons = (LinearLayout) findViewById(R.id.navigationButtons);
+        mBackButton = (KoraButton) findViewById(R.id.back);
+        mNextButton = (KoraButton) findViewById(R.id.next);
         
-        //mNavigationButtons.setVisibility(View.GONE);
+        configureView();
+        
         
         //mGrid.setClipToPadding(false);
         mGrid.setDimensions(3, 2);
@@ -50,31 +60,6 @@ public class DeviceSelectionActivity extends Activity
         }
         
         /*
-        KoraButton.resetMinTextSize();
-        KoraButton w  = new KoraButton(this, "Calentador", R.drawable.icon_device_heater_128),
-                   w2 = new KoraButton(this, "Luz salón", R.drawable.icon_device_light_128),
-                   w3 = new KoraButton(this, "Música", R.drawable.icon_device_music_128),
-                   w4 = new KoraButton(this, "Persiana", R.drawable.icon_device_sunblind_128),
-                   w5 = new KoraButton(this, "Luz", R.drawable.icon_device_light_128),
-                   w6 = new KoraButton(this, "Más", R.drawable.icon_more);
-        
-        KoraButton.Attributes attr;
-        
-        attr = w.getAttributes();
-        attr.background_colors[Attributes.INDEX_FOCUSED] = Color.rgb(15, 100, 15);
-        w.setAttributes(attr);
-        
-        attr = w2.getAttributes();
-        //attr.textMaxSize = Attributes.TEXT_BIG;
-        attr.background_colors[Attributes.INDEX_FOCUSED] = Color.rgb(147, 166, 132);
-        w2.setAttributes(attr);
-        
-        mGrid.addView(w);
-        mGrid.addView(w2);
-        mGrid.addView(w3);
-        mGrid.addView(w4);
-        mGrid.addView(w5);
-        mGrid.addView(w6);
         
         w.setOnClickListener(new OnClickListener(){
 
@@ -86,5 +71,14 @@ public class DeviceSelectionActivity extends Activity
         */
     }
     
+    public void configureView()
+    {
+    	//UseProfile up = SettingsManager.
+    	
+    	// Propiedades de la rejilla
+    	//mShowPagingButtons = ;
+
+        //mNavigationButtons.setVisibility(View.GONE);
+    }
     
 }

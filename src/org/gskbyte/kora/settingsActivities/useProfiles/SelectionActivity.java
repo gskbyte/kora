@@ -23,7 +23,6 @@ public class SelectionActivity extends Activity
     private static final String TAG = "UserSelectionActivity";
     
     private Resources mResources;
-    private SettingsManager mSettings;
     private User mCurrentUser;
     private UseProfile mSelectedUseProfile;
     private Button mChooseButton, mCopyButton, mEditButton, mDeleteButton,
@@ -49,15 +48,6 @@ public class SelectionActivity extends Activity
         mEditButton.setOnClickListener(editListener);
         mDeleteButton.setOnClickListener(deleteListener);
         mReturnButton.setOnClickListener(returnListener);
-        
-        try {
-            mSettings = SettingsManager.getInstance();
-        } catch (SettingsException e) {
-            Log.e(TAG, e.getMessage());
-            Toast.makeText(this, 
-                    "ERROR LOADING SETTINGS. Please contact author.",
-                    Toast.LENGTH_LONG);
-        }
     }
     
     public void onStart()
@@ -67,8 +57,8 @@ public class SelectionActivity extends Activity
         try {
             Bundle extras = getIntent().getExtras();
             String useProfileName =  extras.getString(UseProfilesActivity.TAG_USEPROFILE_NAME);
-            mCurrentUser = mSettings.getCurrentUser();
-            mSelectedUseProfile = mSettings.getUseProfile(useProfileName);
+            mCurrentUser = SettingsManager.getCurrentUser();
+            mSelectedUseProfile = SettingsManager.getUseProfile(useProfileName);
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
             Toast.makeText(this, 
@@ -104,7 +94,7 @@ public class SelectionActivity extends Activity
                        useProfileName = mSelectedUseProfile.getName();
                 mCurrentUser.setUseProfileName(useProfileName);
                 try {
-                    mSettings.editUser(userName, mCurrentUser);
+                	SettingsManager.editUser(userName, mCurrentUser);
                     Toast.makeText(SelectionActivity.this, 
                            userName + " " + mResources.getString(R.string.nowUses) +
                            " " + useProfileName, Toast.LENGTH_SHORT).show();
@@ -161,7 +151,7 @@ public class SelectionActivity extends Activity
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                     try{
-                                        mSettings.removeUseProfile(mSelectedUseProfile.getName());
+                                    	SettingsManager.removeUseProfile(mSelectedUseProfile.getName());
                                         Toast.makeText(SelectionActivity.this, 
                                                 mResources.getString(R.string.deleteUseProfileOk) + ":"  +
                                                 mSelectedUseProfile.getName(), Toast.LENGTH_SHORT).show();

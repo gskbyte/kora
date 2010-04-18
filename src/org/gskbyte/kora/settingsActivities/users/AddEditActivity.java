@@ -41,7 +41,6 @@ public class AddEditActivity extends Activity
     private User mCurrentUser;
     
     private Resources mResources;
-    private SettingsManager mSettings;
     
     private ImageButton mPhotoButton;
     private EditText mNameEdit, mSchoolEdit, mAutoStartEdit;
@@ -78,11 +77,10 @@ public class AddEditActivity extends Activity
         mCancelButton.setOnClickListener(cancelListener);
         
         try {
-            mSettings = SettingsManager.getInstance();
             Bundle extras = getIntent().getExtras();
             if(extras != null){
                 String userName = extras.getString(ProfilesActivity.TAG_USER_NAME);
-                mCurrentUser = mSettings.getUser(userName);
+                mCurrentUser = SettingsManager.getUser(userName);
                 mPhotoPath = mCurrentUser.getPhotoPath();
             } else {
                 //mCurrentUser = null;
@@ -188,14 +186,14 @@ public class AddEditActivity extends Activity
     void populateSpinners()
     {
         // Pillar todos los perfiles de uso y de dispositivos
-        List<String> useProfilesList = mSettings.getUseProfilesList();
+        List<String> useProfilesList = SettingsManager.getUseProfilesList();
         ArrayAdapter<String> uPAdapter =
             new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,
                     useProfilesList);
         uPAdapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
         mUseProfileSpinner.setAdapter(uPAdapter);
         
-        List<String> deviceProfilesList = mSettings.getDeviceProfilesList();
+        List<String> deviceProfilesList = SettingsManager.getDeviceProfilesList();
         ArrayAdapter<String> dPAdapter =
             new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,
                     deviceProfilesList);
@@ -297,13 +295,13 @@ public class AddEditActivity extends Activity
                     
                     if(mCurrentUser == null){ // modo añadir
                         try{
-                            mSettings.addUser(u);
+                        	SettingsManager.addUser(u);
                         } catch (SettingsException e){
                             result = e.type;
                         }
                     } else {
                         try{
-                            mSettings.editUser(mCurrentUser.getName(), u);
+                        	SettingsManager.editUser(mCurrentUser.getName(), u);
                         } catch (SettingsException e){
                             result = e.type;
                         }

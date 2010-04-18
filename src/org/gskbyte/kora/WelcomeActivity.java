@@ -36,7 +36,6 @@ public class WelcomeActivity extends Activity {
 	private CountDownTimer mTimer;
 
 	private Resources mResources;
-	private SettingsManager mSettingsManager;
 	private User mCurrentUser;
 	
 	private boolean mJustStarted = true;
@@ -64,7 +63,6 @@ public class WelcomeActivity extends Activity {
 		// Cargar datos de programa (usuarios, perfiles, etc)
 		try {
             SettingsManager.init(this);
-            mSettingsManager = SettingsManager.getInstance();
         } catch (SettingsException e) {
             Log.e(TAG, e.getMessage());
         }
@@ -72,7 +70,7 @@ public class WelcomeActivity extends Activity {
 	
 	public void onResume()
 	{
-        mCurrentUser = mSettingsManager.getCurrentUser();
+        mCurrentUser = SettingsManager.getCurrentUser();
 	    // Iniciar cuenta atrás si el usuario quiere comienzo automático
         if (mCurrentUser.wantsAutoStart() && mJustStarted) {
             mJustStarted = false;

@@ -48,7 +48,6 @@ public abstract class ProfilesActivity extends Activity
 
 	protected SectionedListAdapter mAdapter;
     
-	protected SettingsManager mSettings;
     protected User mCurrentUser;
 
 	protected String mSelectedProfileName;
@@ -94,7 +93,7 @@ public abstract class ProfilesActivity extends Activity
 	/* TODO: ¡Actualizar SOLO si cambia algo! */
 	public void updateCurrentProfileView()
     {
-        User c = mSettings.getCurrentUser();
+        User c = SettingsManager.getCurrentUser();
         //if( mSettings.hasCurrentUserChanged() ){
             mCurrentUser = c;
             mCurrentUserText.setText(c.getName());

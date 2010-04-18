@@ -31,12 +31,7 @@ public class UsersActivity extends ProfilesActivity
         mAddButton.setText(mResources.getString(R.string.user));
         
         /* Iniciar manejadores, cargar usuario actual */
-        try {
-            mSettings = SettingsManager.getInstance();
-            mCurrentUser = mSettings.getCurrentUser();
-        } catch (SettingsException e) {
-            Log.e(TAG, e.getMessage());
-        }
+        mCurrentUser = SettingsManager.getCurrentUser();
         
         
         /* Iniciar listeners */
@@ -74,7 +69,7 @@ public class UsersActivity extends ProfilesActivity
                deviceProfile = mResources.getString(R.string.deviceProfile) + ": ";
         
         // Usuarios personalizados
-        Collection<User> customUsers = (Collection<User>) mSettings.getCustomUsers();
+        Collection<User> customUsers = (Collection<User>) SettingsManager.getCustomUsers();
         List<DetailedViewModel> customs = new ArrayList<DetailedViewModel>();
         for(User u : customUsers)
             customs.add(new DetailedViewModel(
@@ -90,7 +85,7 @@ public class UsersActivity extends ProfilesActivity
         // y meter los nuevos
         if(mAdapter.getSectionIndex(defaultsSectionName) == -1){
             // Usuarios por defecto
-            Collection<User> defaultUsers = (Collection<User>) mSettings.getDefaultUsers();
+            Collection<User> defaultUsers = (Collection<User>) SettingsManager.getDefaultUsers();
             List<DetailedViewModel> defaults = new ArrayList<DetailedViewModel>();
             for(User u : defaultUsers)
                 defaults.add(new DetailedViewModel(

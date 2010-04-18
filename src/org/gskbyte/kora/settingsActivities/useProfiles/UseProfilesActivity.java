@@ -34,13 +34,8 @@ public class UseProfilesActivity extends ProfilesActivity
         super.onCreate(savedInstanceState);
         
         /* Iniciar manejadores, cargar usuario actual */
-        try {
-            mSettings = SettingsManager.getInstance();
-            mCurrentUser = mSettings.getCurrentUser();
-            mCurrentUseProfile = mSettings.getCurrentUseProfile();
-        } catch (SettingsException e) {
-            Log.e(TAG, e.getMessage());
-        }
+        mCurrentUser = SettingsManager.getCurrentUser();
+        mCurrentUseProfile = SettingsManager.getCurrentUseProfile();
         
         
         /* Iniciar listeners */
@@ -82,8 +77,7 @@ public class UseProfilesActivity extends ProfilesActivity
     {
         /* See updateListView() on UsersActivity */
         Collection<UseProfile> customUseProfiles =
-            (Collection<UseProfile>) mSettings.getCustomUseProfiles();
-        Drawable icon = mResources.getDrawable(R.drawable.icon_use_profile);
+            (Collection<UseProfile>) SettingsManager.getCustomUseProfiles();
         
         List<DetailedViewModel> customs = new ArrayList<DetailedViewModel>();
         for(UseProfile up : customUseProfiles)
@@ -96,7 +90,7 @@ public class UseProfilesActivity extends ProfilesActivity
         String defaultsSectionName = mResources.getString(R.string.defaults);
         if(mAdapter.getSectionIndex(defaultsSectionName) == -1){
             Collection<UseProfile> defaultUseProfiles =
-                (Collection<UseProfile>) mSettings.getDefaultUseProfiles();
+                (Collection<UseProfile>) SettingsManager.getDefaultUseProfiles();
             List<DetailedViewModel> defaults = new ArrayList<DetailedViewModel>();
             for(UseProfile up : defaultUseProfiles)
                 defaults.add(new DetailedViewModel(

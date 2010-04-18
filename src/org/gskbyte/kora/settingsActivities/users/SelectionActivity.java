@@ -23,7 +23,6 @@ public class SelectionActivity extends Activity
     private static final String TAG = "UserSelectionActivity";
     
     private Resources mResources;
-    private SettingsManager mSettings;
     private User mSelectedUser;
     private Button mChooseButton, mCopyButton, mEditButton, mDeleteButton,
                    mReturnButton;
@@ -49,15 +48,6 @@ public class SelectionActivity extends Activity
         mEditButton.setOnClickListener(editListener);
         mDeleteButton.setOnClickListener(deleteListener);
         mReturnButton.setOnClickListener(returnListener);
-        
-        try {
-            mSettings = SettingsManager.getInstance();
-        } catch (SettingsException e) {
-            Log.e(TAG, e.getMessage());
-            Toast.makeText(this, 
-                    "ERROR LOADING SETTINGS. Please contact author.",
-                    Toast.LENGTH_LONG);
-        }
     }
     
     public void onStart()
@@ -66,7 +56,7 @@ public class SelectionActivity extends Activity
         try {
             Bundle extras = getIntent().getExtras();
             String userName = extras.getString(UsersActivity.TAG_USER_NAME);
-            mSelectedUser = mSettings.getUser(userName);
+            mSelectedUser = SettingsManager.getUser(userName);
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
             Toast.makeText(this, 
@@ -96,7 +86,7 @@ public class SelectionActivity extends Activity
             public void onClick(View v)
             {
                 try {
-                    mSettings.setCurrentUser(mSelectedUser.getName());
+                	SettingsManager.setCurrentUser(mSelectedUser.getName());
                 } catch (SettingsException e) {
                     Log.e(TAG, e.getMessage());
                     Toast.makeText(SelectionActivity.this, 
@@ -148,7 +138,7 @@ public class SelectionActivity extends Activity
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                     try{
-                                        mSettings.removeUser(mSelectedUser.getName());
+                                    	SettingsManager.removeUser(mSelectedUser.getName());
                                         Toast.makeText(SelectionActivity.this, 
                                                 mResources.getString(R.string.deleteUserOk) + ":"  +
                                                 mSelectedUser.getName(), Toast.LENGTH_SHORT).show();

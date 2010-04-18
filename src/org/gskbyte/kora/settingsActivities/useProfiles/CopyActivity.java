@@ -22,7 +22,6 @@ public class CopyActivity extends Activity
     private UseProfile mUseProfile;
     
     private Resources mResources;
-    private SettingsManager mSettings;
     
     private EditText mNameEdit;
     private TextView mMainInteractionText;
@@ -67,10 +66,9 @@ public class CopyActivity extends Activity
         try {
             Bundle extras = getIntent().getExtras();
             
-            mSettings = SettingsManager.getInstance();
             if(extras != null){
                 String userName = extras.getString(UseProfilesActivity.TAG_USEPROFILE_NAME);
-                mUseProfile = mSettings.getUseProfile(userName);
+                mUseProfile = SettingsManager.getUseProfile(userName);
             } else {
                 mUseProfile = null;
             }
@@ -214,7 +212,7 @@ public class CopyActivity extends Activity
                 {
                     mUseProfile.setName(name);
                     try{
-                        mSettings.addUseProfile(mUseProfile);
+                    	SettingsManager.addUseProfile(mUseProfile);
                     } catch (SettingsManager.SettingsException e){
                         result = e.type;
                     }
