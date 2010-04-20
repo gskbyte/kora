@@ -6,15 +6,15 @@
     <icon class="photo"/>
     
     <control name="switch" type="binary">
-    	<icon index="0" file="0.png"/>
-    	<icon index="1" file="4.png" />
+        <icon index="0" file="0.png"/>
+        <icon index="1" file="4.png"/>
     </control>
     
     <control name="intensity" type="scalar">
-    	<icon index="0" file="0.png"/>
-    	<icon index="1" file="1.png"/>
-    	<icon index="2" file="2.png"/>
-    	<icon index="3" file="3.png"/>
-    	<icon index="4" file="4.png"/>
+        <icon index="0" file="0.png"/>
+        <icon index="1" file="1.png"/>
+        <icon index="2" file="2.png"/>
+        <icon index="3" file="3.png"/>
+        <icon index="4" file="4.png"/>
     </control>
 </deviceRepresentation>

@@ -116,6 +116,11 @@ public class DeviceManager
         return sDevices.size();
     }
     
+    public static DeviceRepresentation getDeviceRepresentation(String name)
+    {
+    	return sDeviceRepsMap.get(name);
+    }
+    
     public static Device getDevice(int index)
     {
         return sDevices.elementAt(index);

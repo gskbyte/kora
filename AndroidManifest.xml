@@ -20,9 +20,10 @@
         
         <activity android:name=".handling.DeviceSelectionActivity"
               android:label="@string/controlActivity">
-            <intent-filter>
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+        </activity>
+        
+        <activity android:name=".handling.DeviceHandlingActivity"
+              android:label="@string/controlActivity">
         </activity>
         
         <activity android:name=".settingsActivities.SettingsActivity"

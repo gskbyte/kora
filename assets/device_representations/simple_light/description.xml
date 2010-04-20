@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<deviceRepresentation name="adjustableLight">
+<deviceRepresentation name="simpleLight">
     <icon class="default"/>
     <icon class="highContrast"/>
     <icon class="blackWhite"/>

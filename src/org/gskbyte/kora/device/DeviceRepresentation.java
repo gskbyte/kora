@@ -2,6 +2,7 @@ package org.gskbyte.kora.device;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Set;
 import java.util.Vector;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -29,13 +30,13 @@ public class DeviceRepresentation
         "default","highContrast","blackWhite","photo","animation"
         };
     
-    protected static AssetManager sAssetManager;
+    static AssetManager sAssetManager;
     
     protected String mName;
     
     protected Vector<Bitmap> mIcons = new Vector<Bitmap>();
-    protected HashMap<String, AbstractDeviceControl> mControls = 
-        new HashMap<String, AbstractDeviceControl>();
+    protected HashMap<String, DeviceControl> mControls = 
+        new HashMap<String, DeviceControl>();
     
     public static void setAssetManager(AssetManager am)
     {
@@ -44,8 +45,10 @@ public class DeviceRepresentation
     
     public DeviceRepresentation(java.io.InputStream stream, String path) throws Exception
     {
+    	// Alojar espacio para iconos
         mIcons.setSize(5);
         
+        // Parsear documento
         DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
         Document doc = builder.parse(stream);
         
@@ -59,11 +62,34 @@ public class DeviceRepresentation
             if(cur_node.getNodeType() == Node.ELEMENT_NODE){
                 NamedNodeMap nm = cur_node.getAttributes();
                 if(cur_node.getNodeName().equals("icon")){
-                    String iconName = nm.getNamedItem("name").getNodeValue();
-                    String iconPath = nm.getNamedItem("path").getNodeValue();
-                    setIcon(iconName, path+iconPath);
+                    String iconClass = nm.getNamedItem("class").getNodeValue();
+                    String iconPath = "icons/"+iconClass+"/device.png";
+                    setIcon(iconClass, path+iconPath);
                 } else if(cur_node.getNodeName().equals("control")){
-                    /* AÑADIR CONTROLES! */
+                    String controlName = nm.getNamedItem("name").getNodeValue();
+                    String typeStr = nm.getNamedItem("type").getNodeValue();
+                    int controlType = DeviceControl.TYPE_SCALAR;
+                    if(typeStr.equals("binary")) {
+                    	controlType = DeviceControl.TYPE_BINARY;
+                    } // else SCALAR, y otros que añada en un futuro
+                    
+                    DeviceControl dc = new DeviceControl(controlType, controlName);
+                    NodeList dcIcons = cur_node.getChildNodes();
+                    for(int j=0; j<dcIcons.getLength(); ++j){
+                    	Node controlIconNode = dcIcons.item(j);
+                    	if(controlIconNode.getNodeType() == Node.ELEMENT_NODE){
+                    		NamedNodeMap iconAttr = controlIconNode.getAttributes();
+                    		int index = Integer.parseInt( iconAttr.getNamedItem("index").getNodeValue() );
+                    		String iconName = iconAttr.getNamedItem("file").getNodeValue();
+                    		for(int k=0; k<ICON_TAGS.length; ++k){
+                    			if(mIcons.get(k) != null){
+                    				String iconPath = "icons/"+ICON_TAGS[k]+"/"+iconName;
+                    				dc.setIcon(k, index, path+iconPath);
+                    			}
+                    		}
+                    	}
+                    }
+                    mControls.put(controlName, dc);
                 }
             }
         }
@@ -95,5 +121,20 @@ public class DeviceRepresentation
                 break;
             }
         }
+    }
+    
+    public int getNDeviceControls()
+    {
+    	return mControls.size();
+    }
+    
+    public Set<String> getDeviceControlNames()
+    {
+    	return mControls.keySet();
+    }
+    
+    public DeviceControl getDeviceControl(String name)
+    {
+    	return mControls.get(name);
     }
 }

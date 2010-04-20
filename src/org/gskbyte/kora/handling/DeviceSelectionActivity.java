@@ -3,6 +3,7 @@ package org.gskbyte.kora.handling;
 import java.util.Vector;
 
 import org.gskbyte.kora.R;
+import org.gskbyte.kora.WelcomeActivity;
 import org.gskbyte.kora.customViews.GridLayout;
 import org.gskbyte.kora.customViews.koraButton.KoraButton;
 import org.gskbyte.kora.customViews.koraButton.DeviceButton;
@@ -15,8 +16,10 @@ import org.gskbyte.kora.settings.UseProfile.feedback;
 import org.gskbyte.kora.settings.UseProfile.interaction;
 import org.gskbyte.kora.settings.UseProfile.sound;
 import org.gskbyte.kora.settings.UseProfile.visualization;
+import org.gskbyte.kora.settingsActivities.SettingsActivity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -79,6 +82,18 @@ public class DeviceSelectionActivity extends Activity
         			DeviceManager.getDeviceSystemName(i));
         	mGrid.addView(b);
         }
+        
+        View.OnClickListener l = new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Intent i = new Intent(DeviceSelectionActivity.this, DeviceHandlingActivity.class);
+				startActivity(i);
+			}
+        	
+        };
+        
+        mGrid.getChildAt(0).setOnClickListener(l);
     }
     
     public void configureView()
