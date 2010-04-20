@@ -61,45 +61,48 @@ public class DeviceManager
     	Vector<DeviceSpec> specs = new Vector<DeviceSpec>();
     	
     	DeviceSpec s1 = new DeviceSpec("roomLight",
-    			DeviceSpec.DEVICE_LIGHT,
+    			"Luz del pasillo",
+    			"simpleLight",
     			DeviceSpec.ACCESS_READ_WRITE,
     			DeviceSpec.VALUE_BOOLEAN,
     			new Boolean(false),
     			new Boolean(true));
     	
     	DeviceSpec s2 = new DeviceSpec("tableLight",
-    			DeviceSpec.DEVICE_ADJUSTABLE_LIGHT,
+    			"Luz de la mesita",
+    			"adjustableLight",
+    			DeviceSpec.ACCESS_READ_WRITE,
+    			DeviceSpec.VALUE_INT,
+    			new Integer(10),
+    			new Integer(0));
+
+    	DeviceSpec s3 = new DeviceSpec("otro",
+    			"Cacharro",
+    			"other",
     			DeviceSpec.ACCESS_READ_WRITE,
     			DeviceSpec.VALUE_INT,
     			new Integer(10),
     			new Integer(0));
     	
     	specs.add(s1);
+    	specs.add(s3);
     	specs.add(s2);
     	
     	for(DeviceSpec s : specs){
-    		DeviceRepresentation dr;
-    		switch(s.getDeviceType()){
-    		case DeviceSpec.DEVICE_LIGHT:
-    			dr = sDeviceRepsMap.get("simpleLight");
-    			break;
-    		case DeviceSpec.DEVICE_ADJUSTABLE_LIGHT:
-    			dr = sDeviceRepsMap.get("adjustableLight");
-    			break;
+    		DeviceRepresentation dr = sDeviceRepsMap.get(s.getDeviceType());
+    		if(dr!=null){
     			
-    			/* RESTO DE TIPOS */
-    			
-    		case DeviceSpec.DEVICE_BINARY:
-    			dr = sDeviceRepsMap.get("defaultBinary");
-    			break;
-    		case DeviceSpec.DEVICE_SCALAR:
-			default:
-    			dr = sDeviceRepsMap.get("defaultScalar");
-    			break;
+    		} else {
+    			// Si no existe representación adecuada, coger el defaultScalar o el defaultBinary
+    			if(s.getAccessType() == DeviceSpec.VALUE_BOOLEAN){
+    				dr = sDeviceRepsMap.get("defaultBinary");
+    			} else {
+    				dr = sDeviceRepsMap.get("defaultScalar");
+    			}
     		}
     		
     		// CAMBIAR ESTO       VVVVVVVVVVVVVVVVV
-    		Device d = new Device(s.getSystemName(), s, dr);
+    		Device d = new Device(s.getName(), s, dr);
     		sDevices.add(d);
     		sDevicesMap.put(d.getSystemName(), sDevices.size()-1);
     	}

@@ -20,17 +20,18 @@ public class DeviceSpec
                             VALUE_FLOAT   = 4,
                             VALUE_STRING  = 5;
     
-    protected String mReadableName;
     protected String mSystemName;
-    protected int mDeviceType;
+    protected String mReadableName;
+    protected String mDeviceType;
     protected int mAccessType;
     
     protected int mValueType;
     protected Object mMinValue, mMaxValue;
     
-    public DeviceSpec(String sysName, int deviceType, int accessType, int valueType, Object min, Object max)
+    public DeviceSpec(String sysName, String readableName, String deviceType, int accessType, int valueType, Object min, Object max)
     {
         mSystemName = sysName;
+        mReadableName = readableName;
         mDeviceType = deviceType;
         mAccessType = accessType;
         mValueType = valueType;
@@ -59,7 +60,7 @@ public class DeviceSpec
     	return mSystemName;
     }
     
-    public int getDeviceType()
+    public String getDeviceType()
     {
     	return mDeviceType;
     }
