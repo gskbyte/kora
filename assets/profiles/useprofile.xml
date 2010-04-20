@@ -1,6 +1,0 @@
-<profile name="useProfile">
-    <property name="name" type="text"/>
-    <category name="interaction">
-        <property name="interactionMode" type="selector">
-    </category>
-</profile>
