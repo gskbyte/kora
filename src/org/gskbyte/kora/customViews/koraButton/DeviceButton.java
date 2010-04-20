@@ -3,8 +3,13 @@ package org.gskbyte.kora.customViews.koraButton;
 import org.gskbyte.kora.device.Device;
 import org.gskbyte.kora.device.DeviceManager;
 import org.gskbyte.kora.device.DeviceRepresentation;
+import org.gskbyte.kora.handling.DeviceHandlingActivity;
+import org.gskbyte.kora.handling.DeviceSelectionActivity;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.view.View;
 
 public class DeviceButton extends KoraButton
 {
@@ -24,6 +29,7 @@ public class DeviceButton extends KoraButton
 		
 		Device d = DeviceManager.getDevice(deviceName);
 		
+		mDeviceName = d.getSystemName();
 		// establecer atributos de representación
 		mAttrs = attr;
 		
@@ -43,8 +49,16 @@ public class DeviceButton extends KoraButton
         setClickable(true);
         
         // añadir listener que llame a la actividad de manejo correspondiente
-        
-        
+        View.OnClickListener l = new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent i = new Intent(getContext(), DeviceHandlingActivity.class);
+				i.putExtra(DeviceHandlingActivity.TAG_DEVICE_NAME, mDeviceName);
+				
+				((Activity)getContext()).startActivity(i);
+			}
+		};
+        setOnClickListener(l);
 	}
 	
 	

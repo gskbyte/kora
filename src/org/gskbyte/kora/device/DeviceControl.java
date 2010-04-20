@@ -39,6 +39,12 @@ public class DeviceControl
 	{
 		return mName;
 	}
+	
+	public int getNIcons(int iconMode)
+	{
+		return mIconPaths.get(iconMode).size();
+	}
+	
 	/* Métodos delicados 
 	 * Se carga solo la ruta del fichero para no petar la memoria.
 	 * */
@@ -105,13 +111,10 @@ public class DeviceControl
 			
 			if(path != null) {
 				try {
-					/*BitmapFactory.Options options=new BitmapFactory.Options();
-					options.inSampleSize = 8;
-					Bitmap b = BitmapFactory.decodeStream(
-							DeviceRepresentation.sAssetManager.open(path),
-							null, options);*/
+					BitmapFactory.Options options = new BitmapFactory.Options();
+					options.inPurgeable = true;
 					InputStream is = DeviceRepresentation.sAssetManager.open(path);
-					Bitmap b = BitmapFactory.decodeStream(is);
+					Bitmap b = BitmapFactory.decodeStream(is, null, options);
 					is.close();
 					// Redimensionar el vector de iconos para añadirme, en caso de ser necesario
 					if(size<=index)

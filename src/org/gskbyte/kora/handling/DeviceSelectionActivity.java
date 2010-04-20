@@ -82,18 +82,6 @@ public class DeviceSelectionActivity extends Activity
         			DeviceManager.getDeviceSystemName(i));
         	mGrid.addView(b);
         }
-        
-        View.OnClickListener l = new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				Intent i = new Intent(DeviceSelectionActivity.this, DeviceHandlingActivity.class);
-				startActivity(i);
-			}
-        	
-        };
-        
-        mGrid.getChildAt(0).setOnClickListener(l);
     }
     
     public void configureView()
@@ -173,6 +161,18 @@ public class DeviceSelectionActivity extends Activity
 	    	
     		// customImage
     	
+    	
+    	
+    	mAttr.vibrate = up.vibration;
+        	// confirmation
+    		// confirmationTimeMillis
+    		// contentHighlight
+    		// borderHighlight
+    	
+    	/* TTS
+    	 * http://android-developers.blogspot.com/2009/09/introduction-to-text-to-speech-in.html
+    	 * */
+    	
     }
 	// Con un asterisco marco las propiedades implementadas
     // * = TOTALMENTE IMPLEMENTADO
@@ -203,7 +203,7 @@ public class DeviceSelectionActivity extends Activity
     public boolean customImage = false;
     
     // Feedback settings
-    public boolean vibration = false;
+    * public boolean vibration = false;
     public boolean confirmation = false;
     public int confirmationTimeMillis = 3000;
     public int contentHighlight = feedback.content_highlight_standard;

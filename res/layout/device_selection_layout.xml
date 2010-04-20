@@ -9,6 +9,7 @@
 		android:layout_width="fill_parent"
 		android:layout_height="50dip"
         android:layout_alignParentBottom="true"
+        android:layout_marginTop="20dip"
         
 		gskbyte:numRows="1"
 		gskbyte:numColumns="2">
@@ -21,7 +22,6 @@
             gskbyte:text="back"
             gskbyte:icon="@drawable/action_previous"
 		    />
-		    
 		
 		<org.gskbyte.kora.customViews.koraButton.KoraButton
             android:id="@+id/next"
@@ -69,7 +69,6 @@
 	    android:id="@+id/deviceGrid"
 	    android:layout_width="fill_parent" 
 	    android:layout_height="fill_parent"
-	    
 	    
 	    android:layout_above="@id/navigationButtons"/>
 </RelativeLayout>

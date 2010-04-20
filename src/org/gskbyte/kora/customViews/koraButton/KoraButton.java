@@ -14,6 +14,7 @@ import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.graphics.Paint.Align;
 import android.graphics.drawable.Drawable;
+import android.os.Vibrator;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -62,6 +63,9 @@ public class KoraButton extends View
         public int[] borderColors ={ BG_NORMAL_COLOR,
                                       BORDER_FOCUSED_COLOR,
                                       BORDER_SELECTED_COLOR };
+        
+        // Vibrar sí/no
+        public boolean vibrate = false;
     }
     
     public static final String TAG = "KoraButton";
@@ -83,6 +87,9 @@ public class KoraButton extends View
     protected int mIconX, mIconY, mIconWidth, mIconHeight;
     protected int mTextX, mTextY;
     protected float mTextSize;
+    
+    // Variables para realimentación
+    protected static Vibrator sVibrator = null;
     
     protected OnClickListener mClickListener;
     
@@ -121,6 +128,9 @@ public class KoraButton extends View
         else
             mAttrs = new Attributes();
         
+        if(sVibrator==null)
+        	sVibrator = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
+
         setFocusable(true);
         setClickable(true);
     }
@@ -150,6 +160,9 @@ public class KoraButton extends View
             mIcon = BitmapFactory.decodeResource(
                     context.getResources(), R.drawable.icon_empty);
         /* Pillar atributos del vector y utilizarlos */
+        
+        if(sVibrator==null)
+        	sVibrator = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
         
         setFocusable(true);
         setClickable(true);
@@ -371,8 +384,13 @@ public class KoraButton extends View
                 
                 if(x<mWidth && y<mHeight && mFocused){
                     mSelected = !mSelected;
+                    
+                    if(mAttrs.vibrate)
+	                    sVibrator.vibrate(500);
+                    
                     if(mClickListener!=null)
                         mClickListener.onClick(this);
+                    
                 } else {
                     mSelected = false;
                 }

@@ -27,5 +27,10 @@ public class Device extends DeviceSpec
 		return mRepr.getIcon(which);
 	}
 	
+	public DeviceRepresentation getDeviceRepresentation()
+	{
+		return mRepr;
+	}
+	
 	// operaciones para escribir en el dispositivo
 }

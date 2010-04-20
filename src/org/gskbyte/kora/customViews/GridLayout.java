@@ -126,8 +126,8 @@ public class GridLayout extends ViewGroup
         }
 
         // Al tamaño total destinado a filas y columnas, hay que restarle el de los márgenes
-        final int sumColumnsWidth = widthSpecSize - mMargin*(mNumColumns+1),
-        		  sumRowsHeight = heightSpecSize - mMargin*(mNumRows+1);
+        final int sumColumnsWidth = widthSpecSize - mMargin*(mNumColumns-1),
+        		  sumRowsHeight = heightSpecSize - mMargin*(mNumRows-1);
         
         mColumnWidth = sumColumnsWidth / mNumColumns;
         mRowHeight = sumRowsHeight / mNumRows;
@@ -152,8 +152,8 @@ public class GridLayout extends ViewGroup
                 final int column = i % mNumColumns;
                 final int row = i / mNumColumns;
 
-                int childLeft = paddingLeft + column * mColumnWidth + (column+1)*mMargin;
-                int childTop = paddingTop + row * mRowHeight + (row+1)*mMargin;
+                int childLeft = paddingLeft + column * mColumnWidth + (column)*mMargin;
+                int childTop = paddingTop + row * mRowHeight + (row)*mMargin;
 
                 child.layout(childLeft, childTop, 
 		                     childLeft+child.getMeasuredWidth(),

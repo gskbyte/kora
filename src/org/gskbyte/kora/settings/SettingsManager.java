@@ -251,6 +251,10 @@ public class SettingsManager
             u.setUseProfileName(up.name);
             editUser(u.name, u);
         }
+        // If the use profile was the current, we have to change it
+        if(sCurrentUseProfile.getName().equals(previous_name))
+            sCurrentUseProfile = up;
+        
     }
     
     public static void removeUseProfile(String name) throws SettingsException

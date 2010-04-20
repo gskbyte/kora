@@ -1,11 +1,17 @@
 package org.gskbyte.kora.handling;
 
+import java.util.Set;
+
 import org.gskbyte.kora.R;
 import org.gskbyte.kora.customViews.GridLayout;
+import org.gskbyte.kora.customViews.koraButton.DeviceButton;
 import org.gskbyte.kora.customViews.koraButton.KoraButton;
+import org.gskbyte.kora.device.Device;
 import org.gskbyte.kora.device.DeviceControl;
 import org.gskbyte.kora.device.DeviceManager;
 import org.gskbyte.kora.device.DeviceRepresentation;
+import org.gskbyte.kora.settings.SettingsManager;
+import org.gskbyte.kora.settings.UseProfile;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
@@ -14,6 +20,7 @@ import android.os.Bundle;
 public class DeviceHandlingActivity extends Activity
 {
     private static final String TAG = "DeviceHandlingActivity";
+    public static final String TAG_DEVICE_NAME = "deviceName";
     private GridLayout mGrid;
     
     public void onCreate(Bundle savedInstanceState) {
@@ -22,11 +29,49 @@ public class DeviceHandlingActivity extends Activity
         
         // Cargar componentes de la vista
         mGrid = (GridLayout) findViewById(R.id.deviceGrid);
-        mGrid.setDimensions(2, 2);
+        mGrid.setDimensions(3, 3);
+        
+        UseProfile up = SettingsManager.getCurrentUseProfile();
+    	DeviceButton.Attributes mAttr = new DeviceButton.Attributes();
+        switch(up.iconMode){
+    	case UseProfile.visualization.icon_high_contrast:
+    		((DeviceButton.Attributes)mAttr).icon = DeviceRepresentation.ICON_HIGH_CONTRAST;
+    		break;
+    	case UseProfile.visualization.icon_black_white:
+    		((DeviceButton.Attributes)mAttr).icon = DeviceRepresentation.ICON_BLACK_WHITE;
+    		break;
+    	case UseProfile.visualization.icon_photo:
+    		((DeviceButton.Attributes)mAttr).icon = DeviceRepresentation.ICON_PHOTO;
+    		break;
+    	case UseProfile.visualization.icon_animation:
+    		((DeviceButton.Attributes)mAttr).icon = DeviceRepresentation.ICON_ANIMATION;
+    		break;
+    	case UseProfile.visualization.icon_pictogram:
+		default:
+    		((DeviceButton.Attributes)mAttr).icon = DeviceRepresentation.ICON_DEFAULT;
+    		break;
+    	}
+        
+        Bundle extras = getIntent().getExtras();
+        String deviceName = extras.getString(TAG_DEVICE_NAME);
+        
+        Device d = DeviceManager.getDevice(deviceName);
+        DeviceRepresentation dr = d.getDeviceRepresentation();
+        
+        Set<String> controls = dr.getDeviceControlNames();
+        for(String s: controls){
+        	DeviceControl dc = dr.getDeviceControl(s);
+        	int nicons = dc.getNIcons(mAttr.icon);
+        	for(int i=0; i<nicons; ++i){
+        		Bitmap b = dc.getIcon(mAttr.icon, i);
+        		KoraButton bt = new KoraButton(this, "prueba", b, mAttr);
+        		mGrid.addView(bt);
+        	}
+        }
         
         
+        /*
         KoraButton.Attributes attr = new KoraButton.Attributes();
-        DeviceRepresentation dr = DeviceManager.getDeviceRepresentation("adjustableLight");
         DeviceControl dc = dr.getDeviceControl("intensity");
         Bitmap b = dc.getIcon(DeviceRepresentation.ICON_HIGH_CONTRAST, 4);
         Bitmap b2 = dc.getIcon(DeviceRepresentation.ICON_BLACK_WHITE, 4);
@@ -42,5 +87,6 @@ public class DeviceHandlingActivity extends Activity
         mGrid.addView(bt2);
         mGrid.addView(bt3);
         mGrid.addView(bt4);
+        */
     }
 }
