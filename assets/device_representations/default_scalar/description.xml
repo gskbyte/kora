@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deviceRepresentation name="defaultScalar">
+    <icon class="default"/>
+    <icon class="highContrast"/>
+    <icon class="blackWhite"/>
+    
+    <control name="switch" type="scalar">
+    	<icon index="0" file="0.png"/>
+    	<icon index="1" file="1.png" />
+    </control>
+</deviceRepresentation>

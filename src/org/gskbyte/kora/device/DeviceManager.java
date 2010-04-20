@@ -90,9 +90,7 @@ public class DeviceManager
     	
     	for(DeviceSpec s : specs){
     		DeviceRepresentation dr = sDeviceRepsMap.get(s.getDeviceType());
-    		if(dr!=null){
-    			
-    		} else {
+    		if(dr==null){ // si no tengo representación para este cacharrico
     			// Si no existe representación adecuada, coger el defaultScalar o el defaultBinary
     			if(s.getAccessType() == DeviceSpec.VALUE_BOOLEAN){
     				dr = sDeviceRepsMap.get("defaultBinary");
