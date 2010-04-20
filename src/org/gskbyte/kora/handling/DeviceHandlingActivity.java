@@ -61,7 +61,7 @@ public class DeviceHandlingActivity extends Activity
         Set<String> controls = dr.getDeviceControlNames();
         for(String s: controls){
         	DeviceControl dc = dr.getDeviceControl(s);
-        	int nicons = dc.getNIcons(mAttr.icon);
+        	int nicons = dc.getStateCount();
         	for(int i=0; i<nicons; ++i){
         		Bitmap b = dc.getIcon(mAttr.icon, i);
         		KoraButton bt = new KoraButton(this, "prueba", b, mAttr);

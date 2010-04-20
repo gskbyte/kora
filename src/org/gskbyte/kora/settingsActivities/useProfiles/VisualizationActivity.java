@@ -34,8 +34,8 @@ public class VisualizationActivity extends ProfilePropertiesActivity
     private CheckBox mCapsCheckBox;
     private ColorButton mTextColorButton;
     
-    private RadioButton mIconRadio, mIconHighContrastRadio, mIconPhotoRadio,
-                        mIconAnimationRadio;
+    private RadioButton mIconRadio, mIconHighContrastRadio, iconBlackWhiteRadio,
+    					mIconPhotoRadio, mIconAnimationRadio;
     private CheckBox mCustomImageCheckBox;
 
     
@@ -77,6 +77,7 @@ public class VisualizationActivity extends ProfilePropertiesActivity
         
         mIconRadio = (RadioButton) findViewById(R.id.iconRadio);
         mIconHighContrastRadio = (RadioButton) findViewById(R.id.iconHighContrastRadio);
+        iconBlackWhiteRadio = (RadioButton) findViewById(R.id.iconBlackWhiteRadio);
         mIconPhotoRadio = (RadioButton) findViewById(R.id.iconPhotoRadio);
         mIconAnimationRadio = (RadioButton) findViewById(R.id.iconAnimationRadio);
         mCustomImageCheckBox = (CheckBox) findViewById(R.id.customImageCheckBox);
@@ -159,6 +160,9 @@ public class VisualizationActivity extends ProfilePropertiesActivity
         case UseProfile.visualization.icon_high_contrast:
             mIconHighContrastRadio.setChecked(true);
             break;
+        case UseProfile.visualization.icon_black_white:
+        	iconBlackWhiteRadio.setChecked(true);
+        	break;
         case UseProfile.visualization.icon_photo:
             mIconPhotoRadio.setChecked(true);
             break;
@@ -235,6 +239,8 @@ public class VisualizationActivity extends ProfilePropertiesActivity
             mUseProfile.iconMode = UseProfile.visualization.icon_pictogram;
         } else if(mIconHighContrastRadio.isChecked()) {
             mUseProfile.iconMode = UseProfile.visualization.icon_high_contrast;
+        } else if(iconBlackWhiteRadio.isChecked()) {
+        	mUseProfile.iconMode = UseProfile.visualization.icon_black_white;
         } else if(mIconPhotoRadio.isChecked()) {
             mUseProfile.iconMode = UseProfile.visualization.icon_photo;
         } else {

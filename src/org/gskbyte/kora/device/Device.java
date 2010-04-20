@@ -5,10 +5,9 @@ import android.graphics.Bitmap;
 public class Device extends DeviceSpec
 {
 	protected String mName;
-	//protected Bitmap mCustomIcon; // alguna vez se usará
+	protected Object mCurrentValue;
 	protected DeviceRepresentation mRepr;
-	
-	// representación de controles?
+	//protected Bitmap mCustomIcon; // alguna vez se usará
 	
 	public Device(String name, DeviceSpec s, DeviceRepresentation dr)
 	{
@@ -30,6 +29,16 @@ public class Device extends DeviceSpec
 	public DeviceRepresentation getDeviceRepresentation()
 	{
 		return mRepr;
+	}
+	
+	public Object getValue()
+	{
+		return mCurrentValue;
+	}
+	
+	public void setValue(Object newValue)
+	{
+		mCurrentValue = newValue;
 	}
 	
 	// operaciones para escribir en el dispositivo

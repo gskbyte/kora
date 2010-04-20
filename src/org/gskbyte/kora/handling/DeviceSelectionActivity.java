@@ -74,6 +74,7 @@ public class DeviceSelectionActivity extends Activity
         configureView();
     	
     	// Rellenar la vista
+        mGrid.removeAllViews();
         int nDevices = DeviceManager.getNumberOfDevices();
         for(int i=0; i<nDevices; ++i){
         	

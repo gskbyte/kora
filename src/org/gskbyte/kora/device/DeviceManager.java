@@ -137,7 +137,6 @@ public class DeviceManager
     
     public static String getDeviceSystemName(int index)
     {
-    	int size = sDevices.size();
     	return sDevices.get(index).getSystemName();
     }
 }

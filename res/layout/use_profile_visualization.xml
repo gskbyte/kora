@@ -262,6 +262,12 @@
 	                        
 	                        android:text="@string/highContrastIcon"/>
 	                    
+                       <RadioButton android:id="@+id/iconBlackWhiteRadio"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            
+                            android:text="@string/blackAndWhite"/>
+                            
 	                    <RadioButton android:id="@+id/iconPhotoRadio"
 	                        android:layout_width="wrap_content"
 	                        android:layout_height="wrap_content"

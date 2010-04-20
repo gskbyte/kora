@@ -55,7 +55,7 @@ public class DeviceButton extends KoraButton
 				Intent i = new Intent(getContext(), DeviceHandlingActivity.class);
 				i.putExtra(DeviceHandlingActivity.TAG_DEVICE_NAME, mDeviceName);
 				
-				((Activity)getContext()).startActivity(i);
+				getContext().startActivity(i);
 			}
 		};
         setOnClickListener(l);

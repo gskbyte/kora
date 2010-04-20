@@ -26,12 +26,13 @@ public class DeviceRepresentation
                             ICON_PHOTO = 3,
                             ICON_ANIMATION = 4;
     
-    protected static final String[] ICON_TAGS = {
+    static final String[] ICON_TAGS = {
         "default","highContrast","blackWhite","photo","animation"
         };
     
     static AssetManager sAssetManager;
     
+    protected String mPath;
     protected String mName;
     
     protected Vector<Bitmap> mIcons = new Vector<Bitmap>();
@@ -55,6 +56,7 @@ public class DeviceRepresentation
         Element root = doc.getDocumentElement();
         NodeList nodes = root.getChildNodes();
         
+        mPath = path;
         mName = root.getAttribute("name");
         
         for(int i=0; i<nodes.getLength(); ++i){
@@ -73,26 +75,34 @@ public class DeviceRepresentation
                     	controlType = DeviceControl.TYPE_BINARY;
                     } // else SCALAR, y otros que añada en un futuro
                     
-                    DeviceControl dc = new DeviceControl(controlType, controlName);
+                    DeviceControl dc = new DeviceControl(this, controlType, controlName);
                     NodeList dcIcons = cur_node.getChildNodes();
                     for(int j=0; j<dcIcons.getLength(); ++j){
                     	Node controlIconNode = dcIcons.item(j);
                     	if(controlIconNode.getNodeType() == Node.ELEMENT_NODE){
                     		NamedNodeMap iconAttr = controlIconNode.getAttributes();
-                    		int index = Integer.parseInt( iconAttr.getNamedItem("index").getNodeValue() );
+                    		//int index = Integer.parseInt( iconAttr.getNamedItem("index").getNodeValue() );
                     		String iconName = iconAttr.getNamedItem("file").getNodeValue();
-                    		for(int k=0; k<ICON_TAGS.length; ++k){
-                    			if(mIcons.get(k) != null){
-                    				String iconPath = "icons/"+ICON_TAGS[k]+"/"+iconName;
-                    				dc.setIcon(k, index, path+iconPath);
-                    			}
+                    		Node captionNode = iconAttr.getNamedItem("caption");
+                    		DeviceControl.State state;
+                    		if(captionNode!=null){
+                    			String caption = captionNode.getNodeValue();
+                    			state = new DeviceControl.State(iconName, caption);
+                    		} else {
+                    			state = new DeviceControl.State(iconName);
                     		}
+                    		dc.addState(state);
                     	}
                     }
                     mControls.put(controlName, dc);
                 }
             }
         }
+    }
+    
+    public String getPath()
+    {
+    	return mPath;
     }
     
     public String getName()
