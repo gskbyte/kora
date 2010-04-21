@@ -21,6 +21,8 @@
             gskbyte:showText="true"
             gskbyte:text="back"
             gskbyte:icon="@drawable/action_previous"
+            gskbyte:textSize="35"
+            gskbyte:overrideCommonTextSize="true"
 		    />
 		
 		<org.gskbyte.kora.customViews.koraButton.KoraButton
@@ -31,6 +33,8 @@
             gskbyte:showText="true"
             gskbyte:text="next"
             gskbyte:icon="@drawable/action_next"
+            gskbyte:textSize="35"
+            gskbyte:overrideCommonTextSize="true"
             />
 		
 		<!-- 

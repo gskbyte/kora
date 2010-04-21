@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:gskbyte="http://schemas.android.com/apk/res/org.gskbyte.kora"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <org.gskbyte.kora.customViews.GridLayout 
+        android:id="@+id/navigationButtons"
+        android:layout_width="fill_parent"
+        android:layout_height="50dip"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="20dip"
+        
+        gskbyte:numRows="1"
+        gskbyte:numColumns="2">
+        
+        <org.gskbyte.kora.customViews.koraButton.KoraButton
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            gskbyte:showText="true"
+            gskbyte:text="back"
+            gskbyte:icon="@drawable/action_previous"
+            />
+    </org.gskbyte.kora.customViews.GridLayout> 
+    
+    <org.gskbyte.kora.customViews.GridLayout
+        android:id="@+id/deviceGrid"
+        android:layout_width="fill_parent" 
+        android:layout_height="fill_parent"
+        
+        android:layout_above="@id/navigationButtons"/>
+</RelativeLayout>

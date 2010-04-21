@@ -51,10 +51,10 @@ public class AbstractSeekBar extends LinearLayout
         
         if(attrs != null){
             TypedArray a = context.obtainStyledAttributes(attrs, 
-                                                          R.styleable.KoraSeekBar, 
+                                                          R.styleable.DetailedSeekBar, 
                                                           0, 0);
-            mSteps = a.getInt(R.styleable.KoraSeekBar_steps, DEFAULT_NSTEPS);
-            String title = a.getString(R.styleable.KoraSeekBar_title);
+            mSteps = a.getInt(R.styleable.DetailedSeekBar_steps, DEFAULT_NSTEPS);
+            String title = a.getString(R.styleable.DetailedSeekBar_title);
             if(title!=null){
                 mTitleText.setText(title);
             } else {

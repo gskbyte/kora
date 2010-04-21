@@ -45,16 +45,16 @@ public class FloatSeekBar extends AbstractSeekBar
         
         if(attrs != null){
             TypedArray a = context.obtainStyledAttributes(attrs, 
-                                                          R.styleable.KoraFloatSeekBar, 
+                                                          R.styleable.FloatSeekBar, 
                                                           0, 0);
-            mMinimum = a.getFloat(R.styleable.KoraFloatSeekBar_minValue, DEFAULT_MIN);
-            mMaximum = a.getFloat(R.styleable.KoraFloatSeekBar_maxValue, DEFAULT_MAX);
+            mMinimum = a.getFloat(R.styleable.FloatSeekBar_minValue, DEFAULT_MIN);
+            mMaximum = a.getFloat(R.styleable.FloatSeekBar_maxValue, DEFAULT_MAX);
             a.recycle();
             
-            a = context.obtainStyledAttributes(attrs, R.styleable.KoraSeekBar, 
+            a = context.obtainStyledAttributes(attrs, R.styleable.DetailedSeekBar, 
                                                0, 0);
             
-            mSteps = a.getInt(R.styleable.KoraSeekBar_steps, (int)(mMaximum-mMinimum+1));
+            mSteps = a.getInt(R.styleable.DetailedSeekBar_steps, (int)(mMaximum-mMinimum+1));
             a.recycle();
         } else {
             mMinimum = DEFAULT_MIN;

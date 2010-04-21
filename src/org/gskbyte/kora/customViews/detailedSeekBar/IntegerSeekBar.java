@@ -41,15 +41,15 @@ public class IntegerSeekBar extends AbstractSeekBar
         
         if(attrs != null){
             TypedArray a = context.obtainStyledAttributes(attrs, 
-                                                          R.styleable.KoraIntegerSeekBar, 
+                                                          R.styleable.IntegerSeekBar, 
                                                           0, 0);
-            mMinimum = a.getInt(R.styleable.KoraIntegerSeekBar_minimum, DEFAULT_MIN);
-            mMaximum = a.getInt(R.styleable.KoraIntegerSeekBar_maximum, DEFAULT_MAX);
+            mMinimum = a.getInt(R.styleable.IntegerSeekBar_minimum, DEFAULT_MIN);
+            mMaximum = a.getInt(R.styleable.IntegerSeekBar_maximum, DEFAULT_MAX);
             a.recycle();
             
-            a = context.obtainStyledAttributes(attrs, R.styleable.KoraSeekBar, 
+            a = context.obtainStyledAttributes(attrs, R.styleable.DetailedSeekBar, 
                                                0, 0);
-            mSteps = a.getInt(R.styleable.KoraSeekBar_steps, mMaximum-mMinimum+1);
+            mSteps = a.getInt(R.styleable.DetailedSeekBar_steps, mMaximum-mMinimum+1);
             a.recycle();
         } else {
             mMinimum = DEFAULT_MIN;
