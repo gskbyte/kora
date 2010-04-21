@@ -1,4 +1,6 @@
-package org.gskbyte.kora.customViews.koraSeekBar;
+package org.gskbyte.kora.customViews.detailedSeekBar;
+
+import java.text.DecimalFormat;
 
 import org.gskbyte.kora.R;
 
@@ -8,24 +10,26 @@ import android.util.AttributeSet;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 
-public class KoraIntegerSeekBar extends KoraSeekBar
+public class FloatSeekBar extends AbstractSeekBar
 {
-    protected static final int DEFAULT_MIN = 0,
-                               DEFAULT_MAX = 9;
-
-    protected int mMinimum, mMaximum;
+    protected static final float DEFAULT_MIN = 0.0f,
+                                 DEFAULT_MAX = 1.0f;
+    protected static final int DEFAULT_DECIMALS = 2;
     
-    public KoraIntegerSeekBar(Context context)
+    protected float mMinimum, mMaximum;
+    protected DecimalFormat mDecimalFormat = new DecimalFormat("0.00"); 
+
+    public FloatSeekBar(Context context)
     {
         this(context, DEFAULT_MIN, DEFAULT_MAX, DEFAULT_NSTEPS);
     }
     
-    public KoraIntegerSeekBar(Context context, int min, int max)
+    public FloatSeekBar(Context context, float min, float max)
     {
-        this(context, min, max, max-min+1);
+        this(context, min, max, (int)(max-min+1));
     }
     
-    public KoraIntegerSeekBar(Context context, int min, int max, int nsteps)
+    public FloatSeekBar(Context context, float min, float max, int nsteps)
     {
         super(context, nsteps);
         mMinimum = min;
@@ -35,21 +39,22 @@ public class KoraIntegerSeekBar extends KoraSeekBar
         mValueText.setText(String.valueOf(mMinimum) );
     }
     
-    public KoraIntegerSeekBar(Context context, AttributeSet attrs)
+    public FloatSeekBar(Context context, AttributeSet attrs)
     {
         super(context, attrs);
         
         if(attrs != null){
             TypedArray a = context.obtainStyledAttributes(attrs, 
-                                                          R.styleable.KoraIntegerSeekBar, 
+                                                          R.styleable.KoraFloatSeekBar, 
                                                           0, 0);
-            mMinimum = a.getInt(R.styleable.KoraIntegerSeekBar_minimum, DEFAULT_MIN);
-            mMaximum = a.getInt(R.styleable.KoraIntegerSeekBar_maximum, DEFAULT_MAX);
+            mMinimum = a.getFloat(R.styleable.KoraFloatSeekBar_minValue, DEFAULT_MIN);
+            mMaximum = a.getFloat(R.styleable.KoraFloatSeekBar_maxValue, DEFAULT_MAX);
             a.recycle();
             
             a = context.obtainStyledAttributes(attrs, R.styleable.KoraSeekBar, 
                                                0, 0);
-            mSteps = a.getInt(R.styleable.KoraSeekBar_steps, mMaximum-mMinimum+1);
+            
+            mSteps = a.getInt(R.styleable.KoraSeekBar_steps, (int)(mMaximum-mMinimum+1));
             a.recycle();
         } else {
             mMinimum = DEFAULT_MIN;
@@ -60,39 +65,31 @@ public class KoraIntegerSeekBar extends KoraSeekBar
         mSeekBar.setMax(mSteps-1);
         mSeekBar.setOnSeekBarChangeListener(seekListener);
         mValueText.setText(String.valueOf(mMinimum) );
+        mValueText.setText( mDecimalFormat.format(mMinimum) );
     }
     
-    public int getValue()
+    public float getValue()
     {
-        return mMinimum + mSeekBar.getProgress();
+        return mMinimum +
+               mSeekBar.getProgress()*((mMaximum-mMinimum)/(mSteps-1));
     }
     
-    public void setValue(int i)
+    public void setValue(float i)
     {
         if(i>=mMinimum && i<=mMaximum){
-            mSeekBar.setProgress( (i*((mMaximum-mMinimum)<<10)/mSteps)>>10 );
+            float v = (i-mMinimum) / ((mMaximum-mMinimum)/(mSteps-1));
+            mSeekBar.setProgress( (int)v );
         }
     }
     
-    public int getMinimum()
+    public float getMinimum()
     {
         return mMinimum;
     }
     
-    public int getMaximum()
+    public float getMaximum()
     {
         return mMaximum;
-    }
-    
-    public void setRange(int min, int max)
-    {
-        int prevvalue = mSeekBar.getProgress(),
-            prevmax = mSeekBar.getMax();
-        
-        mMinimum = min;
-        mMaximum = max;
-        
-        mSeekBar.setProgress( ((prevvalue<<10)/(prevmax))>>10 );
     }
     
     private OnSeekBarChangeListener seekListener =
@@ -103,7 +100,9 @@ public class KoraIntegerSeekBar extends KoraSeekBar
                     boolean fromUser)
             {
                 int v = mSeekBar.getProgress();
-                mValueText.setText( String.valueOf( mMinimum + ((v*((mMaximum-mMinimum)<<10)/(mSteps-1))>>10) ) );
+                float value = mMinimum + (v*(mMaximum-mMinimum)/(mSteps-1));
+                
+                mValueText.setText( mDecimalFormat.format(value) );
             }
 
             @Override

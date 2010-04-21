@@ -52,7 +52,7 @@
 	            android:checked="true"
 	            android:text="@string/confirmation"/>
 	        
-	        <org.gskbyte.kora.customViews.koraSeekBar.KoraFloatSeekBar
+	        <org.gskbyte.kora.customViews.detailedSeekBar.FloatSeekBar
                android:id="@+id/confirmationTimeSeekBar"
                android:layout_width="fill_parent" 
                android:layout_height="wrap_content"

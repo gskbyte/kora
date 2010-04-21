@@ -1,8 +1,8 @@
 package org.gskbyte.kora.settingsActivities.useProfiles;
 
 import org.gskbyte.kora.R;
-import org.gskbyte.kora.customViews.koraSeekBar.KoraArraySeekBar;
-import org.gskbyte.kora.customViews.koraSeekBar.KoraIntegerSeekBar;
+import org.gskbyte.kora.customViews.detailedSeekBar.ArraySeekBar;
+import org.gskbyte.kora.customViews.detailedSeekBar.IntegerSeekBar;
 import org.gskbyte.kora.settings.UseProfile;
 
 import android.app.Activity;

@@ -81,14 +81,14 @@
             
             android:text="@string/layout"/>
             
-            <org.gskbyte.kora.customViews.koraSeekBar.KoraIntegerSeekBar
+            <org.gskbyte.kora.customViews.detailedSeekBar.IntegerSeekBar
                 android:id="@+id/rowsSeekBar"
                 android:layout_width="fill_parent" 
                 android:layout_height="wrap_content"
                 gskbyte:title="@string/rows"
                 gskbyte:minimum="1"
                 gskbyte:maximum="4"/>
-            <org.gskbyte.kora.customViews.koraSeekBar.KoraIntegerSeekBar
+            <org.gskbyte.kora.customViews.detailedSeekBar.IntegerSeekBar
                 android:id="@+id/columnsSeekBar"
                 android:layout_width="fill_parent" 
                 android:layout_height="wrap_content"
@@ -96,7 +96,7 @@
                 gskbyte:minimum="1"
                 gskbyte:maximum="4"/>
                 
-            <org.gskbyte.kora.customViews.koraSeekBar.KoraArraySeekBar
+            <org.gskbyte.kora.customViews.detailedSeekBar.ArraySeekBar
                 android:id="@+id/marginSeekBar"
                 android:layout_width="fill_parent" 
                 android:layout_height="wrap_content"
@@ -148,7 +148,7 @@
                 android:orientation="vertical"
                 android:paddingLeft="5dip">
 	                        
-                <org.gskbyte.kora.customViews.koraSeekBar.KoraArraySeekBar
+                <org.gskbyte.kora.customViews.detailedSeekBar.ArraySeekBar
                     android:id="@+id/textSizeSeekBar"
                     android:layout_width="fill_parent" 
                     android:layout_height="wrap_content"

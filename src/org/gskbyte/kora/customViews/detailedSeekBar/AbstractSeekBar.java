@@ -1,4 +1,4 @@
-package org.gskbyte.kora.customViews.koraSeekBar;
+package org.gskbyte.kora.customViews.detailedSeekBar;
 
 import org.gskbyte.kora.R;
 
@@ -10,7 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-public class KoraSeekBar extends LinearLayout
+public class AbstractSeekBar extends LinearLayout
 {
     protected static final int DEFAULT_NSTEPS = 10;
     
@@ -20,12 +20,12 @@ public class KoraSeekBar extends LinearLayout
     
     protected int mSteps;
     
-    public KoraSeekBar(Context context)
+    public AbstractSeekBar(Context context)
     {
         this(context, DEFAULT_NSTEPS);
     }
     
-    public KoraSeekBar(Context context, int nsteps)
+    public AbstractSeekBar(Context context, int nsteps)
     {
         super(context);
         
@@ -39,7 +39,7 @@ public class KoraSeekBar extends LinearLayout
         mSeekBar.setMax(mSteps-1);
     }
     
-    public KoraSeekBar(Context context, AttributeSet attrs)
+    public AbstractSeekBar(Context context, AttributeSet attrs)
     {
         super(context, attrs);
         

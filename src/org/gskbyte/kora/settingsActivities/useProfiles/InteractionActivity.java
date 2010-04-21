@@ -1,7 +1,7 @@
 package org.gskbyte.kora.settingsActivities.useProfiles;
 
 import org.gskbyte.kora.R;
-import org.gskbyte.kora.customViews.koraSeekBar.KoraFloatSeekBar;
+import org.gskbyte.kora.customViews.detailedSeekBar.FloatSeekBar;
 import org.gskbyte.kora.settings.UseProfile;
 
 import android.os.Bundle;
@@ -18,7 +18,7 @@ public class InteractionActivity extends ProfilePropertiesActivity
                     mMultitouchRadio, mPressAndDragRadio, mSimpleRadio,
                     mScanRadio, mSimpleScanRadio, mRowColumnScanRadio;
     
-    private KoraFloatSeekBar mScanSecondsSeekBar;
+    private FloatSeekBar mScanSecondsSeekBar;
     
     private RadioButton mPagingStandardAutomaticRadio, mPagingLastButtonRadio;
 
@@ -40,7 +40,7 @@ public class InteractionActivity extends ProfilePropertiesActivity
         mScanRadio = (RadioButton) findViewById(R.id.scanInteractionRadio);
         mSimpleScanRadio = (RadioButton) findViewById(R.id.simpleScanRadio);
         mRowColumnScanRadio = (RadioButton) findViewById(R.id.rowColumnScanRadio);
-        mScanSecondsSeekBar = (KoraFloatSeekBar) findViewById(R.id.scanTimeSeekBar);
+        mScanSecondsSeekBar = (FloatSeekBar) findViewById(R.id.scanTimeSeekBar);
         mPagingStandardAutomaticRadio = (RadioButton) findViewById(R.id.pagingStandardAutomaticRadio);
         mPagingLastButtonRadio = (RadioButton) findViewById(R.id.pagingLastButtonRadio);
 

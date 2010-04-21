@@ -1,8 +1,8 @@
 package org.gskbyte.kora.settingsActivities.useProfiles;
 
 import org.gskbyte.kora.R;
-import org.gskbyte.kora.customViews.koraSeekBar.KoraArraySeekBar;
-import org.gskbyte.kora.customViews.koraSeekBar.KoraIntegerSeekBar;
+import org.gskbyte.kora.customViews.detailedSeekBar.ArraySeekBar;
+import org.gskbyte.kora.customViews.detailedSeekBar.IntegerSeekBar;
 import org.gskbyte.kora.settings.UseProfile;
 import org.gskbyte.kora.customViews.ColorButton;
 import org.gskbyte.kora.customViews.ColorPickerDialog;
@@ -23,12 +23,12 @@ public class VisualizationActivity extends ProfilePropertiesActivity
     private RadioButton mDefaultLAFRadio, mPlainRadio, mDifferentPlainRadio,
                         mHighContrastRadio, mBlackAndWhiteRadio;
     private ColorButton mBackgroundColorButton;
-    private KoraIntegerSeekBar mRowsSeekBar, mColumnsSeekBar;
-    private KoraArraySeekBar mMarginSeekBar;
+    private IntegerSeekBar mRowsSeekBar, mColumnsSeekBar;
+    private ArraySeekBar mMarginSeekBar;
     private RadioButton mBothOrientationsRadio, mVerticalRadio, mHorizontalRadio;
     
     private CheckBox mShowTextCheckBox;
-    private KoraArraySeekBar mTextSizeSeekBar;
+    private ArraySeekBar mTextSizeSeekBar;
     private RadioButton mSansRadio, mMasalleraRadio, mMonofurRadio,
                         mTextBlackRadio, mTextWhiteRadio, mTextCustomColorRadio;
     private CheckBox mCapsCheckBox;
@@ -57,15 +57,15 @@ public class VisualizationActivity extends ProfilePropertiesActivity
         mBlackAndWhiteRadio = (RadioButton) findViewById(R.id.blackAndWhiteRadio);
         mBackgroundColorButton = (ColorButton) findViewById(R.id.backgroundColorButton);
         
-        mRowsSeekBar = (KoraIntegerSeekBar) findViewById(R.id.rowsSeekBar);
-        mColumnsSeekBar = (KoraIntegerSeekBar) findViewById(R.id.columnsSeekBar);
-        mMarginSeekBar = (KoraArraySeekBar) findViewById(R.id.marginSeekBar);
+        mRowsSeekBar = (IntegerSeekBar) findViewById(R.id.rowsSeekBar);
+        mColumnsSeekBar = (IntegerSeekBar) findViewById(R.id.columnsSeekBar);
+        mMarginSeekBar = (ArraySeekBar) findViewById(R.id.marginSeekBar);
         mBothOrientationsRadio = (RadioButton) findViewById(R.id.bothOrientationsRadio);
         mVerticalRadio = (RadioButton) findViewById(R.id.verticalRadio);
         mHorizontalRadio = (RadioButton) findViewById(R.id.horizontalRadio);
         
         mShowTextCheckBox = (CheckBox) findViewById(R.id.showTextCheckBox);
-        mTextSizeSeekBar = (KoraArraySeekBar) findViewById(R.id.textSizeSeekBar);
+        mTextSizeSeekBar = (ArraySeekBar) findViewById(R.id.textSizeSeekBar);
         mSansRadio = (RadioButton) findViewById(R.id.sansRadio);
         mMasalleraRadio = (RadioButton) findViewById(R.id.monofurRadio);
         mMonofurRadio = (RadioButton) findViewById(R.id.masalleraRadio);

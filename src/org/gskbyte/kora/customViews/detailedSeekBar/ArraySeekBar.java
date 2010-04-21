@@ -1,4 +1,4 @@
-package org.gskbyte.kora.customViews.koraSeekBar;
+package org.gskbyte.kora.customViews.detailedSeekBar;
 
 import org.gskbyte.kora.R;
 
@@ -8,16 +8,16 @@ import android.util.AttributeSet;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 
-public class KoraArraySeekBar extends KoraSeekBar
+public class ArraySeekBar extends AbstractSeekBar
 {
     protected String[] mValues = {"Empty vector"};
 
-    public KoraArraySeekBar(Context context)
+    public ArraySeekBar(Context context)
     {
         super(context);
     }
     
-    public KoraArraySeekBar(Context context, String[] values)
+    public ArraySeekBar(Context context, String[] values)
     {
         super(context);
         if(values != null && values.length>0){
@@ -29,7 +29,7 @@ public class KoraArraySeekBar extends KoraSeekBar
         mValueText.setMinWidth(100);
     }
 
-    public KoraArraySeekBar(Context context, AttributeSet attrs)
+    public ArraySeekBar(Context context, AttributeSet attrs)
     {
         super(context, attrs);
         

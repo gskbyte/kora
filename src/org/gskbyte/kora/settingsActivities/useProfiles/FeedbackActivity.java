@@ -1,7 +1,7 @@
 package org.gskbyte.kora.settingsActivities.useProfiles;
 
 import org.gskbyte.kora.R;
-import org.gskbyte.kora.customViews.koraSeekBar.KoraFloatSeekBar;
+import org.gskbyte.kora.customViews.detailedSeekBar.FloatSeekBar;
 import org.gskbyte.kora.settings.UseProfile;
 
 import android.os.Bundle;
@@ -19,7 +19,7 @@ public class FeedbackActivity extends ProfilePropertiesActivity
     private CheckBox mVibrationCheckBox;
     
     private CheckBox mConfirmationCheckBox;
-    private KoraFloatSeekBar mConfirmationSeekBar;
+    private FloatSeekBar mConfirmationSeekBar;
     
     private RadioButton mNoHighlightRadio, mStandardRadio, mZoomRadio, mBrightnessRadio;
     private CheckBox mHighlightBorderCheckBox;
@@ -38,7 +38,7 @@ public class FeedbackActivity extends ProfilePropertiesActivity
         mVibrationCheckBox = (CheckBox) findViewById(R.id.vibrationCheckBox);
         
         mConfirmationCheckBox = (CheckBox) findViewById(R.id.confirmationCheckBox);
-        mConfirmationSeekBar = (KoraFloatSeekBar) findViewById(R.id.confirmationTimeSeekBar);
+        mConfirmationSeekBar = (FloatSeekBar) findViewById(R.id.confirmationTimeSeekBar);
         
         mNoHighlightRadio =  (RadioButton) findViewById(R.id.noHighlightRadio);
         mStandardRadio = (RadioButton) findViewById(R.id.standardHighlightRadio);
