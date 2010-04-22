@@ -1,5 +1,7 @@
 package org.gskbyte.kora.customViews;
 
+import org.gskbyte.kora.R;
+
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -10,10 +12,10 @@ import android.view.View;
 import android.widget.ImageButton;
 
 public class ColorButton extends ImageButton
-                         implements ColorPickerDialog.OnColorChangedListener
+                         implements ColorDialog.OnClickListener
 {
     private Paint mPaint = new Paint();
-    private ColorPickerDialog mDialog = null;
+    private ColorDialog mDialog = null;
     
     public ColorButton(Context context)
     {
@@ -72,7 +74,7 @@ public class ColorButton extends ImageButton
     }
 
     @Override
-    public void colorChanged(int color)
+    public void onClick(Object tag, int color)
     {
         setColor(color);
     }
@@ -81,15 +83,19 @@ public class ColorButton extends ImageButton
         new OnClickListener(){
             @Override
             public void onClick(View v)
-            {
-                if(mDialog==null)
-                    mDialog = new ColorPickerDialog(ColorButton.this.getContext(), 
-                            ColorButton.this, mPaint.getColor());
-                mDialog.setInitialColor(ColorButton.this.getColor());
+            {                    
+                //if(mDialog==null)
+                    mDialog = new ColorDialog(ColorButton.this.getContext(),
+                                              true,
+                                              ColorButton. this,
+                                              mPaint.getColor(),
+                                              ColorButton.this,
+                                              0);
                 mDialog.show();
             }
         
         };
+
     
     
 }

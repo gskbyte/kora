@@ -2,7 +2,9 @@ package org.gskbyte.kora.customViews;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Typeface;
+import android.util.AttributeSet;
 import android.view.View;
 
 public class KoraView extends View
@@ -54,4 +56,23 @@ public class KoraView extends View
         // Vibrar sí/no
         public boolean vibrate = false;
     }
+	
+    // Superficie para dibujar
+    protected static Paint sPaint = new Paint();
+    protected static float sMaxTextSize = -1;
+    
+	protected KoraView(Context context)
+    {
+        super(context);
+    }
+	
+	public KoraView(Context context, AttributeSet attrs, int defStyle)
+    {
+	    super(context, attrs, defStyle);
+    }
+	
+	public static void resetCommonTextSize()
+	{
+	    sMaxTextSize = -1;
+	}
 }

@@ -60,7 +60,14 @@
         <string name="customs">Custom</string>
         <string name="defaults">Default</string>
         <string name="settingsError">SETTINGS ERROR. Please contact author.</string>
-    
+        
+        <!-- Color dialog strings -->
+        <string name="colorDialogTitle">Choose a color</string>
+        <string name="colorHue">Hue</string>
+        <string name="colorSaturation">Saturation</string>
+        <string name="colorValue">Value</string>
+        <string name="colorAlpha">Alpha</string>
+        
         <!-- Users strings -->
             <string name="addUser">Add user</string>
 	        <!-- Add/Edit dialog -->

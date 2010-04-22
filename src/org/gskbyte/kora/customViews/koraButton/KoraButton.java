@@ -23,10 +23,6 @@ public class KoraButton extends KoraView
 {
     public static final String TAG = "KoraButton";
 
-    // Superficie para dibujar
-    protected static Paint sPaint = new Paint();
-    protected static float sMaxTextSize = -1;
-    
     // Propiedades generales del botón
     protected String mText = "";
     protected Bitmap mIcon;

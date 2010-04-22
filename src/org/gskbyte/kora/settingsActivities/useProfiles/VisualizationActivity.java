@@ -5,14 +5,12 @@ import org.gskbyte.kora.customViews.detailedSeekBar.ArraySeekBar;
 import org.gskbyte.kora.customViews.detailedSeekBar.IntegerSeekBar;
 import org.gskbyte.kora.settings.UseProfile;
 import org.gskbyte.kora.customViews.ColorButton;
-import org.gskbyte.kora.customViews.ColorPickerDialog;
 
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 

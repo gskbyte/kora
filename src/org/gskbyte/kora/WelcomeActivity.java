@@ -3,6 +3,8 @@ package org.gskbyte.kora;
 import java.io.File;
 
 import org.gskbyte.kora.R;
+import org.gskbyte.kora.customViews.ColorButton;
+import org.gskbyte.kora.customViews.ColorDialog;
 import org.gskbyte.kora.device.DeviceManager;
 import org.gskbyte.kora.handling.DeviceSelectionActivity;
 import org.gskbyte.kora.settings.SettingsManager;
@@ -14,6 +16,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Environment;
