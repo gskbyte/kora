@@ -1,17 +1,16 @@
-package org.gskbyte.kora.customViews.koraButton;
+package org.gskbyte.kora.customViews.deviceViews;
 
+import org.gskbyte.kora.customViews.koraButton.KoraButton;
 import org.gskbyte.kora.device.Device;
 import org.gskbyte.kora.device.DeviceManager;
 import org.gskbyte.kora.device.DeviceRepresentation;
 import org.gskbyte.kora.handling.DeviceHandlingActivity;
-import org.gskbyte.kora.handling.DeviceSelectionActivity;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 
-public class DeviceButton extends KoraButton
+public class DeviceSelectionButton extends KoraButton
 {
 	String mDeviceName;
 	
@@ -22,7 +21,7 @@ public class DeviceButton extends KoraButton
 		public boolean customIcon = false;
     }
 	
-	public DeviceButton(Context context, Attributes attr,
+	public DeviceSelectionButton(Context context, Attributes attr,
 						 String deviceName)
 	{
 		super(context);
@@ -41,7 +40,7 @@ public class DeviceButton extends KoraButton
 		}
 		
 		// establecer nombre (traducido)
-		mText = d.getName();
+		mText = d.getReadableName();
 		
 		// otras propiedades
         mFocused = mSelected = false;

@@ -106,4 +106,9 @@ public class DeviceControl
     	Bitmap parentIcon = mParent.getIcon(iconMode);
     	return mStates.get(index).getIcon(iconMode, parentPath, parentIcon);
     }
+    
+    public String getCaption(int index)
+    {
+    	return mStates.get(index).mCaption;
+    }
 }

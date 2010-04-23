@@ -19,20 +19,9 @@ public class DeviceChangeListener extends EventListener
     {
         String name = event.getMemberValue("name").getString();
         Value val = event.getMemberValue("value");
-        Object valobj=null;
-        switch(val.type)
-        {
-        case Value.BOOLEAN_TYPE:
-            valobj = val.getBoolean();
-            break;
-        case Value.INTEGER_TYPE:
-            valobj = val.getInteger();
-            break;
-        case Value.FLOAT_TYPE:
-            valobj = val.getFloat();
-            break;
-        }
-
-        Log.e(TAG, "Change - " + name + " - " + valobj);
+        Device d = DeviceManager.getDevice(name);
+        d.setValue(val);
+        
+        Log.e(TAG, "Change - " + name + " - " + val);
     }
 }

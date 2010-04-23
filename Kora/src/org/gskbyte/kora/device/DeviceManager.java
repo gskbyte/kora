@@ -6,7 +6,9 @@ import java.util.HashMap;
 import java.util.Vector;
 
 import org.gskbyte.kora.R;
+import org.ugr.bluerose.Initializer;
 import org.ugr.bluerose.devices.TcpCompatibleDevice;
+import org.ugr.bluerose.events.EventHandler;
 import org.ugr.bluerose.events.Value;
 
 import android.content.Context;
@@ -101,7 +103,7 @@ public class DeviceManager
     			"Luz del pasillo",
     			"simpleLight",
     			DeviceSpec.ACCESS_READ_WRITE,
-    			DeviceSpec.VALUE_BOOLEAN,
+    			Value.BOOLEAN_TYPE,
     			s1min,
     			s1max);
     	
@@ -113,7 +115,7 @@ public class DeviceManager
     			"Luz de la mesita",
     			"adjustableLight",
     			DeviceSpec.ACCESS_READ_WRITE,
-    			DeviceSpec.VALUE_INTEGER,
+    			Value.INTEGER_TYPE,
     			s2min,
     			s2max);
 
@@ -125,7 +127,7 @@ public class DeviceManager
     			"Cacharro",
     			"other",
     			DeviceSpec.ACCESS_READ_WRITE,
-    			DeviceSpec.VALUE_INTEGER,
+    			Value.INTEGER_TYPE,
     			s3min,
     			s3max);
     	
@@ -133,30 +135,29 @@ public class DeviceManager
     	specs.add(s3);
     	specs.add(s2);
     	
-    	
-    	// Asoci
+    	// Asociar representaciones y crear dispositivos
     	
     	for(DeviceSpec s : specs){
     		DeviceRepresentation dr = sDeviceRepsMap.get(s.getDeviceType());
     		if(dr==null){ // si no tengo representación para este cacharrico
     			// Si no existe representación adecuada, coger el defaultScalar o el defaultBinary
-    			if(s.getAccessType() == DeviceSpec.VALUE_BOOLEAN){
+    			if(s.getAccessType() == Value.BOOLEAN_TYPE){
     				dr = sDeviceRepsMap.get("defaultBinary");
     			} else {
     				dr = sDeviceRepsMap.get("defaultScalar");
     			}
     		}
     		
-    		// CAMBIAR ESTO       VVVVVVVVVVVVVVVVV
-    		Device d = new Device(s.getName(), s, dr);
+    		Device d = new Device(s.getReadableName(), s, dr);
     		sDevices.add(d);
     		sDevicesMap.put(d.getSystemName(), sDevices.size()-1);
+    		
     	}
     }
     
     public static void disconnect()
     {
-        // desconectar de BlueRose
+        Initializer.destroy();
     }
     
     public static int getNumberOfDevices()
@@ -187,4 +188,9 @@ public class DeviceManager
     {
     	return sDevices.get(index).getSystemName();
     }
+
+	public static void setValueForDevice(String deviceName, Value value)
+	{
+		EventHandler.publish( new DeviceChangeEvent(deviceName, value) );
+	}
 }

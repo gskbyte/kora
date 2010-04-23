@@ -8,12 +8,6 @@ public class DeviceSpec
                             ACCESS_WRITE = 2,
                             ACCESS_READ_WRITE = 3; // READ | WRITE
     
-    public static final int VALUE_BOOLEAN = 1,
-                            VALUE_INTEGER     = 2,
-                            VALUE_LONG    = 3,
-                            VALUE_FLOAT   = 4,
-                            VALUE_STRING  = 5;
-    
     protected String mSystemName;
     protected String mReadableName;
     protected String mDeviceType;
@@ -42,9 +36,7 @@ public class DeviceSpec
         mMaxValue = other.mMaxValue;
     }
     
-    // getters y setters
-    
-    public String getName()
+    public String getReadableName()
     {
     	return mReadableName;
     }

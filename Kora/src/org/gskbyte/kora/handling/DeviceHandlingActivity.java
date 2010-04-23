@@ -4,7 +4,8 @@ import java.util.Set;
 
 import org.gskbyte.kora.R;
 import org.gskbyte.kora.customViews.GridLayout;
-import org.gskbyte.kora.customViews.koraButton.DeviceButton;
+import org.gskbyte.kora.customViews.deviceViews.DeviceBinaryButton;
+import org.gskbyte.kora.customViews.deviceViews.DeviceSelectionButton;
 import org.gskbyte.kora.customViews.koraButton.KoraButton;
 import org.gskbyte.kora.device.Device;
 import org.gskbyte.kora.device.DeviceControl;
@@ -32,23 +33,23 @@ public class DeviceHandlingActivity extends Activity
         mGrid.setDimensions(3, 3);
         
         UseProfile up = SettingsManager.getCurrentUseProfile();
-    	DeviceButton.Attributes mAttr = new DeviceButton.Attributes();
+    	DeviceBinaryButton.Attributes mAttr = new DeviceBinaryButton.Attributes();
         switch(up.iconMode){
     	case UseProfile.visualization.icon_high_contrast:
-    		((DeviceButton.Attributes)mAttr).icon = DeviceRepresentation.ICON_HIGH_CONTRAST;
+    		((DeviceBinaryButton.Attributes)mAttr).icon = DeviceRepresentation.ICON_HIGH_CONTRAST;
     		break;
     	case UseProfile.visualization.icon_black_white:
-    		((DeviceButton.Attributes)mAttr).icon = DeviceRepresentation.ICON_BLACK_WHITE;
+    		((DeviceBinaryButton.Attributes)mAttr).icon = DeviceRepresentation.ICON_BLACK_WHITE;
     		break;
     	case UseProfile.visualization.icon_photo:
-    		((DeviceButton.Attributes)mAttr).icon = DeviceRepresentation.ICON_PHOTO;
+    		((DeviceBinaryButton.Attributes)mAttr).icon = DeviceRepresentation.ICON_PHOTO;
     		break;
     	case UseProfile.visualization.icon_animation:
-    		((DeviceButton.Attributes)mAttr).icon = DeviceRepresentation.ICON_ANIMATION;
+    		((DeviceBinaryButton.Attributes)mAttr).icon = DeviceRepresentation.ICON_ANIMATION;
     		break;
     	case UseProfile.visualization.icon_pictogram:
 		default:
-    		((DeviceButton.Attributes)mAttr).icon = DeviceRepresentation.ICON_DEFAULT;
+    		((DeviceBinaryButton.Attributes)mAttr).icon = DeviceRepresentation.ICON_DEFAULT;
     		break;
     	}
         
@@ -56,17 +57,21 @@ public class DeviceHandlingActivity extends Activity
         String deviceName = extras.getString(TAG_DEVICE_NAME);
         
         Device d = DeviceManager.getDevice(deviceName);
-        DeviceRepresentation dr = d.getDeviceRepresentation();
+        DeviceRepresentation dr = d.getRepresentation();
         
         Set<String> controls = dr.getDeviceControlNames();
         for(String s: controls){
-        	DeviceControl dc = dr.getDeviceControl(s);
+        	DeviceControl dc = dr.getControl(s);
+        	DeviceBinaryButton bt = new DeviceBinaryButton(this, mAttr, d.getSystemName(), dc.getName());
+    		mGrid.addView(bt);
+    		
+        	/*
         	int nicons = dc.getStateCount();
         	for(int i=0; i<nicons; ++i){
         		Bitmap b = dc.getIcon(mAttr.icon, i);
         		KoraButton bt = new KoraButton(this, "prueba", b, mAttr);
         		mGrid.addView(bt);
-        	}
+        	}*/
         }
         
         

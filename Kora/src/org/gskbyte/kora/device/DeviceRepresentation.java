@@ -143,7 +143,7 @@ public class DeviceRepresentation
     	return mControls.keySet();
     }
     
-    public DeviceControl getDeviceControl(String name)
+    public DeviceControl getControl(String name)
     {
     	return mControls.get(name);
     }

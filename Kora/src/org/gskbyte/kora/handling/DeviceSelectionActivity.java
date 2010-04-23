@@ -5,9 +5,9 @@ import java.util.Vector;
 import org.gskbyte.kora.R;
 import org.gskbyte.kora.WelcomeActivity;
 import org.gskbyte.kora.customViews.GridLayout;
+import org.gskbyte.kora.customViews.deviceViews.DeviceSelectionButton;
+import org.gskbyte.kora.customViews.deviceViews.DeviceSelectionButton.Attributes;
 import org.gskbyte.kora.customViews.koraButton.KoraButton;
-import org.gskbyte.kora.customViews.koraButton.DeviceButton;
-import org.gskbyte.kora.customViews.koraButton.DeviceButton.Attributes;
 import org.gskbyte.kora.device.DeviceManager;
 import org.gskbyte.kora.device.DeviceRepresentation;
 import org.gskbyte.kora.settings.SettingsManager;
@@ -78,8 +78,8 @@ public class DeviceSelectionActivity extends Activity
         int nDevices = DeviceManager.getNumberOfDevices();
         for(int i=0; i<nDevices; ++i){
         	
-        	DeviceButton b = new DeviceButton(this, 
-        			(DeviceButton.Attributes)mAttr, 
+        	DeviceSelectionButton b = new DeviceSelectionButton(this, 
+        			(DeviceSelectionButton.Attributes)mAttr, 
         			DeviceManager.getDeviceSystemName(i));
         	mGrid.addView(b);
         }
@@ -88,7 +88,7 @@ public class DeviceSelectionActivity extends Activity
     public void configureView()
     {
     	UseProfile up = SettingsManager.getCurrentUseProfile();
-    	mAttr = new DeviceButton.Attributes();
+    	mAttr = new DeviceSelectionButton.Attributes();
     	
     	// Opciones de vibración, orientación y demás (DESACTIVAR AL SALIR)
     	
@@ -143,20 +143,20 @@ public class DeviceSelectionActivity extends Activity
 		// iconMode
     	switch(up.iconMode){
     	case UseProfile.visualization.icon_high_contrast:
-    		((DeviceButton.Attributes)mAttr).icon = DeviceRepresentation.ICON_HIGH_CONTRAST;
+    		((DeviceSelectionButton.Attributes)mAttr).icon = DeviceRepresentation.ICON_HIGH_CONTRAST;
     		break;
     	case UseProfile.visualization.icon_black_white:
-    		((DeviceButton.Attributes)mAttr).icon = DeviceRepresentation.ICON_BLACK_WHITE;
+    		((DeviceSelectionButton.Attributes)mAttr).icon = DeviceRepresentation.ICON_BLACK_WHITE;
     		break;
     	case UseProfile.visualization.icon_photo:
-    		((DeviceButton.Attributes)mAttr).icon = DeviceRepresentation.ICON_PHOTO;
+    		((DeviceSelectionButton.Attributes)mAttr).icon = DeviceRepresentation.ICON_PHOTO;
     		break;
     	case UseProfile.visualization.icon_animation:
-    		((DeviceButton.Attributes)mAttr).icon = DeviceRepresentation.ICON_ANIMATION;
+    		((DeviceSelectionButton.Attributes)mAttr).icon = DeviceRepresentation.ICON_ANIMATION;
     		break;
     	case UseProfile.visualization.icon_pictogram:
 		default:
-    		((DeviceButton.Attributes)mAttr).icon = DeviceRepresentation.ICON_DEFAULT;
+    		((DeviceSelectionButton.Attributes)mAttr).icon = DeviceRepresentation.ICON_DEFAULT;
     		break;
     	}
 	    	

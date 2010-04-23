@@ -22,9 +22,10 @@ public class Device extends DeviceSpec
 	    super(s);
 	    mName = name;
 	    mRepr = dr;
+	    mCurrentValue = mMinValue; // valor provisional que debe rellenarse luego
 	}
 	
-	public String getName()
+	public String getReadableName()
 	{
 	    return mName;
 	}
@@ -34,7 +35,7 @@ public class Device extends DeviceSpec
 		return mRepr.getIcon(which);
 	}
 	
-	public DeviceRepresentation getDeviceRepresentation()
+	public DeviceRepresentation getRepresentation()
 	{
 		return mRepr;
 	}
@@ -51,7 +52,7 @@ public class Device extends DeviceSpec
 			mListener.onDeviceChange(newValue);
 	}
 		
-	public void setListener(DeviceChangeListener listener)
+	public void setChangeListener(DeviceChangeListener listener)
 	{
 		mListener = listener;
 	}
