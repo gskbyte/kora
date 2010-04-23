@@ -5,6 +5,8 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Vector;
 
+import org.gskbyte.kora.R;
+import org.ugr.bluerose.devices.TcpCompatibleDevice;
 import org.ugr.bluerose.events.Value;
 
 import android.content.Context;
@@ -22,15 +24,23 @@ public class DeviceManager
     protected static Vector<Device> sDevices;
     protected static HashMap<String, Integer> sDevicesMap;
     protected static HashMap<String, DeviceRepresentation> sDeviceRepsMap;
+    protected static DeviceChangeListener sDeviceChangeListener;
+    protected static DeviceQueryListener sDeviceQueryListener;
         
-    public static void init(Context c)
+    public static void init(Context ctx)
     {
-        sContext = c;
+        sContext = ctx;
         
+        sDevices = new Vector<Device>();
+        sDevicesMap = new HashMap<String, Integer>();
         sDeviceRepsMap = new HashMap<String, DeviceRepresentation>();
         
-        // cargar representaciones de dispositivos
-        AssetManager am = c.getAssets();
+
+        /*
+         * Cargar representaciones de dispositivos
+         */
+        
+        AssetManager am = ctx.getAssets();
         DeviceRepresentation.setAssetManager(am);
         try {
             String [] folders = am.list(DEVICE_REPS_FOLDER);
@@ -51,17 +61,37 @@ public class DeviceManager
             Log.e(TAG, "Can't open device representations folder." +
                        " Critical error.");
         }
+        
+        /*
+         * Listeners 
+         */
+        
+        sDeviceChangeListener = new DeviceChangeListener();
+        sDeviceQueryListener = new DeviceQueryListener();
     }
     
     public static void connect()
     {
-        sDevices = new Vector<Device>();
-        sDevicesMap = new HashMap<String, Integer>();
+        sDevices.clear();
+        sDevicesMap.clear();
         
-        // conectar a BlueRose, pedir lista de DeviceSpec, y crear devices en consecuencia
+        // Conectar con BlueRose
+        TcpCompatibleDevice device = new TcpCompatibleDevice();
+
+        try {
+        	Log.e(TAG, "Iniciando conexión con BlueRose...");
+        	InputStream file = sContext.getResources().openRawResource(R.raw.bluerose_config);
+            org.ugr.bluerose.Initializer.initialize(file);
+            org.ugr.bluerose.Initializer.initializeClient(device);
+        	file.close();
+        	Log.e(TAG, "´Exito conectando con BlueRose");
+        } catch (Exception ex) {
+        	Log.e(TAG, "ERROR CONECTANDO CON BLUEROSE");
+        }
+        
+        // Pedir lista de especificaciones de dispositivos
     	
     	Vector<DeviceSpec> specs = new Vector<DeviceSpec>();
-    	
     	
     	Value s1min = new Value(),
     	      s1max = new Value();
@@ -102,6 +132,9 @@ public class DeviceManager
     	specs.add(s1);
     	specs.add(s3);
     	specs.add(s2);
+    	
+    	
+    	// Asoci
     	
     	for(DeviceSpec s : specs){
     		DeviceRepresentation dr = sDeviceRepsMap.get(s.getDeviceType());

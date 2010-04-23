@@ -6,10 +6,16 @@ import android.graphics.Bitmap;
 
 public class Device extends DeviceSpec
 {
+	public interface DeviceChangeListener
+	{
+		public void onDeviceChange(Value newVal);
+	}
+	
 	protected String mName;
 	protected Value mCurrentValue;
 	protected DeviceRepresentation mRepr;
 	//protected Bitmap mCustomIcon; // alguna vez se usará
+	protected DeviceChangeListener mListener;
 	
 	public Device(String name, DeviceSpec s, DeviceRepresentation dr)
 	{
@@ -40,9 +46,18 @@ public class Device extends DeviceSpec
 	
 	public void setValue(Value newValue)
 	{
-	    
 		mCurrentValue = newValue;
+		if(mListener != null)
+			mListener.onDeviceChange(newValue);
+	}
+		
+	public void setListener(DeviceChangeListener listener)
+	{
+		mListener = listener;
 	}
 	
-	// operaciones para escribir en el dispositivo
+	public void unsetListener()
+	{
+		mListener = null;
+	}
 }

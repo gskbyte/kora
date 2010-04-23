@@ -1,6 +1,7 @@
 package org.gskbyte.kora;
 
 import java.io.File;
+import java.io.InputStream;
 
 import org.gskbyte.kora.R;
 import org.gskbyte.kora.customViews.ColorButton;
@@ -11,10 +12,12 @@ import org.gskbyte.kora.settings.SettingsManager;
 import org.gskbyte.kora.settings.User;
 import org.gskbyte.kora.settings.SettingsManager.SettingsException;
 import org.gskbyte.kora.settingsActivities.SettingsActivity;
+import org.ugr.bluerose.devices.TcpCompatibleDevice;
 
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -70,6 +73,7 @@ public class WelcomeActivity extends Activity {
         } catch (SettingsException e) {
             Log.e(TAG, e.getMessage());
         }
+        
         
         // Iniciar gestor de dispositivos
         DeviceManager.init(this);

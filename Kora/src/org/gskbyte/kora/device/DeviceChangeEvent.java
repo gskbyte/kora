@@ -4,8 +4,7 @@ import org.ugr.bluerose.events.*;
 
 public class DeviceChangeEvent extends Event
 {
-    private static final int TOPIC_EVENT_CHANGE = 49;
-
+    static final int TOPIC_EVENT_CHANGE = 49;
     
 	private static final String TAG_NAME = "name",
 								TAG_VALUE = "value";
