@@ -8,6 +8,7 @@ import java.util.Vector;
 import org.gskbyte.kora.R;
 import org.ugr.bluerose.Initializer;
 import org.ugr.bluerose.devices.TcpCompatibleDevice;
+import org.ugr.bluerose.events.Event;
 import org.ugr.bluerose.events.EventHandler;
 import org.ugr.bluerose.events.Value;
 
@@ -26,8 +27,6 @@ public class DeviceManager
     protected static Vector<Device> sDevices;
     protected static HashMap<String, Integer> sDevicesMap;
     protected static HashMap<String, DeviceRepresentation> sDeviceRepsMap;
-    protected static DeviceChangeListener sDeviceChangeListener;
-    protected static DeviceQueryListener sDeviceQueryListener;
         
     public static void init(Context ctx)
     {
@@ -64,12 +63,6 @@ public class DeviceManager
                        " Critical error.");
         }
         
-        /*
-         * Listeners 
-         */
-        
-        sDeviceChangeListener = new DeviceChangeListener();
-        sDeviceQueryListener = new DeviceQueryListener();
     }
     
     public static void connect()
@@ -93,47 +86,7 @@ public class DeviceManager
         
         // Pedir lista de especificaciones de dispositivos
     	
-    	Vector<DeviceSpec> specs = new Vector<DeviceSpec>();
-    	
-    	Value s1min = new Value(),
-    	      s1max = new Value();
-    	s1min.setBoolean(false);
-    	s1max.setBoolean(true);
-    	DeviceSpec s1 = new DeviceSpec("roomLight",
-    			"Luz del pasillo",
-    			"simpleLight",
-    			DeviceSpec.ACCESS_READ_WRITE,
-    			Value.BOOLEAN_TYPE,
-    			s1min,
-    			s1max);
-    	
-    	Value s2min = new Value(),
-              s2max = new Value();
-        s2min.setInteger(10);
-        s2max.setInteger(0);
-    	DeviceSpec s2 = new DeviceSpec("tableLight",
-    			"Luz de la mesita",
-    			"adjustableLight",
-    			DeviceSpec.ACCESS_READ_WRITE,
-    			Value.INTEGER_TYPE,
-    			s2min,
-    			s2max);
-
-    	Value s3min = new Value(),
-              s3max = new Value();
-        s3min.setInteger(10);
-        s3max.setInteger(0);
-    	DeviceSpec s3 = new DeviceSpec("otro",
-    			"Cacharro",
-    			"other",
-    			DeviceSpec.ACCESS_READ_WRITE,
-    			Value.INTEGER_TYPE,
-    			s3min,
-    			s3max);
-    	
-    	specs.add(s1);
-    	specs.add(s3);
-    	specs.add(s2);
+        Vector<DeviceSpec> specs = new Vector<DeviceSpec>();
     	
     	// Asociar representaciones y crear dispositivos
     	
@@ -153,6 +106,14 @@ public class DeviceManager
     		sDevicesMap.put(d.getSystemName(), sDevices.size()-1);
     		
     	}
+
+        /*
+         * Listeners, se inician una vez tengo cargadas todas las representaciones
+         */
+        org.ugr.bluerose.events.EventHandler.addEventListener(new DeviceQueryListener());
+        org.ugr.bluerose.events.EventHandler.addEventListener(new DeviceChangeListener());
+        
+        // Leer el estado de todos los dispositivos
     }
     
     public static void disconnect()
@@ -191,6 +152,7 @@ public class DeviceManager
 
 	public static void setValueForDevice(String deviceName, Value value)
 	{
-		EventHandler.publish( new DeviceChangeEvent(deviceName, value) );
+		Event evt = new DeviceChangeEvent(deviceName, value);
+		EventHandler.publish(evt, false);
 	}
 }

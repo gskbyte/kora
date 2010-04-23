@@ -1,8 +1,11 @@
 package org.gskbyte.kora.device;
 
+import org.ugr.bluerose.ByteStreamReader;
+import org.ugr.bluerose.ByteStreamWriter;
+import org.ugr.bluerose.Marshallable;
 import org.ugr.bluerose.events.Value;
 
-public class DeviceSpec
+public class DeviceSpec implements Marshallable
 {
     public static final int ACCESS_READ = 1,
                             ACCESS_WRITE = 2,
@@ -70,4 +73,33 @@ public class DeviceSpec
     {
     	return mMaxValue;
     }
+    
+	@Override
+	public void marshall(ByteStreamWriter writer)
+	{
+		writer.writeString(mSystemName);
+		writer.writeString(mReadableName);
+		writer.writeString(mDeviceType);
+		writer.writeInteger(mAccessType);
+		writer.writeInteger(mValueType);
+		
+		mMinValue.marshall(writer);
+		mMaxValue.marshall(writer);
+	}
+
+	@Override
+	public void unmarshall(ByteStreamReader reader)
+	{
+		mSystemName = reader.readString();
+		mReadableName = reader.readString();
+		mDeviceType = reader.readString();
+		mAccessType = reader.readInteger();
+		mValueType = reader.readInteger();
+		
+		mMinValue = new Value();
+		mMinValue.unmarshall(reader);
+		
+		mMaxValue = new Value();
+		mMaxValue.unmarshall(reader);
+	}
 }
