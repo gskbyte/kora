@@ -59,7 +59,8 @@
         <string name="settingsError">ERROR DE PREFERENCIAS. Por favor, póngase en contacto con el autor.</string>
         
         <!-- Color dialog strings -->
-        <string name="colorDialogTitle">Choose a color</string>
+        <string name="colorButtonText"> Elegir color</string>
+        <string name="colorDialogTitle">Elegir color</string>
         <string name="colorHue">Tono</string>
         <string name="colorSaturation">Saturación</string>
         <string name="colorValue">Valor</string>

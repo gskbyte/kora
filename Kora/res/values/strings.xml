@@ -62,11 +62,12 @@
         <string name="settingsError">SETTINGS ERROR. Please contact author.</string>
         
         <!-- Color dialog strings -->
-        <string name="colorDialogTitle">Choose a color</string>
+        <string name="colorButtonText"> Pick a color</string>
+        <string name="colorDialogTitle">Pick a color</string>
         <string name="colorHue">Hue</string>
         <string name="colorSaturation">Saturation</string>
         <string name="colorValue">Value</string>
-        <string name="colorAlpha">Alpha</string>
+        <string name="colorAlpha">Opacity</string>
         
         <!-- Users strings -->
             <string name="addUser">Add user</string>

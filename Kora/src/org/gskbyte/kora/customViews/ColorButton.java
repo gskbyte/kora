@@ -2,77 +2,84 @@ package org.gskbyte.kora.customViews;
 
 import org.gskbyte.kora.R;
 
+import android.graphics.drawable.PaintDrawable;
+
 import android.content.Context;
-import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.ImageButton;
+import android.widget.Button;
 
-public class ColorButton extends ImageButton
+public class ColorButton extends Button
                          implements ColorDialog.OnClickListener
 {
-    private Paint mPaint = new Paint();
+    private int mColor = 0xFF000000;
+    private PaintDrawable mPaintDrawable;
     private ColorDialog mDialog = null;
     
     public ColorButton(Context context)
     {
         super(context);
-        mPaint.setColor(0xFF000000);
-        setOnClickListener(listener);
+        init();
     }
     
     public ColorButton(Context context, AttributeSet attrs)
     {
         super(context, attrs);
-        mPaint.setColor(0xFF000000);
-        setOnClickListener(listener);
+        init();
     }
     
     public ColorButton(Context context, AttributeSet attrs, int defStyle)
     {
         super(context, attrs, defStyle);
-        // coger color
-        mPaint.setColor(0xFF000000);
+        // coger color de atributos!
+        init();
+    }
+    
+    protected void init()
+    {
+        mPaintDrawable = new PaintDrawable();
+        mPaintDrawable.setCornerRadius(4);
+        mPaintDrawable.setBounds(0, 0, 30, 25);
+        setCompoundDrawables(mPaintDrawable, null, null, null);
+        
+        setText(R.string.colorButtonText);
+        
         setOnClickListener(listener);
     }
     
     public int getColor()
     {
-        return mPaint.getColor();
+        return mColor;
     }
     
     public void setColor(int color)
     {
-        mPaint.setColor(color);
+        mColor = color;
+        mPaintDrawable.getPaint().setColor(color);
         invalidate();
     }
 
     public void setColor(int r, int g, int b)
     {
-        mPaint.setColor( Color.rgb(r, g, b) );
+        setColor( Color.rgb(r, g, b) );
+    }
+    
+    public void setColorHsv(float h, float s, float v)
+    {
+        setColor( Color.HSVToColor(new float[] {h, s, v}) );
     }
     
     public void setColor(int a, int r, int g, int b)
     {
-        mPaint.setColor( Color.argb(a, r, g, b) );
-    }
-    
-    @Override
-    public void onDraw(Canvas canvas)
-    {
-        super.onDraw(canvas);
-        int width = getWidth(),
-            height = getHeight();
-        int min = (height<width) ? height : width;
-        int border = min / 4;
-        
-        Rect r = new Rect(border, border, width-border-1, height-border-3);
-        canvas.drawRect(r, mPaint);
+        setColor( Color.argb(a, r, g, b) );
     }
 
+    public void setColorHsv(int a, float h, float s, float v)
+    {
+        setColor( Color.HSVToColor(a, new float[] {h, s, v}) );
+    }
+    
     @Override
     public void onClick(Object tag, int color)
     {
@@ -84,11 +91,11 @@ public class ColorButton extends ImageButton
             @Override
             public void onClick(View v)
             {                    
-                //if(mDialog==null)
+                if(mDialog==null)
                     mDialog = new ColorDialog(ColorButton.this.getContext(),
                                               true,
                                               ColorButton. this,
-                                              mPaint.getColor(),
+                                              mColor,
                                               ColorButton.this,
                                               0);
                 mDialog.show();
