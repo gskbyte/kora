@@ -1,11 +1,13 @@
 package org.gskbyte.kora.device;
 
+import org.ugr.bluerose.events.Value;
+
 import android.graphics.Bitmap;
 
 public class Device extends DeviceSpec
 {
 	protected String mName;
-	protected Object mCurrentValue;
+	protected Value mCurrentValue;
 	protected DeviceRepresentation mRepr;
 	//protected Bitmap mCustomIcon; // alguna vez se usará
 	
@@ -31,13 +33,14 @@ public class Device extends DeviceSpec
 		return mRepr;
 	}
 	
-	public Object getValue()
+	public Value getValue()
 	{
 		return mCurrentValue;
 	}
 	
-	public void setValue(Object newValue)
+	public void setValue(Value newValue)
 	{
+	    
 		mCurrentValue = newValue;
 	}
 	

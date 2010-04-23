@@ -1,5 +1,7 @@
 package org.gskbyte.kora.device;
 
+import org.ugr.bluerose.events.Value;
+
 public class DeviceSpec
 {
     public static final int ACCESS_READ = 1,
@@ -18,9 +20,9 @@ public class DeviceSpec
     protected int mAccessType;
     
     protected int mValueType;
-    protected Object mMinValue, mMaxValue;
+    protected Value mMinValue, mMaxValue;
     
-    public DeviceSpec(String sysName, String readableName, String deviceType, int accessType, int valueType, Object min, Object max)
+    public DeviceSpec(String sysName, String readableName, String deviceType, int accessType, int valueType, Value min, Value max)
     {
         mSystemName = sysName;
         mReadableName = readableName;
@@ -36,7 +38,7 @@ public class DeviceSpec
         mSystemName = other.mSystemName;
         mAccessType = other.mAccessType;
         mValueType = other.mValueType;
-        mMinValue = other.mValueType;
+        mMinValue = other.mMinValue;
         mMaxValue = other.mMaxValue;
     }
     
@@ -67,12 +69,12 @@ public class DeviceSpec
     	return mValueType;
     }
     
-    public Object getMix()
+    public Value getMin()
     {
     	return mMinValue;
     }
     
-    public Object getMax()
+    public Value getMax()
     {
     	return mMaxValue;
     }

@@ -5,6 +5,8 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Vector;
 
+import org.ugr.bluerose.events.Value;
+
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.util.Log;
@@ -60,29 +62,42 @@ public class DeviceManager
     	
     	Vector<DeviceSpec> specs = new Vector<DeviceSpec>();
     	
+    	
+    	Value s1min = new Value(),
+    	      s1max = new Value();
+    	s1min.setBoolean(false);
+    	s1max.setBoolean(true);
     	DeviceSpec s1 = new DeviceSpec("roomLight",
     			"Luz del pasillo",
     			"simpleLight",
     			DeviceSpec.ACCESS_READ_WRITE,
     			DeviceSpec.VALUE_BOOLEAN,
-    			new Boolean(false),
-    			new Boolean(true));
+    			s1min,
+    			s1max);
     	
+    	Value s2min = new Value(),
+              s2max = new Value();
+        s2min.setInteger(10);
+        s2max.setInteger(0);
     	DeviceSpec s2 = new DeviceSpec("tableLight",
     			"Luz de la mesita",
     			"adjustableLight",
     			DeviceSpec.ACCESS_READ_WRITE,
     			DeviceSpec.VALUE_INTEGER,
-    			new Integer(10),
-    			new Integer(0));
+    			s2min,
+    			s2max);
 
+    	Value s3min = new Value(),
+              s3max = new Value();
+        s3min.setInteger(10);
+        s3max.setInteger(0);
     	DeviceSpec s3 = new DeviceSpec("otro",
     			"Cacharro",
     			"other",
     			DeviceSpec.ACCESS_READ_WRITE,
     			DeviceSpec.VALUE_INTEGER,
-    			new Integer(10),
-    			new Integer(0));
+    			s3min,
+    			s3max);
     	
     	specs.add(s1);
     	specs.add(s3);

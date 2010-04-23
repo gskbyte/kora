@@ -94,7 +94,7 @@ public class ColorButton extends Button
                 if(mDialog==null)
                     mDialog = new ColorDialog(ColorButton.this.getContext(),
                                               true,
-                                              ColorButton. this,
+                                              ColorButton.this,
                                               mColor,
                                               ColorButton.this,
                                               0);
