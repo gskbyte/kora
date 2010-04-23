@@ -72,7 +72,7 @@ public class DeviceManager
     			"Luz de la mesita",
     			"adjustableLight",
     			DeviceSpec.ACCESS_READ_WRITE,
-    			DeviceSpec.VALUE_INT,
+    			DeviceSpec.VALUE_INTEGER,
     			new Integer(10),
     			new Integer(0));
 
@@ -80,7 +80,7 @@ public class DeviceManager
     			"Cacharro",
     			"other",
     			DeviceSpec.ACCESS_READ_WRITE,
-    			DeviceSpec.VALUE_INT,
+    			DeviceSpec.VALUE_INTEGER,
     			new Integer(10),
     			new Integer(0));
     	
