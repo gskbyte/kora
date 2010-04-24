@@ -50,20 +50,8 @@ public class DeviceSelectionActivity extends Activity
         mNextButton = (KoraButton) findViewById(R.id.next);
         
 
-        // Iniciar gestor de dispositivos
+        // Conectar gestor de dispositivos
         DeviceManager.connect();
-        
-        
-        /*
-        
-        w.setOnClickListener(new OnClickListener(){
-
-            @Override
-            public void onClick(View v)
-            {
-                Toast.makeText(DeviceSelectionActivity.this, "HOLA", Toast.LENGTH_LONG).show();
-            }});
-        */
     }
     
     public void onStart()

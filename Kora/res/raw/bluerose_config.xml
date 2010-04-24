@@ -9,22 +9,22 @@
 		<category name="BlueRoseService">
 		
 			<service name="Discovery">
-				<device name="TcpCompatibleDevice" address="192.168.145.99" port="10003" />
-				<device name="UdpCompatibleDevice" address="192.168.145.99" port="10004" />
+				<device name="TcpCompatibleDevice" address="192.168.2.105" port="10003" />
+				<device name="UdpCompatibleDevice" address="192.168.2.105" port="10004" />
 			</service>
 			
 			<service name="PubSub">
-				<device name="TcpCompatibleDevice" address="192.168.145.99" port="10001" />
-				<device name="UdpCompatibleDevice" address="192.168.145.99" port="10002" />
+				<device name="TcpCompatibleDevice" address="192.168.2.105" port="10001" />
+				<device name="UdpCompatibleDevice" address="192.168.2.105" port="10002" />
 			</service>
 			
 		</category>
 		
-		<category name="Test">
+		<category name="Domotics">
 		
-			<service name="TestServant">
-				<device name="TcpCompatibleDevice" address="192.168.145.99" port="10000" />
-				<device name="UdpCompatibleDevice" address="192.168.145.99" port="10001" />
+			<service name="Kora">
+				<device name="TcpCompatibleDevice" address="192.168.2.105" port="10000" />
+				<device name="UdpCompatibleDevice" address="192.168.2.105" port="10001" />
 			</service>
 			
 		</category>

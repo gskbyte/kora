@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deviceRepresentation name="sunblind">
+    <icon class="default"/>
+    <icon class="highContrast"/>
+    <icon class="blackWhite"/>
+    <!--<icon class="photo"/>-->
+    
+    <control name="switch" type="binary">
+        <icon index="0" file="0.png" caption="Abajo"/>
+        <icon index="1" file="4.png" caption="Arriba"/>
+    </control>
+    
+    <control name="intensity" type="scalar">
+        <icon index="0" file="0.png" caption="Abajo"/>
+        <icon index="1" file="1.png" caption="Abajo-medio"/>
+        <icon index="2" file="2.png" caption="En medio"/>
+        <icon index="3" file="3.png" caption="Arriba-medio"/>
+        <icon index="4" file="4.png" caption="Arriba"/>
+    </control>
+</deviceRepresentation>

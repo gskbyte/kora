@@ -73,21 +73,37 @@ public class DeviceManager
         // Conectar con BlueRose
         TcpCompatibleDevice device = new TcpCompatibleDevice();
 
+        long inicio = System.currentTimeMillis(), actual, actual2;
+        
         try {
-        	Log.e(TAG, "Iniciando conexión con BlueRose...");
+        	Log.e(TAG, "Iniciando conexion con BlueRose...");
         	InputStream file = sContext.getResources().openRawResource(R.raw.bluerose_config);
             org.ugr.bluerose.Initializer.initialize(file);
             org.ugr.bluerose.Initializer.initializeClient(device);
         	file.close();
-        	Log.e(TAG, "´Exito conectando con BlueRose");
+        	Log.e(TAG, "Exito conectando con BlueRose");
         } catch (Exception ex) {
         	Log.e(TAG, "ERROR CONECTANDO CON BLUEROSE");
         }
         
+        actual = System.currentTimeMillis();
+        Log.e(TAG, "Tiempo conexión: " + (actual-inicio)/1000.0);
+        
         // Pedir lista de especificaciones de dispositivos
-    	
-        Vector<DeviceSpec> specs = new Vector<DeviceSpec>();
-    	
+    	DeviceListProxy dlp;
+    	Vector<DeviceSpec> specs = new Vector<DeviceSpec>();
+        try {
+            dlp = new DeviceListProxy();
+            specs = dlp.getDeviceSpecs();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            Log.e(TAG, "jaiaaaaa  - " + e.getStackTrace()[0].toString() );
+        }
+
+        actual2 = System.currentTimeMillis();
+        Log.e(TAG, "Tiempo dispositivos: " + (actual2-actual)/1000.0);
+        actual = actual2;
+        
     	// Asociar representaciones y crear dispositivos
     	
     	for(DeviceSpec s : specs){
@@ -107,13 +123,16 @@ public class DeviceManager
     		
     	}
 
+        actual2 = System.currentTimeMillis();
+        Log.e(TAG, "Tiempo representaciones: " + (actual2-actual)/1000.0);
+        actual = actual2;
+
+        Log.e(TAG, "Total: " + (actual-inicio)/1000.0);
         /*
          * Listeners, se inician una vez tengo cargadas todas las representaciones
          */
         org.ugr.bluerose.events.EventHandler.addEventListener(new DeviceQueryListener());
         org.ugr.bluerose.events.EventHandler.addEventListener(new DeviceChangeListener());
-        
-        // Leer el estado de todos los dispositivos
     }
     
     public static void disconnect()

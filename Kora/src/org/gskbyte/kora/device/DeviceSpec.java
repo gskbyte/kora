@@ -39,6 +39,11 @@ public class DeviceSpec implements Marshallable
         mMaxValue = other.mMaxValue;
     }
     
+    public DeviceSpec(ByteStreamReader reader)
+    {
+        unmarshall(reader);
+    }
+    
     public String getReadableName()
     {
     	return mReadableName;
