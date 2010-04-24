@@ -122,7 +122,7 @@ public class KoraButton extends KoraView
         if(sVibrator==null)
             sVibrator = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
         
-        mSelectionTimer = new CountDownTimer(5000, 1000) {
+        mSelectionTimer = new CountDownTimer(1000, 1000) {
             public void onTick(long millisLeft) {
             }
 

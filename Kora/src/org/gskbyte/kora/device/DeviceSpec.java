@@ -17,9 +17,9 @@ public class DeviceSpec implements Marshallable
     protected int mAccessType;
     
     protected int mValueType;
-    protected Value mMinValue, mMaxValue;
+    protected Value mMinValue, mMaxValue, mCurrentValue;
     
-    public DeviceSpec(String sysName, String readableName, String deviceType, int accessType, int valueType, Value min, Value max)
+    public DeviceSpec(String sysName, String readableName, String deviceType, int accessType, int valueType, Value min, Value max, Value current)
     {
         mSystemName = sysName;
         mReadableName = readableName;
@@ -28,15 +28,19 @@ public class DeviceSpec implements Marshallable
         mValueType = valueType;
         mMinValue = min;
         mMaxValue = max;
+        mCurrentValue = current;
     }
     
     public DeviceSpec(DeviceSpec other)
     {
         mSystemName = other.mSystemName;
+        mReadableName = other.mReadableName;
+        mDeviceType = other.mDeviceType;
         mAccessType = other.mAccessType;
         mValueType = other.mValueType;
         mMinValue = other.mMinValue;
         mMaxValue = other.mMaxValue;
+        mCurrentValue = other.mCurrentValue;
     }
     
     public DeviceSpec(ByteStreamReader reader)
@@ -78,6 +82,11 @@ public class DeviceSpec implements Marshallable
     {
     	return mMaxValue;
     }
+
+    public Value getValue()
+    {
+        return mCurrentValue;
+    }
     
 	@Override
 	public void marshall(ByteStreamWriter writer)
@@ -90,6 +99,7 @@ public class DeviceSpec implements Marshallable
 		
 		mMinValue.marshall(writer);
 		mMaxValue.marshall(writer);
+        mCurrentValue.marshall(writer);
 	}
 
 	@Override
@@ -106,5 +116,8 @@ public class DeviceSpec implements Marshallable
 		
 		mMaxValue = new Value();
 		mMaxValue.unmarshall(reader);
+		
+        mCurrentValue = new Value();
+        mCurrentValue.unmarshall(reader);
 	}
 }

@@ -12,7 +12,6 @@ public class Device extends DeviceSpec
 	}
 	
 	protected String mName;
-	protected Value mCurrentValue;
 	protected DeviceRepresentation mRepr;
 	//protected Bitmap mCustomIcon; // alguna vez se usará
 	protected DeviceChangeListener mListener;
@@ -38,11 +37,6 @@ public class Device extends DeviceSpec
 	public DeviceRepresentation getRepresentation()
 	{
 		return mRepr;
-	}
-	
-	public Value getValue()
-	{
-		return mCurrentValue;
 	}
 	
 	public void setValue(Value newValue)
