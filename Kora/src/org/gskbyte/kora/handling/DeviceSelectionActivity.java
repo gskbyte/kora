@@ -3,24 +3,17 @@ package org.gskbyte.kora.handling;
 import java.util.Vector;
 
 import org.gskbyte.kora.R;
-import org.gskbyte.kora.WelcomeActivity;
 import org.gskbyte.kora.customViews.GridLayout;
 import org.gskbyte.kora.customViews.deviceViews.DeviceSelectionButton;
-import org.gskbyte.kora.customViews.deviceViews.DeviceSelectionButton.Attributes;
 import org.gskbyte.kora.customViews.koraButton.KoraButton;
 import org.gskbyte.kora.device.DeviceManager;
 import org.gskbyte.kora.device.DeviceRepresentation;
 import org.gskbyte.kora.settings.SettingsManager;
 import org.gskbyte.kora.settings.UseProfile;
-import org.gskbyte.kora.settings.UseProfile.feedback;
-import org.gskbyte.kora.settings.UseProfile.interaction;
-import org.gskbyte.kora.settings.UseProfile.sound;
-import org.gskbyte.kora.settings.UseProfile.visualization;
-import org.gskbyte.kora.settingsActivities.SettingsActivity;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 public class DeviceSelectionActivity extends Activity
@@ -28,10 +21,14 @@ public class DeviceSelectionActivity extends Activity
     private static final String TAG = "DeviceSelectionActivity";
 
     private GridLayout mGrid;
-    private Vector<KoraButton> mDeviceButtons;
+    
+    private int mCurrentPage;
     
     private GridLayout mNavigationButtons;
     private KoraButton mBackButton, mNextButton;
+    private KoraButton mGridNextButton;
+    private int mIconBackId = R.drawable.icon_back,
+                mIconNextId = R.drawable.icon_next;
     
     private boolean mShowPagingButtons;
     private KoraButton.Attributes mAttr;
@@ -49,28 +46,23 @@ public class DeviceSelectionActivity extends Activity
         mBackButton = (KoraButton) findViewById(R.id.back);
         mNextButton = (KoraButton) findViewById(R.id.next);
         
-
+        mBackButton.setOnClickListener(previousPageListener);
+        mNextButton.setOnClickListener(nextPageListener);
+        
         // Conectar gestor de dispositivos
         DeviceManager.connect();
+        configureView();
+        
+        viewPage(0);
     }
     
     public void onStart()
     {
     	super.onStart();
     	
-        // Configurar la vista y las propiedades de los botones
-        configureView();
-    	
-    	// Rellenar la vista
-        mGrid.removeAllViews();
-        int nDevices = DeviceManager.getNumberOfDevices();
-        for(int i=0; i<nDevices; ++i){
-        	
-        	DeviceSelectionButton b = new DeviceSelectionButton(this, 
-        			(DeviceSelectionButton.Attributes)mAttr, 
-        			DeviceManager.getDeviceSystemName(i));
-        	mGrid.addView(b);
-        }
+    	int nbuttons = mGrid.getChildCount();
+    	for(int i=0; i<nbuttons; ++i)
+    	    ((KoraButton)mGrid.getChildAt(i)).deselect();
     }
     
     public void configureView()
@@ -81,7 +73,7 @@ public class DeviceSelectionActivity extends Activity
     	// Opciones de vibración, orientación y demás (DESACTIVAR AL SALIR)
     	
     	// Propiedades de la rejilla
-    	mShowPagingButtons = (up.paginationMode == UseProfile.interaction.pagination_buttons);
+    	mShowPagingButtons = (up.paginationMode == UseProfile.interaction.pagination_standard);
         if(mShowPagingButtons)
         	mNavigationButtons.setVisibility(View.VISIBLE);
         else
@@ -132,9 +124,13 @@ public class DeviceSelectionActivity extends Activity
     	switch(up.iconMode){
     	case UseProfile.visualization.icon_high_contrast:
     		((DeviceSelectionButton.Attributes)mAttr).icon = DeviceRepresentation.ICON_HIGH_CONTRAST;
+    		mIconBackId = R.drawable.icon_back_hc;
+    		mIconNextId = R.drawable.icon_next_hc;
     		break;
     	case UseProfile.visualization.icon_black_white:
     		((DeviceSelectionButton.Attributes)mAttr).icon = DeviceRepresentation.ICON_BLACK_WHITE;
+            mIconBackId = R.drawable.icon_back_bw;
+            mIconNextId = R.drawable.icon_next_bw;
     		break;
     	case UseProfile.visualization.icon_photo:
     		((DeviceSelectionButton.Attributes)mAttr).icon = DeviceRepresentation.ICON_PHOTO;
@@ -147,6 +143,8 @@ public class DeviceSelectionActivity extends Activity
     		((DeviceSelectionButton.Attributes)mAttr).icon = DeviceRepresentation.ICON_DEFAULT;
     		break;
     	}
+    	mBackButton.setIcon(mIconBackId);
+        mNextButton.setIcon(mIconNextId);
 	    	
     		// customImage
     	
@@ -163,9 +161,89 @@ public class DeviceSelectionActivity extends Activity
     	 * */
     	
     }
+    
+    protected Vector<DeviceSelectionButton> getButtonsForDevices(int initialIndex, int howMany)
+    {
+        Vector<DeviceSelectionButton> ret = new Vector<DeviceSelectionButton>();
+        
+        for(int i=initialIndex; i<initialIndex+howMany; ++i){
+            DeviceSelectionButton b = new DeviceSelectionButton(this, 
+                    (DeviceSelectionButton.Attributes)mAttr, 
+                    DeviceManager.getDeviceSystemName(i));
+            ret.add(b);
+        }
+        
+        return ret;
+    }
+    
+    protected void viewPage(int page)
+    {
+        int nDevices = DeviceManager.getNumberOfDevices();
+        int gridSize = mGrid.getNRows()*mGrid.getNColumns();
+        Vector<DeviceSelectionButton> btns;
+        if(nDevices>gridSize){
+            int nDeviceButtons = mShowPagingButtons ? gridSize : gridSize-1;
+            int nPages = nDevices / nDeviceButtons + 1;
+            
+            if(page<0)
+                page = nPages-1;
+            else if(page>=nPages)
+                page = 0;
+            
+            int initialIndex = page*nDeviceButtons;
+            int howMany = (nDevices-initialIndex>=nDeviceButtons) ? nDeviceButtons : nDevices-initialIndex;
+            btns = getButtonsForDevices(initialIndex, howMany);
+        } else {
+            btns = getButtonsForDevices(0, nDevices);
+        }
+        
+        // Rellenar la vista
+        mGrid.removeAllViews();
+        for(DeviceSelectionButton b : btns)
+            mGrid.addView(b);
+        
+
+        // Añadir botón de paginación si es necesario
+        if(!mShowPagingButtons){
+            for(int i=0; i<gridSize-btns.size()-1; ++i)
+                mGrid.addView(new View(this));
+            if (mGridNextButton == null){
+                String moreString = getResources().getString(R.string.more);
+                mGridNextButton = new KoraButton(this, moreString, R.drawable.action_next);
+                mGridNextButton.setOnClickListener(nextPageListener);
+                mGridNextButton.setIcon(mIconNextId);
+            }
+            mGridNextButton.deselect();
+            mGrid.addView(mGridNextButton);
+        } else {
+            mBackButton.deselect();
+            mNextButton.deselect();
+        }
+        mCurrentPage = page;
+    }
+
+    View.OnClickListener previousPageListener = new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                viewPage(mCurrentPage+1);
+            }
+        };
+    
+    View.OnClickListener nextPageListener = new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                viewPage(mCurrentPage-1);
+            }
+        };
+    
 	// Con un asterisco marco las propiedades implementadas
     // * = TOTALMENTE IMPLEMENTADO
     // - = A MEDIAS
+
     
     /*
     // Interaction settings

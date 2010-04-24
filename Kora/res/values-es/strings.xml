@@ -187,6 +187,11 @@
         
             <!--  nothing yet -->
             
+    <!-- Device selection strings -->
+    <string name="back">Anterior</string>
+    <string name="next">Siguiente</string>
+    <string name="more">Más</string>
+    
     <!-- Device strings -->
     <string name="light">Luz</string>
     <string name="sunblind">Persiana</string>

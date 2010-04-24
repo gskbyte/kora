@@ -1,6 +1,7 @@
 package org.gskbyte.kora.customViews.koraButton;
 
 import org.gskbyte.kora.R;
+import org.gskbyte.kora.WelcomeActivity;
 import org.gskbyte.kora.customViews.KoraView;
 
 import android.content.Context;
@@ -14,6 +15,7 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.graphics.Paint.Align;
+import android.os.CountDownTimer;
 import android.os.Vibrator;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -38,6 +40,7 @@ public class KoraButton extends KoraView
     protected float mTextSize;
     
     // Variables para realimentación
+    protected CountDownTimer mSelectionTimer;
     protected static Vibrator sVibrator = null;
     
     protected OnClickListener mClickListener;
@@ -45,6 +48,7 @@ public class KoraButton extends KoraView
     protected KoraButton(Context context)
     {
     	super(context);
+        init("", null, new Attributes(), Attributes.TEXT_MEDIUM);
     }
     
     public KoraButton(Context context, String text, int iconId)
@@ -68,20 +72,7 @@ public class KoraButton extends KoraView
     {
         super(context);
         
-        mText = text;
-        mIcon = icon;
-        mFocused = mSelected = false;
-        
-        if(attr!=null)
-            mAttrs = attr;
-        else
-            mAttrs = new Attributes();
-        
-        if(sVibrator==null)
-        	sVibrator = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
-
-        setFocusable(true);
-        setClickable(true);
+        init(text, icon, attr, Attributes.TEXT_MEDIUM);
     }
     
     public KoraButton(Context context, AttributeSet attrs)
@@ -93,32 +84,55 @@ public class KoraButton extends KoraView
     {
         super(context, attrs, defStyle);
         
-        mAttrs = new Attributes();
+        Attributes attr = new Attributes();
         
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.KoraButton, defStyle, 0);
         
-        mAttrs.showText = a.getBoolean(R.styleable.KoraButton_showText, false);
-        mText = a.getString(R.styleable.KoraButton_text);
-        mAttrs.textColor = a.getColor(R.styleable.KoraButton_textColor, Color.BLACK);
+        attr.showText = a.getBoolean(R.styleable.KoraButton_showText, false);
+        String text = a.getString(R.styleable.KoraButton_text);
+        attr.textColor = a.getColor(R.styleable.KoraButton_textColor, Color.BLACK);
         int iconRes = a.getResourceId(R.styleable.KoraButton_icon, 0);
-        mTextSize = a.getFloat(R.styleable.KoraButton_textSize, Attributes.TEXT_MEDIUM);
-        mAttrs.overrideMaxSize = a.getBoolean(R.styleable.KoraButton_overrideCommonTextSize, false);
+        float textSize = a.getFloat(R.styleable.KoraButton_textSize, Attributes.TEXT_MEDIUM);
+        attr.overrideMaxSize = a.getBoolean(R.styleable.KoraButton_overrideCommonTextSize, false);
         
+        Bitmap icon;
         if(iconRes != 0)
-            mIcon = BitmapFactory.decodeResource(
+            icon = BitmapFactory.decodeResource(
                     context.getResources(), iconRes);
         else
-            mIcon = BitmapFactory.decodeResource(
+            icon = BitmapFactory.decodeResource(
                     context.getResources(), R.drawable.icon_empty);
-        /* Pillar atributos del vector y utilizarlos */
         
-        if(sVibrator==null)
-        	sVibrator = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
-        
-        setFocusable(true);
-        setClickable(true);
+        init(text, icon, attr, textSize);
         
         a.recycle();
+    }
+    
+    protected void init(String text, Bitmap icon, Attributes attr, float textSize)
+    {
+        mText = (text == null) ? "" : text;
+        mIcon = icon;
+        mFocused = mSelected = false;
+        
+        if(attr!=null)
+            mAttrs = attr;
+        else
+            mAttrs = new Attributes();
+        
+        if(sVibrator==null)
+            sVibrator = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
+        
+        mSelectionTimer = new CountDownTimer(5000, 1000) {
+            public void onTick(long millisLeft) {
+            }
+
+            public void onFinish() {
+                deselect();
+            }
+        };
+
+        setFocusable(true);
+        setClickable(true);
     }
     
     public static void resetMinTextSize()
@@ -328,34 +342,44 @@ public class KoraButton extends KoraView
 
         int action = event.getAction();
 
-        switch(action){
-            case MotionEvent.ACTION_DOWN:
-                mFocused = true;
-                invalidate();
-                break;
-            case MotionEvent.ACTION_UP:
-                int x = (int) event.getX(),
-                    y = (int) event.getY();
-                
-                if(x<mWidth && y<mHeight && mFocused){
-                    mSelected = !mSelected;
+        if(!mSelected){ // aceptar eventos cuando no estoy bloqueado
+            switch(action){
+                case MotionEvent.ACTION_DOWN:
+                    mFocused = true;
+                    invalidate();
+                    break;
+                case MotionEvent.ACTION_UP:
+                    int x = (int) event.getX(),
+                        y = (int) event.getY();
                     
-                    if(mAttrs.vibrate)
-	                    sVibrator.vibrate(500);
+                    if(x<mWidth && y<mHeight && mFocused){
+                        mSelected = true;
+                        
+                        mSelectionTimer.start();
+                        
+                        if(mAttrs.vibrate)
+    	                    sVibrator.vibrate(500);
+                        
+                        if(mClickListener!=null)
+                            mClickListener.onClick(this);
+                        
+                    } else {
+                        mSelected = false;
+                    }
+                    mFocused = false;
                     
-                    if(mClickListener!=null)
-                        mClickListener.onClick(this);
-                    
-                } else {
-                    mSelected = false;
-                }
-                mFocused = false;
-                
-                invalidate();
-                break;
+                    invalidate();
+                    break;
+            }
         }
 
         return true;
+    }
+    
+    public void deselect()
+    {
+        mSelected = false;
+        invalidate();
     }
 
     public String getText()
@@ -377,6 +401,13 @@ public class KoraButton extends KoraView
     public void setIcon(Bitmap icon)
     {
         mIcon = icon;
+        invalidate();
+    }
+    
+    public void setIcon(int resourceId)
+    {
+        mIcon = BitmapFactory.decodeResource(
+                getContext().getResources(), resourceId);
         invalidate();
     }
 

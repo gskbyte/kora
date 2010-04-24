@@ -191,7 +191,12 @@
         <string name="addDeviceProfile">Add device profile</string>
         
             <!--  nothing yet -->
-            
+    
+    <!-- Device selection strings -->
+    <string name="back">Back</string>
+    <string name="next">Next</string>
+    <string name="more">More</string>
+    
     <!-- Device strings -->
     <string name="light">Light</string>
     <string name="sunblind">Sunblind</string>

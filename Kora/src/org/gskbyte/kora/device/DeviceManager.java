@@ -96,8 +96,8 @@ public class DeviceManager
             dlp = new DeviceListProxy();
             specs = dlp.getDeviceSpecs();
         } catch (Exception e) {
-            // TODO Auto-generated catch block
-            Log.e(TAG, "jaiaaaaa  - " + e.getStackTrace()[0].toString() );
+            Log.e(TAG, "No se puede conectar al servicio de listado de dispositivos" + 
+                        e.getStackTrace()[0].toString() );
         }
 
         actual2 = System.currentTimeMillis();
@@ -105,7 +105,6 @@ public class DeviceManager
         actual = actual2;
         
     	// Asociar representaciones y crear dispositivos
-    	
     	for(DeviceSpec s : specs){
     		DeviceRepresentation dr = sDeviceRepsMap.get(s.getDeviceType());
     		if(dr==null){ // si no tengo representación para este cacharrico

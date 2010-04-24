@@ -19,9 +19,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             gskbyte:showText="true"
-            gskbyte:text="back"
+            gskbyte:text="@string/back"
             gskbyte:icon="@drawable/action_previous"
-            gskbyte:textSize="35"
+            gskbyte:textSize="30"
             gskbyte:overrideCommonTextSize="true"
 		    />
 		
@@ -31,9 +31,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             gskbyte:showText="true"
-            gskbyte:text="next"
+            gskbyte:text="@string/next"
             gskbyte:icon="@drawable/action_next"
-            gskbyte:textSize="35"
+            gskbyte:textSize="30"
             gskbyte:overrideCommonTextSize="true"
             />
 		
