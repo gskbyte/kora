@@ -6,12 +6,10 @@ import org.gskbyte.kora.device.DeviceControl;
 import org.gskbyte.kora.device.DeviceManager;
 import org.gskbyte.kora.device.DeviceRepresentation;
 import org.gskbyte.kora.device.Device.DeviceChangeListener;
-import org.gskbyte.kora.handling.DeviceHandlingActivity;
 import org.ugr.bluerose.Comparison;
 import org.ugr.bluerose.events.Value;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.View;
 
 public class DeviceBinaryButton extends KoraButton implements DeviceChangeListener
@@ -22,8 +20,21 @@ public class DeviceBinaryButton extends KoraButton implements DeviceChangeListen
 	
 	public static class Attributes extends KoraButton.Attributes
     {
-		// Valores propios de configuración de este botón
+        // Valores propios de configuración de este botón
 		public int icon = DeviceRepresentation.ICON_DEFAULT;
+        public boolean customIcon = false;
+        
+        public Attributes()
+        {
+            super();
+        }
+        
+        public Attributes(Attributes o)
+        {
+            super(o);
+            icon = o.icon;
+            customIcon = o.customIcon;
+        }
     }
 	
 	public DeviceBinaryButton(Context context, Attributes attr, String deviceName, String controlName)
@@ -71,11 +82,11 @@ public class DeviceBinaryButton extends KoraButton implements DeviceChangeListen
 		if(isMinimum){
 			mNextValue = mDevice.getMax();
 			mIcon = mControl.getIcon(((Attributes)mAttrs).icon, 0);
-			mText = mControl.getCaption(0);
+			mText = mControl.getStateName(0);
 		} else { // si no está al mínimo, bajar al mínimo
 			mNextValue = mDevice.getMin();
 			mIcon = mControl.getIcon(((Attributes)mAttrs).icon, 1);
-			mText = mControl.getCaption(1);
+			mText = mControl.getStateName(1);
 		}
 	}
 	

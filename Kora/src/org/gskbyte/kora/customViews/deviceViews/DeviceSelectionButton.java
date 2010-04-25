@@ -16,9 +16,21 @@ public class DeviceSelectionButton extends KoraButton
 	
 	public static class Attributes extends KoraButton.Attributes
     {
-		// Valores propios de configuración de este botón
+        // Valores propios de configuración de este botón
 		public int icon = DeviceRepresentation.ICON_DEFAULT;
 		public boolean customIcon = false;
+		
+		public Attributes()
+        {
+            super();
+        }
+		
+        public Attributes(Attributes o)
+        {
+            super(o);
+            icon = o.icon;
+            customIcon = o.customIcon;
+        }
     }
 	
 	public DeviceSelectionButton(Context context, Attributes attr,

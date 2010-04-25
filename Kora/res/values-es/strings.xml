@@ -188,7 +188,8 @@
             <!--  nothing yet -->
             
     <!-- Device selection strings -->
-    <string name="back">Anterior</string>
+    <string name="back">Volver</string>
+    <string name="previous">Anterior</string>
     <string name="next">Siguiente</string>
     <string name="more">Más</string>
     

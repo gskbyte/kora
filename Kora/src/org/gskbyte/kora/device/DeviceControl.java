@@ -14,20 +14,17 @@ public class DeviceControl
 	public final static class State
 	{
 		protected int mIconMode = -1;
-		protected String mCaption;
+		protected String mName;
 		protected String mFileName;
+		protected String mAbsoluteAction;
 		protected Bitmap mIcon;
 		
-		public State(String fileName)
-		{
-			mFileName = fileName;
-		}
-		
-		public State(String fileName, String caption)
-		{
-			mFileName = fileName;
-			mCaption = caption;
-		}
+		public State(String fileName, String name, String absoluteAction)
+        {
+            mFileName = fileName;
+            mName = name;
+            mAbsoluteAction = absoluteAction;
+        }
 		
 		protected Bitmap getIcon(int mode, String basePath, Bitmap parentIcon)
 		{
@@ -107,8 +104,15 @@ public class DeviceControl
     	return mStates.get(index).getIcon(iconMode, parentPath, parentIcon);
     }
     
-    public String getCaption(int index)
+    public String getStateName(int index)
     {
-    	return mStates.get(index).mCaption;
+    	return mStates.get(index).mName;
     }
+    
+    public String getStateAbsoluteAction(int index)
+    {
+        return mStates.get(index).mAbsoluteAction;
+    }
+
+    
 }

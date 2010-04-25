@@ -6,7 +6,7 @@
     <icon class="photo"/>
     
     <control name="switch" type="binary">
-    	<icon index="0" file="0.png" caption="Off"/>
-    	<icon index="1" file="1.png" caption="On"/>
+        <state index="0" icon="0.png" name="Apagada" absoluteAction="Apagar"/>
+        <state index="1" icon="1.png" name="Encendida" absoluteAction="Encender"/>
     </control>
 </deviceRepresentation>

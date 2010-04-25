@@ -3,18 +3,18 @@
     <icon class="default"/>
     <icon class="highContrast"/>
     <icon class="blackWhite"/>
-    <!--<icon class="photo"/>-->
+    <icon class="photo"/>
     
     <control name="switch" type="binary">
-        <icon index="0" file="0.png" caption="Abajo"/>
-        <icon index="1" file="4.png" caption="Arriba"/>
+        <state index="0" icon="0.png" name="Abajo"  absoluteAction="Bajar"/>
+        <state index="1" icon="4.png" name="Arriba" absoluteAction="Subir"/>
     </control>
     
     <control name="intensity" type="scalar">
-        <icon index="0" file="0.png" caption="Abajo"/>
-        <icon index="1" file="1.png" caption="Abajo-medio"/>
-        <icon index="2" file="2.png" caption="En medio"/>
-        <icon index="3" file="3.png" caption="Arriba-medio"/>
-        <icon index="4" file="4.png" caption="Arriba"/>
+        <state index="0" icon="0.png" name="Abajo"/>
+        <state index="1" icon="1.png" name="Abajo-medio"/>
+        <state index="2" icon="2.png" name="En medio"/>
+        <state index="3" icon="3.png" name="Arriba-medio"/>
+        <state index="4" icon="4.png" name="Arriba"/>
     </control>
 </deviceRepresentation>

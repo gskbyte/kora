@@ -82,15 +82,22 @@ public class DeviceRepresentation
                     	if(controlIconNode.getNodeType() == Node.ELEMENT_NODE){
                     		NamedNodeMap iconAttr = controlIconNode.getAttributes();
                     		//int index = Integer.parseInt( iconAttr.getNamedItem("index").getNodeValue() );
-                    		String iconName = iconAttr.getNamedItem("file").getNodeValue();
-                    		Node captionNode = iconAttr.getNamedItem("caption");
+                    		String iconName = iconAttr.getNamedItem("icon").getNodeValue();
+                    		Node nameNode = iconAttr.getNamedItem("name");
+                    		Node absoluteActionNode = iconAttr.getNamedItem("absoluteAction");
                     		DeviceControl.State state;
-                    		if(captionNode!=null){
-                    			String caption = captionNode.getNodeValue();
-                    			state = new DeviceControl.State(iconName, caption);
-                    		} else {
-                    			state = new DeviceControl.State(iconName);
+                    		
+                    		String name = "",
+                    		       absoluteAction = "";
+                            if(nameNode!=null){
+                                name = nameNode.getNodeValue();
+                            }
+                    		if(absoluteActionNode!=null){
+                    		    absoluteAction = absoluteActionNode.getNodeValue();
                     		}
+                    		
+                    		state = new DeviceControl.State(iconName, name, absoluteAction);
+                    		
                     		dc.addState(state);
                     	}
                     }

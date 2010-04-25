@@ -4,6 +4,7 @@ import java.util.Vector;
 
 import org.gskbyte.kora.R;
 import org.gskbyte.kora.customViews.GridLayout;
+import org.gskbyte.kora.customViews.KoraView;
 import org.gskbyte.kora.customViews.deviceViews.DeviceSelectionButton;
 import org.gskbyte.kora.customViews.koraButton.KoraButton;
 import org.gskbyte.kora.device.DeviceManager;
@@ -20,14 +21,15 @@ public class DeviceSelectionActivity extends Activity
 {
     private static final String TAG = "DeviceSelectionActivity";
 
+    private static KoraView.Attributes sCurrentAttr;
     private GridLayout mGrid;
     
     private int mCurrentPage;
     
     private GridLayout mNavigationButtons;
-    private KoraButton mBackButton, mNextButton;
+    private KoraButton mPreviousButton, mNextButton;
     private KoraButton mGridNextButton;
-    private int mIconBackId = R.drawable.icon_back,
+    private int mIconReturnId = R.drawable.icon_back,
                 mIconNextId = R.drawable.icon_next;
     
     private boolean mShowPagingButtons;
@@ -36,17 +38,16 @@ public class DeviceSelectionActivity extends Activity
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         
         setContentView(R.layout.device_selection_layout);
         
         // Cargar componentes de la vista
         mGrid = (GridLayout) findViewById(R.id.deviceGrid);
         mNavigationButtons = (GridLayout) findViewById(R.id.navigationButtons);
-        mBackButton = (KoraButton) findViewById(R.id.back);
+        mPreviousButton = (KoraButton) findViewById(R.id.back);
         mNextButton = (KoraButton) findViewById(R.id.next);
         
-        mBackButton.setOnClickListener(previousPageListener);
+        mPreviousButton.setOnClickListener(previousPageListener);
         mNextButton.setOnClickListener(nextPageListener);
         
         // Conectar gestor de dispositivos
@@ -59,10 +60,16 @@ public class DeviceSelectionActivity extends Activity
     public void onStart()
     {
     	super.onStart();
+    	sCurrentAttr = mAttr;
     	
     	int nbuttons = mGrid.getChildCount();
     	for(int i=0; i<nbuttons; ++i)
     	    ((KoraButton)mGrid.getChildAt(i)).deselect();
+    }
+    
+    public static KoraView.Attributes getAttributes()
+    {
+        return sCurrentAttr;
     }
     
     public void configureView()
@@ -124,12 +131,12 @@ public class DeviceSelectionActivity extends Activity
     	switch(up.iconMode){
     	case UseProfile.visualization.icon_high_contrast:
     		((DeviceSelectionButton.Attributes)mAttr).icon = DeviceRepresentation.ICON_HIGH_CONTRAST;
-    		mIconBackId = R.drawable.icon_back_hc;
+    		mIconReturnId = R.drawable.icon_back_hc;
     		mIconNextId = R.drawable.icon_next_hc;
     		break;
     	case UseProfile.visualization.icon_black_white:
     		((DeviceSelectionButton.Attributes)mAttr).icon = DeviceRepresentation.ICON_BLACK_WHITE;
-            mIconBackId = R.drawable.icon_back_bw;
+            mIconReturnId = R.drawable.icon_back_bw;
             mIconNextId = R.drawable.icon_next_bw;
     		break;
     	case UseProfile.visualization.icon_photo:
@@ -143,7 +150,7 @@ public class DeviceSelectionActivity extends Activity
     		((DeviceSelectionButton.Attributes)mAttr).icon = DeviceRepresentation.ICON_DEFAULT;
     		break;
     	}
-    	mBackButton.setIcon(mIconBackId);
+    	mPreviousButton.setIcon(mIconReturnId);
         mNextButton.setIcon(mIconNextId);
 	    	
     		// customImage
@@ -216,7 +223,7 @@ public class DeviceSelectionActivity extends Activity
             mGridNextButton.deselect();
             mGrid.addView(mGridNextButton);
         } else {
-            mBackButton.deselect();
+            mPreviousButton.deselect();
             mNextButton.deselect();
         }
         mCurrentPage = page;

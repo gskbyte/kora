@@ -55,6 +55,28 @@ public class KoraView extends View
         
         // Vibrar sí/no
         public boolean vibrate = false;
+        
+        public Attributes()
+        {
+            
+        }
+        
+        public Attributes(Attributes o)
+        {
+            allowedOrientations = o.allowedOrientations;
+            maxProportion = o.maxProportion;
+            showText = o.showText;
+            textMaxSize = o.textMaxSize;
+            overrideMaxSize = o.overrideMaxSize;
+            typeface = o.typeface;
+            textColor = o.textColor;
+            
+            // ¿Esto es correcto?
+            backgroundColors = o.backgroundColors;
+            borderColors = o.borderColors;
+            
+            vibrate = o.vibrate;
+        }
     }
 	
     // Superficie para dibujar
