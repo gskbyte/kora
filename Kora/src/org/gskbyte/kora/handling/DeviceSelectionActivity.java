@@ -64,8 +64,8 @@ public class DeviceSelectionActivity extends Activity
     	sCurrentAttr = mAttr;
     	
     	int nbuttons = mGrid.getChildCount();
-    	for(int i=0; i<nbuttons; ++i)
-    	    ((KoraButton)mGrid.getChildAt(i)).deselect();
+    	//for(int i=0; i<nbuttons; ++i)
+    	//    ((KoraButton)mGrid.getChildAt(i)).deselect();
     }
     
     public static DeviceViewAttributes getAttributes()
@@ -81,12 +81,6 @@ public class DeviceSelectionActivity extends Activity
     	// Opciones de vibración, orientación y demás (DESACTIVAR AL SALIR)
     	
     	// Propiedades de la rejilla
-    	mShowPagingButtons = (up.paginationMode == UseProfile.interaction.pagination_standard);
-        if(mShowPagingButtons)
-        	mNavigationButtons.setVisibility(View.VISIBLE);
-        else
-        	mNavigationButtons.setVisibility(View.GONE);
-        	
     	mGrid.setDimensions(up.rows, up.columns);
     	switch(up.margin){
     	case UseProfile.visualization.margin_large:
@@ -100,7 +94,14 @@ public class DeviceSelectionActivity extends Activity
     		mGrid.setMargin(5);
     		break;
     	}
-    	
+
+        mShowPagingButtons = (up.paginationMode == UseProfile.interaction.pagination_standard);
+        int nDevices = DeviceManager.getNumberOfDevices();
+        if(mShowPagingButtons && nDevices>mGrid.getNRows()*mGrid.getNColumns()){
+            mNavigationButtons.setVisibility(View.VISIBLE);
+        }
+        else
+            mNavigationButtons.setVisibility(View.GONE);
     	
     	// Propiedades de botones
 			// viewMode
