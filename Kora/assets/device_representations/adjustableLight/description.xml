@@ -12,9 +12,9 @@
     
     <control name="intensity" type="scalar" access="RW">
         <state index="0" icon="0.png" name="Apagado"/>
-        <state index="1" icon="1.png"/>
-        <state index="2" icon="2.png" name="En medio"/>
-        <state index="3" icon="3.png"/>
+        <state index="1" icon="1.png" name="Medio-bajo"/>
+        <state index="2" icon="2.png" name="Medio"/>
+        <state index="3" icon="3.png" name="Medio-Alto"/>
         <state index="4" icon="4.png" name="Encendido"/>
     </control>
 </deviceRepresentation>

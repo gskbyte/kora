@@ -1,6 +1,7 @@
 package org.gskbyte.kora.settingsActivities;
 
 import org.gskbyte.kora.R;
+import org.gskbyte.kora.settings.SettingsManager;
 import org.gskbyte.kora.settingsActivities.deviceProfiles.DeviceProfilesActivity;
 import org.gskbyte.kora.settingsActivities.useProfiles.UseProfilesActivity;
 import org.gskbyte.kora.settingsActivities.users.UsersActivity;
@@ -41,5 +42,11 @@ public class SettingsActivity extends TabActivity
         tabHost.addTab(deviceProfilesTab);
 
         tabHost.setCurrentTab(0);
+    }
+    
+    public void onDestroy()
+    {
+        SettingsManager.saveCurrentUser();
+        super.onDestroy();
     }
 }

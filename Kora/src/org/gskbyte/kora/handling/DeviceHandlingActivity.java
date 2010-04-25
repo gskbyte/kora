@@ -72,7 +72,7 @@ public class DeviceHandlingActivity extends Activity
     private void configureView()
     {
         mGrid.setDimensions(mDevice.getRepresentation().getNDeviceControls(), 1);
-        mAttr = DeviceSelectionActivity.getAttributes();
+        mAttr = ViewManager.getAttributes();
         int iconBackId;
         switch(mAttr.icon){
         case DeviceRepresentation.ICON_HIGH_CONTRAST:
@@ -86,6 +86,7 @@ public class DeviceHandlingActivity extends Activity
             iconBackId = R.drawable.icon_back;
             break;
         }
+        mBackButton.setAttributes(ViewManager.getAttributes(ViewManager.COLOR_INDEX_BACK, true));
         mBackButton.setIcon(iconBackId);
     }
     
@@ -94,6 +95,7 @@ public class DeviceHandlingActivity extends Activity
         mControls = new Vector<DeviceEventListener>();
         
         Set<String> controls = mRepr.getDeviceControlNames();
+        int btn_index = 0;
         for(String s: controls){
             DeviceControl dc = mRepr.getControl(s);
             DeviceEventListener l = null;
@@ -102,10 +104,16 @@ public class DeviceHandlingActivity extends Activity
                 case DeviceControl.ACCESS_READ:
                     break;
                 case DeviceControl.ACCESS_WRITE:
-                    l = new DeviceBinarySelector(this, mAttr, mDeviceName, dc);
+                    l = new DeviceBinarySelector(this,
+                            ViewManager.getAttributes(btn_index),
+                            ViewManager.getAttributes(btn_index+1),
+                            mDeviceName, dc);
+                    ++btn_index;
                     break;
                 case DeviceControl.ACCESS_READ_WRITE:
-                    l = new DeviceBinaryButton(this, mAttr, mDeviceName, dc);
+                    l = new DeviceBinaryButton(this,
+                            ViewManager.getAttributes(btn_index),
+                            mDeviceName, dc);
                     break;
                 }
             } else {
@@ -115,13 +123,16 @@ public class DeviceHandlingActivity extends Activity
                 case DeviceControl.ACCESS_WRITE:
                     break;
                 case DeviceControl.ACCESS_READ_WRITE:
-                    l = new DeviceSlider(this, mAttr, mDeviceName, dc);
+                    l = new DeviceSlider(this,
+                            ViewManager.getAttributes(btn_index, true),
+                            mDeviceName, dc);
                     break;
                 }
             }
             if(l!=null){
                 mControls.add(l);
                 mGrid.addView((View)l);
+                ++btn_index;
             }
         }
     }

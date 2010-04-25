@@ -65,8 +65,8 @@ public class VisualizationActivity extends ProfilePropertiesActivity
         mShowTextCheckBox = (CheckBox) findViewById(R.id.showTextCheckBox);
         mTextSizeSeekBar = (ArraySeekBar) findViewById(R.id.textSizeSeekBar);
         mSansRadio = (RadioButton) findViewById(R.id.sansRadio);
-        mMasalleraRadio = (RadioButton) findViewById(R.id.monofurRadio);
-        mMonofurRadio = (RadioButton) findViewById(R.id.masalleraRadio);
+        mMasalleraRadio = (RadioButton) findViewById(R.id.masalleraRadio);
+        mMonofurRadio = (RadioButton) findViewById(R.id.monofurRadio);
         mTextBlackRadio = (RadioButton) findViewById(R.id.textBlackRadio);
         mTextWhiteRadio = (RadioButton) findViewById(R.id.textWhiteRadio);
         mTextCustomColorRadio = (RadioButton) findViewById(R.id.textCustomColorRadio);

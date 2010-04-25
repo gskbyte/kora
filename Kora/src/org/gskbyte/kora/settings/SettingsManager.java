@@ -92,13 +92,17 @@ public class SettingsManager
         //DeviceProfile dp = UseProfileManager.load(u.getUseProfileName());
     }
     
-    public static void finish()
+    public static void saveCurrentUser()
     {
-        sDbAdapter.close();
-        // Guardar en el fichero de preferencias y hacer commit
         SharedPreferences.Editor editor = sPreferences.edit();
         editor.putString(PREFERENCE_LAST_USER_NAME, sCurrentUser.getName());
         editor.commit();
+    }
+    
+    public static void finish()
+    {
+        sDbAdapter.close();
+        saveCurrentUser();
     }
     
     public static boolean existsUser(String name)

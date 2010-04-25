@@ -179,13 +179,13 @@ public class KoraSlider extends KoraView
         RectF sliderMarkBorderRect = new RectF(startx, mSliderMarkY, 
                 startx+mSliderMarkWidth, mSliderMarkY+mSliderMarkHeight);
         canvas.drawRoundRect(sliderMarkBorderRect, 5, 5, sPaint);
-        
+        /*
         sPaint.setColor(bgColor);
         RectF sliderMarkBgRect = new RectF(startx+mSliderBorderSize,
                                        mSliderMarkY+mSliderBorderSize, 
                                        startx+mSliderMarkWidth-mSliderBorderSize,
                                        mSliderMarkY+mSliderMarkHeight-mSliderBorderSize);
-        canvas.drawRoundRect(sliderMarkBgRect, 5, 5, sPaint);
+        canvas.drawRoundRect(sliderMarkBgRect, 5, 5, sPaint);*/
     }
     
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)

@@ -15,18 +15,22 @@ public class DeviceBinarySelector extends GridLayout implements DeviceEventListe
 {
     protected Device mDevice;
     
-    public DeviceBinarySelector(Context context, DeviceViewAttributes attr, String deviceName, DeviceControl dc)
+    public DeviceBinarySelector(Context context, 
+            DeviceViewAttributes attr1, DeviceViewAttributes attr2, 
+            String deviceName, DeviceControl dc)
     {
         super(context);
         setDimensions(1, 2);
         
         KoraButton b0 = new KoraButton(context,
                                        dc.getStateAbsoluteAction(0),
-                                       dc.getIcon(attr.icon, 0));
+                                       dc.getIcon(attr1.icon, 0),
+                                       attr1);
 
         KoraButton b1 = new KoraButton(context,
                                        dc.getStateAbsoluteAction(1),
-                                       dc.getIcon(attr.icon, 1));
+                                       dc.getIcon(attr2.icon, 1),
+                                       attr2);
         
         mDevice = DeviceManager.getDevice(deviceName);
         

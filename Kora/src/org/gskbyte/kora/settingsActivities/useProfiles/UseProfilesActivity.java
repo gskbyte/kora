@@ -27,7 +27,6 @@ public class UseProfilesActivity extends ProfilesActivity
     private static final String TAG = "UsersActivity";
     
     private User mCurrentUser;
-    private UseProfile mCurrentUseProfile;
     
     public void onCreate(Bundle savedInstanceState)
     {
@@ -35,7 +34,6 @@ public class UseProfilesActivity extends ProfilesActivity
         
         /* Iniciar manejadores, cargar usuario actual */
         mCurrentUser = SettingsManager.getCurrentUser();
-        mCurrentUseProfile = SettingsManager.getCurrentUseProfile();
         
         
         /* Iniciar listeners */

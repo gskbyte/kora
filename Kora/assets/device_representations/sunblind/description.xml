@@ -5,7 +5,7 @@
     <icon class="blackWhite"/>
     <icon class="photo"/>
     
-    <control name="switch" type="binary"access="W">
+    <control name="switch" type="binary" access="W">
         <state index="0" icon="0.png" name="Abajo"  absoluteAction="Bajar"/>
         <state index="1" icon="4.png" name="Arriba" absoluteAction="Subir"/>
     </control>

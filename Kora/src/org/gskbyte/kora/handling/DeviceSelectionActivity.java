@@ -22,7 +22,6 @@ public class DeviceSelectionActivity extends Activity
 {
     private static final String TAG = "DeviceSelectionActivity";
 
-    private static DeviceViewAttributes sCurrentAttr;
     private GridLayout mGrid;
     
     private int mCurrentPage;
@@ -53,6 +52,7 @@ public class DeviceSelectionActivity extends Activity
         
         // Conectar gestor de dispositivos
         DeviceManager.connect();
+        
         configureView();
         
         viewPage(0);
@@ -61,40 +61,31 @@ public class DeviceSelectionActivity extends Activity
     public void onStart()
     {
     	super.onStart();
-    	sCurrentAttr = mAttr;
     	
-    	int nbuttons = mGrid.getChildCount();
+    	//int nbuttons = mGrid.getChildCount();
     	//for(int i=0; i<nbuttons; ++i)
     	//    ((KoraButton)mGrid.getChildAt(i)).deselect();
     }
     
-    public static DeviceViewAttributes getAttributes()
-    {
-        return sCurrentAttr;
-    }
-    
     public void configureView()
     {
-    	UseProfile up = SettingsManager.getCurrentUseProfile();
-    	mAttr = new DeviceViewAttributes();
-    	
-    	// Opciones de vibración, orientación y demás (DESACTIVAR AL SALIR)
-    	
-    	// Propiedades de la rejilla
-    	mGrid.setDimensions(up.rows, up.columns);
-    	switch(up.margin){
-    	case UseProfile.visualization.margin_large:
-    		mGrid.setMargin(20);
-    		break;
-    	case UseProfile.visualization.margin_medium:
-    		mGrid.setMargin(10);
-    		break;
-    	case UseProfile.visualization.margin_small:
-		default:
-    		mGrid.setMargin(5);
-    		break;
-    	}
-
+        ViewManager.init(this);
+        mAttr = ViewManager.getAttributes();
+        UseProfile up = SettingsManager.getCurrentUseProfile();
+        mGrid.setDimensions(up.rows, up.columns);
+        switch(up.margin){
+        case UseProfile.visualization.margin_large:
+            mGrid.setMargin(20);
+            break;
+        case UseProfile.visualization.margin_medium:
+            mGrid.setMargin(10);
+            break;
+        case UseProfile.visualization.margin_small:
+        default:
+            mGrid.setMargin(5);
+            break;
+        }
+        
         mShowPagingButtons = (up.paginationMode == UseProfile.interaction.pagination_standard);
         int nDevices = DeviceManager.getNumberOfDevices();
         if(mShowPagingButtons && nDevices>mGrid.getNRows()*mGrid.getNColumns()){
@@ -102,73 +93,26 @@ public class DeviceSelectionActivity extends Activity
         }
         else
             mNavigationButtons.setVisibility(View.GONE);
-    	
-    	// Propiedades de botones
-			// viewMode
-			// backColor
-    	
-    	// showText
-    	mAttr.showText = up.showText;
-    	
-		// fontSize
-    	switch(up.textSize){
-    	case UseProfile.visualization.text_size_large:
-    		mAttr.textMaxSize = KoraButton.Attributes.TEXT_LARGE;
-    		break;
-    	case UseProfile.visualization.text_size_medium:
-    		mAttr.textMaxSize = KoraButton.Attributes.TEXT_MEDIUM;
-    		break;
-    	case UseProfile.visualization.text_size_small:
-    		mAttr.textMaxSize = KoraButton.Attributes.TEXT_SMALL;
-		default:
-    		break;
-    	}
-			// typography
-			// typographyCaps
-    	
-		// textColor
-	    mAttr.textColor = up.textColor;
-	    	
-		// iconMode
-    	switch(up.iconMode){
-    	case UseProfile.visualization.icon_high_contrast:
-    		mAttr.icon = DeviceRepresentation.ICON_HIGH_CONTRAST;
-    		mIconReturnId = R.drawable.icon_back_hc;
-    		mIconNextId = R.drawable.icon_next_hc;
-    		break;
-    	case UseProfile.visualization.icon_black_white:
-    		mAttr.icon = DeviceRepresentation.ICON_BLACK_WHITE;
+        
+        
+        switch(mAttr.icon){
+        case  DeviceRepresentation.ICON_HIGH_CONTRAST:
+            mIconReturnId = R.drawable.icon_back_hc;
+            mIconNextId = R.drawable.icon_next_hc;
+            break;
+        case DeviceRepresentation.ICON_BLACK_WHITE:
             mIconReturnId = R.drawable.icon_back_bw;
             mIconNextId = R.drawable.icon_next_bw;
-    		break;
-    	case UseProfile.visualization.icon_photo:
-    		mAttr.icon = DeviceRepresentation.ICON_PHOTO;
-    		break;
-    	case UseProfile.visualization.icon_animation:
-    	    mAttr.icon = DeviceRepresentation.ICON_ANIMATION;
-    		break;
-    	case UseProfile.visualization.icon_pictogram:
-		default:
-    		mAttr.icon = DeviceRepresentation.ICON_DEFAULT;
-    		break;
-    	}
-    	mPreviousButton.setIcon(mIconReturnId);
+            break;
+        default: // para resto de opciones
+            mIconReturnId = R.drawable.icon_back;
+            mIconNextId = R.drawable.icon_next;
+            break;
+        }
+        mPreviousButton.setIcon(mIconReturnId);
+        mPreviousButton.setAttributes(ViewManager.getAttributes(ViewManager.COLOR_INDEX_PREVIOUS, true));
         mNextButton.setIcon(mIconNextId);
-	    	
-    		// customImage
-    	
-    	
-    	
-    	mAttr.vibrate = up.vibration;
-        	// confirmation
-    		// confirmationTimeMillis
-    		// contentHighlight
-    		// borderHighlight
-    	
-    	/* TTS
-    	 * http://android-developers.blogspot.com/2009/09/introduction-to-text-to-speech-in.html
-    	 * */
-    	
+        mNextButton.setAttributes(ViewManager.getAttributes(ViewManager.COLOR_INDEX_NEXT, true));
     }
     
     protected Vector<DeviceSelectionButton> getButtonsForDevices(int initialIndex, int howMany)
@@ -176,8 +120,9 @@ public class DeviceSelectionActivity extends Activity
         Vector<DeviceSelectionButton> ret = new Vector<DeviceSelectionButton>();
         
         for(int i=initialIndex; i<initialIndex+howMany; ++i){
+            
             DeviceSelectionButton b = new DeviceSelectionButton(this, 
-                    mAttr, 
+                    ViewManager.getAttributes(i), 
                     DeviceManager.getDeviceSystemName(i));
             ret.add(b);
         }
@@ -185,14 +130,24 @@ public class DeviceSelectionActivity extends Activity
         return ret;
     }
     
+    protected int truncateTop(float n)
+    {
+        int in = (int)n;
+        
+        if(in < n)
+            return in+1;
+        else
+            return in;
+    }
+    
     protected void viewPage(int page)
     {
         int nDevices = DeviceManager.getNumberOfDevices();
         int gridSize = mGrid.getNRows()*mGrid.getNColumns();
         Vector<DeviceSelectionButton> btns;
+        int nDeviceButtons = mShowPagingButtons ? gridSize : gridSize-1;
+        int nPages = truncateTop((float)nDevices / (float)nDeviceButtons);
         if(nDevices>gridSize){
-            int nDeviceButtons = mShowPagingButtons ? gridSize : gridSize-1;
-            int nPages = nDevices / nDeviceButtons + 1;
             
             if(page<0)
                 page = nPages-1;
@@ -214,16 +169,20 @@ public class DeviceSelectionActivity extends Activity
 
         // Añadir botón de paginación si es necesario
         if(!mShowPagingButtons){
-            for(int i=0; i<gridSize-btns.size()-1; ++i)
-                mGrid.addView(new View(this));
-            if (mGridNextButton == null){
-                String moreString = getResources().getString(R.string.more);
-                mGridNextButton = new KoraButton(this, moreString, R.drawable.action_next);
-                mGridNextButton.setOnClickListener(nextPageListener);
-                mGridNextButton.setIcon(mIconNextId);
+            if(nPages>1){
+                for(int i=0; i<gridSize-btns.size()-1; ++i)
+                    mGrid.addView(new View(this));
+                if (mGridNextButton == null){
+                    String moreString = getResources().getString(R.string.more);
+                    mGridNextButton = new KoraButton(this, moreString,
+                            R.drawable.action_next,
+                            ViewManager.getAttributes(ViewManager.COLOR_INDEX_NEXT));
+                    mGridNextButton.setOnClickListener(nextPageListener);
+                    mGridNextButton.setIcon(mIconNextId);
+                }
+                mGridNextButton.deselect();
+                mGrid.addView(mGridNextButton);
             }
-            mGridNextButton.deselect();
-            mGrid.addView(mGridNextButton);
         } else {
             mPreviousButton.deselect();
             mNextButton.deselect();
@@ -236,7 +195,7 @@ public class DeviceSelectionActivity extends Activity
             @Override
             public void onClick(View v)
             {
-                viewPage(mCurrentPage+1);
+                viewPage(mCurrentPage-1);
             }
         };
     
@@ -245,7 +204,7 @@ public class DeviceSelectionActivity extends Activity
             @Override
             public void onClick(View v)
             {
-                viewPage(mCurrentPage-1);
+                viewPage(mCurrentPage+1);
             }
         };
     
@@ -253,7 +212,7 @@ public class DeviceSelectionActivity extends Activity
     // * = TOTALMENTE IMPLEMENTADO
     // - = A MEDIAS
 
-    
+     
     /*
     // Interaction settings
     public int mainInteraction = interaction.touch_mode;
@@ -272,7 +231,7 @@ public class DeviceSelectionActivity extends Activity
     public int orientations = visualization.orientation_both;
     * public boolean showText = true;
     * public int textSize = visualization.text_size_small;
-    public int typography = visualization.font_sans;
+    * public int typography = visualization.font_sans;
     public boolean typographyCaps = false;
     * public int textColor = 0xFF000000;
     * public int iconMode = visualization.icon_pictogram;

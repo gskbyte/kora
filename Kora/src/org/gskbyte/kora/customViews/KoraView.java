@@ -45,13 +45,13 @@ public class KoraView extends View
         
         // Fondo
         public int[] backgroundColors = { BG_NORMAL_COLOR,
-                                           BG_FOCUSED_COLOR,
-                                           BG_SELECTED_COLOR };
+                                          BG_FOCUSED_COLOR,
+                                          BG_SELECTED_COLOR };
         
         // Borde
         public int[] borderColors ={ BG_NORMAL_COLOR,
-                                      BORDER_FOCUSED_COLOR,
-                                      BORDER_SELECTED_COLOR };
+                                     BORDER_FOCUSED_COLOR,
+                                     BORDER_SELECTED_COLOR };
         
         // Vibrar sí/no
         public boolean vibrate = false;
@@ -71,10 +71,10 @@ public class KoraView extends View
             typeface = o.typeface;
             textColor = o.textColor;
             
-            // ¿Esto es correcto?
-            backgroundColors = o.backgroundColors;
-            borderColors = o.borderColors;
-            
+            for(int i=0; i<3; ++i){
+                backgroundColors[i] = o.backgroundColors[i];
+                borderColors[i] = o.borderColors[i];
+            }
             vibrate = o.vibrate;
         }
     }
