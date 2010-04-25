@@ -28,7 +28,7 @@ public class DeviceManager
         s1max.setBoolean(true);
         s1cur.setBoolean(false);
         DeviceSpec s1 = new DeviceSpec("bombilla1",
-                "Luz del salon",
+                "Luz grande",
                 "simpleLight",
                 DeviceSpec.ACCESS_READ_WRITE,
                 Value.BOOLEAN_TYPE,
