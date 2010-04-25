@@ -3,6 +3,7 @@ package org.gskbyte.kora.handling;
 import org.gskbyte.kora.customViews.KoraView;
 import org.gskbyte.kora.customViews.deviceViews.DeviceViewAttributes;
 import org.gskbyte.kora.customViews.koraButton.KoraButton;
+import org.gskbyte.kora.device.DeviceRepresentation;
 import org.gskbyte.kora.settings.SettingsManager;
 import org.gskbyte.kora.settings.UseProfile;
 
@@ -127,8 +128,25 @@ public class ViewManager
         
         
         // Propiedades de botones
-            // viewMode
-            // backColor
+        switch(sUp.iconMode){
+        case UseProfile.visualization.icon_animation:
+            sAttr.icon = DeviceRepresentation.ICON_ANIMATION;
+            break;
+        case UseProfile.visualization.icon_black_white:
+            sAttr.icon = DeviceRepresentation.ICON_BLACK_WHITE;
+            break;
+        case UseProfile.visualization.icon_high_contrast:
+            sAttr.icon = DeviceRepresentation.ICON_HIGH_CONTRAST;
+            break;
+        case UseProfile.visualization.icon_photo:
+            sAttr.icon = DeviceRepresentation.ICON_PHOTO;
+            break;
+        case UseProfile.visualization.icon_pictogram:
+            sAttr.icon = DeviceRepresentation.ICON_DEFAULT;
+        default:
+            break;
+        }
+        
         
         // showText
         sAttr.showText = sUp.showText;
