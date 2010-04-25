@@ -193,7 +193,7 @@ public class SimKoraView extends FrameView {
         } else {
             ChangeListener[] ls =light2Slider.getChangeListeners();
             light2Slider.removeChangeListener(ls[0]);
-            light2Slider.setValue((int)value*100);
+            light2Slider.setValue((int)(value*100f));
             light2Slider.addChangeListener(ls[0]);
             log("Evento sobre bombilla2 (flexo). Nuevo valor: " + value);
         }
@@ -241,7 +241,7 @@ public class SimKoraView extends FrameView {
         } else {
             ChangeListener[] ls =sunblindSlider.getChangeListeners();
             sunblindSlider.removeChangeListener(ls[0]);
-            sunblindSlider.setValue((int)value*100);
+            sunblindSlider.setValue((int)(value*100f));
             sunblindSlider.addChangeListener(ls[0]);
             log("Evento sobre persiana (persiana). Nuevo valor: " + value);
         }

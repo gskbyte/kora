@@ -46,7 +46,7 @@ public class DeviceManager
                 "Flexo",
                 "adjustableLight",
                 DeviceSpec.ACCESS_READ_WRITE,
-                Value.INTEGER_TYPE,
+                Value.FLOAT_TYPE,
                 s2min,
                 s2max,
                 s2cur);
@@ -61,7 +61,7 @@ public class DeviceManager
                 "Persiana",
                 "sunblind",
                 DeviceSpec.ACCESS_READ_WRITE,
-                Value.INTEGER_TYPE,
+                Value.FLOAT_TYPE,
                 s3min,
                 s3max,
                 s3cur);
