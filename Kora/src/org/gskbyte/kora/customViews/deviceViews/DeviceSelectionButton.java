@@ -35,7 +35,7 @@ public class DeviceSelectionButton extends KoraButton
 		mText = d.getReadableName();
 		
 		// otras propiedades
-        mFocused = mSelected = false;
+        mFocused = mBlocked = false;
         setFocusable(true);
         setClickable(true);
         

@@ -1,7 +1,6 @@
 package org.gskbyte.kora.customViews.koraButton;
 
 import org.gskbyte.kora.R;
-import org.gskbyte.kora.WelcomeActivity;
 import org.gskbyte.kora.customViews.KoraView;
 
 import android.content.Context;
@@ -10,16 +9,13 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
-import android.graphics.Typeface;
 import android.graphics.Paint.Align;
 import android.os.CountDownTimer;
 import android.os.Vibrator;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.view.View;
 
 public class KoraButton extends KoraView
 {
@@ -28,7 +24,7 @@ public class KoraButton extends KoraView
     // Propiedades generales del botón
     protected String mText = "";
     protected Bitmap mIcon;
-    protected boolean mFocused, mSelected;
+    protected boolean mFocused, mBlocked;
     protected KoraView.Attributes mAttrs;
     protected int mOrientation;
 
@@ -48,7 +44,7 @@ public class KoraButton extends KoraView
     protected KoraButton(Context context)
     {
     	super(context);
-        init("", null, new Attributes(), Attributes.TEXT_MEDIUM);
+        init("", null, new Attributes());
     }
     
     public KoraButton(Context context, String text, int iconId)
@@ -72,7 +68,7 @@ public class KoraButton extends KoraView
     {
         super(context);
         
-        init(text, icon, attr, Attributes.TEXT_MEDIUM);
+        init(text, icon, attr);
     }
     
     public KoraButton(Context context, AttributeSet attrs)
@@ -92,7 +88,7 @@ public class KoraButton extends KoraView
         String text = a.getString(R.styleable.KoraButton_text);
         attr.textColor = a.getColor(R.styleable.KoraButton_textColor, Color.BLACK);
         int iconRes = a.getResourceId(R.styleable.KoraButton_icon, 0);
-        float textSize = a.getFloat(R.styleable.KoraButton_textSize, Attributes.TEXT_MEDIUM);
+        attr.textMaxSize = a.getFloat(R.styleable.KoraButton_textSize, Attributes.TEXT_MEDIUM);
         attr.overrideMaxSize = a.getBoolean(R.styleable.KoraButton_overrideCommonTextSize, false);
         
         Bitmap icon;
@@ -103,16 +99,16 @@ public class KoraButton extends KoraView
             icon = BitmapFactory.decodeResource(
                     context.getResources(), R.drawable.icon_empty);
         
-        init(text, icon, attr, textSize);
+        init(text, icon, attr);
         
         a.recycle();
     }
     
-    protected void init(String text, Bitmap icon, Attributes attr, float textSize)
+    protected void init(String text, Bitmap icon, Attributes attr)
     {
         mText = (text == null) ? "" : text;
         mIcon = icon;
-        mFocused = mSelected = false;
+        mFocused = mBlocked = false;
         
         if(attr!=null)
             mAttrs = attr;
@@ -159,7 +155,7 @@ public class KoraButton extends KoraView
         // Borde
         if(mFocused)
             sPaint.setColor(mAttrs.borderColors[Attributes.INDEX_FOCUSED]);
-        else if (mSelected)
+        else if (mBlocked)
             sPaint.setColor(mAttrs.borderColors[Attributes.INDEX_SELECTED]);
         else
             sPaint.setColor(mAttrs.borderColors[Attributes.INDEX_NORMAL]);
@@ -170,7 +166,7 @@ public class KoraButton extends KoraView
         // Fondo
         if(mFocused)
         sPaint.setColor(mAttrs.backgroundColors[Attributes.INDEX_FOCUSED]);
-        else if (mSelected)
+        else if (mBlocked)
             sPaint.setColor(mAttrs.backgroundColors[Attributes.INDEX_SELECTED]);
         else
             sPaint.setColor(mAttrs.backgroundColors[Attributes.INDEX_NORMAL]);
@@ -290,7 +286,6 @@ public class KoraButton extends KoraView
     
     protected void calculateTextBounds()
     {
-        //sPaint.setAntiAlias(false);
         sPaint.setTypeface(mAttrs.typeface);
         
         int maxWidth, maxHeight;
@@ -308,13 +303,18 @@ public class KoraButton extends KoraView
         
         boolean ok = false;
         Rect bounds = new Rect();
-        sPaint.setTextSize(mAttrs.textMaxSize);
+        if(!mAttrs.overrideMaxSize && sMaxTextSize>0){
+            mTextSize = Math.min(mAttrs.textMaxSize, sMaxTextSize);
+        } else {
+            mTextSize = mAttrs.textMaxSize;
+        }
+        sPaint.setTextSize(mTextSize);
         while(!ok){
             sPaint.getTextBounds(mText, 0, mText.length(), bounds);
             if(bounds.width()<=maxWidth &&
                (bounds.height()-bounds.bottom)<=maxHeight){
                 ok = true;
-                if(mTextSize < sMaxTextSize || sMaxTextSize == -1)
+                if((mTextSize < sMaxTextSize || sMaxTextSize == -1) && !mAttrs.overrideMaxSize)
                     sMaxTextSize = mTextSize;
             } else {
                 mTextSize -= 1.0f;
@@ -342,7 +342,7 @@ public class KoraButton extends KoraView
 
         int action = event.getAction();
 
-        if(!mSelected){ // aceptar eventos cuando no estoy bloqueado
+        if(!mBlocked){ // aceptar eventos cuando no estoy bloqueado
             switch(action){
                 case MotionEvent.ACTION_DOWN:
                     mFocused = true;
@@ -353,7 +353,7 @@ public class KoraButton extends KoraView
                         y = (int) event.getY();
                     
                     if(x<mWidth && y<mHeight && mFocused){
-                        mSelected = true;
+                        mBlocked = true;
                         
                         mSelectionTimer.start();
                         
@@ -364,7 +364,7 @@ public class KoraButton extends KoraView
                             mClickListener.onClick(this);
                         
                     } else {
-                        mSelected = false;
+                        mBlocked = false;
                     }
                     mFocused = false;
                     
@@ -378,7 +378,7 @@ public class KoraButton extends KoraView
     
     public void deselect()
     {
-        mSelected = false;
+        mBlocked = false;
         invalidate();
     }
 

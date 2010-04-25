@@ -7,6 +7,7 @@ import org.gskbyte.kora.R;
 import org.gskbyte.kora.customViews.GridLayout;
 import org.gskbyte.kora.customViews.deviceViews.DeviceBinaryButton;
 import org.gskbyte.kora.customViews.deviceViews.DeviceBinarySelector;
+import org.gskbyte.kora.customViews.deviceViews.DeviceSlider;
 import org.gskbyte.kora.customViews.deviceViews.DeviceViewAttributes;
 import org.gskbyte.kora.customViews.koraButton.KoraButton;
 import org.gskbyte.kora.device.Device;
@@ -112,6 +113,7 @@ public class DeviceHandlingActivity extends Activity
                 case DeviceControl.ACCESS_WRITE:
                     break;
                 case DeviceControl.ACCESS_READ_WRITE:
+                    l = new DeviceSlider(this, mAttr, mDeviceName, dc);
                     break;
                 }
             }

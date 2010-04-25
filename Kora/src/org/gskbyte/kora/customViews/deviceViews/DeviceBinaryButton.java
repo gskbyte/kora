@@ -38,7 +38,7 @@ public class DeviceBinaryButton extends KoraButton implements DeviceEventListene
 		super(context);
 		
 		// establecer atributos iniciales de representación
-        init("", null, attr, Attributes.TEXT_LARGE);
+        init("", null, attr);
 
 		mDevice = DeviceManager.getDevice(deviceName);
 		mDevice.setChangeListener(this);
