@@ -170,7 +170,9 @@ public class DeviceManager
 
 	public static void setValueForDevice(String deviceName, Value value)
 	{
-		Event evt = new DeviceChangeEvent(deviceName, value);
+		Device dev = getDevice(deviceName);
+		dev.setValue(value);
+        Event evt = new DeviceChangeEvent(deviceName, value);
 		EventHandler.publish(evt, false);
 	}
 }

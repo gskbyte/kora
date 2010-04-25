@@ -15,12 +15,14 @@ import org.gskbyte.kora.device.DeviceControl;
 import org.gskbyte.kora.device.DeviceManager;
 import org.gskbyte.kora.device.DeviceRepresentation;
 import org.gskbyte.kora.device.Device.DeviceEventListener;
+import org.ugr.bluerose.events.Value;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 
 public class DeviceHandlingActivity extends Activity
+                                    implements DeviceEventListener
 {
     private static final String TAG = "DeviceHandlingActivity";
     public static final String TAG_DEVICE_NAME = "deviceName";
@@ -30,6 +32,7 @@ public class DeviceHandlingActivity extends Activity
     private KoraButton mBackButton;
     
     private String mDeviceName;
+    private Device mDevice;
     
     private DeviceViewAttributes mAttr;
     private DeviceRepresentation mRepr;
@@ -44,14 +47,13 @@ public class DeviceHandlingActivity extends Activity
         // Cargar componentes de la vista
         mGrid = (GridLayout) findViewById(R.id.deviceGrid);
         mBackButton = (KoraButton) findViewById(R.id.back);
-        mGrid.setDimensions(2, 1);
         mBackButton.setOnClickListener(backListener);
         
         // Cargar dispositivo a manejar, y representación adecuada
         Bundle extras = getIntent().getExtras();
         mDeviceName = extras.getString(TAG_DEVICE_NAME);
-        Device d = DeviceManager.getDevice(mDeviceName);
-        mRepr = d.getRepresentation();
+        mDevice = DeviceManager.getDevice(mDeviceName);
+        mRepr = mDevice.getRepresentation();
         
         // Configurar la vista según el perfil de usuario
         configureView();
@@ -63,13 +65,13 @@ public class DeviceHandlingActivity extends Activity
     public void onDestroy()
     {
         super.onDestroy();
-        for(DeviceEventListener dl : mControls)
-            dl.unregister();
+        unregister();
     }
     
     // Gran parte de los atributos los pillo de la actividad anterior
     private void configureView()
     {
+        mGrid.setDimensions(mDevice.getRepresentation().getNDeviceControls(), 1);
         mAttr = DeviceSelectionActivity.getAttributes();
         int iconBackId;
         switch(mAttr.icon){
@@ -132,4 +134,18 @@ public class DeviceHandlingActivity extends Activity
                 DeviceHandlingActivity.this.finish();
             }
         };
+
+    @Override
+    public void onDeviceChange(String deviceName, Value newVal)
+    {
+        for(DeviceEventListener dl : mControls)
+            dl.onDeviceChange(deviceName, newVal);
+    }
+
+    @Override
+    public void unregister()
+    {
+        for(DeviceEventListener dl : mControls)
+            dl.unregister();
+    }
 }

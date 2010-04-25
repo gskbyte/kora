@@ -1,33 +1,41 @@
 package org.gskbyte.kora.customViews.koraSlider;
 
+import java.util.Vector;
+
 import org.gskbyte.kora.customViews.KoraView;
-import org.gskbyte.kora.customViews.KoraView.Attributes;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Paint.Align;
 import android.os.CountDownTimer;
 import android.os.Vibrator;
-import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.view.View.OnClickListener;
 
 public class KoraSlider extends KoraView
 {
     public static final String TAG = "KoraSlider";
     
+    public static class State
+    {
+        protected String text;
+        protected Bitmap icon;
+        
+        public State(String text, Bitmap icon)
+        {
+            this.text = text;
+            this.icon = icon;
+        }
+    }
+    
     // Propiedades generales del botón
-    protected String mText = "";
-    protected Bitmap mIcon;
     protected boolean mFocused, mBlocked;
     protected KoraView.Attributes mAttrs;
     
     // Variables de estado del slider
-    protected int nStates;
+    protected Vector<State> mStates;
     protected int mCurrentState;
     
     // Variables de dibujo
@@ -42,7 +50,7 @@ public class KoraSlider extends KoraView
     protected int mSliderMarkX, mSliderMarkWidth, mSliderMarkY, mSliderMarkHeight;
     
     // Variables para realimentación
-    protected CountDownTimer mSelectionTimer;
+    protected CountDownTimer mBlockTimer;
     protected static Vibrator sVibrator = null;
     
     protected OnClickListener mClickListener;
@@ -50,33 +58,15 @@ public class KoraSlider extends KoraView
     protected KoraSlider(Context context)
     {
         super(context);
-        // TODO Auto-generated constructor stub
     }
     
-    public KoraSlider(Context context, String text, int iconId)
-    {
-        this(context, text, BitmapFactory.decodeResource(
-                context.getResources(), iconId));
-    }
-    
-    public KoraSlider(Context context, String text, int iconId, Attributes attr)
-    {
-        this(context, text, BitmapFactory.decodeResource(
-                context.getResources(), iconId), attr);
-    }
-
-    public KoraSlider(Context context, String text, Bitmap icon)
-    {
-        this(context, text, icon, null);
-    }
-    
-    public KoraSlider(Context context, String text, Bitmap icon, Attributes attr)
+    public KoraSlider(Context context, Vector<State> states, Attributes attr)
     {
         super(context);
-        
-        init(text, icon, attr);
+        init(states, attr);
     }
     
+    /*
     public KoraSlider(Context context, AttributeSet attrs)
     {
         this(context, attrs, 0);
@@ -85,15 +75,13 @@ public class KoraSlider extends KoraView
     public KoraSlider(Context context, AttributeSet attrs, int defStyle)
     {
         super(context, attrs, defStyle);
-        /* 
-         * NOT YET IMPLEMENTED 
-         */
     }
+    */
     
-    protected void init(String text, Bitmap icon, Attributes attr)
+    protected void init(Vector<State> states, Attributes attr)
     {
-        mText = (text == null) ? "" : text;
-        mIcon = icon;
+        mStates = states;
+        
         mFocused = mBlocked = false;
         
         if(attr!=null)
@@ -104,7 +92,7 @@ public class KoraSlider extends KoraView
         if(sVibrator==null)
             sVibrator = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
         
-        mSelectionTimer = new CountDownTimer(1000, 1000) {
+        mBlockTimer = new CountDownTimer(200, 200) {
             public void onTick(long millisLeft) {
             }
 
@@ -143,7 +131,7 @@ public class KoraSlider extends KoraView
             borderColor = mAttrs.borderColors[Attributes.INDEX_SELECTED];
         } else {
             bgColor = mAttrs.backgroundColors[Attributes.INDEX_NORMAL];
-            borderColor = mAttrs.borderColors[Attributes.INDEX_FOCUSED];
+            borderColor = mAttrs.borderColors[Attributes.INDEX_NORMAL];
         }
         
         sPaint.setColor(borderColor);
@@ -155,17 +143,14 @@ public class KoraSlider extends KoraView
         canvas.drawRoundRect(backRect, 6, 6, sPaint);
         
         // Draw icon
-        /// OPTIMIZAR ESTO!!!
-        Bitmap b = Bitmap.createScaledBitmap(mIcon, mIconWidth, mIconHeight,
-                true);
-        canvas.drawBitmap(b, mIconX, mIconY, null);
+        canvas.drawBitmap(mStates.get(mCurrentState).icon, mIconX, mIconY, null);
         
         // Draw text
         if(mAttrs.showText) {
             sPaint.setColor(mAttrs.textColor);
             sPaint.setTextAlign(Align.LEFT);
             sPaint.setTextSize(mTextSize);
-            canvas.drawText(mText, mTextX, mTextY, sPaint);
+            canvas.drawText(mStates.get(mCurrentState).text, mTextX, mTextY, sPaint);
         }
         
         // Draw slider (normal bg always, border changes)
@@ -227,7 +212,8 @@ public class KoraSlider extends KoraView
     
     protected void calculateIconBounds()
     {
-        /* Si no hay texto, el icono ocupa toda la parte superior del botón
+        /* Si no hay texto, el icono ocupa toda la parte superior del botón.
+         * Se asume que todos los iconos tienen el mismo tamaño (en caso contrario, se deforman)
          * 
          * Si hay, el icono ocupa 1/2 del alto tanto en vertical como en horizontal
          * 
@@ -245,17 +231,22 @@ public class KoraSlider extends KoraView
         
         // Multiplico y divido por 1024 para hallar las proporciones, es más rápido
         // que usar floats
-        int iw = mIcon.getWidth(),
-            ih = mIcon.getHeight();
-        int rw = (maxHeight<<10) / iw,
-            rh = (maxHeight<<10) / ih;
-        int res = Math.min(rw, rh);
-        
-        mIconWidth  = (res*iw)>>10;
-        mIconHeight = (res*ih)>>10;
-        
-        mIconX = ((maxWidth-mIconWidth)>>1) + (mBorderSize<<1);
-        mIconY = ((maxHeight-mIconHeight)>>1) + (mBorderSize<<1);
+        // Escalar todos los iconos
+        for(State s : mStates){
+            int iw = s.icon.getWidth(),
+                ih = s.icon.getHeight();
+            int rw = (maxHeight<<10) / iw,
+                rh = (maxHeight<<10) / ih;
+            int res = Math.min(rw, rh);
+            
+            mIconWidth  = (res*iw)>>10;
+            mIconHeight = (res*ih)>>10;
+            
+            mIconX = ((maxWidth-mIconWidth)>>1) + (mBorderSize<<1);
+            mIconY = ((maxHeight-mIconHeight)>>1) + (mBorderSize<<1);
+            
+            s.icon = Bitmap.createScaledBitmap(s.icon, mIconWidth, mIconHeight, true);
+        }
     }
     
     protected void calculateTextBounds()
@@ -273,20 +264,22 @@ public class KoraSlider extends KoraView
         maxWidth = mWidth - (mHeight>>1) - (mBorderSize<<3);
         maxHeight = (mHeight>>1) - (mBorderSize<<1);
         
-        boolean ok = false;
         Rect bounds = new Rect();
         sPaint.setTextSize(mAttrs.textMaxSize);
         mTextSize = mAttrs.textMaxSize;
-        while(!ok){
-            sPaint.getTextBounds(mText, 0, mText.length(), bounds);
-            if(bounds.width()<=maxWidth &&
-               (bounds.height()-bounds.bottom)<=maxHeight){
-                ok = true;
-                if((mTextSize < sMaxTextSize || sMaxTextSize == -1) && !mAttrs.overrideMaxSize)
-                    sMaxTextSize = mTextSize;
-            } else {
-                mTextSize -= 1.0f;
-                sPaint.setTextSize(mTextSize);
+        for(State s : mStates){
+            boolean ok = false;
+            while(!ok){
+                sPaint.getTextBounds(s.text, 0, s.text.length(), bounds);
+                if(bounds.width()<=maxWidth &&
+                   (bounds.height()-bounds.bottom)<=maxHeight){
+                    ok = true;
+                    if((mTextSize < sMaxTextSize || sMaxTextSize == -1) && !mAttrs.overrideMaxSize)
+                        sMaxTextSize = mTextSize;
+                } else {
+                    mTextSize -= 1.0f;
+                    sPaint.setTextSize(mTextSize);
+                }
             }
         }
         
@@ -308,14 +301,15 @@ public class KoraSlider extends KoraView
         // Posiciones iniciales de la marca
         // La marca mide el doble de alto que la barra
         // Y ancho / nposiciones
-        mSliderMarkX = mSliderBarX;
-        mSliderMarkY = mSliderBarY - ((mSliderBarYEnd - mSliderBarY)>>1);
-        nStates=5;
-        mSliderMarkWidth = (mSliderBarXEnd - mSliderBarX)/nStates;
-        mSliderMarkHeight = (mSliderBarYEnd - mSliderBarY)<<1;
-        
-        //mSliderMarkX, mSliderMarkWidth, mSliderMarkY, mSliderMarkHeight;
-        
+
+        int nStates = mStates.size();
+        if(nStates>0){
+            mSliderMarkX = mSliderBarX;
+            mSliderMarkY = mSliderBarY - ((mSliderBarYEnd - mSliderBarY)>>1);
+            
+            mSliderMarkWidth = (mSliderBarXEnd - mSliderBarX)/nStates;
+            mSliderMarkHeight = (mSliderBarYEnd - mSliderBarY)<<1;
+        }
     }
     
     public void setOnClickListener(OnClickListener listener)
@@ -326,7 +320,54 @@ public class KoraSlider extends KoraView
     @Override
     public boolean onTouchEvent(MotionEvent event)
     {
-
+        int action = event.getAction();
+        
+        if(!mBlocked){
+            int x = (int) event.getX(),
+                y = (int) event.getY();
+            switch(action){
+                case MotionEvent.ACTION_DOWN:
+                    if(x<mWidth && y<mHeight &&
+                       x>0 && y>(mHeight>>1)){
+                        mFocused = true;
+                        invalidate();
+                    }
+                    break;
+                case MotionEvent.ACTION_MOVE:
+                    if(x<mWidth && y<mHeight &&
+                       x>0 && y>0 && mFocused){
+                        if(x<mSliderBarX){
+                            mCurrentState = 0;
+                        }else if(x>mSliderBarXEnd){
+                            mCurrentState = mStates.size()-1;
+                        }else{
+                            x -= mSliderBarX;
+                            int pixelsPerState = (mSliderBarXEnd - mSliderBarX)/mStates.size();
+                            mCurrentState = x / pixelsPerState;
+                            invalidate();
+                        }
+                    }
+                    break;
+                case MotionEvent.ACTION_UP:
+                    if(x<mWidth && y<mHeight &&
+                       x>0 && y>0 && mFocused){
+                        mBlocked = true;
+                        
+                        mBlockTimer.start();
+                        
+                        if(mAttrs.vibrate)
+                            sVibrator.vibrate(100);
+                        
+                        if(mClickListener!=null)
+                            mClickListener.onClick(this);
+                        
+                    } else {
+                        mBlocked = false;
+                    }
+                    mFocused = false;
+                    break;
+            }
+        }
         return true;
     }
     
@@ -336,35 +377,22 @@ public class KoraSlider extends KoraView
         invalidate();
     }
 
-    public String getText()
+    public Vector<State> getStates()
     {
-        return mText;
+        return mStates;
     }
-
-    public void setText(String text)
+    
+    public int getCurrentState()
     {
-        mText = text;
-        invalidate();
+        return mCurrentState;
     }
-
-    public Bitmap getIcon()
+    
+    public void setState(int index)
     {
-        return mIcon;
-    }
-
-    public void setIcon(Bitmap icon)
-    {
-        mIcon = icon;
+        mCurrentState = index;
         invalidate();
     }
     
-    public void setIcon(int resourceId)
-    {
-        mIcon = BitmapFactory.decodeResource(
-                getContext().getResources(), resourceId);
-        invalidate();
-    }
-
     public Attributes getAttributes()
     {
         return mAttrs;

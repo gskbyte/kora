@@ -36,7 +36,7 @@ public class KoraButton extends KoraView
     protected float mTextSize;
     
     // Variables para realimentación
-    protected CountDownTimer mSelectionTimer;
+    protected CountDownTimer mBlockTimer;
     protected static Vibrator sVibrator = null;
     
     protected OnClickListener mClickListener;
@@ -118,7 +118,7 @@ public class KoraButton extends KoraView
         if(sVibrator==null)
             sVibrator = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
         
-        mSelectionTimer = new CountDownTimer(1000, 1000) {
+        mBlockTimer = new CountDownTimer(1000, 1000) {
             public void onTick(long millisLeft) {
             }
 
@@ -286,6 +286,7 @@ public class KoraButton extends KoraView
     
     protected void calculateTextBounds()
     {
+        sPaint.setAntiAlias(false);
         sPaint.setTypeface(mAttrs.typeface);
         
         int maxWidth, maxHeight;
@@ -339,7 +340,6 @@ public class KoraButton extends KoraView
     @Override
     public boolean onTouchEvent(MotionEvent event)
     {
-
         int action = event.getAction();
 
         if(!mBlocked){ // aceptar eventos cuando no estoy bloqueado
@@ -352,10 +352,11 @@ public class KoraButton extends KoraView
                     int x = (int) event.getX(),
                         y = (int) event.getY();
                     
-                    if(x<mWidth && y<mHeight && mFocused){
+                    if(x<mWidth && y<mHeight &&
+                       x>0 && y>0 && mFocused){
                         mBlocked = true;
                         
-                        mSelectionTimer.start();
+                        mBlockTimer.start();
                         
                         if(mAttrs.vibrate)
     	                    sVibrator.vibrate(500);

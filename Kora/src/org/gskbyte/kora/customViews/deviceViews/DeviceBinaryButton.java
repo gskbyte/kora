@@ -11,7 +11,8 @@ import org.ugr.bluerose.events.Value;
 import android.content.Context;
 import android.view.View;
 
-public class DeviceBinaryButton extends KoraButton implements DeviceEventListener
+public class DeviceBinaryButton extends KoraButton 
+                                implements DeviceEventListener
 {
 	Device mDevice;
 	DeviceControl mControl;
@@ -46,7 +47,6 @@ public class DeviceBinaryButton extends KoraButton implements DeviceEventListene
 		
 		setView(mDevice.getValue());
         
-        // añadir listener que llame a la actividad de manejo correspondiente
         View.OnClickListener l = new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -81,9 +81,10 @@ public class DeviceBinaryButton extends KoraButton implements DeviceEventListene
 	}
 	
 	@Override
-	public void onDeviceChange(Value newVal)
+	public void onDeviceChange(String deviceName, Value newVal)
 	{
-	    mViewUpdaterHandler.post(new ResultUpdater(newVal));
+	    if(deviceName.equals(mDevice.getSystemName()))
+	        mViewUpdaterHandler.post(new ResultUpdater(newVal));
 	}
 
     @Override

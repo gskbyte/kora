@@ -51,7 +51,7 @@ public class DeviceBinarySelector extends GridLayout implements DeviceEventListe
     }
 
     @Override
-    public void onDeviceChange(Value newVal)
+    public void onDeviceChange(String deviceName, Value newVal)
     {
         ;
     }

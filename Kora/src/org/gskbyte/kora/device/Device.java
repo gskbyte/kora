@@ -8,7 +8,7 @@ public class Device extends DeviceSpec
 {
 	public interface DeviceEventListener
 	{
-		public void onDeviceChange(Value newVal);
+		public void onDeviceChange(String deviceName, Value newVal);
 		public void unregister();
 	}
 	
@@ -42,10 +42,10 @@ public class Device extends DeviceSpec
 	public void setValue(Value newValue)
 	{
 		mCurrentValue = newValue;
-		if(mListener != null)
-			mListener.onDeviceChange(newValue);
+        if(mListener != null)
+            mListener.onDeviceChange(mSystemName, newValue);
 	}
-		
+	
 	public void setChangeListener(DeviceEventListener listener)
 	{
 		mListener = listener;
