@@ -33,7 +33,10 @@ public class DeviceChangeListener extends EventListener
             SimKoraView.getCurrent().setSunblind(val.getFloat(), false);
         } else if (name.equals("puerta1")) {
             System.out.println("puerta1 "+val.getBoolean());
-            SimKoraView.getCurrent().setDoor(val.getBoolean(), false);
+            SimKoraView.getCurrent().setDoor1(val.getBoolean(), false);
+        } else if (name.equals("puerta2")) {
+            System.out.println("puerta2 "+val.getBoolean());
+            SimKoraView.getCurrent().setDoor2(val.getBoolean(), false);
         }
     }
 }

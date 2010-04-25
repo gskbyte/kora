@@ -10,36 +10,48 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
+              <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jScrollPane1" alignment="0" pref="763" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="jScrollPane1" alignment="0" pref="927" max="32767" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="jLabel6" alignment="0" max="32767" attributes="0"/>
-                              <Component id="light1Button" alignment="0" max="32767" attributes="1"/>
-                              <Component id="light1Icon" alignment="1" min="-2" max="-2" attributes="1"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="light1Button" pref="180" max="32767" attributes="1"/>
+                              <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="jLabel6" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="light1Icon" alignment="1" min="-2" max="-2" attributes="1"/>
+                              </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="light2Slider" min="0" pref="0" max="32767" attributes="1"/>
-                              <Component id="jLabel7" alignment="0" min="-2" max="-2" attributes="1"/>
-                              <Component id="light2Icon" alignment="0" max="32767" attributes="1"/>
+                              <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="jLabel7" alignment="0" min="-2" max="-2" attributes="1"/>
+                                  <Component id="light2Icon" alignment="0" max="32767" attributes="1"/>
+                              </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="sunblindSlider" min="0" pref="0" max="32767" attributes="1"/>
-                              <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="1"/>
-                              <Component id="sunblindIcon" alignment="0" max="32767" attributes="1"/>
+                              <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="1"/>
+                                  <Component id="sunblindIcon" alignment="0" max="32767" attributes="1"/>
+                              </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="jLabel9" min="-2" max="-2" attributes="1"/>
-                              <Component id="doorIcon" alignment="0" max="32767" attributes="1"/>
-                              <Component id="doorButton" alignment="0" max="32767" attributes="1"/>
+                              <Component id="door1Icon" alignment="0" max="32767" attributes="1"/>
+                              <Component id="door1Button" alignment="0" max="32767" attributes="1"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                              <Component id="door2Icon" alignment="0" pref="172" max="32767" attributes="1"/>
+                              <Component id="door2Button" alignment="0" pref="172" max="32767" attributes="1"/>
                           </Group>
                       </Group>
-                      <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="cleanLogButton" alignment="1" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -51,37 +63,46 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="doorIcon" max="32767" attributes="1"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
                           <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="sunblindIcon" pref="256" max="32767" attributes="1"/>
+                          <Component id="sunblindIcon" pref="305" max="32767" attributes="1"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="light2Icon" pref="256" max="32767" attributes="1"/>
+                          <Component id="light2Icon" pref="305" max="32767" attributes="1"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="light1Icon" pref="256" max="32767" attributes="1"/>
+                          <Component id="light1Icon" pref="305" max="32767" attributes="1"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="door2Icon" pref="305" max="32767" attributes="0"/>
+                              <Component id="door1Icon" alignment="0" pref="305" max="32767" attributes="1"/>
+                          </Group>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="doorButton" max="32767" attributes="0"/>
-                      <Component id="sunblindSlider" alignment="1" pref="25" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="door1Button" alignment="3" max="32767" attributes="0"/>
+                          <Component id="door2Button" alignment="0" max="32767" attributes="1"/>
+                      </Group>
+                      <Component id="light1Button" alignment="0" pref="25" max="32767" attributes="1"/>
                       <Component id="light2Slider" alignment="0" pref="25" max="32767" attributes="1"/>
-                      <Component id="light1Button" alignment="1" max="32767" attributes="1"/>
+                      <Component id="sunblindSlider" alignment="1" pref="25" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jScrollPane1" min="-2" pref="135" max="-2" attributes="0"/>
+                  <Component id="jScrollPane1" min="-2" pref="174" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                  <Component id="cleanLogButton" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -151,19 +172,19 @@
             <Property name="name" type="java.lang.String" value="jLabel8" noResource="true"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="doorIcon">
+        <Component class="javax.swing.JLabel" name="door1Icon">
           <Properties>
-            <Property name="icon" type="javax.swing.Icon" resourceKey="doorIcon.icon"/>
-            <Property name="name" type="java.lang.String" value="doorIcon" noResource="true"/>
+            <Property name="icon" type="javax.swing.Icon" resourceKey="door1Icon.icon"/>
+            <Property name="name" type="java.lang.String" value="door1Icon" noResource="true"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="doorButton">
+        <Component class="javax.swing.JButton" name="door1Button">
           <Properties>
-            <Property name="text" type="java.lang.String" resourceKey="doorButton.text"/>
-            <Property name="name" type="java.lang.String" value="doorButton" noResource="true"/>
+            <Property name="text" type="java.lang.String" resourceKey="door1Button.text"/>
+            <Property name="name" type="java.lang.String" value="door1Button" noResource="true"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="doorButtonActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="door1ButtonActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel9">
@@ -190,6 +211,32 @@
             </Component>
           </SubComponents>
         </Container>
+        <Component class="javax.swing.JButton" name="cleanLogButton">
+          <Properties>
+            <Property name="text" type="java.lang.String" resourceKey="cleanLogButton.text"/>
+            <Property name="name" type="java.lang.String" value="cleanLogButton" noResource="true"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cleanLogButtonActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="door2Icon">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" resourceKey="door2Icon.icon"/>
+            <Property name="text" type="java.lang.String" resourceKey="door2Icon.text"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="door2Icon.toolTipText"/>
+            <Property name="name" type="java.lang.String" value="door2Icon" noResource="true"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="door2Button">
+          <Properties>
+            <Property name="text" type="java.lang.String" resourceKey="door2Button.text"/>
+            <Property name="name" type="java.lang.String" value="door2Button" noResource="true"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="door2ButtonActionPerformed"/>
+          </Events>
+        </Component>
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
             <Property name="text" type="java.lang.String" resourceKey="jLabel1.text"/>
@@ -276,6 +323,6 @@
     <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
-    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,2,2,0,0,3,19"/>
+    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,2,98,0,0,3,-73"/>
   </AuxValues>
 </Form>

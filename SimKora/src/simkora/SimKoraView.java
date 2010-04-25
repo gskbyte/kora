@@ -248,7 +248,7 @@ public class SimKoraView extends FrameView {
 
     }
 
-    public void setDoor(boolean open, boolean publish)
+    public void setDoor1(boolean open, boolean publish)
     {
         String text, filename;
         URL url;
@@ -261,9 +261,9 @@ public class SimKoraView extends FrameView {
         }
 
         filename = resourceMap.getResourcesDir() + filename;
-        doorButton.setText(text);
+        door1Button.setText(text);
         url = resourceMap.getClassLoader().getResource(filename);
-        doorIcon.setIcon(new ImageIcon(url));
+        door1Icon.setIcon(new ImageIcon(url));
 
         Value v = new Value();
         v.setBoolean(open);
@@ -283,7 +283,47 @@ public class SimKoraView extends FrameView {
 
             org.ugr.bluerose.events.EventHandler.publish(e, false);
         } else {
-            log("Evento sobre puerta (Puerta). Nuevo valor: " + (open ? "Abierta" : "Cerrada"));
+            log("Evento sobre puerta (Puerta 1). Nuevo valor: " + (open ? "Abierta" : "Cerrada"));
+        }
+
+    }
+
+    public void setDoor2(boolean open, boolean publish)
+    {
+        String text, filename;
+        URL url;
+        if(open){
+            text = "Cerrar";
+            filename = "puerta1.png";
+        } else {
+            text = "Abrir";
+            filename = "puerta0.png";
+        }
+
+        filename = resourceMap.getResourcesDir() + filename;
+        door2Button.setText(text);
+        url = resourceMap.getClassLoader().getResource(filename);
+        door2Icon.setIcon(new ImageIcon(url));
+
+        Value v = new Value();
+        v.setBoolean(open);
+        DeviceManager.getDevice("puerta2").setValue(v);
+        if(publish){
+            Event e = new Event(TOPIC);
+
+            Value deviceName = new Value(),
+                    deviceValue = new Value();
+
+            deviceName.setString("puerta2");
+
+            deviceValue.setBoolean(open);
+
+            e.setMember("name", deviceName);
+            e.setMember("value", deviceValue);
+
+            org.ugr.bluerose.events.EventHandler.publish(e, false);
+        } else {
+            log("Evento sobre puerta2 (Puerta 2). Nuevo valor: " + (open ? "Abierta" : "Cerrada"));
         }
 
     }
@@ -307,11 +347,14 @@ public class SimKoraView extends FrameView {
         sunblindSlider = new javax.swing.JSlider();
         sunblindIcon = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        doorIcon = new javax.swing.JLabel();
-        doorButton = new javax.swing.JButton();
+        door1Icon = new javax.swing.JLabel();
+        door1Button = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         logPane = new javax.swing.JTextPane();
+        cleanLogButton = new javax.swing.JButton();
+        door2Icon = new javax.swing.JLabel();
+        door2Button = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         menuBar = new javax.swing.JMenuBar();
         javax.swing.JMenu fileMenu = new javax.swing.JMenu();
@@ -364,14 +407,14 @@ public class SimKoraView extends FrameView {
         jLabel8.setText(resourceMap.getString("jLabel8.text")); // NOI18N
         jLabel8.setName("jLabel8"); // NOI18N
 
-        doorIcon.setIcon(resourceMap.getIcon("doorIcon.icon")); // NOI18N
-        doorIcon.setName("doorIcon"); // NOI18N
+        door1Icon.setIcon(resourceMap.getIcon("door1Icon.icon")); // NOI18N
+        door1Icon.setName("door1Icon"); // NOI18N
 
-        doorButton.setText(resourceMap.getString("doorButton.text")); // NOI18N
-        doorButton.setName("doorButton"); // NOI18N
-        doorButton.addActionListener(new java.awt.event.ActionListener() {
+        door1Button.setText(resourceMap.getString("door1Button.text")); // NOI18N
+        door1Button.setName("door1Button"); // NOI18N
+        door1Button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                doorButtonActionPerformed(evt);
+                door1ButtonActionPerformed(evt);
             }
         });
 
@@ -384,6 +427,27 @@ public class SimKoraView extends FrameView {
         logPane.setName("logPane"); // NOI18N
         jScrollPane1.setViewportView(logPane);
 
+        cleanLogButton.setText(resourceMap.getString("cleanLogButton.text")); // NOI18N
+        cleanLogButton.setName("cleanLogButton"); // NOI18N
+        cleanLogButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cleanLogButtonActionPerformed(evt);
+            }
+        });
+
+        door2Icon.setIcon(resourceMap.getIcon("door2Icon.icon")); // NOI18N
+        door2Icon.setText(resourceMap.getString("door2Icon.text")); // NOI18N
+        door2Icon.setToolTipText(resourceMap.getString("door2Icon.toolTipText")); // NOI18N
+        door2Icon.setName("door2Icon"); // NOI18N
+
+        door2Button.setText(resourceMap.getString("door2Button.text")); // NOI18N
+        door2Button.setName("door2Button"); // NOI18N
+        door2Button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                door2ButtonActionPerformed(evt);
+            }
+        });
+
         jLabel1.setText(resourceMap.getString("jLabel1.text")); // NOI18N
         jLabel1.setName("jLabel1"); // NOI18N
 
@@ -391,31 +455,39 @@ public class SimKoraView extends FrameView {
         mainPanel.setLayout(mainPanelLayout);
         mainPanelLayout.setHorizontalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(mainPanelLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 763, Short.MAX_VALUE)
-                    .addGroup(mainPanelLayout.createSequentialGroup()
-                        .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(light1Button, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(light1Icon))
+                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 927, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, mainPanelLayout.createSequentialGroup()
+                        .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(light1Button, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
+                            .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(light1Icon)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(light2Slider, 0, 0, Short.MAX_VALUE)
-                            .addComponent(jLabel7)
-                            .addComponent(light2Icon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel7)
+                                .addComponent(light2Icon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(sunblindSlider, 0, 0, Short.MAX_VALUE)
-                            .addComponent(jLabel8)
-                            .addComponent(sunblindIcon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel8)
+                                .addComponent(sunblindIcon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel9)
-                            .addComponent(doorIcon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(doorButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addComponent(jLabel1))
+                            .addComponent(door1Icon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(door1Button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(door2Icon, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
+                            .addComponent(door2Button, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)))
+                    .addComponent(cleanLogButton))
                 .addContainerGap())
         );
         mainPanelLayout.setVerticalGroup(
@@ -424,31 +496,37 @@ public class SimKoraView extends FrameView {
                 .addContainerGap()
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(mainPanelLayout.createSequentialGroup()
-                        .addComponent(jLabel9)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(doorIcon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(mainPanelLayout.createSequentialGroup()
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(sunblindIcon, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE))
+                        .addComponent(sunblindIcon, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE))
                     .addGroup(mainPanelLayout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(light2Icon, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE))
+                        .addComponent(light2Icon, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE))
                     .addGroup(mainPanelLayout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(light1Icon, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)))
+                        .addComponent(light1Icon, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE))
+                    .addGroup(mainPanelLayout.createSequentialGroup()
+                        .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(door2Icon, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
+                            .addComponent(door1Icon, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(doorButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(sunblindSlider, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
+                    .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(door1Button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(door2Button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(light1Button, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
                     .addComponent(light2Slider, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
-                    .addComponent(light1Button, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(sunblindSlider, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(3, 3, 3)
+                .addComponent(cleanLogButton)
                 .addContainerGap())
         );
 
@@ -501,19 +579,36 @@ public class SimKoraView extends FrameView {
         setSunblind(value, true);
     }//GEN-LAST:event_sunblindSliderStateChanged
 
-    private void doorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_doorButtonActionPerformed
+    private void door1ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_door1ButtonActionPerformed
         JButton btn = (JButton) evt.getSource();
 
         if(btn.getText().equals("Abrir")){
-            setDoor(true, true);
+            setDoor1(true, true);
         } else {
-            setDoor(false, true);
+            setDoor1(false, true);
         }
-    }//GEN-LAST:event_doorButtonActionPerformed
+    }//GEN-LAST:event_door1ButtonActionPerformed
+
+    private void door2ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_door2ButtonActionPerformed
+        JButton btn = (JButton) evt.getSource();
+
+        if(btn.getText().equals("Abrir")){
+            setDoor2(true, true);
+        } else {
+            setDoor2(false, true);
+        }
+    }//GEN-LAST:event_door2ButtonActionPerformed
+
+    private void cleanLogButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cleanLogButtonActionPerformed
+        logPane.setText("");
+    }//GEN-LAST:event_cleanLogButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton doorButton;
-    private javax.swing.JLabel doorIcon;
+    private javax.swing.JButton cleanLogButton;
+    private javax.swing.JButton door1Button;
+    private javax.swing.JLabel door1Icon;
+    private javax.swing.JButton door2Button;
+    private javax.swing.JLabel door2Icon;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;

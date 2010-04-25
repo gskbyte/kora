@@ -80,20 +80,23 @@ public class DeviceManager
                 s4min,
                 s4max,
                 s4cur);
-/*
+
         Value s5min = new Value(),
-              s5max = new Value();
-        s5min.setInteger(1);
-        s5max.setInteger(5);
-        DeviceSpec s5 = new DeviceSpec("persiana1",
-                "Persiana",
-                "sunblind",
+              s5max = new Value(),
+              s5cur = new Value();
+        s5min.setBoolean(false);
+        s5max.setBoolean(true);
+        s5cur.setBoolean(false);
+        DeviceSpec s5 = new DeviceSpec("puerta2",
+                "Puerta 2",
+                "door",
                 DeviceSpec.ACCESS_READ_WRITE,
                 Value.BOOLEAN_TYPE,
                 s5min,
-                s5max);
+                s5max,
+                s5cur);
 
-*/
+
         devices.add(s1);
         deviceIndex.put(s1.getSystemName(), 0);
         devices.add(s2);
@@ -102,6 +105,8 @@ public class DeviceManager
         deviceIndex.put(s3.getSystemName(), 2);
         devices.add(s4);
         deviceIndex.put(s4.getSystemName(), 3);
+        devices.add(s5);
+        deviceIndex.put(s5.getSystemName(), 4);
     }
 
     public static Vector<DeviceSpec> getAllDevices()
