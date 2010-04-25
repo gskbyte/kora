@@ -11,6 +11,10 @@ public class DeviceControl
 	public static final int TYPE_BINARY = 0,
 							TYPE_SCALAR = 1;
 
+    public static final int ACCESS_READ = 0x01,
+                            ACCESS_WRITE = 0x02,
+                            ACCESS_READ_WRITE = 0x03; //(= ACCESS_READ | ACCESS_WRITE)
+    
 	public final static class State
 	{
 		protected int mIconMode = -1;
@@ -59,13 +63,15 @@ public class DeviceControl
 	protected DeviceRepresentation mParent;
 	protected int mType;
 	protected String mName;
+	protected int mAccessMode;
 	protected Vector<State> mStates;
 	
-	public DeviceControl(DeviceRepresentation parent, int type, String name)
+	public DeviceControl(DeviceRepresentation parent, int type, String name, int accessMode)
     {
 		mParent = parent;
 		mType = type;
 		mName = name;
+		mAccessMode = accessMode;
 		mStates = new Vector<State>();
     }
 	
@@ -77,6 +83,11 @@ public class DeviceControl
     public String getName()
     {
         return mName;
+    }
+    
+    public int getAccessMode()
+    {
+        return mAccessMode;
     }
     
     public int getStateCount()

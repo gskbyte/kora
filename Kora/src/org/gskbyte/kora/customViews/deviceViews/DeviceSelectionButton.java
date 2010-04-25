@@ -3,7 +3,6 @@ package org.gskbyte.kora.customViews.deviceViews;
 import org.gskbyte.kora.customViews.koraButton.KoraButton;
 import org.gskbyte.kora.device.Device;
 import org.gskbyte.kora.device.DeviceManager;
-import org.gskbyte.kora.device.DeviceRepresentation;
 import org.gskbyte.kora.handling.DeviceHandlingActivity;
 
 import android.content.Context;
@@ -14,26 +13,7 @@ public class DeviceSelectionButton extends KoraButton
 {
 	String mDeviceName;
 	
-	public static class Attributes extends KoraButton.Attributes
-    {
-        // Valores propios de configuración de este botón
-		public int icon = DeviceRepresentation.ICON_DEFAULT;
-		public boolean customIcon = false;
-		
-		public Attributes()
-        {
-            super();
-        }
-		
-        public Attributes(Attributes o)
-        {
-            super(o);
-            icon = o.icon;
-            customIcon = o.customIcon;
-        }
-    }
-	
-	public DeviceSelectionButton(Context context, Attributes attr,
+	public DeviceSelectionButton(Context context, DeviceViewAttributes attr,
 						 String deviceName)
 	{
 		super(context);

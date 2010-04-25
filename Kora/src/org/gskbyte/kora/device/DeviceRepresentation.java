@@ -26,6 +26,8 @@ public class DeviceRepresentation
                             ICON_PHOTO = 3,
                             ICON_ANIMATION = 4;
     
+    
+    
     static final String[] ICON_TAGS = {
         "default","highContrast","blackWhite","photo","animation"
         };
@@ -74,8 +76,13 @@ public class DeviceRepresentation
                     if(typeStr.equals("binary")) {
                     	controlType = DeviceControl.TYPE_BINARY;
                     } // else SCALAR, y otros que añada en un futuro
-                    
-                    DeviceControl dc = new DeviceControl(this, controlType, controlName);
+                    String accessStr = nm.getNamedItem("access").getNodeValue();
+                    int accessMode = 0;
+                    if(accessStr.contains("W"))
+                        accessMode |= DeviceControl.ACCESS_WRITE;
+                    if(accessStr.contains("R"))
+                        accessMode |= DeviceControl.ACCESS_READ;
+                    DeviceControl dc = new DeviceControl(this, controlType, controlName, accessMode);
                     NodeList dcIcons = cur_node.getChildNodes();
                     for(int j=0; j<dcIcons.getLength(); ++j){
                     	Node controlIconNode = dcIcons.item(j);

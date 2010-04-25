@@ -1,18 +1,19 @@
 package org.gskbyte.kora.handling;
 
 import java.util.Set;
+import java.util.Vector;
 
 import org.gskbyte.kora.R;
 import org.gskbyte.kora.customViews.GridLayout;
-import org.gskbyte.kora.customViews.KoraView;
+import org.gskbyte.kora.customViews.deviceViews.DeviceBinaryButton;
 import org.gskbyte.kora.customViews.deviceViews.DeviceBinarySelector;
+import org.gskbyte.kora.customViews.deviceViews.DeviceViewAttributes;
 import org.gskbyte.kora.customViews.koraButton.KoraButton;
 import org.gskbyte.kora.device.Device;
 import org.gskbyte.kora.device.DeviceControl;
 import org.gskbyte.kora.device.DeviceManager;
 import org.gskbyte.kora.device.DeviceRepresentation;
-import org.gskbyte.kora.settings.SettingsManager;
-import org.gskbyte.kora.settings.UseProfile;
+import org.gskbyte.kora.device.Device.DeviceEventListener;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -27,6 +28,13 @@ public class DeviceHandlingActivity extends Activity
     private GridLayout mGrid;
     private KoraButton mBackButton;
     
+    private String mDeviceName;
+    
+    private DeviceViewAttributes mAttr;
+    private DeviceRepresentation mRepr;
+    
+    private Vector<DeviceEventListener> mControls;
+    
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
@@ -38,45 +46,80 @@ public class DeviceHandlingActivity extends Activity
         mGrid.setDimensions(2, 1);
         mBackButton.setOnClickListener(backListener);
         
+        // Cargar dispositivo a manejar, y representación adecuada
         Bundle extras = getIntent().getExtras();
-        String deviceName = extras.getString(TAG_DEVICE_NAME);
-        KoraView.Attributes attr = DeviceSelectionActivity.getAttributes();
+        mDeviceName = extras.getString(TAG_DEVICE_NAME);
+        Device d = DeviceManager.getDevice(mDeviceName);
+        mRepr = d.getRepresentation();
         
-        Device d = DeviceManager.getDevice(deviceName);
-        DeviceRepresentation dr = d.getRepresentation();
-
-        DeviceBinarySelector.Attributes mAttr = new DeviceBinarySelector.Attributes(attr);
-        UseProfile up = SettingsManager.getCurrentUseProfile();
-        switch(up.iconMode){
-        case UseProfile.visualization.icon_high_contrast:
-            ((DeviceBinarySelector.Attributes)mAttr).icon = DeviceRepresentation.ICON_HIGH_CONTRAST;
+        // Configurar la vista según el perfil de usuario
+        configureView();
+        
+        // Rellenar la rejilla
+        fillView();
+    }
+    
+    public void onDestroy()
+    {
+        super.onDestroy();
+        for(DeviceEventListener dl : mControls)
+            dl.unregister();
+    }
+    
+    // Gran parte de los atributos los pillo de la actividad anterior
+    private void configureView()
+    {
+        mAttr = DeviceSelectionActivity.getAttributes();
+        int iconBackId;
+        switch(mAttr.icon){
+        case DeviceRepresentation.ICON_HIGH_CONTRAST:
+            iconBackId = R.drawable.icon_back_hc;
             break;
-        case UseProfile.visualization.icon_black_white:
-            ((DeviceBinarySelector.Attributes)mAttr).icon = DeviceRepresentation.ICON_BLACK_WHITE;
+        case DeviceRepresentation.ICON_BLACK_WHITE:
+            iconBackId = R.drawable.icon_back_bw;
             break;
-        case UseProfile.visualization.icon_photo:
-            ((DeviceBinarySelector.Attributes)mAttr).icon = DeviceRepresentation.ICON_PHOTO;
-            break;
-        case UseProfile.visualization.icon_animation:
-            ((DeviceBinarySelector.Attributes)mAttr).icon = DeviceRepresentation.ICON_ANIMATION;
-            break;
-        case UseProfile.visualization.icon_pictogram:
+        // Para el resto de casos es siempre así
         default:
-            ((DeviceBinarySelector.Attributes)mAttr).icon = DeviceRepresentation.ICON_DEFAULT;
+            iconBackId = R.drawable.icon_back;
             break;
         }
+        mBackButton.setIcon(iconBackId);
+    }
+    
+    private void fillView()
+    {
+        mControls = new Vector<DeviceEventListener>();
         
-        //mAttr.icon = 
-        Set<String> controls = dr.getDeviceControlNames();
+        Set<String> controls = mRepr.getDeviceControlNames();
         for(String s: controls){
-        	DeviceControl dc = dr.getControl(s);
-        	if(dc.getType()==DeviceControl.TYPE_BINARY){
-        	    DeviceBinarySelector bs = new DeviceBinarySelector(this, mAttr, deviceName, dc);
-                mGrid.addView(bs);
-        	}
+            DeviceControl dc = mRepr.getControl(s);
+            DeviceEventListener l = null;
+            if(dc.getType()==DeviceControl.TYPE_BINARY){
+                switch(dc.getAccessMode()){
+                case DeviceControl.ACCESS_READ:
+                    break;
+                case DeviceControl.ACCESS_WRITE:
+                    l = new DeviceBinarySelector(this, mAttr, mDeviceName, dc);
+                    break;
+                case DeviceControl.ACCESS_READ_WRITE:
+                    l = new DeviceBinaryButton(this, mAttr, mDeviceName, dc);
+                    break;
+                }
+            } else {
+                switch(dc.getAccessMode()){
+                case DeviceControl.ACCESS_READ:
+                    break;
+                case DeviceControl.ACCESS_WRITE:
+                    break;
+                case DeviceControl.ACCESS_READ_WRITE:
+                    break;
+                }
+            }
+            if(l!=null){
+                mControls.add(l);
+                mGrid.addView((View)l);
+            }
         }
-        
-        
     }
     
     View.OnClickListener backListener = new View.OnClickListener()

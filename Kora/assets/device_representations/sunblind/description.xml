@@ -5,12 +5,12 @@
     <icon class="blackWhite"/>
     <icon class="photo"/>
     
-    <control name="switch" type="binary">
+    <control name="switch" type="binary"access="W">
         <state index="0" icon="0.png" name="Abajo"  absoluteAction="Bajar"/>
         <state index="1" icon="4.png" name="Arriba" absoluteAction="Subir"/>
     </control>
     
-    <control name="intensity" type="scalar">
+    <control name="intensity" type="scalar" access="RW">
         <state index="0" icon="0.png" name="Abajo"/>
         <state index="1" icon="1.png" name="Abajo-medio"/>
         <state index="2" icon="2.png" name="En medio"/>

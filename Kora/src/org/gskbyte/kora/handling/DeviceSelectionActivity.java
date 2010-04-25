@@ -6,6 +6,7 @@ import org.gskbyte.kora.R;
 import org.gskbyte.kora.customViews.GridLayout;
 import org.gskbyte.kora.customViews.KoraView;
 import org.gskbyte.kora.customViews.deviceViews.DeviceSelectionButton;
+import org.gskbyte.kora.customViews.deviceViews.DeviceViewAttributes;
 import org.gskbyte.kora.customViews.koraButton.KoraButton;
 import org.gskbyte.kora.device.DeviceManager;
 import org.gskbyte.kora.device.DeviceRepresentation;
@@ -21,7 +22,7 @@ public class DeviceSelectionActivity extends Activity
 {
     private static final String TAG = "DeviceSelectionActivity";
 
-    private static KoraView.Attributes sCurrentAttr;
+    private static DeviceViewAttributes sCurrentAttr;
     private GridLayout mGrid;
     
     private int mCurrentPage;
@@ -33,7 +34,7 @@ public class DeviceSelectionActivity extends Activity
                 mIconNextId = R.drawable.icon_next;
     
     private boolean mShowPagingButtons;
-    private KoraButton.Attributes mAttr;
+    private DeviceViewAttributes mAttr;
     
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -67,7 +68,7 @@ public class DeviceSelectionActivity extends Activity
     	    ((KoraButton)mGrid.getChildAt(i)).deselect();
     }
     
-    public static KoraView.Attributes getAttributes()
+    public static DeviceViewAttributes getAttributes()
     {
         return sCurrentAttr;
     }
@@ -75,7 +76,7 @@ public class DeviceSelectionActivity extends Activity
     public void configureView()
     {
     	UseProfile up = SettingsManager.getCurrentUseProfile();
-    	mAttr = new DeviceSelectionButton.Attributes();
+    	mAttr = new DeviceViewAttributes();
     	
     	// Opciones de vibración, orientación y demás (DESACTIVAR AL SALIR)
     	
@@ -130,24 +131,24 @@ public class DeviceSelectionActivity extends Activity
 		// iconMode
     	switch(up.iconMode){
     	case UseProfile.visualization.icon_high_contrast:
-    		((DeviceSelectionButton.Attributes)mAttr).icon = DeviceRepresentation.ICON_HIGH_CONTRAST;
+    		mAttr.icon = DeviceRepresentation.ICON_HIGH_CONTRAST;
     		mIconReturnId = R.drawable.icon_back_hc;
     		mIconNextId = R.drawable.icon_next_hc;
     		break;
     	case UseProfile.visualization.icon_black_white:
-    		((DeviceSelectionButton.Attributes)mAttr).icon = DeviceRepresentation.ICON_BLACK_WHITE;
+    		mAttr.icon = DeviceRepresentation.ICON_BLACK_WHITE;
             mIconReturnId = R.drawable.icon_back_bw;
             mIconNextId = R.drawable.icon_next_bw;
     		break;
     	case UseProfile.visualization.icon_photo:
-    		((DeviceSelectionButton.Attributes)mAttr).icon = DeviceRepresentation.ICON_PHOTO;
+    		mAttr.icon = DeviceRepresentation.ICON_PHOTO;
     		break;
     	case UseProfile.visualization.icon_animation:
-    		((DeviceSelectionButton.Attributes)mAttr).icon = DeviceRepresentation.ICON_ANIMATION;
+    	    mAttr.icon = DeviceRepresentation.ICON_ANIMATION;
     		break;
     	case UseProfile.visualization.icon_pictogram:
 		default:
-    		((DeviceSelectionButton.Attributes)mAttr).icon = DeviceRepresentation.ICON_DEFAULT;
+    		mAttr.icon = DeviceRepresentation.ICON_DEFAULT;
     		break;
     	}
     	mPreviousButton.setIcon(mIconReturnId);
@@ -175,7 +176,7 @@ public class DeviceSelectionActivity extends Activity
         
         for(int i=initialIndex; i<initialIndex+howMany; ++i){
             DeviceSelectionButton b = new DeviceSelectionButton(this, 
-                    (DeviceSelectionButton.Attributes)mAttr, 
+                    mAttr, 
                     DeviceManager.getDeviceSystemName(i));
             ret.add(b);
         }

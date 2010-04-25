@@ -6,22 +6,22 @@ import android.graphics.Bitmap;
 
 public class Device extends DeviceSpec
 {
-	public interface DeviceChangeListener
+	public interface DeviceEventListener
 	{
 		public void onDeviceChange(Value newVal);
+		public void unregister();
 	}
 	
 	protected String mName;
 	protected DeviceRepresentation mRepr;
 	//protected Bitmap mCustomIcon; // alguna vez se usará
-	protected DeviceChangeListener mListener;
+	protected DeviceEventListener mListener;
 	
 	public Device(String name, DeviceSpec s, DeviceRepresentation dr)
 	{
 	    super(s);
 	    mName = name;
 	    mRepr = dr;
-	    mCurrentValue = mMinValue; // valor provisional que debe rellenarse luego
 	}
 	
 	public String getReadableName()
@@ -46,7 +46,7 @@ public class Device extends DeviceSpec
 			mListener.onDeviceChange(newValue);
 	}
 		
-	public void setChangeListener(DeviceChangeListener listener)
+	public void setChangeListener(DeviceEventListener listener)
 	{
 		mListener = listener;
 	}

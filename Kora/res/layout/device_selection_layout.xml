@@ -21,7 +21,7 @@
             gskbyte:showText="true"
             gskbyte:text="@string/previous"
             gskbyte:icon="@drawable/action_previous"
-            gskbyte:textSize="30"
+            gskbyte:textSize="25"
             gskbyte:overrideCommonTextSize="true"
 		    />
 		
@@ -33,7 +33,7 @@
             gskbyte:showText="true"
             gskbyte:text="@string/next"
             gskbyte:icon="@drawable/action_next"
-            gskbyte:textSize="30"
+            gskbyte:textSize="25"
             gskbyte:overrideCommonTextSize="true"
             />
 		

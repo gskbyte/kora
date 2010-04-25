@@ -4,68 +4,57 @@ import org.gskbyte.kora.customViews.koraButton.KoraButton;
 import org.gskbyte.kora.device.Device;
 import org.gskbyte.kora.device.DeviceControl;
 import org.gskbyte.kora.device.DeviceManager;
-import org.gskbyte.kora.device.DeviceRepresentation;
-import org.gskbyte.kora.device.Device.DeviceChangeListener;
+import org.gskbyte.kora.device.Device.DeviceEventListener;
 import org.ugr.bluerose.Comparison;
 import org.ugr.bluerose.events.Value;
 
 import android.content.Context;
 import android.view.View;
 
-public class DeviceBinaryButton extends KoraButton implements DeviceChangeListener
+public class DeviceBinaryButton extends KoraButton implements DeviceEventListener
 {
 	Device mDevice;
 	DeviceControl mControl;
 	Value mCurrentValue, mNextValue;
 	
-	public static class Attributes extends KoraButton.Attributes
+	/* Necesario para actualizar la vista en la hebra principal */
+	private class ResultUpdater implements Runnable
     {
-        // Valores propios de configuración de este botón
-		public int icon = DeviceRepresentation.ICON_DEFAULT;
-        public boolean customIcon = false;
+	    Value mNextValue;
         
-        public Attributes()
-        {
-            super();
+        public ResultUpdater(Value nextValue){
+            mNextValue = nextValue;
         }
         
-        public Attributes(Attributes o)
-        {
-            super(o);
-            icon = o.icon;
-            customIcon = o.customIcon;
+        public void run(){
+            DeviceBinaryButton.this.setView(mNextValue);
         }
     }
+    private final android.os.Handler mViewUpdaterHandler = new android.os.Handler();
 	
-	public DeviceBinaryButton(Context context, Attributes attr, String deviceName, String controlName)
+	public DeviceBinaryButton(Context context, DeviceViewAttributes attr, 
+	                          String deviceName, DeviceControl dc)
 	{
 		super(context);
 		
-		// establecer atributos de representación
-		mAttrs = attr;
+		// establecer atributos iniciales de representación
+        init("", null, attr, Attributes.TEXT_LARGE);
 
 		mDevice = DeviceManager.getDevice(deviceName);
 		mDevice.setChangeListener(this);
-		
-		mControl = mDevice.getRepresentation().getControl(controlName);
+		mControl = dc;
 		
 		setView(mDevice.getValue());
-		
-		// establecer nombre (traducido)
-		mText = mDevice.getReadableName();
-		
-		// otras propiedades
-        mFocused = mSelected = false;
-        setFocusable(true);
-        setClickable(true);
         
         // añadir listener que llame a la actividad de manejo correspondiente
         View.OnClickListener l = new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				DeviceManager.setValueForDevice(mDevice.getSystemName(), mNextValue);
+				setView(mNextValue);
 			}
 		};
+		
         setOnClickListener(l);
 	}
 	
@@ -81,18 +70,25 @@ public class DeviceBinaryButton extends KoraButton implements DeviceChangeListen
 		boolean isMinimum = currentValue.compare(Comparison.EQUAL, minimumValue);
 		if(isMinimum){
 			mNextValue = mDevice.getMax();
-			mIcon = mControl.getIcon(((Attributes)mAttrs).icon, 0);
-			mText = mControl.getStateName(0);
+			mIcon = mControl.getIcon(((DeviceViewAttributes)mAttrs).icon, 0);
+			mText = mControl.getStateAbsoluteAction(mControl.getStateCount()-1);
 		} else { // si no está al mínimo, bajar al mínimo
 			mNextValue = mDevice.getMin();
-			mIcon = mControl.getIcon(((Attributes)mAttrs).icon, 1);
-			mText = mControl.getStateName(1);
+			mIcon = mControl.getIcon(((DeviceViewAttributes)mAttrs).icon, mControl.getStateCount()-1);
+			mText = mControl.getStateAbsoluteAction(0);
 		}
+		invalidate();
 	}
 	
 	@Override
 	public void onDeviceChange(Value newVal)
 	{
-		setView(newVal);
+	    mViewUpdaterHandler.post(new ResultUpdater(newVal));
 	}
+
+    @Override
+    public void unregister()
+    {
+        mDevice.unsetListener();
+    }
 }
