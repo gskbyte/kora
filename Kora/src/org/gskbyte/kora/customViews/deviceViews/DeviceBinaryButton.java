@@ -1,6 +1,6 @@
 package org.gskbyte.kora.customViews.deviceViews;
 
-import org.gskbyte.kora.customViews.koraButton.KoraButton;
+import org.gskbyte.kora.customViews.KoraButton;
 import org.gskbyte.kora.device.Device;
 import org.gskbyte.kora.device.DeviceControl;
 import org.gskbyte.kora.device.DeviceManager;

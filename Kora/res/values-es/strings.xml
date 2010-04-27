@@ -41,9 +41,9 @@
     	<string name="projectSupervisor">Tutora</string>
         <string name="acknowledgements">Agradecimientos y créditos</string>
         <string name="artwork">Arte</string>
-        <string name="artworkString">Icono y fondo por Jeremy Todaro\nAlgunos iconos originales\ndel Proyecto Oxygen</string>
-        <string name="codeParts">Partes de\ncódigo</string>
-        <string name="codePartsString">ColorPickerDialog de\nGoogle API Demos.\nGridLayout original de\nPhotoStream.</string>
+        <string name="artworkString">Icono y fondo por Jeremy Todaro.\nAlgunos iconos originales del Proyecto Oxygen.</string>
+        <string name="codeParts">Partes de código</string>
+        <string name="codePartsString">ColorPickerDialog de pskink.\nGridLayout original de PhotoStream.</string>
     
     <!-- Preferences strings -->
     <string name="user">Usuario</string>

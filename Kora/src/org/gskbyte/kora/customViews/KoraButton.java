@@ -1,7 +1,6 @@
-package org.gskbyte.kora.customViews.koraButton;
+package org.gskbyte.kora.customViews;
 
 import org.gskbyte.kora.R;
-import org.gskbyte.kora.customViews.KoraView;
 
 import android.content.Context;
 import android.content.res.TypedArray;

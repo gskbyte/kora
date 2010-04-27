@@ -11,87 +11,104 @@
 	    <TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-	        android:textSize="18dip"
+	        android:textSize="20dip"
 	        android:text="@string/scautProject"/>
 	       
 	    <View
-	         android:layout_width="fill_parent"
-	         android:layout_height="1dip"
-	         android:background="#FF909090" />
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:layout_marginBottom="5dip"
+            android:background="#FF909090" />
 	        
-	    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	         android:layout_width="wrap_content"
-	         android:layout_height="wrap_content"
-	         android:stretchColumns="1">
-	    
-	        <TableRow>
-	            <TextView
-	                android:paddingRight="5dip"
-	                android:text="@string/author" />
-	            <TextView
-	                android:paddingLeft="5dip"
-	                android:text="Jose Alcalá Correa" />
-	        </TableRow>
-	    
-	    	<TableRow>
-	            <TextView
-	                android:paddingRight="5dip"
-	                android:text="@string/projectSupervisor" />
-	            <TextView
-	                android:paddingLeft="5dip"
-	                android:text="Mª José Rodríguez Fórtiz" />
-	        </TableRow>
-	    </TableLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/author"
+            android:textSize="18dip"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dip"
+            android:text="Jose Alcalá Correa" />
+	        
+        
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/projectSupervisor"
+            android:textSize="18dip" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dip"
+            android:text="Mª José Rodríguez Fórtiz" />
+	        
 	    
 	    <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="10dip"
-            android:textSize="18dip"
+            android:textSize="20dip"
             android:text="@string/acknowledgements"/>
            
         <View
-             android:layout_width="fill_parent"
-             android:layout_height="1dip"
-             android:background="#FF909090" />
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:layout_marginBottom="5dip"
+            android:background="#FF909090" />
 	    
-	    <TableLayout
-	         android:layout_width="wrap_content"
-	         android:layout_height="wrap_content"
-	         android:stretchColumns="1">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dip"
+            android:text="Carlos Rodríguez \nJosé Luis Garrido \nOficina de Software Libre"/>
 	    
-	        <TableRow>
-	            <TextView
-	                android:paddingRight="5dip"
-	                android:text="Hackathon\n2010"/>
-	            <TextView
-	                android:paddingLeft="5dip"
-	                android:text="Manuel Martín Salvador\nDaniel Fernández Gómez
-	                \nAlejandro Martín Medina\nDavid Lázaro Esparcia"/>
-	        </TableRow>
-	        <TableRow>
-	            <TextView
-	                android:paddingRight="5dip"
-	                android:text="@string/artwork"/>
-	            <TextView
-	                android:paddingLeft="5dip"
-                    android:scrollHorizontally="true"
-	                android:text="@string/artworkString"/>
-	        </TableRow>
-	        <TableRow>
-                <TextView
-                    android:paddingRight="5dip"
-                    android:text="@string/codeParts"/>
-                <TextView
-                    android:paddingLeft="5dip"
-                    android:scrollHorizontally="true"
-                    android:text="@string/codePartsString"/>
-            </TableRow>
-		    <TextView
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:layout_gravity="center_horizontal"
-		        android:text="GPL, 2010"/>
-	    </TableLayout>
+	    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hackathon UGR 2010"
+            android:textSize="18dip" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dip"
+            android:text="Manuel Martín Salvador, Daniel Fernández Gómez, Alejandro Martín Medina, David Lázaro Esparcia"/>
+	    
+	    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/artwork"
+            android:textSize="18dip" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dip"
+            android:scrollHorizontally="true"
+            android:text="@string/artworkString"/>
+	    
+	    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/codeParts"
+            android:textSize="18dip" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dip"
+            android:scrollHorizontally="true"
+            android:text="@string/codePartsString"/>
+            
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:layout_marginTop="5dip"
+            android:layout_marginBottom="5dip"
+            android:background="#FF909090" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="GPL, 2010"
+            android:textSize="18dip" /> 
 </LinearLayout>
 </ScrollView>

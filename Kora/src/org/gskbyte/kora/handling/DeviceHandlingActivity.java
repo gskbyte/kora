@@ -5,11 +5,11 @@ import java.util.Vector;
 
 import org.gskbyte.kora.R;
 import org.gskbyte.kora.customViews.GridLayout;
+import org.gskbyte.kora.customViews.KoraButton;
 import org.gskbyte.kora.customViews.deviceViews.DeviceBinaryButton;
 import org.gskbyte.kora.customViews.deviceViews.DeviceBinarySelector;
 import org.gskbyte.kora.customViews.deviceViews.DeviceSlider;
 import org.gskbyte.kora.customViews.deviceViews.DeviceViewAttributes;
-import org.gskbyte.kora.customViews.koraButton.KoraButton;
 import org.gskbyte.kora.device.Device;
 import org.gskbyte.kora.device.DeviceControl;
 import org.gskbyte.kora.device.DeviceManager;

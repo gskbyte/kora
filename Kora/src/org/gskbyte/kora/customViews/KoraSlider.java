@@ -1,8 +1,7 @@
-package org.gskbyte.kora.customViews.koraSlider;
+package org.gskbyte.kora.customViews;
 
 import java.util.Vector;
 
-import org.gskbyte.kora.customViews.KoraView;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -334,15 +333,15 @@ public class KoraSlider extends KoraView
                     }
                     break;
                 case MotionEvent.ACTION_MOVE:
-                    if(x<mWidth && y<mHeight &&
-                       x>0 && y>0 && mFocused){
+                    if(x<mSliderBarXEnd && y<mHeight &&
+                       x>mSliderBarX && y>0 && mFocused){
                         if(x<mSliderBarX){
                             mCurrentState = 0;
                         }else if(x>mSliderBarXEnd){
                             mCurrentState = mStates.size()-1;
                         }else{
-                            x -= mSliderBarX;
-                            int pixelsPerState = (mSliderBarXEnd - mSliderBarX)/mStates.size();
+                            //x -= mSliderBarX;
+                            int pixelsPerState = (mSliderBarXEnd - mSliderBarX)/(mStates.size()-1);
                             mCurrentState = x / pixelsPerState;
                             invalidate();
                         }

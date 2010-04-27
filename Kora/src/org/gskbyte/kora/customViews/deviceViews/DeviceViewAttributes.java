@@ -1,7 +1,7 @@
 package org.gskbyte.kora.customViews.deviceViews;
 
+import org.gskbyte.kora.customViews.KoraButton;
 import org.gskbyte.kora.customViews.KoraView;
-import org.gskbyte.kora.customViews.koraButton.KoraButton;
 import org.gskbyte.kora.device.DeviceRepresentation;
 
 public class DeviceViewAttributes extends KoraButton.Attributes

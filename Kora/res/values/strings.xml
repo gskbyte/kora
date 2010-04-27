@@ -45,9 +45,9 @@
     	<string name="projectSupervisor">Supervisor</string>
     	<string name="acknowledgements">Acknowledgments &amp; Credits</string>
         <string name="artwork">Artwork</string>
-        <string name="artworkString">Main icon and background\nby Jeremy Todaro.\nSome original icons from\nOxygen Project.</string>
+        <string name="artworkString">Main icon and background nby Jeremy Todaro.\nSome original icons from Oxygen Project.</string>
         <string name="codeParts">Code parts</string>
-        <string name="codePartsString">ColorPickerDialog from\nGoogle API Demos.\nOriginal GridLayout from\nPhotoStream.</string>
+        <string name="codePartsString">ColorPickerDialog from pskink.\nOriginal GridLayout fromPhotoStream.</string>
     <!-- Profiles strings -->
     <string name="user">User</string>
     <string name="useProfile">Use profile</string>

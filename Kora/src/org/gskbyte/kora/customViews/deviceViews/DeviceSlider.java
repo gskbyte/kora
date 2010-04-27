@@ -2,7 +2,7 @@ package org.gskbyte.kora.customViews.deviceViews;
 
 import java.util.Vector;
 
-import org.gskbyte.kora.customViews.koraSlider.KoraSlider;
+import org.gskbyte.kora.customViews.KoraSlider;
 import org.gskbyte.kora.device.Device;
 import org.gskbyte.kora.device.DeviceControl;
 import org.gskbyte.kora.device.DeviceManager;
