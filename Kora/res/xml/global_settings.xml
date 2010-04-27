@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen  xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="@string/simulationSettings">
+        <CheckBoxPreference android:key="simulation"
+            android:title="@string/simulation"
+            android:defaultValue="true"
+            android:summary="@string/simulationSummary"/>
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/connectionSettings">
+        
+    </PreferenceCategory>
+</PreferenceScreen>

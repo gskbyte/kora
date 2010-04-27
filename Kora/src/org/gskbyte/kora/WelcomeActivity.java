@@ -155,8 +155,8 @@ public class WelcomeActivity extends Activity
 	
     private OnClickListener settingsButtonListener = new OnClickListener() {
         public void onClick(View v) {
-            //Intent i = new Intent(WelcomeActivity.this, SettingsActivity.class);
-            //startActivity(i);
+            Intent i = new Intent(WelcomeActivity.this, SettingsActivity.class);
+            startActivity(i);
         }
     };
 

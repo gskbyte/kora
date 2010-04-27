@@ -24,6 +24,10 @@
             android:theme="@android:style/Theme.Dialog">
         </activity>
         
+        <activity android:name=".SettingsActivity"
+              android:label="@string/controlActivity">
+        </activity>
+        
         <activity android:name=".handling.DeviceSelectionActivity"
               android:label="@string/controlActivity">
         </activity>

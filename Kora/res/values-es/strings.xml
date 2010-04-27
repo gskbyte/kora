@@ -45,7 +45,7 @@
         <string name="codeParts">Partes de\ncódigo</string>
         <string name="codePartsString">ColorPickerDialog de\nGoogle API Demos.\nGridLayout original de\nPhotoStream.</string>
     
-    <!-- Settings strings -->
+    <!-- Preferences strings -->
     <string name="user">Usuario</string>
     <string name="useProfile">Perfil de uso</string>
     <string name="deviceProfile">Perfil de dispositivo</string>
@@ -189,6 +189,12 @@
         
             <!--  nothing yet -->
             
+    <!-- Settings strings -->
+    <string name="simulationSettings">Simulación</string>
+        <string name="simulation">Modo simulación</string>
+        <string name="simulationSummary">Para probar la aplicación cuando no hay dispositivos o simulador</string>
+    <string name="connectionSettings">Conexión</string>
+    
     <!-- Device selection strings -->
     <string name="back">Volver</string>
     <string name="previous">Anterior</string>

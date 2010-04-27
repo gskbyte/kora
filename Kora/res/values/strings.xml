@@ -48,7 +48,7 @@
         <string name="artworkString">Main icon and background\nby Jeremy Todaro.\nSome original icons from\nOxygen Project.</string>
         <string name="codeParts">Code parts</string>
         <string name="codePartsString">ColorPickerDialog from\nGoogle API Demos.\nOriginal GridLayout from\nPhotoStream.</string>
-    <!-- Settings strings -->
+    <!-- Profiles strings -->
     <string name="user">User</string>
     <string name="useProfile">Use profile</string>
     <string name="deviceProfile">Device profile</string>
@@ -193,6 +193,12 @@
         <string name="addDeviceProfile">Add device profile</string>
         
             <!--  nothing yet -->
+    
+    <!-- Settings strings -->
+    <string name="simulationSettings">Simulation</string>
+        <string name="simulation">Simulation mode</string>
+        <string name="simulationSummary">Useful to test app when real devices or simulator are not present</string>
+    <string name="connectionSettings">Connection</string>
     
     <!-- Device selection strings -->
     <string name="back">Back</string>

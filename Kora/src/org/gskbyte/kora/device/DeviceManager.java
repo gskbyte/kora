@@ -13,7 +13,10 @@ import org.ugr.bluerose.events.EventHandler;
 import org.ugr.bluerose.events.Value;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.AssetManager;
+import android.preference.Preference;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 public class DeviceManager
@@ -23,6 +26,7 @@ public class DeviceManager
     private static final String DEVICE_REPS_FOLDER = "device_representations";
     
     protected static Context sContext;
+    protected static boolean sSimulationMode;
     
     protected static Vector<Device> sDevices;
     protected static HashMap<String, Integer> sDevicesMap;
@@ -63,6 +67,8 @@ public class DeviceManager
                        " Critical error.");
         }
         
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(sContext);
+        sSimulationMode = prefs.getBoolean("simulation", true);
     }
     
     public static void connect()
@@ -73,41 +79,33 @@ public class DeviceManager
         // Conectar con BlueRose
         TcpCompatibleDevice device = new TcpCompatibleDevice();
 
-        long inicio = System.currentTimeMillis(), actual, actual2;
-        boolean connectionOk = true;
-        try {
-        	Log.e(TAG, "Iniciando conexion con BlueRose...");
-        	InputStream file = sContext.getResources().openRawResource(R.raw.bluerose_config);
-            org.ugr.bluerose.Initializer.initialize(file);
-            org.ugr.bluerose.Initializer.initializeClient(device);
-        	file.close();
-        	Log.e(TAG, "Exito conectando con BlueRose");
-        } catch (Exception ex) {
-            connectionOk = false;
-        	Log.e(TAG, "ERROR CONECTANDO CON BLUEROSE");
-        }
+        long startTime = System.currentTimeMillis(), current;
         
-        actual = System.currentTimeMillis();
-        Log.e(TAG, "Tiempo conexión: " + (actual-inicio)/1000.0);
-        
-        // Pedir lista de especificaciones de dispositivos
         Vector<DeviceSpec> specs = new Vector<DeviceSpec>();
-        if(connectionOk){
-        	DeviceListProxy dlp;
-            try {
-                dlp = new DeviceListProxy();
-                specs = dlp.getDeviceSpecs();
-            } catch (Exception e) {
-                Log.e(TAG, "No se puede conectar al servicio de listado de dispositivos" + 
-                            e.getStackTrace()[0].toString() );
-            }
-        } else {
+        
+        // Connect to BlueRose server
+        if(sSimulationMode){
             specs = createFakeDevices();
+        } else {
+            try {
+                Log.e(TAG, "Connection to BlueRose");
+                InputStream file = sContext.getResources().openRawResource(R.raw.bluerose_config);
+                org.ugr.bluerose.Initializer.initialize(file);
+                org.ugr.bluerose.Initializer.initializeClient(device);
+                file.close();
+                
+                current = System.currentTimeMillis();
+                
+                DeviceListProxy dlp = new DeviceListProxy();
+                specs = dlp.getDeviceSpecs();
+                
+                current = System.currentTimeMillis();
+                Log.e(TAG, "Success. Connection time: " + (current-startTime)/1000.0);
+                
+            } catch (Exception ex) {
+                Log.e(TAG, "Error.");
+            }
         }
-
-        actual2 = System.currentTimeMillis();
-        Log.e(TAG, "Tiempo dispositivos: " + (actual2-actual)/1000.0);
-        actual = actual2;
         
     	// Asociar representaciones y crear dispositivos
     	for(DeviceSpec s : specs){
@@ -126,17 +124,14 @@ public class DeviceManager
     		sDevicesMap.put(d.getSystemName(), sDevices.size()-1);
     		
     	}
-
-        actual2 = System.currentTimeMillis();
-        Log.e(TAG, "Tiempo representaciones: " + (actual2-actual)/1000.0);
-        actual = actual2;
-
-        Log.e(TAG, "Total: " + (actual-inicio)/1000.0);
+    	
         /*
          * Listeners, se inician una vez tengo cargadas todas las representaciones
          */
-        org.ugr.bluerose.events.EventHandler.addEventListener(new DeviceQueryListener());
-        org.ugr.bluerose.events.EventHandler.addEventListener(new DeviceChangeListener());
+    	if(!sSimulationMode){
+            org.ugr.bluerose.events.EventHandler.addEventListener(new DeviceQueryListener());
+            org.ugr.bluerose.events.EventHandler.addEventListener(new DeviceChangeListener());
+    	}
     }
     
     public static void disconnect()
@@ -177,8 +172,10 @@ public class DeviceManager
 	{
 		Device dev = getDevice(deviceName);
 		dev.setValue(value);
-        Event evt = new DeviceChangeEvent(deviceName, value);
-		EventHandler.publish(evt, false);
+		if(!sSimulationMode){
+            Event evt = new DeviceChangeEvent(deviceName, value);
+    		EventHandler.publish(evt, false);
+		}
 	}
 	
 	public static Vector<DeviceSpec> createFakeDevices()
