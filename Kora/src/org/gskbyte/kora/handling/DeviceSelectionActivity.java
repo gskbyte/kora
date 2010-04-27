@@ -10,8 +10,8 @@ import org.gskbyte.kora.customViews.deviceViews.DeviceViewAttributes;
 import org.gskbyte.kora.customViews.koraButton.KoraButton;
 import org.gskbyte.kora.device.DeviceManager;
 import org.gskbyte.kora.device.DeviceRepresentation;
-import org.gskbyte.kora.settings.SettingsManager;
-import org.gskbyte.kora.settings.UseProfile;
+import org.gskbyte.kora.profiles.ProfilesManager;
+import org.gskbyte.kora.profiles.UseProfile;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -71,7 +71,7 @@ public class DeviceSelectionActivity extends Activity
     {
         ViewManager.init(this);
         mAttr = ViewManager.getAttributes();
-        UseProfile up = SettingsManager.getCurrentUseProfile();
+        UseProfile up = ProfilesManager.getCurrentUseProfile();
         mGrid.setDimensions(up.rows, up.columns);
         switch(up.margin){
         case UseProfile.visualization.margin_large:

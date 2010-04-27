@@ -27,45 +27,45 @@
               android:label="@string/controlActivity">
         </activity>
         
-        <activity android:name=".settingsActivities.SettingsActivity"
-              android:label="@string/settingsActivity">
+        <activity android:name=".profilesActivities.ProfilesContainerActivity"
+              android:label="@string/profilesActivity">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        	<activity android:name=".settingsActivities.users.UsersActivity"
+        	<activity android:name=".profilesActivities.users.UsersActivity"
 	                  android:label="@string/usersActivity"/>
-                <activity android:name=".settingsActivities.users.SelectionActivity"
+                <activity android:name=".profilesActivities.users.SelectionActivity"
                       android:theme="@android:style/Theme.Dialog"/>
-	        	<activity android:name=".settingsActivities.users.AddEditActivity"
+	        	<activity android:name=".profilesActivities.users.AddEditActivity"
 	        	      android:theme="@android:style/Theme.Dialog"/>
-	            <activity android:name=".settingsActivities.users.CopyActivity"
+	            <activity android:name=".profilesActivities.users.CopyActivity"
                       android:theme="@android:style/Theme.Dialog"/>
             
-        	<activity android:name=".settingsActivities.useProfiles.UseProfilesActivity"
+        	<activity android:name=".profilesActivities.useProfiles.UseProfilesActivity"
 	                  android:label="@string/useProfilesActivity"/>
-                <activity android:name=".settingsActivities.useProfiles.SelectionActivity"
+                <activity android:name=".profilesActivities.useProfiles.SelectionActivity"
                       android:theme="@android:style/Theme.Dialog"
                       android:icon="@drawable/icon_use_profile"/>
-                <activity android:name=".settingsActivities.useProfiles.AddEditActivity"
+                <activity android:name=".profilesActivities.useProfiles.AddEditActivity"
                       android:theme="@android:style/Theme.Dialog"/>
-	                <activity android:name=".settingsActivities.useProfiles.InteractionActivity"
+	                <activity android:name=".profilesActivities.useProfiles.InteractionActivity"
 	                      android:theme="@android:style/Theme.Dialog"
 	                      android:label="@string/interaction"
 	                      android:icon="@drawable/icon_interaction"/>
-	                  <activity android:name=".settingsActivities.useProfiles.VisualizationActivity"
+	                  <activity android:name=".profilesActivities.useProfiles.VisualizationActivity"
                           android:theme="@android:style/Theme.Dialog"
                           android:label="@string/visualization"/>
-                      <activity android:name=".settingsActivities.useProfiles.FeedbackActivity"
+                      <activity android:name=".profilesActivities.useProfiles.FeedbackActivity"
                           android:theme="@android:style/Theme.Dialog"
                           android:label="@string/feedback"/>
-                      <activity android:name=".settingsActivities.useProfiles.SoundVoiceActivity"
+                      <activity android:name=".profilesActivities.useProfiles.SoundVoiceActivity"
                           android:theme="@android:style/Theme.Dialog"
                           android:label="@string/soundVoice"/>
-                <activity android:name=".settingsActivities.useProfiles.CopyActivity"
+                <activity android:name=".profilesActivities.useProfiles.CopyActivity"
                       android:theme="@android:style/Theme.Dialog"/>
 	              
-        	<activity android:name=".settingsActivities.deviceProfiles.DeviceProfilesActivity"
+        	<activity android:name=".profilesActivities.deviceProfiles.DeviceProfilesActivity"
 	              android:label="@string/deviceProfilesActivity"/>
     </application>
     <uses-sdk android:minSdkVersion="4" />

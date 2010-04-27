@@ -25,6 +25,7 @@
     <string name="welcomeActivity">Kora</string>
     <string name="controlActivity">Device selection</string>
     <string name="settingsActivity">Settings</string>
+    <string name="profilesActivity">Profiles</string>
         <string name="usersActivity">Users</string>
         <string name="useProfilesActivity">Use profiles</string>
         <string name="deviceProfilesActivity">Device profiles</string>

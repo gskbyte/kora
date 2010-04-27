@@ -1,4 +1,4 @@
-package org.gskbyte.kora.settings;
+package org.gskbyte.kora.profiles;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +10,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-public class SettingsDbAdapter
+public class ProfilesDbAdapter
 {
     public static final String DATABASE_NAME = "kora.db";
     public static final int DATABASE_VERSION = 6;
@@ -258,12 +258,12 @@ public class SettingsDbAdapter
         }
     }
     
-    public SettingsDbAdapter(Context context)
+    public ProfilesDbAdapter(Context context)
     {
         mContext = context;
     }
     
-    public SettingsDbAdapter open() throws SQLException
+    public ProfilesDbAdapter open() throws SQLException
     {
         mDbHelper = new DatabaseHelper(mContext);
         mDb = mDbHelper.getWritableDatabase();

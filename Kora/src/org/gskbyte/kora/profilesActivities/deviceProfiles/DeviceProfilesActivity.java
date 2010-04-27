@@ -1,4 +1,4 @@
-package org.gskbyte.kora.settingsActivities.deviceProfiles;
+package org.gskbyte.kora.profilesActivities.deviceProfiles;
 
 import org.gskbyte.kora.customViews.detailedListView.DetailedListViewAdapter;
 

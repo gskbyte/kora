@@ -1,7 +1,7 @@
-package org.gskbyte.kora.settingsActivities.useProfiles;
+package org.gskbyte.kora.profilesActivities.useProfiles;
 
 import org.gskbyte.kora.R;
-import org.gskbyte.kora.settings.UseProfile;
+import org.gskbyte.kora.profiles.UseProfile;
 
 import android.app.Activity;
 import android.content.Intent;

@@ -1,10 +1,10 @@
-package org.gskbyte.kora.settingsActivities.useProfiles;
+package org.gskbyte.kora.profilesActivities.useProfiles;
 
 import org.gskbyte.kora.R;
-import org.gskbyte.kora.settings.SettingsManager;
-import org.gskbyte.kora.settings.UseProfile;
-import org.gskbyte.kora.settings.User;
-import org.gskbyte.kora.settings.SettingsManager.SettingsException;
+import org.gskbyte.kora.profiles.ProfilesManager;
+import org.gskbyte.kora.profiles.UseProfile;
+import org.gskbyte.kora.profiles.User;
+import org.gskbyte.kora.profiles.ProfilesManager.SettingsException;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -57,8 +57,8 @@ public class SelectionActivity extends Activity
         try {
             Bundle extras = getIntent().getExtras();
             String useProfileName =  extras.getString(UseProfilesActivity.TAG_USEPROFILE_NAME);
-            mCurrentUser = SettingsManager.getCurrentUser();
-            mSelectedUseProfile = SettingsManager.getUseProfile(useProfileName);
+            mCurrentUser = ProfilesManager.getCurrentUser();
+            mSelectedUseProfile = ProfilesManager.getUseProfile(useProfileName);
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
             Toast.makeText(this, 
@@ -94,7 +94,7 @@ public class SelectionActivity extends Activity
                        useProfileName = mSelectedUseProfile.getName();
                 mCurrentUser.setUseProfileName(useProfileName);
                 try {
-                	SettingsManager.editUser(userName, mCurrentUser);
+                	ProfilesManager.editUser(userName, mCurrentUser);
                     Toast.makeText(SelectionActivity.this, 
                            userName + " " + mResources.getString(R.string.nowUses) +
                            " " + useProfileName, Toast.LENGTH_SHORT).show();
@@ -151,11 +151,11 @@ public class SelectionActivity extends Activity
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                     try{
-                                    	SettingsManager.removeUseProfile(mSelectedUseProfile.getName());
+                                    	ProfilesManager.removeUseProfile(mSelectedUseProfile.getName());
                                         Toast.makeText(SelectionActivity.this, 
                                                 mResources.getString(R.string.deleteUseProfileOk) + ":"  +
                                                 mSelectedUseProfile.getName(), Toast.LENGTH_SHORT).show();
-                                    }catch (SettingsManager.SettingsException e){
+                                    }catch (ProfilesManager.SettingsException e){
                                         if(e.type==SettingsException.NOT_EXISTS){
                                             Toast.makeText(SelectionActivity.this,
                                                 mResources.getString(R.string.deleteUseProfileFail) + ":"  +

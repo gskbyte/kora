@@ -1,10 +1,10 @@
-package org.gskbyte.kora.settingsActivities.useProfiles;
+package org.gskbyte.kora.profilesActivities.useProfiles;
 
 import org.gskbyte.kora.R;
-import org.gskbyte.kora.settings.SettingsManager;
-import org.gskbyte.kora.settings.UseProfile;
-import org.gskbyte.kora.settings.SettingsManager.SettingsException;
-import org.gskbyte.kora.settingsActivities.ProfilesActivity;
+import org.gskbyte.kora.profiles.ProfilesManager;
+import org.gskbyte.kora.profiles.UseProfile;
+import org.gskbyte.kora.profiles.ProfilesManager.SettingsException;
+import org.gskbyte.kora.profilesActivities.ProfilesActivity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -72,7 +72,7 @@ public class AddEditActivity extends Activity
             Bundle extras = getIntent().getExtras();
             if(extras != null){
                 String name = extras.getString(ProfilesActivity.TAG_USEPROFILE_NAME);
-                mCurrentUseProfile = SettingsManager.getUseProfile(name);
+                mCurrentUseProfile = ProfilesManager.getUseProfile(name);
                 mMode = EDIT_MODE;
             } else {
                 mCurrentUseProfile = new UseProfile("temp");
@@ -183,13 +183,13 @@ public class AddEditActivity extends Activity
                     
                     if(mMode == ADD_MODE){ // modo añadir
                         try{
-                        	SettingsManager.addUseProfile(mCurrentUseProfile);
+                        	ProfilesManager.addUseProfile(mCurrentUseProfile);
                         } catch (SettingsException e){
                             result = e.type;
                         }
                     } else {
                         try{
-                        	SettingsManager.editUseProfile(oldname,
+                        	ProfilesManager.editUseProfile(oldname,
                                                      mCurrentUseProfile);
                         } catch (SettingsException e){
                             result = e.type;

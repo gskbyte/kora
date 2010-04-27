@@ -1,10 +1,10 @@
-package org.gskbyte.kora.settingsActivities;
+package org.gskbyte.kora.profilesActivities;
 
 import org.gskbyte.kora.R;
 import org.gskbyte.kora.customViews.detailedListView.SectionedListAdapter;
-import org.gskbyte.kora.settings.Profile;
-import org.gskbyte.kora.settings.SettingsManager;
-import org.gskbyte.kora.settings.User;
+import org.gskbyte.kora.profiles.Profile;
+import org.gskbyte.kora.profiles.ProfilesManager;
+import org.gskbyte.kora.profiles.User;
 
 import android.app.Activity;
 import android.content.res.Resources;
@@ -93,7 +93,7 @@ public abstract class ProfilesActivity extends Activity
 	/* TODO: ¡Actualizar SOLO si cambia algo! */
 	public void updateCurrentProfileView()
     {
-        User c = SettingsManager.getCurrentUser();
+        User c = ProfilesManager.getCurrentUser();
         //if( mSettings.hasCurrentUserChanged() ){
             mCurrentUser = c;
             mCurrentUserText.setText(c.getName());

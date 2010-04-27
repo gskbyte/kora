@@ -4,8 +4,8 @@ import org.gskbyte.kora.customViews.KoraView;
 import org.gskbyte.kora.customViews.deviceViews.DeviceViewAttributes;
 import org.gskbyte.kora.customViews.koraButton.KoraButton;
 import org.gskbyte.kora.device.DeviceRepresentation;
-import org.gskbyte.kora.settings.SettingsManager;
-import org.gskbyte.kora.settings.UseProfile;
+import org.gskbyte.kora.profiles.ProfilesManager;
+import org.gskbyte.kora.profiles.UseProfile;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -119,7 +119,7 @@ public class ViewManager
     protected static void init(Context ctx)
     {
         sContext = ctx;
-        sUp = SettingsManager.getCurrentUseProfile();
+        sUp = ProfilesManager.getCurrentUseProfile();
         sAttr = new DeviceViewAttributes();
         
         // Opciones de vibración, orientación y demás (DESACTIVAR AL SALIR)

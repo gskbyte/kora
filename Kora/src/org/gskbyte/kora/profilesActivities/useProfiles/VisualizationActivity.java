@@ -1,9 +1,9 @@
-package org.gskbyte.kora.settingsActivities.useProfiles;
+package org.gskbyte.kora.profilesActivities.useProfiles;
 
 import org.gskbyte.kora.R;
 import org.gskbyte.kora.customViews.detailedSeekBar.ArraySeekBar;
 import org.gskbyte.kora.customViews.detailedSeekBar.IntegerSeekBar;
-import org.gskbyte.kora.settings.UseProfile;
+import org.gskbyte.kora.profiles.UseProfile;
 import org.gskbyte.kora.customViews.ColorButton;
 
 import android.os.Bundle;

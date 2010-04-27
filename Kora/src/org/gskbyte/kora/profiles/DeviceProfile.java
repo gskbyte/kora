@@ -1,4 +1,4 @@
-package org.gskbyte.kora.settings;
+package org.gskbyte.kora.profiles;
 
 public class DeviceProfile extends Profile
 {

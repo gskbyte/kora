@@ -1,10 +1,10 @@
-package org.gskbyte.kora.settingsActivities;
+package org.gskbyte.kora.profilesActivities;
 
 import org.gskbyte.kora.R;
-import org.gskbyte.kora.settings.SettingsManager;
-import org.gskbyte.kora.settingsActivities.deviceProfiles.DeviceProfilesActivity;
-import org.gskbyte.kora.settingsActivities.useProfiles.UseProfilesActivity;
-import org.gskbyte.kora.settingsActivities.users.UsersActivity;
+import org.gskbyte.kora.profiles.ProfilesManager;
+import org.gskbyte.kora.profilesActivities.deviceProfiles.DeviceProfilesActivity;
+import org.gskbyte.kora.profilesActivities.useProfiles.UseProfilesActivity;
+import org.gskbyte.kora.profilesActivities.users.UsersActivity;
 
 import android.app.TabActivity;
 import android.content.Intent;
@@ -13,7 +13,7 @@ import android.os.Bundle;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
 
-public class SettingsActivity extends TabActivity
+public class ProfilesContainerActivity extends TabActivity
 {
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,7 +46,7 @@ public class SettingsActivity extends TabActivity
     
     public void onDestroy()
     {
-        SettingsManager.saveCurrentUser();
+        ProfilesManager.saveCurrentUser();
         super.onDestroy();
     }
 }

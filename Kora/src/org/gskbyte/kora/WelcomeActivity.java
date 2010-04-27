@@ -4,10 +4,10 @@ package org.gskbyte.kora;
 import org.gskbyte.kora.R;
 import org.gskbyte.kora.device.DeviceManager;
 import org.gskbyte.kora.handling.DeviceSelectionActivity;
-import org.gskbyte.kora.settings.SettingsManager;
-import org.gskbyte.kora.settings.User;
-import org.gskbyte.kora.settings.SettingsManager.SettingsException;
-import org.gskbyte.kora.settingsActivities.SettingsActivity;
+import org.gskbyte.kora.profiles.ProfilesManager;
+import org.gskbyte.kora.profiles.User;
+import org.gskbyte.kora.profiles.ProfilesManager.SettingsException;
+import org.gskbyte.kora.profilesActivities.ProfilesContainerActivity;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -63,7 +63,7 @@ public class WelcomeActivity extends Activity
 		
 		// Cargar datos de programa (usuarios, perfiles, etc)
 		try {
-            SettingsManager.init(this);
+            ProfilesManager.init(this);
         } catch (SettingsException e) {
             Log.e(TAG, e.getMessage());
         }
@@ -75,7 +75,7 @@ public class WelcomeActivity extends Activity
 	
 	public void onResume()
 	{
-        mCurrentUser = SettingsManager.getCurrentUser();
+        mCurrentUser = ProfilesManager.getCurrentUser();
 	    // Iniciar cuenta atrás si el usuario quiere comienzo automático
         if (mCurrentUser.wantsAutoStart() && mJustStarted) {
             mJustStarted = false;
@@ -118,7 +118,7 @@ public class WelcomeActivity extends Activity
 	
 	public void onDestroy()
 	{
-        SettingsManager.finish();
+        ProfilesManager.finish();
         super.onDestroy();
 	}
 	
@@ -147,7 +147,7 @@ public class WelcomeActivity extends Activity
 	
 	private OnClickListener profilesButtonListener = new OnClickListener() {
 		public void onClick(View v) {
-			Intent i = new Intent(WelcomeActivity.this, SettingsActivity.class);
+			Intent i = new Intent(WelcomeActivity.this, ProfilesContainerActivity.class);
 			startActivity(i);
 		}
 	};

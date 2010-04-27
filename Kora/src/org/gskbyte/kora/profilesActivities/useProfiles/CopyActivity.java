@@ -1,9 +1,9 @@
-package org.gskbyte.kora.settingsActivities.useProfiles;
+package org.gskbyte.kora.profilesActivities.useProfiles;
 
 import org.gskbyte.kora.R;
-import org.gskbyte.kora.settings.SettingsManager;
-import org.gskbyte.kora.settings.UseProfile;
-import org.gskbyte.kora.settings.SettingsManager.SettingsException;
+import org.gskbyte.kora.profiles.ProfilesManager;
+import org.gskbyte.kora.profiles.UseProfile;
+import org.gskbyte.kora.profiles.ProfilesManager.SettingsException;
 
 import android.app.Activity;
 import android.content.res.Resources;
@@ -68,7 +68,7 @@ public class CopyActivity extends Activity
             
             if(extras != null){
                 String userName = extras.getString(UseProfilesActivity.TAG_USEPROFILE_NAME);
-                mUseProfile = SettingsManager.getUseProfile(userName);
+                mUseProfile = ProfilesManager.getUseProfile(userName);
             } else {
                 mUseProfile = null;
             }
@@ -212,8 +212,8 @@ public class CopyActivity extends Activity
                 {
                     mUseProfile.setName(name);
                     try{
-                    	SettingsManager.addUseProfile(mUseProfile);
-                    } catch (SettingsManager.SettingsException e){
+                    	ProfilesManager.addUseProfile(mUseProfile);
+                    } catch (ProfilesManager.SettingsException e){
                         result = e.type;
                     }
                 } else {

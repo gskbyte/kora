@@ -1,13 +1,13 @@
-package org.gskbyte.kora.settingsActivities.users;
+package org.gskbyte.kora.profilesActivities.users;
 
 import java.io.FileOutputStream;
 import java.util.List;
 
 import org.gskbyte.kora.R;
-import org.gskbyte.kora.settings.SettingsManager;
-import org.gskbyte.kora.settings.User;
-import org.gskbyte.kora.settings.SettingsManager.SettingsException;
-import org.gskbyte.kora.settingsActivities.ProfilesActivity;
+import org.gskbyte.kora.profiles.ProfilesManager;
+import org.gskbyte.kora.profiles.User;
+import org.gskbyte.kora.profiles.ProfilesManager.SettingsException;
+import org.gskbyte.kora.profilesActivities.ProfilesActivity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -80,7 +80,7 @@ public class AddEditActivity extends Activity
             Bundle extras = getIntent().getExtras();
             if(extras != null){
                 String userName = extras.getString(ProfilesActivity.TAG_USER_NAME);
-                mCurrentUser = SettingsManager.getUser(userName);
+                mCurrentUser = ProfilesManager.getUser(userName);
                 mPhotoPath = mCurrentUser.getPhotoPath();
             } else {
                 //mCurrentUser = null;
@@ -186,14 +186,14 @@ public class AddEditActivity extends Activity
     void populateSpinners()
     {
         // Pillar todos los perfiles de uso y de dispositivos
-        List<String> useProfilesList = SettingsManager.getUseProfilesList();
+        List<String> useProfilesList = ProfilesManager.getUseProfilesList();
         ArrayAdapter<String> uPAdapter =
             new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,
                     useProfilesList);
         uPAdapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
         mUseProfileSpinner.setAdapter(uPAdapter);
         
-        List<String> deviceProfilesList = SettingsManager.getDeviceProfilesList();
+        List<String> deviceProfilesList = ProfilesManager.getDeviceProfilesList();
         ArrayAdapter<String> dPAdapter =
             new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,
                     deviceProfilesList);
@@ -295,13 +295,13 @@ public class AddEditActivity extends Activity
                     
                     if(mCurrentUser == null){ // modo añadir
                         try{
-                        	SettingsManager.addUser(u);
+                        	ProfilesManager.addUser(u);
                         } catch (SettingsException e){
                             result = e.type;
                         }
                     } else {
                         try{
-                        	SettingsManager.editUser(mCurrentUser.getName(), u);
+                        	ProfilesManager.editUser(mCurrentUser.getName(), u);
                         } catch (SettingsException e){
                             result = e.type;
                         }
