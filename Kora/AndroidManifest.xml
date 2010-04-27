@@ -19,6 +19,11 @@
             </intent-filter>
         </activity>
         
+        <activity android:name=".InfoDialogActivity"
+            android:label="@string/controlActivity"
+            android:theme="@android:style/Theme.Dialog">
+        </activity>
+        
         <activity android:name=".handling.DeviceSelectionActivity"
               android:label="@string/controlActivity">
         </activity>

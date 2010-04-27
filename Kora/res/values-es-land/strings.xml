@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="deviceProfile">Perfil de dispositivo</string>
 	<string name="autoStart">Entrada automática</string>
 </resources>

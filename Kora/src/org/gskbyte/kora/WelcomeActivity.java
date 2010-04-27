@@ -162,33 +162,9 @@ public class WelcomeActivity extends Activity
 
 	private OnClickListener infoButtonListener = new OnClickListener() {
 		public void onClick(View v) {
-			showDialog(INFO_DIALOG_ID);
+		    Intent i = new Intent(WelcomeActivity.this, InfoDialogActivity.class);
+            startActivity(i);
 		}
 	};
 	
-	protected Dialog onCreateDialog(int id) {
-        stopCountDown();
-        
-		Dialog dialog = null;
-
-		switch (id) {
-		case INFO_DIALOG_ID:
-			dialog = new InfoDialog(this);
-			break;
-		default:
-			dialog = null;
-		}
-
-		return dialog;
-	}
-
-	// onPrepareDialog
-	protected void onPrepareDialog(int id, Dialog dialog) {
-		switch (id) {
-		case INFO_DIALOG_ID:
-			break;
-		default:
-			dialog = null;
-		}
-	}
 }
