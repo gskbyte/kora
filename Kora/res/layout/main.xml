@@ -23,24 +23,41 @@
         
         android:src="@drawable/icon_info"/>
         
-    <Button
-        android:id="@+id/settingsButton"
+    <LinearLayout android:id="@+id/settingsButtons"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
         
-        android:textSize="20sp" 
-        android:text="@string/settingsButton"
-        android:drawableLeft="@drawable/icon_preferences"/>
+	    <Button
+	        android:id="@+id/profilesButton"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="2"
+	        
+	        android:textSize="20sp" 
+	        android:text="@string/profiles"
+	        android:drawableLeft="@drawable/icon_profiles"/>
+		
+        <Button
+            android:id="@+id/settingsButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            
+            android:textSize="20sp" 
+            android:text="@string/settings"
+            android:drawableLeft="@drawable/icon_settings"/>
+            
+    </LinearLayout>
 	
 	<Button
 		android:id="@+id/startButton"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
-		android:layout_above="@id/settingsButton"
+		android:layout_above="@id/settingsButtons"
 		
-        android:minHeight="75dip"
-		android:text="@string/startButton"
+	    android:minHeight="75dip"
+		android:text="@string/start"
 		android:textSize="40sp" 
 		android:drawableLeft="@drawable/action_start"/>
 		

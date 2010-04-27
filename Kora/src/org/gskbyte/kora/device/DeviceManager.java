@@ -74,7 +74,7 @@ public class DeviceManager
         TcpCompatibleDevice device = new TcpCompatibleDevice();
 
         long inicio = System.currentTimeMillis(), actual, actual2;
-        
+        boolean connectionOk = true;
         try {
         	Log.e(TAG, "Iniciando conexion con BlueRose...");
         	InputStream file = sContext.getResources().openRawResource(R.raw.bluerose_config);
@@ -83,6 +83,7 @@ public class DeviceManager
         	file.close();
         	Log.e(TAG, "Exito conectando con BlueRose");
         } catch (Exception ex) {
+            connectionOk = false;
         	Log.e(TAG, "ERROR CONECTANDO CON BLUEROSE");
         }
         
@@ -90,14 +91,18 @@ public class DeviceManager
         Log.e(TAG, "Tiempo conexión: " + (actual-inicio)/1000.0);
         
         // Pedir lista de especificaciones de dispositivos
-    	DeviceListProxy dlp;
-    	Vector<DeviceSpec> specs = new Vector<DeviceSpec>();
-        try {
-            dlp = new DeviceListProxy();
-            specs = dlp.getDeviceSpecs();
-        } catch (Exception e) {
-            Log.e(TAG, "No se puede conectar al servicio de listado de dispositivos" + 
-                        e.getStackTrace()[0].toString() );
+        Vector<DeviceSpec> specs = new Vector<DeviceSpec>();
+        if(connectionOk){
+        	DeviceListProxy dlp;
+            try {
+                dlp = new DeviceListProxy();
+                specs = dlp.getDeviceSpecs();
+            } catch (Exception e) {
+                Log.e(TAG, "No se puede conectar al servicio de listado de dispositivos" + 
+                            e.getStackTrace()[0].toString() );
+            }
+        } else {
+            specs = createFakeDevices();
         }
 
         actual2 = System.currentTimeMillis();
@@ -174,5 +179,92 @@ public class DeviceManager
 		dev.setValue(value);
         Event evt = new DeviceChangeEvent(deviceName, value);
 		EventHandler.publish(evt, false);
+	}
+	
+	public static Vector<DeviceSpec> createFakeDevices()
+	{
+	    Value s1min = new Value(),
+              s1max = new Value(),
+              s1cur = new Value();
+        s1min.setBoolean(false);
+        s1max.setBoolean(true);
+        s1cur.setBoolean(false);
+        DeviceSpec s1 = new DeviceSpec("bombilla1",
+                "Luz grande",
+                "simpleLight",
+                DeviceSpec.ACCESS_READ_WRITE,
+                Value.BOOLEAN_TYPE,
+                s1min,
+                s1max,
+                s1cur);
+    
+        Value s2min = new Value(),
+              s2max = new Value(),
+              s2cur = new Value();
+        s2min.setFloat(0);
+        s2max.setFloat(1);
+        s2cur.setFloat(0);
+        DeviceSpec s2 = new DeviceSpec("bombilla2",
+              "Flexo",
+              "adjustableLight",
+              DeviceSpec.ACCESS_READ_WRITE,
+              Value.FLOAT_TYPE,
+              s2min,
+              s2max,
+              s2cur);
+    
+        Value s3min = new Value(),
+              s3max = new Value(),
+              s3cur = new Value();
+        s3min.setFloat(0);
+        s3max.setFloat(1);
+        s3cur.setFloat(0);
+        DeviceSpec s3 = new DeviceSpec("persiana1",
+              "Persiana",
+              "sunblind",
+              DeviceSpec.ACCESS_READ_WRITE,
+              Value.FLOAT_TYPE,
+              s3min,
+              s3max,
+              s3cur);
+    
+        Value s4min = new Value(),
+              s4max = new Value(),
+              s4cur = new Value();
+        s4min.setBoolean(false);
+        s4max.setBoolean(true);
+        s4cur.setBoolean(false);
+        DeviceSpec s4 = new DeviceSpec("puerta1",
+              "Puerta",
+              "door",
+              DeviceSpec.ACCESS_READ_WRITE,
+              Value.BOOLEAN_TYPE,
+              s4min,
+              s4max,
+              s4cur);
+    
+        Value s5min = new Value(),
+              s5max = new Value(),
+              s5cur = new Value();
+        s5min.setBoolean(false);
+        s5max.setBoolean(true);
+        s5cur.setBoolean(false);
+        DeviceSpec s5 = new DeviceSpec("puerta2",
+              "Puerta 2",
+              "door",
+              DeviceSpec.ACCESS_READ_WRITE,
+              Value.BOOLEAN_TYPE,
+              s5min,
+              s5max,
+              s5cur);
+        
+        Vector<DeviceSpec> specs = new Vector<DeviceSpec>();
+        specs.add(s1);
+        specs.add(s2);
+        specs.add(s3);
+        specs.add(s4);
+        specs.add(s5);
+        
+        return specs;
 	}
 }

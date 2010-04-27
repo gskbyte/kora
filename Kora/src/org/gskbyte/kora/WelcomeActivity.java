@@ -1,42 +1,34 @@
 package org.gskbyte.kora;
 
-import java.io.File;
-import java.io.InputStream;
 
 import org.gskbyte.kora.R;
-import org.gskbyte.kora.customViews.ColorButton;
-import org.gskbyte.kora.customViews.ColorDialog;
 import org.gskbyte.kora.device.DeviceManager;
 import org.gskbyte.kora.handling.DeviceSelectionActivity;
 import org.gskbyte.kora.settings.SettingsManager;
 import org.gskbyte.kora.settings.User;
 import org.gskbyte.kora.settings.SettingsManager.SettingsException;
 import org.gskbyte.kora.settingsActivities.SettingsActivity;
-import org.ugr.bluerose.devices.TcpCompatibleDevice;
 
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
-import android.content.res.AssetManager;
 import android.content.res.Resources;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-public class WelcomeActivity extends Activity {
+public class WelcomeActivity extends Activity
+{
 	private static final String TAG = "WelcomeActivity";
 
 	private static final int INFO_DIALOG_ID = 0;
 
-	private Button mStartButton, mSettingsButton;
+	private Button mStartButton, mProfilesButton, mSettingsButton;
 	private ImageView mInfoButton;
 	private TextView mAutostartText;
 
@@ -58,13 +50,15 @@ public class WelcomeActivity extends Activity {
 		mResources = getResources();
 		
 		mStartButton = (Button) findViewById(R.id.startButton);
+        mProfilesButton = (Button) findViewById(R.id.profilesButton);
 		mSettingsButton = (Button) findViewById(R.id.settingsButton);
 		mInfoButton = (ImageView) findViewById(R.id.infoButton);
 		mAutostartText = (TextView) findViewById(R.id.autostart);
 
 		// Asociar eventos con botones
 		mStartButton.setOnClickListener(startButtonListener);
-		mSettingsButton.setOnClickListener(settingsButtonListener);
+		mProfilesButton.setOnClickListener(profilesButtonListener);
+        mSettingsButton.setOnClickListener(settingsButtonListener);
 		mInfoButton.setOnClickListener(infoButtonListener);
 		
 		// Cargar datos de programa (usuarios, perfiles, etc)
@@ -137,35 +131,41 @@ public class WelcomeActivity extends Activity {
 		mAutostartText.setText(text);
 	}
 
-	// Load ControlActivity
+	
 	private void startDeviceSelectionActivity() {
 		Intent i = new Intent(WelcomeActivity.this, DeviceSelectionActivity.class);
 		startActivity(i);
 	}
-
-	// Listener del bot�n Start
+	
+	
 	private OnClickListener startButtonListener = new OnClickListener() {
 		public void onClick(View v) {
 			startDeviceSelectionActivity();
 		}
 	};
 
-	// Listener del bot�n Settings
-	private OnClickListener settingsButtonListener = new OnClickListener() {
+	
+	private OnClickListener profilesButtonListener = new OnClickListener() {
 		public void onClick(View v) {
 			Intent i = new Intent(WelcomeActivity.this, SettingsActivity.class);
 			startActivity(i);
 		}
 	};
+	
+	
+    private OnClickListener settingsButtonListener = new OnClickListener() {
+        public void onClick(View v) {
+            //Intent i = new Intent(WelcomeActivity.this, SettingsActivity.class);
+            //startActivity(i);
+        }
+    };
 
-	// Listener del bot�n Info
 	private OnClickListener infoButtonListener = new OnClickListener() {
 		public void onClick(View v) {
 			showDialog(INFO_DIALOG_ID);
 		}
 	};
-
-	// onCreateDialog
+	
 	protected Dialog onCreateDialog(int id) {
         stopCountDown();
         

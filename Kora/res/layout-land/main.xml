@@ -3,33 +3,50 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:padding="5dip"
-    android:background="@drawable/main_background_land"
-    >
+    android:background="@drawable/main_background_land">
     
-    <Button
-        android:id="@+id/settingsButton"
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:minWidth="140dip"
+        android:layout_alignParentBottom="true">
         
-        android:textSize="15sp"
-        android:text="@string/settingsButton"
-        android:drawableLeft="@drawable/icon_preferences"/>
-         
-    <Button
-        android:id="@+id/startButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:minHeight="100dip"
-        android:layout_alignParentRight="true"
-        android:layout_above="@id/settingsButton"
-        android:minWidth="140dip"
+	    <Button
+	        android:id="@+id/startButton"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+	        android:minHeight="60dip"
+	        android:minWidth="150dip"
+	        
+	        android:text="@string/start"
+	        android:textSize="20sp" 
+	        android:drawableLeft="@drawable/action_start"/>
+	    
+	    <Button
+	        android:id="@+id/settingsButton"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentRight="true"
+	        android:layout_alignParentBottom="true"
+	        
+	        android:textSize="15sp"
+	        android:text="@string/settings"
+	        android:drawableLeft="@drawable/icon_settings"/>
+	    
+	    <Button
+	        android:id="@+id/profilesButton"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@id/startButton"
+            android:layout_toLeftOf="@id/settingsButton"
+	        android:minWidth="140dip"
+	        
+	        android:textSize="15sp"
+	        android:text="@string/profiles"
+	        android:drawableLeft="@drawable/icon_profiles"/>
         
-        android:text="@string/startButton"
-        android:textSize="20sp" 
-        android:drawableTop="@drawable/action_start"/>
+    </RelativeLayout>
     
     <ImageView
         android:id="@+id/infoButton"

@@ -26,8 +26,9 @@
         <string name="deviceProfilesActivity">Perfiles de dispositivo</string>
     
     <!-- Welcome strings -->
-    <string name="startButton">Comenzar</string>
-    <string name="settingsButton">Ajustes</string>
+    <string name="start">Comenzar</string>
+    <string name="profiles">Perfiles</string>
+    <string name="settings">Ajustes</string>
     <string name="about">Acerca de</string>
     <string name="autostartText1">comenzará en</string>
     <string name="autostartText2">segundos.</string>
