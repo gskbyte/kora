@@ -364,6 +364,7 @@ public class KoraSlider extends KoraView
                         mBlocked = false;
                     }
                     mFocused = false;
+                    invalidate();
                     break;
             }
         }

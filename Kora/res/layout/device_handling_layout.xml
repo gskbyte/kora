@@ -14,7 +14,7 @@
         gskbyte:numRows="1"
         gskbyte:numColumns="1">
         
-        <org.gskbyte.kora.customViews.koraButton.KoraButton
+        <org.gskbyte.kora.customViews.KoraButton
             android:id="@+id/back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -68,7 +68,6 @@ public class WelcomeActivity extends Activity
             Log.e(TAG, e.getMessage());
         }
         
-        
         // Iniciar gestor de dispositivos
         DeviceManager.init(this);
 	}

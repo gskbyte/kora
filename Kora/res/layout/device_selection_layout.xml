@@ -14,7 +14,7 @@
 		gskbyte:numRows="1"
 		gskbyte:numColumns="2">
 		
-		<org.gskbyte.kora.customViews.koraButton.KoraButton
+		<org.gskbyte.kora.customViews.KoraButton
             android:id="@+id/back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -25,7 +25,7 @@
             gskbyte:overrideCommonTextSize="true"
 		    />
 		
-		<org.gskbyte.kora.customViews.koraButton.KoraButton
+		<org.gskbyte.kora.customViews.KoraButton
             android:id="@+id/next"
             android:maxHeight="50dip"
             android:layout_width="wrap_content"
@@ -36,37 +36,6 @@
             gskbyte:textSize="20"
             gskbyte:overrideCommonTextSize="true"
             />
-		
-		<!-- 
-		<Button android:text="-r"
-			android:id="@+id/lessRows"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_weight="1"
-			android:drawableLeft="@drawable/action_previous"/>
-			
-		<Button android:text="+r"
-			android:id="@+id/moreRows"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_weight="1"
-			android:drawableRight="@drawable/action_next"/>
-			
-	   <Button android:text="-c"
-            android:id="@+id/lessColumns"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawableRight="@drawable/action_next"/>
-            
-       <Button android:text="+c"
-            android:id="@+id/moreColumns"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawableRight="@drawable/action_next"/> 
-            
-            -->
 	</org.gskbyte.kora.customViews.GridLayout> 
 	
 	<org.gskbyte.kora.customViews.GridLayout
