@@ -20,7 +20,8 @@ public class DeviceListProxy extends ObjectProxy
         identity.id_name = TAG_NAME;
         identity.category = TAG_CATEGORY;
         
-        resolveInitialization(null, true, null);
+        // false como segundo parámetro para que no se quede esperando
+        resolveInitialization(null, false, null);
     }
     
     public Vector<DeviceSpec> getDeviceSpecs()
