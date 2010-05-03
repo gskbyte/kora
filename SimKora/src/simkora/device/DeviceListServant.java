@@ -9,6 +9,8 @@ import org.ugr.bluerose.ByteStreamWriter;
 import org.ugr.bluerose.MethodResult;
 import org.ugr.bluerose.events.Value;
 
+import simkora.SimKoraView;
+
 /**
  *
  * @author jose
@@ -29,11 +31,12 @@ public class DeviceListServant extends org.ugr.bluerose.ObjectServant {
     
     @Override
     public MethodResult runMethod(String method, String userId,
-            Vector<Byte> args) {
+            Vector<Byte> args)
+    {
         ByteStreamWriter writer = new ByteStreamWriter();
 
         MethodResult result = new MethodResult();
-        System.out.println(method);
+        SimKoraView.log(method + " called from " + userId);
         if (method.equals(TAG_OPERATION)) {
             java.util.Vector<DeviceSpec> res = getDeviceSpecs();
 
@@ -53,8 +56,8 @@ public class DeviceListServant extends org.ugr.bluerose.ObjectServant {
         return result;
     }
 
-    public java.util.Vector<DeviceSpec> getDeviceSpecs() {
-        System.out.println("Me piden los dispositivos");
+    public java.util.Vector<DeviceSpec> getDeviceSpecs()
+    {
         return DeviceManager.getAllDevices();
     }
 }
