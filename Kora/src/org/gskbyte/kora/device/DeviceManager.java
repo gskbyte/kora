@@ -16,7 +16,9 @@ import org.ugr.bluerose.events.EventHandler;
 import org.ugr.bluerose.events.Value;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.AssetManager;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 public class DeviceManager
@@ -27,7 +29,7 @@ public class DeviceManager
     
     protected static Context sContext;
     protected static boolean sSimulationMode;
-    protected static String sIp, sPort;
+    protected static String sAddress, sPort;
     protected static final String sFilename = "bluerose_config.xml";
     
     protected static Vector<Device> sDevices;
@@ -69,13 +71,21 @@ public class DeviceManager
         }
     }
     
+    public static void loadPreferences()
+    {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(sContext);
+        boolean simulate = prefs.getBoolean("simulation", true);
+        DeviceManager.setSimulationMode(simulate);
+        String address = prefs.getString("ip", "192.168.2.105"),
+               port =    prefs.getString("port", "10003");
+        DeviceManager.setServerAddress(address, port);
+    }
+    
     public static void connect() throws Exception
     {
         sDevices.clear();
         sDevicesMap.clear();
         
-        // Conectar con BlueRose
-        TcpCompatibleDevice device = new TcpCompatibleDevice();
 
         long startTime = System.currentTimeMillis(), current;
         
@@ -88,9 +98,10 @@ public class DeviceManager
             Log.e(TAG, "Connecting to BlueRose");
             InputStream file = sContext.getResources().openRawResource(R.raw.bluerose_config);
             
+            FileInputStream fIn = null;
             try {
-                FileInputStream fIn = sContext.openFileInput(sFilename);
-                fIn.close();
+                fIn = sContext.openFileInput(sFilename);
+                //fIn.close();
             } catch (FileNotFoundException e) {
                 try {
                     FileOutputStream fOut = sContext.openFileOutput(sFilename, Context.MODE_WORLD_READABLE);
@@ -98,12 +109,17 @@ public class DeviceManager
                     int count = sContext.getResources().openRawResource(R.raw.bluerose_config).read(bytes);
                     fOut.write(bytes, 0, count);
                     fOut.close();
+                    /* Esto se quita cuando BlueRose se arregle */
+                    fIn = sContext.openFileInput(sFilename);
                 } catch (Exception e1) {
                     Log.e(TAG, e1.getStackTrace()[0].toString());
                 }
             }
-            org.ugr.bluerose.Initializer.initialize(new java.io.File(sFilename));
-            org.ugr.bluerose.Initializer.initializeNonWaitingClient(device);
+            //org.ugr.bluerose.Initializer.initialize(new java.io.File(sFilename));
+            org.ugr.bluerose.Initializer.initialize(fIn);
+            //org.ugr.bluerose.Initializer.initializeNonWaitingClient(device);
+            TcpCompatibleDevice device = new TcpCompatibleDevice();
+            org.ugr.bluerose.Initializer.initializeClient(device);
             file.close();
             
             current = System.currentTimeMillis();
@@ -147,10 +163,20 @@ public class DeviceManager
         sSimulationMode = simulate;
     }
     
-    public static void setServerAddress(String ip, String port)
+    public static void setServerAddress(String address, String port)
     {
-        sIp = ip;
+        sAddress = address;
         sPort = port;
+    }
+    
+    public static String getServerAddress()
+    {
+        return sAddress;
+    }
+    
+    public static String getServerPort()
+    {
+        return sPort;
     }
     
     public static void disconnect()

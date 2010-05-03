@@ -210,7 +210,9 @@
     <string name="previous">Previous</string>
     <string name="next">Next</string>
     <string name="more">More</string>
-    <string name="connectionError">Error connecting to server.</string>
+    <string name="connectionError">Error connecting to server</string>
+    <string name="address">Address</string>
+    <string name="port">Port</string>
     
     <!-- Device strings -->
     <string name="light">Light</string>

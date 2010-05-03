@@ -7,7 +7,7 @@
 	<services>
 		<category name="BlueRoseService">
 			<service name="Discovery">
-				<device name="TcpCompatibleDevice" address="192.168.2.10" port="10003" />
+				<device name="TcpCompatibleDevice" address="192.168.2.105" port="10003" />
 			</service>
 		</category>
 	</services>

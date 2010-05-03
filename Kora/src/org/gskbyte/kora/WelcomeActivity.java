@@ -10,7 +10,6 @@ import org.gskbyte.kora.profiles.ProfilesManager.SettingsException;
 import org.gskbyte.kora.profilesActivities.ProfilesContainerActivity;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -27,8 +26,6 @@ import android.widget.TextView;
 public class WelcomeActivity extends Activity
 {
 	private static final String TAG = "WelcomeActivity";
-
-	private static final int INFO_DIALOG_ID = 0;
 
 	private Button mStartButton, mProfilesButton, mSettingsButton;
 	private ImageView mInfoButton;
@@ -76,10 +73,8 @@ public class WelcomeActivity extends Activity
 	
 	public void onResume()
 	{
-        /* Set simulation mode, if set */
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        boolean simulate = prefs.getBoolean("simulation", true);
-        DeviceManager.setSimulationMode(simulate);
+	    /* Load preferences for device management */
+	    DeviceManager.loadPreferences();
 	    
         /* Load user and so */
         mCurrentUser = ProfilesManager.getCurrentUser();

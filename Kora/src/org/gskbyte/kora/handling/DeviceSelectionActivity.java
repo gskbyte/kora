@@ -64,11 +64,11 @@ public class DeviceSelectionActivity extends Activity
         } catch (Exception e) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             
-            String errorString = getString(R.string.connectionError);
+            String errorString = getString(R.string.address) + ": " + DeviceManager.getServerAddress() + "\n" +
+                                 getString(R.string.port)    + ": " + DeviceManager.getServerPort();
             
-            errorString += "\nIP:" + 
-            
-            builder.setMessage(errorString)
+            builder.setTitle(R.string.connectionError)
+            .setMessage(errorString)
             .setIcon(R.drawable.icon_error)
             .setCancelable(false)
             .setNeutralButton(R.string.return_,
@@ -78,6 +78,7 @@ public class DeviceSelectionActivity extends Activity
                         finish();
                     }
                 });
+            mNavigationButtons.setVisibility(View.GONE);
             builder.show();
         }
     }

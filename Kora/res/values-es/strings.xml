@@ -205,6 +205,9 @@
     <string name="previous">Anterior</string>
     <string name="next">Siguiente</string>
     <string name="more">Más</string>
+    <string name="connectionError">Error conectando al servidor</string>
+    <string name="address">Dirección</string>
+    <string name="port">Puerto</string>
     
     <!-- Device strings -->
     <string name="light">Luz</string>
