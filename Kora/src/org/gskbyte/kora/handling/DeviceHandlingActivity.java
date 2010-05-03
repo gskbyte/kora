@@ -10,11 +10,11 @@ import org.gskbyte.kora.customViews.deviceViews.DeviceBinaryButton;
 import org.gskbyte.kora.customViews.deviceViews.DeviceBinarySelector;
 import org.gskbyte.kora.customViews.deviceViews.DeviceSlider;
 import org.gskbyte.kora.customViews.deviceViews.DeviceViewAttributes;
-import org.gskbyte.kora.device.Device;
-import org.gskbyte.kora.device.DeviceControl;
-import org.gskbyte.kora.device.DeviceManager;
-import org.gskbyte.kora.device.DeviceRepresentation;
-import org.gskbyte.kora.device.Device.DeviceEventListener;
+import org.gskbyte.kora.devices.Device;
+import org.gskbyte.kora.devices.DeviceControl;
+import org.gskbyte.kora.devices.DeviceManager;
+import org.gskbyte.kora.devices.DeviceRepresentation;
+import org.gskbyte.kora.devices.Device.DeviceEventListener;
 import org.ugr.bluerose.events.Value;
 
 import android.app.Activity;

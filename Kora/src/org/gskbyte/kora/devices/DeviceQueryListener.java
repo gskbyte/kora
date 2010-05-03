@@ -1,4 +1,4 @@
-package org.gskbyte.kora.device;
+package org.gskbyte.kora.devices;
 
 import org.ugr.bluerose.events.Event;
 import org.ugr.bluerose.events.EventListener;

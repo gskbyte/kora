@@ -1,4 +1,4 @@
-package org.gskbyte.kora.device;
+package org.gskbyte.kora.devices;
 
 import java.io.InputStream;
 import java.util.Vector;

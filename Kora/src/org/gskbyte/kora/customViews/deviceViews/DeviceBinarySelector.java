@@ -2,10 +2,10 @@ package org.gskbyte.kora.customViews.deviceViews;
 
 import org.gskbyte.kora.customViews.GridLayout;
 import org.gskbyte.kora.customViews.KoraButton;
-import org.gskbyte.kora.device.Device;
-import org.gskbyte.kora.device.DeviceControl;
-import org.gskbyte.kora.device.DeviceManager;
-import org.gskbyte.kora.device.Device.DeviceEventListener;
+import org.gskbyte.kora.devices.Device;
+import org.gskbyte.kora.devices.DeviceControl;
+import org.gskbyte.kora.devices.DeviceManager;
+import org.gskbyte.kora.devices.Device.DeviceEventListener;
 import org.ugr.bluerose.events.Value;
 
 import android.content.Context;

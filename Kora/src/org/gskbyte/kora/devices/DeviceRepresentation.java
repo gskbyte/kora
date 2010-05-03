@@ -1,4 +1,4 @@
-package org.gskbyte.kora.device;
+package org.gskbyte.kora.devices;
 
 import java.io.IOException;
 import java.util.HashMap;

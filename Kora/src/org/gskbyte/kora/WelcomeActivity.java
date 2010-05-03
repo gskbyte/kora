@@ -2,7 +2,7 @@ package org.gskbyte.kora;
 
 
 import org.gskbyte.kora.R;
-import org.gskbyte.kora.device.DeviceManager;
+import org.gskbyte.kora.devices.DeviceManager;
 import org.gskbyte.kora.handling.DeviceSelectionActivity;
 import org.gskbyte.kora.profiles.ProfilesManager;
 import org.gskbyte.kora.profiles.User;

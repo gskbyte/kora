@@ -3,7 +3,7 @@ package org.gskbyte.kora.handling;
 import org.gskbyte.kora.customViews.KoraButton;
 import org.gskbyte.kora.customViews.KoraView;
 import org.gskbyte.kora.customViews.deviceViews.DeviceViewAttributes;
-import org.gskbyte.kora.device.DeviceRepresentation;
+import org.gskbyte.kora.devices.DeviceRepresentation;
 import org.gskbyte.kora.profiles.ProfilesManager;
 import org.gskbyte.kora.profiles.UseProfile;
 

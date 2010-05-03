@@ -1,4 +1,4 @@
-package org.gskbyte.kora.device;
+package org.gskbyte.kora.devices;
 
 import org.ugr.bluerose.ByteStreamReader;
 import org.ugr.bluerose.ByteStreamWriter;

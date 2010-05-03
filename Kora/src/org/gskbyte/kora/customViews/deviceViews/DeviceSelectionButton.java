@@ -1,8 +1,8 @@
 package org.gskbyte.kora.customViews.deviceViews;
 
 import org.gskbyte.kora.customViews.KoraButton;
-import org.gskbyte.kora.device.Device;
-import org.gskbyte.kora.device.DeviceManager;
+import org.gskbyte.kora.devices.Device;
+import org.gskbyte.kora.devices.DeviceManager;
 import org.gskbyte.kora.handling.DeviceHandlingActivity;
 
 import android.content.Context;
