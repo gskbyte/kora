@@ -1,5 +1,8 @@
 package org.gskbyte.kora.device;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
@@ -13,10 +16,7 @@ import org.ugr.bluerose.events.EventHandler;
 import org.ugr.bluerose.events.Value;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.res.AssetManager;
-import android.preference.Preference;
-import android.preference.PreferenceManager;
 import android.util.Log;
 
 public class DeviceManager
@@ -27,6 +27,8 @@ public class DeviceManager
     
     protected static Context sContext;
     protected static boolean sSimulationMode;
+    protected static String sIp, sPort;
+    protected static final String sFilename = "bluerose_config.xml";
     
     protected static Vector<Device> sDevices;
     protected static HashMap<String, Integer> sDevicesMap;
@@ -40,7 +42,6 @@ public class DeviceManager
         sDevicesMap = new HashMap<String, Integer>();
         sDeviceRepsMap = new HashMap<String, DeviceRepresentation>();
         
-
         /*
          * Cargar representaciones de dispositivos
          */
@@ -66,12 +67,9 @@ public class DeviceManager
             Log.e(TAG, "Can't open device representations folder." +
                        " Critical error.");
         }
-        
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(sContext);
-        sSimulationMode = prefs.getBoolean("simulation", true);
     }
     
-    public static void connect()
+    public static void connect() throws Exception
     {
         sDevices.clear();
         sDevicesMap.clear();
@@ -87,24 +85,34 @@ public class DeviceManager
         if(sSimulationMode){
             specs = createFakeDevices();
         } else {
+            Log.e(TAG, "Connecting to BlueRose");
+            InputStream file = sContext.getResources().openRawResource(R.raw.bluerose_config);
+            
             try {
-                Log.e(TAG, "Connection to BlueRose");
-                InputStream file = sContext.getResources().openRawResource(R.raw.bluerose_config);
-                org.ugr.bluerose.Initializer.initialize(file);
-                org.ugr.bluerose.Initializer.initializeClient(device);
-                file.close();
-                
-                current = System.currentTimeMillis();
-                
-                DeviceListProxy dlp = new DeviceListProxy();
-                specs = dlp.getDeviceSpecs();
-                
-                current = System.currentTimeMillis();
-                Log.e(TAG, "Success. Connection time: " + (current-startTime)/1000.0);
-                
-            } catch (Exception ex) {
-                Log.e(TAG, "Error.");
+                FileInputStream fIn = sContext.openFileInput(sFilename);
+                fIn.close();
+            } catch (FileNotFoundException e) {
+                try {
+                    FileOutputStream fOut = sContext.openFileOutput(sFilename, Context.MODE_WORLD_READABLE);
+                    byte[] bytes = new byte[80192];
+                    int count = sContext.getResources().openRawResource(R.raw.bluerose_config).read(bytes);
+                    fOut.write(bytes, 0, count);
+                    fOut.close();
+                } catch (Exception e1) {
+                    Log.e(TAG, e1.getStackTrace()[0].toString());
+                }
             }
+            org.ugr.bluerose.Initializer.initialize(new java.io.File(sFilename));
+            org.ugr.bluerose.Initializer.initializeNonWaitingClient(device);
+            file.close();
+            
+            current = System.currentTimeMillis();
+            
+            DeviceListProxy dlp = new DeviceListProxy();
+            specs = dlp.getDeviceSpecs();
+            
+            current = System.currentTimeMillis();
+            Log.e(TAG, "Success. Connection time: " + (current-startTime)/1000.0);
         }
         
     	// Asociar representaciones y crear dispositivos
@@ -132,6 +140,17 @@ public class DeviceManager
             org.ugr.bluerose.events.EventHandler.addEventListener(new DeviceQueryListener());
             org.ugr.bluerose.events.EventHandler.addEventListener(new DeviceChangeListener());
     	}
+    }
+    
+    public static void setSimulationMode(boolean simulate)
+    {
+        sSimulationMode = simulate;
+    }
+    
+    public static void setServerAddress(String ip, String port)
+    {
+        sIp = ip;
+        sPort = port;
     }
     
     public static void disconnect()
@@ -178,7 +197,12 @@ public class DeviceManager
 		}
 	}
 	
-	public static Vector<DeviceSpec> createFakeDevices()
+	protected static void setBlueRoseConfiguration()
+	{
+	    
+	}
+	
+	protected static Vector<DeviceSpec> createFakeDevices()
 	{
 	    Value s1min = new Value(),
               s1max = new Value(),

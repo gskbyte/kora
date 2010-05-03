@@ -42,6 +42,7 @@ public class KoraView extends View
         public boolean overrideMaxSize = false;
         public Typeface typeface = Typeface.DEFAULT;
         public int textColor = Color.BLACK;
+        public boolean caps = false;
         
         // Fondo
         public int[] backgroundColors = { BG_NORMAL_COLOR,
@@ -70,6 +71,7 @@ public class KoraView extends View
             overrideMaxSize = o.overrideMaxSize;
             typeface = o.typeface;
             textColor = o.textColor;
+            caps = o.caps;
             
             for(int i=0; i<3; ++i){
                 backgroundColors[i] = o.backgroundColors[i];

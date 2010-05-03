@@ -12,11 +12,16 @@ import org.gskbyte.kora.device.DeviceManager;
 import org.gskbyte.kora.device.DeviceRepresentation;
 import org.gskbyte.kora.profiles.ProfilesManager;
 import org.gskbyte.kora.profiles.UseProfile;
+import org.gskbyte.kora.profiles.ProfilesManager.SettingsException;
+import org.gskbyte.kora.profilesActivities.useProfiles.SelectionActivity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 public class DeviceSelectionActivity extends Activity
 {
@@ -39,6 +44,7 @@ public class DeviceSelectionActivity extends Activity
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
+        ViewManager.init(this);
         setContentView(R.layout.device_selection_layout);
         
         // Cargar componentes de la vista
@@ -51,11 +57,29 @@ public class DeviceSelectionActivity extends Activity
         mNextButton.setOnClickListener(nextPageListener);
         
         // Conectar gestor de dispositivos
-        DeviceManager.connect();
-        
-        configureView();
-        
-        viewPage(0);
+        try {
+            DeviceManager.connect();
+            configureView();
+            viewPage(0);
+        } catch (Exception e) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            
+            String errorString = getString(R.string.connectionError);
+            
+            errorString += "\nIP:" + 
+            
+            builder.setMessage(errorString)
+            .setIcon(R.drawable.icon_error)
+            .setCancelable(false)
+            .setNeutralButton(R.string.return_,
+                new DialogInterface.OnClickListener()
+                {
+                    public void onClick(DialogInterface dialog, int id) {
+                        finish();
+                    }
+                });
+            builder.show();
+        }
     }
     
     public void onStart()
@@ -69,7 +93,6 @@ public class DeviceSelectionActivity extends Activity
     
     public void configureView()
     {
-        ViewManager.init(this);
         mAttr = ViewManager.getAttributes();
         UseProfile up = ProfilesManager.getCurrentUseProfile();
         mGrid.setDimensions(up.rows, up.columns);
@@ -86,15 +109,6 @@ public class DeviceSelectionActivity extends Activity
             break;
         }
         
-        mShowPagingButtons = (up.paginationMode == UseProfile.interaction.pagination_standard);
-        int nDevices = DeviceManager.getNumberOfDevices();
-        if(mShowPagingButtons && nDevices>mGrid.getNRows()*mGrid.getNColumns()){
-            mNavigationButtons.setVisibility(View.VISIBLE);
-        }
-        else
-            mNavigationButtons.setVisibility(View.GONE);
-        
-        
         switch(mAttr.icon){
         case  DeviceRepresentation.ICON_HIGH_CONTRAST:
             mIconReturnId = R.drawable.icon_back_hc;
@@ -109,10 +123,19 @@ public class DeviceSelectionActivity extends Activity
             mIconNextId = R.drawable.icon_next;
             break;
         }
-        mPreviousButton.setIcon(mIconReturnId);
-        mPreviousButton.setAttributes(ViewManager.getAttributes(ViewManager.COLOR_INDEX_PREVIOUS, true));
-        mNextButton.setIcon(mIconNextId);
-        mNextButton.setAttributes(ViewManager.getAttributes(ViewManager.COLOR_INDEX_NEXT, true));
+        
+        mShowPagingButtons = (up.paginationMode == UseProfile.interaction.pagination_standard);
+        int nDevices = DeviceManager.getNumberOfDevices();
+        if(mShowPagingButtons && nDevices>mGrid.getNRows()*mGrid.getNColumns()){
+            mNavigationButtons.setVisibility(View.VISIBLE);
+            
+            mPreviousButton.setIcon(mIconReturnId);
+            mPreviousButton.setAttributes(ViewManager.getAttributes(ViewManager.COLOR_INDEX_PREVIOUS, true));
+            mNextButton.setIcon(mIconNextId);
+            mNextButton.setAttributes(ViewManager.getAttributes(ViewManager.COLOR_INDEX_NEXT, true));
+        } else {
+            mNavigationButtons.setVisibility(View.GONE);
+        }
     }
     
     protected Vector<DeviceSelectionButton> getButtonsForDevices(int initialIndex, int howMany)
@@ -120,7 +143,6 @@ public class DeviceSelectionActivity extends Activity
         Vector<DeviceSelectionButton> ret = new Vector<DeviceSelectionButton>();
         
         for(int i=initialIndex; i<initialIndex+howMany; ++i){
-            
             DeviceSelectionButton b = new DeviceSelectionButton(this, 
                     ViewManager.getAttributes(i), 
                     DeviceManager.getDeviceSystemName(i));
@@ -207,46 +229,4 @@ public class DeviceSelectionActivity extends Activity
                 viewPage(mCurrentPage+1);
             }
         };
-    
-	// Con un asterisco marco las propiedades implementadas
-    // * = TOTALMENTE IMPLEMENTADO
-    // - = A MEDIAS
-
-     
-    /*
-    // Interaction settings
-    public int mainInteraction = interaction.touch_mode;
-    public int touchMode = interaction.press_and_drag;
-    public int scanMode = interaction.simple_scan;
-    public int scanTimeMillis = 2500;
-    - public int paginationMode = interaction.pagination_standard; (solo cambio botón, implementar automático)
-    public int voiceInteraction = interaction.no_voice;
-    
-    // Visualization settings
-    public int viewMode = visualization.view_standard;
-    public int backgroundColor = 0xFF000000;
-    * public int rows = 2;
-    * public int columns = 2;
-    * public int margin = visualization.margin_small;
-    public int orientations = visualization.orientation_both;
-    * public boolean showText = true;
-    * public int textSize = visualization.text_size_small;
-    * public int typography = visualization.font_sans;
-    public boolean typographyCaps = false;
-    * public int textColor = 0xFF000000;
-    * public int iconMode = visualization.icon_pictogram;
-    public boolean customImage = false;
-    
-    // Feedback settings
-    * public boolean vibration = false;
-    public boolean confirmation = false;
-    public int confirmationTimeMillis = 3000;
-    public int contentHighlight = feedback.content_highlight_standard;
-    public boolean borderHighlight = false;
-    
-    // Sound settings
-    public int soundMode = sound.no_sounds;
-    public boolean soundOnSelection = false;
-    public boolean soundOnAction = false;
-    public int voiceMode = sound.voice_default;*/
 }

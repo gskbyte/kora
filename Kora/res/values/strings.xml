@@ -195,16 +195,22 @@
             <!--  nothing yet -->
     
     <!-- Settings strings -->
+    <string name="globalSettings">Global settings</string>
     <string name="simulationSettings">Simulation</string>
         <string name="simulation">Simulation mode</string>
         <string name="simulationSummary">Useful to test app when real devices or simulator are not present</string>
     <string name="connectionSettings">Connection</string>
+        <string name="ipConfig">IP address</string>
+        <string name="ipConfigSummary">BlueRose server's IP</string>
+        <string name="portConfig">Port</string>
+        <string name="portConfigSummary">Used port to connect to talk to server</string>
     
     <!-- Device selection strings -->
     <string name="back">Back</string>
     <string name="previous">Previous</string>
     <string name="next">Next</string>
     <string name="more">More</string>
+    <string name="connectionError">Error connecting to server.</string>
     
     <!-- Device strings -->
     <string name="light">Light</string>

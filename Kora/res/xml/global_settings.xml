@@ -1,12 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen  xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="@string/globalSettings">
     <PreferenceCategory android:title="@string/simulationSettings">
         <CheckBoxPreference android:key="simulation"
             android:title="@string/simulation"
-            android:defaultValue="true"
-            android:summary="@string/simulationSummary"/>
+            android:summary="@string/simulationSummary"
+            android:defaultValue="true"/>
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/connectionSettings">
-        
+        <EditTextPreference android:key="ip"
+            android:title="@string/ipConfig"
+            android:summary="@string/ipConfigSummary"
+            android:defaultValue="192.168.2.105"
+            android:positiveButtonText="@string/ok"
+            android:negativeButtonText="@string/cancel"/>
+        <EditTextPreference android:key="port"
+            android:title="@string/portConfig"
+            android:summary="@string/portConfigSummary"
+            android:defaultValue="10003"
+            android:positiveButtonText="@string/ok"
+            android:negativeButtonText="@string/cancel"/>
     </PreferenceCategory>
 </PreferenceScreen>

@@ -190,10 +190,15 @@
             <!--  nothing yet -->
             
     <!-- Settings strings -->
+    <string name="globalSettings">Ajustes globales</string>
     <string name="simulationSettings">Simulación</string>
         <string name="simulation">Modo simulación</string>
         <string name="simulationSummary">Para probar la aplicación cuando no hay dispositivos o simulador</string>
     <string name="connectionSettings">Conexión</string>
+        <string name="ipConfig">Dirección IP</string>
+        <string name="ipConfigSummary">IP del servidor de BlueRose</string>
+        <string name="portConfig">Puerto</string>
+        <string name="portConfigSummary">Puerto usado para comunicarse con el servidor</string>
     
     <!-- Device selection strings -->
     <string name="back">Volver</string>

@@ -148,7 +148,7 @@ public class VisualizationActivity extends ProfilePropertiesActivity
             mTextColorButton.setColor(mUseProfile.textColor);
             break;
         }
-        mCapsCheckBox.setChecked(mUseProfile.typographyCaps);
+        mCapsCheckBox.setChecked(mUseProfile.textCaps);
         
         /* Set icon mode */
         switch(mUseProfile.iconMode){
@@ -230,7 +230,7 @@ public class VisualizationActivity extends ProfilePropertiesActivity
             mUseProfile.textColor = mTextColorButton.getColor();
         }
         
-        mUseProfile.typographyCaps = mCapsCheckBox.isChecked();
+        mUseProfile.textCaps = mCapsCheckBox.isChecked();
         
         // Icon mode
         if(mIconRadio.isChecked()) {

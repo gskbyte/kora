@@ -12,9 +12,11 @@ import org.gskbyte.kora.profilesActivities.ProfilesContainerActivity;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -74,6 +76,12 @@ public class WelcomeActivity extends Activity
 	
 	public void onResume()
 	{
+        /* Set simulation mode, if set */
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean simulate = prefs.getBoolean("simulation", true);
+        DeviceManager.setSimulationMode(simulate);
+	    
+        /* Load user and so */
         mCurrentUser = ProfilesManager.getCurrentUser();
 	    // Iniciar cuenta atrás si el usuario quiere comienzo automático
         if (mCurrentUser.wantsAutoStart() && mJustStarted) {

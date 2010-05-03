@@ -466,7 +466,7 @@ public class ProfilesDbAdapter
                 (up.showText ? 1 : 0) + ","+
                 up.textSize + ","+
                 up.typography + ","+
-                (up.typographyCaps ? 1 : 0) + ","+
+                (up.textCaps ? 1 : 0) + ","+
                 up.textColor + ","+
                 up.iconMode + ","+
                 (up.customImage ? 1 : 0) + ","+
@@ -587,7 +587,7 @@ public class ProfilesDbAdapter
         u.showText = c.getInt(14) == 1 ? true : false;
         u.textSize = c.getInt(15);
         u.typography = c.getInt(16);
-        u.typographyCaps = c.getInt(17) == 1 ? true : false;
+        u.textCaps = c.getInt(17) == 1 ? true : false;
         u.textColor = c.getInt(18);
         u.iconMode = c.getInt(19);
         u.customImage = c.getInt(20) == 1 ? true : false;

@@ -7,6 +7,7 @@ import org.gskbyte.kora.handling.DeviceHandlingActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.view.View;
 
 public class DeviceSelectionButton extends KoraButton
@@ -18,41 +19,22 @@ public class DeviceSelectionButton extends KoraButton
 	{
 		super(context);
 		
+		// Get device and add listener to call handling activity
 		Device d = DeviceManager.getDevice(deviceName);
-		
 		mDeviceName = d.getSystemName();
-		// establecer atributos de representación
-		mAttrs = attr;
-		
-		// establecer icono
-		if(attr.customIcon){
-			; // si alguna vez entro, avisen!
-		} else {
-			mIcon = d.getIcon(attr.icon);
-		}
-		
-		// establecer nombre (traducido)
-		mText = d.getReadableName();
-		
-		// otras propiedades
-        mFocused = mBlocked = false;
-        setFocusable(true);
-        setClickable(true);
-        
-        // añadir listener que llame a la actividad de manejo correspondiente
-        View.OnClickListener l = new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Intent i = new Intent(getContext(), DeviceHandlingActivity.class);
-				i.putExtra(DeviceHandlingActivity.TAG_DEVICE_NAME, mDeviceName);
-				
-				getContext().startActivity(i);
-			}
-		};
+		View.OnClickListener l = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getContext(), DeviceHandlingActivity.class);
+                i.putExtra(DeviceHandlingActivity.TAG_DEVICE_NAME, mDeviceName);
+                
+                getContext().startActivity(i);
+            }
+        };
         setOnClickListener(l);
+        
+		// Init view attributes
+        Bitmap icon =  d.getIcon(attr.icon); // cargar personalizado aquí cuando lo haya
+		init(d.getReadableName(), icon, attr);
 	}
-	
-	
-	
-
 }

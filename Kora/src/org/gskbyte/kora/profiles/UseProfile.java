@@ -89,7 +89,7 @@ public class UseProfile extends Profile
     public boolean showText = true;
     public int textSize = visualization.text_size_small;
     public int typography = visualization.font_sans;
-    public boolean typographyCaps = false;
+    public boolean textCaps = false;
     public int textColor = 0xFF000000;
     public int iconMode = visualization.icon_pictogram;
     public boolean customImage = false;

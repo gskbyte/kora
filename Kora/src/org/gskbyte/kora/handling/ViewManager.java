@@ -167,7 +167,9 @@ public class ViewManager
         
         // OJO: fullería, xq se corresponde con los índices!
         sAttr.typeface = getTypeFace(sUp.typography);
-            // typographyCaps
+        
+        sAttr.caps = sUp.textCaps;
+        boolean c = sAttr.caps;
         
         // textColor
         sAttr.textColor = sUp.textColor;
@@ -305,4 +307,48 @@ public class ViewManager
             break;
         }
     }
+    
+
+    
+    // Con un asterisco marco las propiedades implementadas
+    // * = TOTALMENTE IMPLEMENTADO
+    // - = A MEDIAS
+
+     
+    /*
+    // Interaction settings
+    public int mainInteraction = interaction.touch_mode;
+    public int touchMode = interaction.press_and_drag;
+    public int scanMode = interaction.simple_scan;
+    public int scanTimeMillis = 2500;
+    - public int paginationMode = interaction.pagination_standard; (solo cambio botón, implementar automático)
+    public int voiceInteraction = interaction.no_voice;
+    
+    // Visualization settings
+    * public int viewMode = visualization.view_standard;
+    * public int backgroundColor = 0xFF000000;
+    * public int rows = 2;
+    * public int columns = 2;
+    * public int margin = visualization.margin_small;
+    public int orientations = visualization.orientation_both;
+    * public boolean showText = true;
+    * public int textSize = visualization.text_size_small;
+    * public int typography = visualization.font_sans;
+    * public boolean textCaps = false;
+    * public int textColor = 0xFF000000;
+    * public int iconMode = visualization.icon_pictogram;
+    public boolean customImage = false;
+    
+    // Feedback settings
+    * public boolean vibration = false;
+    public boolean confirmation = false;
+    public int confirmationTimeMillis = 3000;
+    public int contentHighlight = feedback.content_highlight_standard;
+    public boolean borderHighlight = false;
+    
+    // Sound settings
+    public int soundMode = sound.no_sounds;
+    public boolean soundOnSelection = false;
+    public boolean soundOnAction = false;
+    public int voiceMode = sound.voice_default;*/
 }

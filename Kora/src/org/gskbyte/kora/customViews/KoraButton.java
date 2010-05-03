@@ -46,27 +46,16 @@ public class KoraButton extends KoraView
         init("", null, new Attributes());
     }
     
-    public KoraButton(Context context, String text, int iconId)
-    {
-        this(context, text, BitmapFactory.decodeResource(
-                context.getResources(), iconId));
-    }
-    
     public KoraButton(Context context, String text, int iconId, Attributes attr)
     {
-        this(context, text, BitmapFactory.decodeResource(
-                context.getResources(), iconId), attr);
-    }
-
-    public KoraButton(Context context, String text, Bitmap icon)
-    {
-        this(context, text, icon, null);
+        super(context);
+        init(text, BitmapFactory.decodeResource(context.getResources(), iconId),
+             attr);
     }
     
     public KoraButton(Context context, String text, Bitmap icon, Attributes attr)
     {
         super(context);
-        
         init(text, icon, attr);
     }
     
@@ -105,15 +94,16 @@ public class KoraButton extends KoraView
     
     protected void init(String text, Bitmap icon, Attributes attr)
     {
-        mText = (text == null) ? "" : text;
+        // Attributes
+        mAttrs = attr;
+        
+        // Text
+        mText = (mAttrs.caps) ? text.toUpperCase() : text;
+        
+        // Icon
         mIcon = icon;
-        mFocused = mBlocked = false;
         
-        if(attr!=null)
-            mAttrs = attr;
-        else
-            mAttrs = new Attributes();
-        
+        // Others
         if(sVibrator==null)
             sVibrator = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
         
@@ -126,6 +116,7 @@ public class KoraButton extends KoraView
             }
         };
 
+        mFocused = mBlocked = false;
         setFocusable(true);
         setClickable(true);
     }
@@ -418,7 +409,7 @@ public class KoraButton extends KoraView
 
     public void setAttributes(Attributes attr)
     {
-        mAttrs = attr;
+        init(mText, mIcon, attr);
         invalidate();
     }
 }

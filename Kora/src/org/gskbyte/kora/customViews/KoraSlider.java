@@ -79,15 +79,17 @@ public class KoraSlider extends KoraView
     
     protected void init(Vector<State> states, Attributes attr)
     {
+        // Attributes
+        mAttrs = attr;
+        
+        // States
         mStates = states;
+        if(mAttrs.caps){
+            for(State s : mStates)
+                s.text = s.text.toUpperCase();
+        }
         
-        mFocused = mBlocked = false;
-        
-        if(attr!=null)
-            mAttrs = attr;
-        else
-            mAttrs = new Attributes();
-        
+        // Others
         if(sVibrator==null)
             sVibrator = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
         
@@ -100,6 +102,7 @@ public class KoraSlider extends KoraView
             }
         };
 
+        mFocused = mBlocked = false;
         setFocusable(true);
         setClickable(true);
     }
