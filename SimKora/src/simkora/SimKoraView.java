@@ -16,6 +16,7 @@ import org.jdesktop.application.FrameView;
 import org.jdesktop.application.TaskMonitor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.FileInputStream;
 import java.net.URL;
 import javax.swing.Timer;
@@ -75,7 +76,7 @@ public class SimKoraView extends FrameView {
 
         try {
             log("Conectando a BlueRose");
-            org.ugr.bluerose.Initializer.initialize(new FileInputStream("config.xml"));
+            org.ugr.bluerose.Initializer.initialize(new File("config.xml"));
             org.ugr.bluerose.Initializer.initializeClient(device);
             DeviceListServant sv = new DeviceListServant();
             org.ugr.bluerose.Initializer.initializeServant(sv, device);
