@@ -3,9 +3,10 @@ package org.gskbyte.kora.customViews.deviceViews;
 import org.gskbyte.kora.customViews.GridLayout;
 import org.gskbyte.kora.customViews.KoraButton;
 import org.gskbyte.kora.devices.Device;
-import org.gskbyte.kora.devices.DeviceControl;
 import org.gskbyte.kora.devices.DeviceManager;
+import org.gskbyte.kora.devices.DeviceRepresentation;
 import org.gskbyte.kora.devices.Device.DeviceEventListener;
+import org.gskbyte.kora.devices.DeviceRepresentation.BinaryControl;
 import org.ugr.bluerose.events.Value;
 
 import android.content.Context;
@@ -17,22 +18,22 @@ public class DeviceBinarySelector extends GridLayout implements DeviceEventListe
     
     public DeviceBinarySelector(Context context, 
             DeviceViewAttributes attr1, DeviceViewAttributes attr2, 
-            String deviceName, DeviceControl dc)
+            Device device, DeviceRepresentation repr, BinaryControl bc)
     {
         super(context);
-        setDimensions(1, 2);
+        
+        mDevice = device;
         
         KoraButton b0 = new KoraButton(context,
-                                       dc.getStateAbsoluteAction(0),
-                                       dc.getIcon(attr1.icon, 0),
+                                       bc.minimumTag,
+                                       repr.getStateIcon(0),
                                        attr1);
 
         KoraButton b1 = new KoraButton(context,
-                                       dc.getStateAbsoluteAction(1),
-                                       dc.getIcon(attr2.icon, 1),
+                                       bc.maximumTag,
+                                       repr.getStateIcon(repr.getStateCount()-1),
                                        attr2);
         
-        mDevice = DeviceManager.getDevice(deviceName);
         
         b0.setOnClickListener(new View.OnClickListener(){
                 @Override
@@ -49,7 +50,8 @@ public class DeviceBinarySelector extends GridLayout implements DeviceEventListe
                 DeviceManager.setValueForDevice(mDevice.getSystemName(), mDevice.getMax());
             }
         });
-        
+
+        setDimensions(1, 2);
         addView(b0);
         addView(b1);
     }

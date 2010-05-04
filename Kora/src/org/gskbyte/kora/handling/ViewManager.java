@@ -1,5 +1,7 @@
 package org.gskbyte.kora.handling;
 
+import java.io.IOException;
+
 import org.gskbyte.kora.customViews.KoraButton;
 import org.gskbyte.kora.customViews.KoraView;
 import org.gskbyte.kora.customViews.deviceViews.DeviceViewAttributes;
@@ -128,25 +130,27 @@ public class ViewManager
         
         
         // Propiedades de botones
+        int iconMode;
         switch(sUp.iconMode){
         case UseProfile.visualization.icon_animation:
-            sAttr.icon = DeviceRepresentation.ICON_ANIMATION;
+            iconMode = DeviceRepresentation.ICON_ANIMATION;
             break;
         case UseProfile.visualization.icon_black_white:
-            sAttr.icon = DeviceRepresentation.ICON_BLACK_WHITE;
+            iconMode = DeviceRepresentation.ICON_BLACK_WHITE;
             break;
         case UseProfile.visualization.icon_high_contrast:
-            sAttr.icon = DeviceRepresentation.ICON_HIGH_CONTRAST;
+            iconMode = DeviceRepresentation.ICON_HIGH_CONTRAST;
             break;
         case UseProfile.visualization.icon_photo:
-            sAttr.icon = DeviceRepresentation.ICON_PHOTO;
+            iconMode = DeviceRepresentation.ICON_PHOTO;
             break;
         case UseProfile.visualization.icon_pictogram:
-            sAttr.icon = DeviceRepresentation.ICON_DEFAULT;
         default:
+            iconMode = DeviceRepresentation.ICON_DEFAULT;
             break;
         }
-        
+        sAttr.icon = iconMode;
+        DeviceRepresentation.setIconMode(iconMode);
         
         // showText
         sAttr.showText = sUp.showText;
@@ -169,7 +173,6 @@ public class ViewManager
         sAttr.typeface = getTypeFace(sUp.typography);
         
         sAttr.caps = sUp.textCaps;
-        boolean c = sAttr.caps;
         
         // textColor
         sAttr.textColor = sUp.textColor;

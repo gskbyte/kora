@@ -146,7 +146,7 @@ public class DeviceSelectionActivity extends Activity
         for(int i=initialIndex; i<initialIndex+howMany; ++i){
             DeviceSelectionButton b = new DeviceSelectionButton(this, 
                     ViewManager.getAttributes(i), 
-                    DeviceManager.getDeviceSystemName(i));
+                    DeviceManager.getDevice(i));
             ret.add(b);
         }
         

@@ -2,9 +2,10 @@ package org.gskbyte.kora.customViews.deviceViews;
 
 import org.gskbyte.kora.customViews.KoraButton;
 import org.gskbyte.kora.devices.Device;
-import org.gskbyte.kora.devices.DeviceControl;
 import org.gskbyte.kora.devices.DeviceManager;
+import org.gskbyte.kora.devices.DeviceRepresentation;
 import org.gskbyte.kora.devices.Device.DeviceEventListener;
+import org.gskbyte.kora.devices.DeviceRepresentation.BinaryControl;
 import org.ugr.bluerose.Comparison;
 import org.ugr.bluerose.events.Value;
 
@@ -15,7 +16,8 @@ public class DeviceBinaryButton extends KoraButton
                                 implements DeviceEventListener
 {
 	Device mDevice;
-	DeviceControl mControl;
+	DeviceRepresentation mRepr;
+	BinaryControl mControl;
 	Value mCurrentValue, mNextValue;
 	
 	/* Necesario para actualizar la vista en la hebra principal */
@@ -34,19 +36,21 @@ public class DeviceBinaryButton extends KoraButton
     private final android.os.Handler mViewUpdaterHandler = new android.os.Handler();
 	
 	public DeviceBinaryButton(Context context, DeviceViewAttributes attr, 
-	                          String deviceName, DeviceControl dc)
+                              Device device, DeviceRepresentation dr, BinaryControl bc)
 	{
 		super(context);
 		
 		// establecer atributos iniciales de representación
         init("", null, attr);
 
-		mDevice = DeviceManager.getDevice(deviceName);
-		mDevice.setChangeListener(this);
-		mControl = dc;
+		mDevice = device;
+		mDevice.addChangeListener(this);
 		
+		// Iniciar vista
+		mRepr = dr;
+		mControl = bc;
 		setView(mDevice.getValue());
-        
+		
         View.OnClickListener l = new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -70,12 +74,12 @@ public class DeviceBinaryButton extends KoraButton
 		boolean isMinimum = currentValue.compare(Comparison.EQUAL, minimumValue);
 		if(isMinimum){
 			mNextValue = mDevice.getMax();
-			mIcon = mControl.getIcon(((DeviceViewAttributes)mAttrs).icon, 0);
-			mText = mControl.getStateAbsoluteAction(mControl.getStateCount()-1);
+			mIcon = mRepr.getStateIcon(0);
+			mText = mControl.maximumTag;
 		} else { // si no está al mínimo, bajar al mínimo
 			mNextValue = mDevice.getMin();
-			mIcon = mControl.getIcon(((DeviceViewAttributes)mAttrs).icon, mControl.getStateCount()-1);
-			mText = mControl.getStateAbsoluteAction(0);
+            mIcon = mRepr.getStateIcon(mRepr.getStateCount()-1);
+            mText = mControl.minimumTag;
 		}
 		invalidate();
 	}
@@ -90,6 +94,6 @@ public class DeviceBinaryButton extends KoraButton
     @Override
     public void unregister()
     {
-        mDevice.unsetListener();
+        mDevice.removeListener(this);
     }
 }

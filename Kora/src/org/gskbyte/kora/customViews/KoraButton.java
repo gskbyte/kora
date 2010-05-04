@@ -256,7 +256,7 @@ public class KoraButton extends KoraView
             maxHeight = mHeight - doubleBorder;
         }
         maxSize = Math.min( maxWidth,
-                                maxHeight );
+                            maxHeight );
         
         if(maxSize < 1)
             maxSize = 1;

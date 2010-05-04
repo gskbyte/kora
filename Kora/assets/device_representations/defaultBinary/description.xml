@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <deviceRepresentation name="defaultBinary">
-    <icon class="default"/>
-    <icon class="highContrast"/>
-    <icon class="blackWhite"/>
-    
-    <control name="switch" type="binary" access="RW">
-    	<state index="0" icon="0.png" name="Apagado"   absoluteAction="Apagar"/>
-    	<state index="1" icon="1.png" name="Encendido" absoluteAction="Encender"/>
-    </control>
+    <states>
+        <state index="0" tag="Apagado"    icon="0.png"/>
+        <state index="1" tag="Encendido"  icon="1.png"/>
+    </states>
+    <controls>
+        <binaryControl name="switch" access="RW"
+                       minimumTag="Apagar" maximumTag="Encender"/>
+    </controls>
 </deviceRepresentation>

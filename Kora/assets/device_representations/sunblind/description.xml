@@ -1,20 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <deviceRepresentation name="sunblind">
-    <icon class="default"/>
-    <icon class="highContrast"/>
-    <icon class="blackWhite"/>
-    <icon class="photo"/>
+    <states>
+        <state index="0" tag="Abajo"        icon="0.png"/>
+        <state index="1" tag="Abajo-medio"  icon="1.png"/>
+        <state index="2" tag="En medio"     icon="2.png"/>
+        <state index="3" tag="Arriba-medio" icon="3.png"/>
+        <state index="4" tag="Arriba"       icon="4.png"/>
+    </states>
     
-    <control name="switch" type="binary" access="W">
-        <state index="0" icon="0.png" name="Abajo"  absoluteAction="Bajar"/>
-        <state index="1" icon="4.png" name="Arriba" absoluteAction="Subir"/>
-    </control>
-    
-    <control name="intensity" type="scalar" access="RW">
-        <state index="0" icon="0.png" name="Abajo"/>
-        <state index="1" icon="1.png" name="Abajo-medio"/>
-        <state index="2" icon="2.png" name="En medio"/>
-        <state index="3" icon="3.png" name="Arriba-medio"/>
-        <state index="4" icon="4.png" name="Arriba"/>
-    </control>
+    <controls>
+        <binaryControl name="switch" access="W"
+                       minimumTag="Bajar" maximumTag="Subir"/>
+        <scalarControl name="intensity" access="RW"
+                       decreaseTag="Bajar" increaseTag="Subir"/>
+    </controls>
 </deviceRepresentation>

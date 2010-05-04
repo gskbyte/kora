@@ -8,13 +8,16 @@ import org.gskbyte.kora.customViews.GridLayout;
 import org.gskbyte.kora.customViews.KoraButton;
 import org.gskbyte.kora.customViews.deviceViews.DeviceBinaryButton;
 import org.gskbyte.kora.customViews.deviceViews.DeviceBinarySelector;
+import org.gskbyte.kora.customViews.deviceViews.DeviceScalarSelector;
 import org.gskbyte.kora.customViews.deviceViews.DeviceSlider;
 import org.gskbyte.kora.customViews.deviceViews.DeviceViewAttributes;
 import org.gskbyte.kora.devices.Device;
-import org.gskbyte.kora.devices.DeviceControl;
 import org.gskbyte.kora.devices.DeviceManager;
 import org.gskbyte.kora.devices.DeviceRepresentation;
 import org.gskbyte.kora.devices.Device.DeviceEventListener;
+import org.gskbyte.kora.devices.DeviceRepresentation.BinaryControl;
+import org.gskbyte.kora.devices.DeviceRepresentation.Control;
+import org.gskbyte.kora.devices.DeviceRepresentation.ScalarControl;
 import org.ugr.bluerose.events.Value;
 
 import android.app.Activity;
@@ -71,7 +74,7 @@ public class DeviceHandlingActivity extends Activity
     // Gran parte de los atributos los pillo de la actividad anterior
     private void configureView()
     {
-        mGrid.setDimensions(mDevice.getRepresentation().getNDeviceControls(), 1);
+        mGrid.setDimensions(mDevice.getRepresentation().getControlsCount(), 1);
         mAttr = ViewManager.getAttributes();
         int iconBackId;
         switch(mAttr.icon){
@@ -94,41 +97,40 @@ public class DeviceHandlingActivity extends Activity
     {
         mControls = new Vector<DeviceEventListener>();
         
-        Set<String> controls = mRepr.getDeviceControlNames();
+        Set<String> controls = mRepr.getControlNames();
         int btn_index = 0;
         for(String s: controls){
-            DeviceControl dc = mRepr.getControl(s);
+            Control dc = mRepr.getControl(s);
             DeviceEventListener l = null;
-            if(dc.getType()==DeviceControl.TYPE_BINARY){
-                switch(dc.getAccessMode()){
-                case DeviceControl.ACCESS_READ:
+            if(dc.getClass() == BinaryControl.class){
+                switch(dc.access){
+                case Control.ACCESS_READ:
                     break;
-                case DeviceControl.ACCESS_WRITE:
+                case Control.ACCESS_WRITE:
                     l = new DeviceBinarySelector(this,
                             ViewManager.getAttributes(btn_index),
                             ViewManager.getAttributes(btn_index+1),
-                            mDeviceName, dc);
+                            mDevice, mDevice.getRepresentation(), (BinaryControl)dc);
                     ++btn_index;
                     break;
-                case DeviceControl.ACCESS_READ_WRITE:
+                case Control.ACCESS_READ_WRITE:
                     l = new DeviceBinaryButton(this,
                             ViewManager.getAttributes(btn_index),
-                            mDeviceName, dc);
+                            mDevice, mDevice.getRepresentation(), (BinaryControl)dc);
                     break;
                 }
-            } else {
-                switch(dc.getAccessMode()){
-                case DeviceControl.ACCESS_READ:
-                    break;
-                case DeviceControl.ACCESS_WRITE:
-                    break;
-                case DeviceControl.ACCESS_READ_WRITE:
-                    l = new DeviceSlider(this,
-                            ViewManager.getAttributes(btn_index, true),
-                            mDeviceName, dc);
-                    break;
-                }
+            } else if (dc.getClass() == ScalarControl.class) {
+                /*l = new DeviceSlider(this,
+                        ViewManager.getAttributes(btn_index, true),
+                        mDevice, mDevice.getRepresentation(), (ScalarControl)dc);
+                */l = new DeviceScalarSelector(this,
+                        ViewManager.getAttributes(btn_index, true),
+                        ViewManager.getAttributes(btn_index+1, true),
+                        mDevice, mDevice.getRepresentation(), (ScalarControl)dc);
+                ++btn_index;
+                
             }
+            
             if(l!=null){
                 mControls.add(l);
                 mGrid.addView((View)l);

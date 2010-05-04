@@ -181,19 +181,15 @@ public class KoraSlider extends KoraView
         RectF sliderMarkBorderRect = new RectF(startx, mSliderMarkY, 
                 startx+mSliderMarkWidth, mSliderMarkY+mSliderMarkHeight);
         canvas.drawRoundRect(sliderMarkBorderRect, 5, 5, sPaint);
-        /*
-        sPaint.setColor(bgColor);
-        RectF sliderMarkBgRect = new RectF(startx+mSliderBorderSize,
-                                       mSliderMarkY+mSliderBorderSize, 
-                                       startx+mSliderMarkWidth-mSliderBorderSize,
-                                       mSliderMarkY+mSliderMarkHeight-mSliderBorderSize);
-        canvas.drawRoundRect(sliderMarkBgRect, 5, 5, sPaint);*/
     }
     
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
     {
         mWidth = MeasureSpec.getSize(widthMeasureSpec);
         mHeight = MeasureSpec.getSize(heightMeasureSpec);
+        
+        if(mHeight > mWidth)
+            mHeight = mWidth-16;
         
         if(mWidth >0 && mHeight>0){
             calculateBorder();
@@ -224,11 +220,11 @@ public class KoraSlider extends KoraView
         
         int maxWidth, maxHeight;
         
-        maxHeight = (mHeight>>1) - (mBorderSize<<1);
+        maxHeight = (mHeight>>1) - mBorderSize;
         if(mAttrs.showText) {
             maxWidth = maxHeight;
         } else {
-            maxWidth = mWidth - (mBorderSize<<1);
+            maxWidth = mWidth - mBorderSize;
         }
         
         // Multiplico y divido por 1024 para hallar las proporciones, es más rápido
@@ -244,8 +240,8 @@ public class KoraSlider extends KoraView
             mIconWidth  = (res*iw)>>10;
             mIconHeight = (res*ih)>>10;
             
-            mIconX = ((maxWidth-mIconWidth)>>1) + (mBorderSize<<1);
-            mIconY = ((maxHeight-mIconHeight)>>1) + (mBorderSize<<1);
+            mIconX = ((maxWidth-mIconWidth)>>1) + mBorderSize + 5;
+            mIconY = ((maxHeight-mIconHeight)>>1) + mBorderSize + 5;
             
             s.icon = Bitmap.createScaledBitmap(s.icon, mIconWidth, mIconHeight, true);
         }
@@ -263,7 +259,7 @@ public class KoraSlider extends KoraView
         
         int maxWidth, maxHeight;
         
-        maxWidth = mWidth - (mHeight>>1) - (mBorderSize<<3);
+        maxWidth = mWidth - (mIconX + mIconWidth) - mBorderSize - 10;
         maxHeight = (mHeight>>1) - (mBorderSize<<1);
         
         Rect bounds = new Rect();
@@ -285,7 +281,7 @@ public class KoraSlider extends KoraView
             }
         }
         
-        mTextX = (mHeight>>1) + (mBorderSize);
+        mTextX = mIconX + mIconWidth + 5;
         mTextY = (((mHeight>>1)+bounds.height())>>1) +(mBorderSize<<1);
     }
     
@@ -380,6 +376,11 @@ public class KoraSlider extends KoraView
         invalidate();
     }
 
+    public int getStateCount()
+    {
+        return mStates.size();
+    }
+    
     public Vector<State> getStates()
     {
         return mStates;
@@ -392,8 +393,10 @@ public class KoraSlider extends KoraView
     
     public void setState(int index)
     {
-        mCurrentState = index;
-        invalidate();
+        if(mCurrentState != index){
+            mCurrentState = index;
+            invalidate();
+        }
     }
     
     public Attributes getAttributes()

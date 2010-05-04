@@ -15,10 +15,13 @@ import org.ugr.bluerose.events.Event;
 import org.ugr.bluerose.events.EventHandler;
 import org.ugr.bluerose.events.Value;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.AssetManager;
+import android.content.res.Resources;
 import android.preference.PreferenceManager;
+import android.util.DisplayMetrics;
 import android.util.Log;
 
 public class DeviceManager
@@ -47,9 +50,13 @@ public class DeviceManager
         /*
          * Cargar representaciones de dispositivos
          */
-        
+        Resources res = ctx.getResources();
         AssetManager am = ctx.getAssets();
-        DeviceRepresentation.setAssetManager(am);
+        DisplayMetrics metrics = new DisplayMetrics();
+        ((Activity)ctx).getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        
+        DeviceRepresentation.init(res, am);
+        DeviceRepresentation.setMaxIconSize((metrics.widthPixels*2)/3, (metrics.heightPixels*2)/3);
         try {
             String [] folders = am.list(DEVICE_REPS_FOLDER);
             for(String f : folders){
@@ -85,7 +92,6 @@ public class DeviceManager
     {
         sDevices.clear();
         sDevicesMap.clear();
-        
 
         long startTime = System.currentTimeMillis(), current;
         
@@ -143,10 +149,9 @@ public class DeviceManager
     			}
     		}
     		
-    		Device d = new Device(s.getReadableName(), s, dr);
+    		Device d = new Device(s, dr);
     		sDevices.add(d);
     		sDevicesMap.put(d.getSystemName(), sDevices.size()-1);
-    		
     	}
     	
         /*
