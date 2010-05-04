@@ -23,6 +23,7 @@ import android.content.res.Resources;
 import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.widget.Toast;
 
 public class DeviceManager
 {
@@ -100,33 +101,40 @@ public class DeviceManager
         // Connect to BlueRose server
         if(sSimulationMode){
             specs = createFakeDevices();
+            Toast.makeText(sContext, R.string.simulation, Toast.LENGTH_SHORT).show();
         } else {
             Log.e(TAG, "Connecting to BlueRose");
-            InputStream file = sContext.getResources().openRawResource(R.raw.bluerose_config);
             
             FileInputStream fIn = null;
             try {
                 fIn = sContext.openFileInput(sFilename);
-                //fIn.close();
-            } catch (FileNotFoundException e) {
+                fIn.close();
+            } catch (FileNotFoundException e) { // esto debería saltar solo la primera vez
                 try {
                     FileOutputStream fOut = sContext.openFileOutput(sFilename, Context.MODE_WORLD_READABLE);
                     byte[] bytes = new byte[80192];
                     int count = sContext.getResources().openRawResource(R.raw.bluerose_config).read(bytes);
                     fOut.write(bytes, 0, count);
                     fOut.close();
-                    /* Esto se quita cuando BlueRose se arregle */
-                    fIn = sContext.openFileInput(sFilename);
                 } catch (Exception e1) {
                     Log.e(TAG, e1.getStackTrace()[0].toString());
                 }
             }
-            //org.ugr.bluerose.Initializer.initialize(new java.io.File(sFilename));
-            org.ugr.bluerose.Initializer.initialize(fIn);
-            //org.ugr.bluerose.Initializer.initializeNonWaitingClient(device);
+            String root = sContext.getFilesDir().getAbsolutePath() + "/";
+            org.ugr.bluerose.Initializer.initialize(new java.io.File(root+sFilename));
+            
+            /* Change config file if necessary */
+            org.ugr.bluerose.Configuration cfg = org.ugr.bluerose.Initializer.configuration;
+            
+            String addr = cfg.getAddress("BlueRoseService", "Discovery", "TcpCompatibleDevice"),
+                   port = cfg.getPort("BlueRoseService", "Discovery", "TcpCompatibleDevice");
+            if(!addr.equals(sAddress) || !port.equals(sPort)){
+                org.ugr.bluerose.Initializer.configuration.setAddressForService("BlueRoseService", "Discovery", "TcpCompatibleDevice", sAddress);
+                org.ugr.bluerose.Initializer.configuration.setPortForService("BlueRoseService", "Discovery", "TcpCompatibleDevice", sPort);
+                org.ugr.bluerose.Initializer.configuration.save();
+            }
             TcpCompatibleDevice device = new TcpCompatibleDevice();
-            org.ugr.bluerose.Initializer.initializeClient(device);
-            file.close();
+            org.ugr.bluerose.Initializer.initializeNonWaitingClient(device);
             
             current = System.currentTimeMillis();
             

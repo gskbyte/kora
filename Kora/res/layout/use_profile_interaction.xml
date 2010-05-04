@@ -53,14 +53,14 @@
                        android:checkedButton="@+id/pressAndDragRadio"
 			           android:orientation="vertical"
 			           android:paddingLeft="20dip">
-		        
+		          <!--  
 				       <RadioButton android:id="@+id/multitouchRadio"
 			               android:layout_width="wrap_content"
 			               android:layout_height="wrap_content"
                            android:enabled="false"
 			               
 			               android:textSize="12sp"
-			               android:text="@string/multitouchInteraction"/>
+			               android:text="@string/multitouchInteraction"/>-->
 		            
 		               <RadioButton android:id="@+id/pressAndDragRadio"
 			               android:layout_width="wrap_content"

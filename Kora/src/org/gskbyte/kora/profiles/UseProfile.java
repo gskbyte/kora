@@ -7,7 +7,7 @@ public class UseProfile extends Profile
     // Interaction modes
     public class interaction{
         public static final int touch_mode = 0;	
-            public static final int multitouch_and_drag = 0;
+            //public static final int multitouch_and_drag = 0;
             public static final int press_and_drag = 1;
             public static final int simple_press = 2;
         

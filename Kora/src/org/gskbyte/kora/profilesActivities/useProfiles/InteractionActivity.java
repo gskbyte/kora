@@ -15,7 +15,7 @@ public class InteractionActivity extends ProfilePropertiesActivity
     private static final String TAG = "InteractionActivity";
     
     private RadioButton mTouchRadio,
-                    mMultitouchRadio, mPressAndDragRadio, mSimpleRadio,
+                    /*mMultitouchRadio,*/ mPressAndDragRadio, mSimpleRadio,
                     mScanRadio, mSimpleScanRadio, mRowColumnScanRadio;
     
     private FloatSeekBar mScanSecondsSeekBar;
@@ -34,7 +34,7 @@ public class InteractionActivity extends ProfilePropertiesActivity
         
         /* Load views */
         mTouchRadio = (RadioButton) findViewById(R.id.touchInteractionRadio);
-        mMultitouchRadio = (RadioButton) findViewById(R.id.multitouchRadio);
+        //mMultitouchRadio = (RadioButton) findViewById(R.id.multitouchRadio);
         mPressAndDragRadio = (RadioButton) findViewById(R.id.pressAndDragRadio);
         mSimpleRadio = (RadioButton) findViewById(R.id.simpleTouchRadio);
         mScanRadio = (RadioButton) findViewById(R.id.scanInteractionRadio);
@@ -60,9 +60,9 @@ public class InteractionActivity extends ProfilePropertiesActivity
         
         /* Set interaction mode */
         switch(mUseProfile.touchMode){
-        case UseProfile.interaction.multitouch_and_drag:
+        /*case UseProfile.interaction.multitouch_and_drag:
             mMultitouchRadio.setChecked(true);
-            break;
+            break;*/
         case UseProfile.interaction.press_and_drag:
             mPressAndDragRadio.setChecked(true);
             break;
@@ -108,10 +108,10 @@ public class InteractionActivity extends ProfilePropertiesActivity
                 UseProfile.interaction.scan_mode;
         }
         
-        if(mMultitouchRadio.isChecked()) {
+        /*if(mMultitouchRadio.isChecked()) {
             mUseProfile.touchMode =
                 UseProfile.interaction.multitouch_and_drag;
-        } else if(mPressAndDragRadio.isChecked()) {
+        } else*/ if(mPressAndDragRadio.isChecked()) {
             mUseProfile.touchMode =
                 UseProfile.interaction.press_and_drag;
         } else {
@@ -143,7 +143,7 @@ public class InteractionActivity extends ProfilePropertiesActivity
             public void onCheckedChanged(CompoundButton buttonView,
                     boolean isChecked)
             {
-                mMultitouchRadio.setEnabled(isChecked);
+                //mMultitouchRadio.setEnabled(isChecked);
                 mPressAndDragRadio.setEnabled(isChecked);
                 mSimpleRadio.setEnabled(isChecked);
 
