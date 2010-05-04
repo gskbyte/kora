@@ -3,8 +3,6 @@ package org.gskbyte.kora.devices;
 import java.util.Vector;
 
 import org.ugr.bluerose.ByteStreamReader;
-import org.ugr.bluerose.ByteStreamWriter;
-import org.ugr.bluerose.ICommunicationDevice;
 import org.ugr.bluerose.ObjectProxy;
 import org.ugr.bluerose.messages.MessageHeader;
 
@@ -26,22 +24,28 @@ public class DeviceListProxy extends ObjectProxy
     
     public Vector<DeviceSpec> getDeviceSpecs()
     {
+        int reqID;
+        
         currentMode = MessageHeader.TWOWAY_MODE;
-
-        ByteStreamWriter writer = new ByteStreamWriter();
-
-        int reqID = sendRequest(servantID, TAG_OPERATION, writer.toVector());
-        java.util.Vector<Byte> result_bytes = this.receiveReply(reqID);
-    
+        
+        java.util.Vector<Byte> result_bytes = null;
+        
+        synchronized(mutex) {
+            reqID = sendRequest(servantID, TAG_OPERATION, writer.toVector());
+            result_bytes = this.receiveReply(reqID);
+            
+            writer.reset();
+        }
+        
         ByteStreamReader reader = new ByteStreamReader(result_bytes);
         int n = reader.readSize();
-    
+        
         Vector<DeviceSpec> ret = new Vector<DeviceSpec>(n);
         for(int i=0; i<n; ++i){
             DeviceSpec ds = new DeviceSpec(reader);
             ret.add(ds);
         }
-    
+        
         return ret;
     }
     
@@ -50,6 +54,4 @@ public class DeviceListProxy extends ObjectProxy
     {
         return TAG_CATEGORY+"::"+TAG_NAME;
     }
-    
-
 }

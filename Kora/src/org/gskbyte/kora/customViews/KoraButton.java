@@ -14,6 +14,8 @@ import android.graphics.Paint.Align;
 import android.os.CountDownTimer;
 import android.os.Vibrator;
 import android.util.AttributeSet;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 
 public class KoraButton extends KoraView
@@ -270,8 +272,8 @@ public class KoraButton extends KoraView
         mIconWidth = (res*iw)>>10;
         mIconHeight = (res*ih)>>10;
         
-        mIconX = border + ((maxWidth-mIconWidth)>>1) ;
-        mIconY = border + ((maxHeight-mIconHeight)>>1) ;
+        mIconX = border + ((maxWidth-mIconWidth)>>1);
+        mIconY = border + ((maxHeight-mIconHeight)>>1);
     }
     
     protected void calculateTextBounds()
@@ -365,6 +367,27 @@ public class KoraButton extends KoraView
         }
 
         return true;
+    }
+    
+
+    public boolean onKeyDown(int keyCode, KeyEvent event)
+    {
+        super.onKeyDown(keyCode, event);
+        
+        if(keyCode == KeyEvent.KEYCODE_DPAD_CENTER){
+            mBlocked = true;
+            
+            mBlockTimer.start();
+            
+            if(mAttrs.vibrate)
+                sVibrator.vibrate(500);
+            
+            if(mClickListener!=null)
+                mClickListener.onClick(this);
+            return true;
+        }
+        
+        return false;
     }
     
     public void deselect()
