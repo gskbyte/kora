@@ -5,7 +5,7 @@
     <!-- Main strings. -->
     <string name="appName">Kora</string>
     <string name="title">Kora</string>
-    <string name="versionNumber">0.1</string>
+    <string name="versionNumber">0.1.1</string>
     
     <!-- Common actions -->
     <string name="yes">Yes</string>

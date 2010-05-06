@@ -120,13 +120,13 @@ public class DeviceHandlingActivity extends Activity
                     break;
                 }
             } else if (dc.getClass() == ScalarControl.class) {
-                /*l = new DeviceSlider(this,
+                l = new DeviceSlider(this,
                         ViewManager.getAttributes(btn_index, true),
                         mDevice, mDevice.getRepresentation(), (ScalarControl)dc);
-                */l = new DeviceScalarSelector(this,
+                /*l = new DeviceScalarSelector(this,
                         ViewManager.getAttributes(btn_index, true),
                         ViewManager.getAttributes(btn_index+1, true),
-                        mDevice, mDevice.getRepresentation(), (ScalarControl)dc);
+                        mDevice, mDevice.getRepresentation(), (ScalarControl)dc);*/
                 ++btn_index;
                 
             }
