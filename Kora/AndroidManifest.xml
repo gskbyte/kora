@@ -33,7 +33,8 @@
         </activity>
         
         <activity android:name=".handling.DeviceHandlingActivity"
-              android:label="@string/controlActivity">
+              android:label="@string/controlActivity"
+              android:screenOrientation="behind">
         </activity>
         
         <activity android:name=".profilesActivities.ProfilesContainerActivity"

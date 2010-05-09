@@ -16,8 +16,10 @@ import org.gskbyte.kora.profiles.UseProfile;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 
 public class DeviceSelectionActivity extends Activity
 {
@@ -40,6 +42,8 @@ public class DeviceSelectionActivity extends Activity
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
+        setOrientation();
+        
         ViewManager.init(this);
         setContentView(R.layout.device_selection_layout);
         
@@ -58,8 +62,6 @@ public class DeviceSelectionActivity extends Activity
         // Conectar gestor de dispositivos
         try {
             DeviceManager.connect();
-            configureView();
-            viewPage(0);
         } catch (Exception e) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             
@@ -80,6 +82,9 @@ public class DeviceSelectionActivity extends Activity
             mNavigationButtons.setVisibility(View.GONE);
             builder.show();
         }
+        configureView();
+        viewPage(0);
+        
     }
     
     public void onStart()
@@ -91,6 +96,19 @@ public class DeviceSelectionActivity extends Activity
     	//    ((KoraButton)mGrid.getChildAt(i)).deselect();
     }
     
+    public void setOrientation()
+    {
+        UseProfile up = ProfilesManager.getCurrentUseProfile();
+        switch(up.orientations){
+        case UseProfile.visualization.orientation_horizontal:
+            setRequestedOrientation(0);
+            break;
+        case UseProfile.visualization.orientation_vertical:
+            setRequestedOrientation(1);
+            break;
+        }
+    }
+    
     public void configureView()
     {
         mAttr = ViewManager.getAttributes();
@@ -98,10 +116,10 @@ public class DeviceSelectionActivity extends Activity
         mGrid.setDimensions(up.rows, up.columns);
         switch(up.margin){
         case UseProfile.visualization.margin_large:
-            mGrid.setMargin(20);
+            mGrid.setMargin(30);
             break;
         case UseProfile.visualization.margin_medium:
-            mGrid.setMargin(10);
+            mGrid.setMargin(15);
             break;
         case UseProfile.visualization.margin_small:
         default:

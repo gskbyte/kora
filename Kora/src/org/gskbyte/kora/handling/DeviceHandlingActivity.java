@@ -8,7 +8,6 @@ import org.gskbyte.kora.customViews.GridLayout;
 import org.gskbyte.kora.customViews.KoraButton;
 import org.gskbyte.kora.customViews.deviceViews.DeviceBinaryButton;
 import org.gskbyte.kora.customViews.deviceViews.DeviceBinarySelector;
-import org.gskbyte.kora.customViews.deviceViews.DeviceScalarSelector;
 import org.gskbyte.kora.customViews.deviceViews.DeviceSlider;
 import org.gskbyte.kora.customViews.deviceViews.DeviceViewAttributes;
 import org.gskbyte.kora.devices.Device;
@@ -18,14 +17,16 @@ import org.gskbyte.kora.devices.Device.DeviceEventListener;
 import org.gskbyte.kora.devices.DeviceRepresentation.BinaryControl;
 import org.gskbyte.kora.devices.DeviceRepresentation.Control;
 import org.gskbyte.kora.devices.DeviceRepresentation.ScalarControl;
+import org.gskbyte.kora.profiles.ProfilesManager;
+import org.gskbyte.kora.profiles.UseProfile;
 import org.ugr.bluerose.events.Value;
 
 import android.app.Activity;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 
 public class DeviceHandlingActivity extends Activity
-                                    implements DeviceEventListener
 {
     private static final String TAG = "DeviceHandlingActivity";
     public static final String TAG_DEVICE_NAME = "deviceName";
@@ -65,12 +66,6 @@ public class DeviceHandlingActivity extends Activity
         fillView();
     }
     
-    public void onDestroy()
-    {
-        super.onDestroy();
-        unregister();
-    }
-    
     // Gran parte de los atributos los pillo de la actividad anterior
     private void configureView()
     {
@@ -91,6 +86,9 @@ public class DeviceHandlingActivity extends Activity
         }
         mBackButton.setAttributes(ViewManager.getAttributes(ViewManager.COLOR_INDEX_BACK, true));
         mBackButton.setIcon(iconBackId);
+
+        //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_BEHIND);
+        //setRequestedOrientation(5);
     }
     
     private void fillView()
@@ -147,18 +145,4 @@ public class DeviceHandlingActivity extends Activity
                 DeviceHandlingActivity.this.finish();
             }
         };
-
-    @Override
-    public void onDeviceChange(String deviceName, Value newVal)
-    {
-        for(DeviceEventListener dl : mControls)
-            dl.onDeviceChange(deviceName, newVal);
-    }
-
-    @Override
-    public void unregister()
-    {
-        for(DeviceEventListener dl : mControls)
-            dl.unregister();
-    }
 }
