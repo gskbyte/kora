@@ -89,7 +89,7 @@ public class DeviceRepresentation
     protected static AssetManager sAssetManager;
     protected static int sMaxIconWidth = 0, sMaxIconHeight = 0;
 
-    protected String mPath;
+    protected String mPath, mIconPath;
     protected String mName;
     protected Bitmap mIcon;
     protected Vector<State> mStates = new Vector<State>();
@@ -112,8 +112,14 @@ public class DeviceRepresentation
     {
         if(mode != sIconMode){
             sIconMode = mode;
-            for(DeviceRepresentation dr : sRepresentations)
-                    dr.loadIcons();
+            for(DeviceRepresentation dr : sRepresentations){
+                dr.mIcon = null;
+                dr.mIconPath = dr.mPath+"icons/"+ICON_TAGS[sIconMode]+"/";
+                for(State s : dr.mStates){
+                    // s.icon.recycle()?
+                    s.icon = null;
+                }
+            }
         }
     }
     
@@ -191,6 +197,9 @@ public class DeviceRepresentation
     
     public Bitmap getIcon()
     {
+        if(mIcon == null){
+            mIcon = loadIcon("device.png");
+        }
         return mIcon;
     }
     
@@ -206,7 +215,11 @@ public class DeviceRepresentation
     
     public Bitmap getStateIcon(int index)
     {
-        return mStates.get(index).icon;
+        Bitmap icon = mStates.get(index).icon;
+        if(icon == null){
+            icon = loadIcon(mStates.get(index).filename);
+        }
+        return icon;
     }
     
     public int getControlsCount()
@@ -240,38 +253,23 @@ public class DeviceRepresentation
         return b;
     }
     
-    protected void loadIcons()
+    protected Bitmap loadIcon(String filename)
     {
-        String iconPath = mPath+"icons/"+ICON_TAGS[sIconMode]+"/";
         Bitmap b = null;
         
-        // Cargar icono principal, si falla, cargar el pictograma por defecto
         try {
-            b = BitmapFactory.decodeStream(sAssetManager.open(iconPath+"device.png"));
+            b = BitmapFactory.decodeStream(sAssetManager.open(mIconPath+filename));
         } catch (IOException e) {
-            try {
-                b = BitmapFactory.decodeStream(sAssetManager.open(mPath+"icons/"+ICON_TAGS[ICON_DEFAULT]+"/device.png"));
+            try { // intentar cargar el del estado por defecto
+                String fname2 = mPath+"icons/"+ICON_TAGS[ICON_DEFAULT]+"/"+filename;
+                b = BitmapFactory.decodeStream(sAssetManager.open(fname2));
             } catch (IOException e1) {
                 Log.e(TAG, "Bad device representation: main default icon missing for "+mName);
                 b = BitmapFactory.decodeResource(sResources, R.drawable.icon_device_error);
             }
         }
-        mIcon = scaleIcon(b);
         
-        // Ídem para iconos de estados
-        for(int i=0; i<mStates.size(); ++i){
-            State s = mStates.get(i);
-            try {
-                b = BitmapFactory.decodeStream(sAssetManager.open(iconPath+s.filename));
-            } catch (IOException e) {
-                try {
-                    b = BitmapFactory.decodeStream(sAssetManager.open(mPath+"icons/"+ICON_TAGS[ICON_DEFAULT]+"/"+s.filename));
-                } catch (IOException e1) {
-                    Log.e(TAG, "Bad device representation: icon missing for state "+ i + " ("+mName+")");
-                    b = BitmapFactory.decodeResource(sResources, R.drawable.icon_device_error);
-                }
-            }
-            s.icon = scaleIcon(b);
-        }
+        b = scaleIcon(b);
+        return b;
     }
 }

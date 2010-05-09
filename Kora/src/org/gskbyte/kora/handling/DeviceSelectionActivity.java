@@ -12,16 +12,12 @@ import org.gskbyte.kora.devices.DeviceManager;
 import org.gskbyte.kora.devices.DeviceRepresentation;
 import org.gskbyte.kora.profiles.ProfilesManager;
 import org.gskbyte.kora.profiles.UseProfile;
-import org.gskbyte.kora.profiles.ProfilesManager.SettingsException;
-import org.gskbyte.kora.profilesActivities.useProfiles.SelectionActivity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 public class DeviceSelectionActivity extends Activity
 {
@@ -55,6 +51,9 @@ public class DeviceSelectionActivity extends Activity
         
         mPreviousButton.setOnClickListener(previousPageListener);
         mNextButton.setOnClickListener(nextPageListener);
+        
+        // Reiniciar máximo de fuente para KoraButton (-1 fullerooooo)
+        KoraView.resetCommonTextSize();
         
         // Conectar gestor de dispositivos
         try {
