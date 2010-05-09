@@ -9,6 +9,8 @@ import org.gskbyte.kora.customViews.KoraView;
 import org.gskbyte.kora.customViews.deviceViews.DeviceSelectionButton;
 import org.gskbyte.kora.customViews.deviceViews.DeviceViewAttributes;
 import org.gskbyte.kora.customViews.scanGridLayout.ElementWiseScanGridLayout;
+import org.gskbyte.kora.customViews.scanGridLayout.RowColumnScanGridLayout;
+import org.gskbyte.kora.customViews.scanGridLayout.ScanGridLayout;
 import org.gskbyte.kora.devices.DeviceManager;
 import org.gskbyte.kora.devices.DeviceRepresentation;
 import org.gskbyte.kora.profiles.ProfilesManager;
@@ -27,7 +29,7 @@ public class DeviceSelectionActivity extends Activity
     private static final String TAG = "DeviceSelectionActivity";
 
     private RelativeLayout mMainLayout;
-    private ElementWiseScanGridLayout mGrid;
+    private ScanGridLayout mGrid;
     
     private int mCurrentPage;
     
@@ -101,6 +103,12 @@ public class DeviceSelectionActivity extends Activity
     {
         super.onResume();
         mGrid.start(1000);
+    }
+    
+    public void onPause()
+    {
+        super.onPause();
+        mGrid.stop();
     }
     
     public void onDestroy()

@@ -5,8 +5,6 @@
         <attr name="numRows" format="integer" />
         <attr name="innerMargin" format="integer" />
     </declare-styleable>
-    <declare-styleable name="ScanGridLayout">
-    </declare-styleable>
     
     <declare-styleable name="KoraButton">
         <attr name="showText" format="boolean" />

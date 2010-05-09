@@ -38,7 +38,6 @@ public class ElementWiseScanGridLayout extends ScanGridLayout
     public boolean onTouchEvent(MotionEvent event)
     {
         if(event.getAction() == MotionEvent.ACTION_DOWN){
-            mHandler.removeCallbacks(mTimer);
             View currentChild = getChildAt(mFocusIndex);
             currentChild.performClick();
         }
