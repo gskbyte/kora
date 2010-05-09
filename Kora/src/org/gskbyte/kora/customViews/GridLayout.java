@@ -27,13 +27,13 @@ import android.util.AttributeSet;
 
 public class GridLayout extends ViewGroup
 {
-    private int mNumRows;
-    private int mNumColumns;
+    protected int mNumRows;
+    protected int mNumColumns;
 
-    private int mColumnWidth;
-    private int mRowHeight;
+    protected int mColumnWidth;
+    protected int mRowHeight;
     
-    private int mMargin;
+    protected int mMargin;
 
     public GridLayout(Context context)
     {

@@ -8,6 +8,7 @@ import org.gskbyte.kora.customViews.KoraButton;
 import org.gskbyte.kora.customViews.KoraView;
 import org.gskbyte.kora.customViews.deviceViews.DeviceSelectionButton;
 import org.gskbyte.kora.customViews.deviceViews.DeviceViewAttributes;
+import org.gskbyte.kora.customViews.scanGridLayout.ElementWiseScanGridLayout;
 import org.gskbyte.kora.devices.DeviceManager;
 import org.gskbyte.kora.devices.DeviceRepresentation;
 import org.gskbyte.kora.profiles.ProfilesManager;
@@ -16,16 +17,17 @@ import org.gskbyte.kora.profiles.UseProfile;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
+import android.widget.RelativeLayout;
+import android.widget.RelativeLayout.LayoutParams;
 
 public class DeviceSelectionActivity extends Activity
 {
     private static final String TAG = "DeviceSelectionActivity";
 
-    private GridLayout mGrid;
+    private RelativeLayout mMainLayout;
+    private ElementWiseScanGridLayout mGrid;
     
     private int mCurrentPage;
     
@@ -48,10 +50,18 @@ public class DeviceSelectionActivity extends Activity
         setContentView(R.layout.device_selection_layout);
         
         // Cargar componentes de la vista
-        mGrid = (GridLayout) findViewById(R.id.deviceGrid);
+        mMainLayout = (RelativeLayout) findViewById(R.id.selectionLayout);
+        
+        //mGrid = (ScanGridLayout) findViewById(R.id.deviceGrid);
         mNavigationButtons = (GridLayout) findViewById(R.id.navigationButtons);
         mPreviousButton = (KoraButton) findViewById(R.id.back);
         mNextButton = (KoraButton) findViewById(R.id.next);
+        
+        LayoutParams params = new LayoutParams(LayoutParams.FILL_PARENT, 
+                                               LayoutParams.FILL_PARENT);
+        params.addRule(RelativeLayout.ABOVE, R.id.navigationButtons);
+        mGrid = new ElementWiseScanGridLayout(this);
+        mMainLayout.addView(mGrid, params);
         
         mPreviousButton.setOnClickListener(previousPageListener);
         mNextButton.setOnClickListener(nextPageListener);
@@ -87,13 +97,16 @@ public class DeviceSelectionActivity extends Activity
         
     }
     
-    public void onStart()
+    public void onResume()
     {
-    	super.onStart();
-    	
-    	//int nbuttons = mGrid.getChildCount();
-    	//for(int i=0; i<nbuttons; ++i)
-    	//    ((KoraButton)mGrid.getChildAt(i)).deselect();
+        super.onResume();
+        mGrid.start(1000);
+    }
+    
+    public void onDestroy()
+    {
+        super.onDestroy();
+        mGrid.stop();
     }
     
     public void setOrientation()

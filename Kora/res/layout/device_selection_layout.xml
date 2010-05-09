@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:gskbyte="http://schemas.android.com/apk/res/org.gskbyte.kora"
+	android:id="@+id/selectionLayout"
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent">
 
@@ -37,11 +38,4 @@
             gskbyte:overrideCommonTextSize="true"
             />
 	</org.gskbyte.kora.customViews.GridLayout> 
-	
-	<org.gskbyte.kora.customViews.GridLayout
-	    android:id="@+id/deviceGrid"
-	    android:layout_width="fill_parent" 
-	    android:layout_height="fill_parent"
-	    
-	    android:layout_above="@id/navigationButtons"/>
 </RelativeLayout>

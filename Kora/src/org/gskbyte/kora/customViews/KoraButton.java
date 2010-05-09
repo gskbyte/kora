@@ -14,7 +14,6 @@ import android.graphics.Paint.Align;
 import android.os.CountDownTimer;
 import android.os.Vibrator;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 
@@ -39,8 +38,6 @@ public class KoraButton extends KoraView
     // Variables para realimentación
     protected CountDownTimer mBlockTimer;
     protected static Vibrator sVibrator = null;
-    
-    protected OnClickListener mClickListener;
     
     protected KoraButton(Context context)
     {
@@ -324,11 +321,6 @@ public class KoraButton extends KoraView
         }
     }
     
-    public void setOnClickListener(OnClickListener listener)
-    {
-        mClickListener = listener;
-    }
-    
     @Override
     public boolean onTouchEvent(MotionEvent event)
     {
@@ -353,8 +345,7 @@ public class KoraButton extends KoraView
                         if(mAttrs.vibrate)
     	                    sVibrator.vibrate(500);
                         
-                        if(mClickListener!=null)
-                            mClickListener.onClick(this);
+                        performClick();
                         
                     } else {
                         mBlocked = false;
@@ -382,13 +373,14 @@ public class KoraButton extends KoraView
             if(mAttrs.vibrate)
                 sVibrator.vibrate(500);
             
-            if(mClickListener!=null)
-                mClickListener.onClick(this);
+            performClick();
             return true;
         }
         
         return false;
     }
+    
+    
     
     public void deselect()
     {
