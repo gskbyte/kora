@@ -4,26 +4,16 @@
 
 package simkora;
 
-import java.awt.Button;
 import java.awt.Color;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.UnsupportedLookAndFeelException;
 import org.jdesktop.application.Action;
-import org.jdesktop.application.ResourceMap;
 import org.jdesktop.application.SingleFrameApplication;
 import org.jdesktop.application.FrameView;
-import org.jdesktop.application.TaskMonitor;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.FileInputStream;
 import java.net.URL;
-import javax.swing.Timer;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JSlider;
@@ -44,6 +34,7 @@ public class SimKoraView extends FrameView {
 
     public static final int TOPIC = 49;
     public static SimKoraView currentWindow;
+    private float light2val = 0, sunblindval = 0;
 
     public SimKoraView(SingleFrameApplication app) {
         super(app);
@@ -570,16 +561,22 @@ public class SimKoraView extends FrameView {
         JSlider s = (JSlider)evt.getSource();
         float value = s.getValue()/100f;
 
-        setLight2(value, true);
+        if(Math.abs(value-light2val) >= 0.1 || value==0.0 || value==1.0){
+            light2val = value;
+            setLight2(value, true);
+        }
     }//GEN-LAST:event_light2SliderStateChanged
 
     private void sunblindSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sunblindSliderStateChanged
         JSlider s = (JSlider)evt.getSource();
         float value = s.getValue()/100f;
 
-        setSunblind(value, true);
+        if(Math.abs(value-sunblindval) >= 0.1 || value==0.0 || value==1.0){
+            sunblindval = value;
+            setSunblind(value, true);
+        }
     }//GEN-LAST:event_sunblindSliderStateChanged
-
+    
     private void door1ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_door1ButtonActionPerformed
         JButton btn = (JButton) evt.getSource();
 
