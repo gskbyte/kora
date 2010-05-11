@@ -43,7 +43,7 @@ public class DeviceManager
         s2max.setFloat(1);
         s2cur.setFloat(0);
         DeviceSpec s2 = new DeviceSpec("bombilla2",
-                "Flexo",
+                "Lámpara",
                 "adjustableLight",
                 DeviceSpec.ACCESS_READ_WRITE,
                 Value.FLOAT_TYPE,

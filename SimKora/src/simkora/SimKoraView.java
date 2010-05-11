@@ -187,7 +187,7 @@ public class SimKoraView extends FrameView {
             light2Slider.removeChangeListener(ls[0]);
             light2Slider.setValue((int)(value*100f));
             light2Slider.addChangeListener(ls[0]);
-            log("Evento sobre bombilla2 (flexo). Nuevo valor: " + value);
+            log("Evento sobre bombilla2 (lámpara). Nuevo valor: " + value);
         }
         
     }
