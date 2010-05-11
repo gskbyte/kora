@@ -72,7 +72,7 @@ public class InteractionActivity extends ProfilePropertiesActivity
         }
         
         switch(mUseProfile.scanMode){
-        case UseProfile.interaction.simple_scan:
+        case UseProfile.interaction.elementwise_scan:
             mSimpleScanRadio.setChecked(true);
             break;
         case UseProfile.interaction.row_column_scan:
@@ -92,7 +92,7 @@ public class InteractionActivity extends ProfilePropertiesActivity
         case UseProfile.interaction.pagination_standard:
             mPagingStandardAutomaticRadio.setChecked(true);
             break;
-        case UseProfile.interaction.pagination_buttons:
+        case UseProfile.interaction.pagination_last_button:
             mPagingLastButtonRadio.setChecked(true);
             break;
         }
@@ -121,7 +121,7 @@ public class InteractionActivity extends ProfilePropertiesActivity
         
         if(mSimpleScanRadio.isChecked()) {
             mUseProfile.scanMode =
-                UseProfile.interaction.simple_scan;
+                UseProfile.interaction.elementwise_scan;
         } else {
             mUseProfile.scanMode =
                 UseProfile.interaction.row_column_scan;
@@ -133,7 +133,7 @@ public class InteractionActivity extends ProfilePropertiesActivity
         if(mPagingStandardAutomaticRadio.isChecked()) {
             mUseProfile.paginationMode = UseProfile.interaction.pagination_standard;
         } else {
-            mUseProfile.paginationMode = UseProfile.interaction.pagination_buttons;
+            mUseProfile.paginationMode = UseProfile.interaction.pagination_last_button;
         }
     }
     

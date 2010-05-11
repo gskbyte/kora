@@ -92,7 +92,8 @@ public class DeviceSpec implements Marshallable
 	public void marshall(ByteStreamWriter writer)
 	{
 		writer.writeString(mSystemName);
-		writer.writeString(mReadableName);
+        writer.writeUTF8String(mReadableName);
+        //writer.writeString(mReadableName);
 		writer.writeString(mDeviceType);
 		writer.writeInteger(mAccessType);
 		writer.writeInteger(mValueType);
@@ -106,7 +107,8 @@ public class DeviceSpec implements Marshallable
 	public void unmarshall(ByteStreamReader reader)
 	{
 		mSystemName = reader.readString();
-		mReadableName = reader.readString();
+        mReadableName = reader.readUTF8String();
+        //mReadableName = reader.readString();
 		mDeviceType = reader.readString();
 		mAccessType = reader.readInteger();
 		mValueType = reader.readInteger();

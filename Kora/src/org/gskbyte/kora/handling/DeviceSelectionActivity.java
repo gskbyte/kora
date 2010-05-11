@@ -8,7 +8,7 @@ import org.gskbyte.kora.customViews.KoraButton;
 import org.gskbyte.kora.customViews.KoraView;
 import org.gskbyte.kora.customViews.deviceViews.DeviceSelectionButton;
 import org.gskbyte.kora.customViews.deviceViews.DeviceViewAttributes;
-import org.gskbyte.kora.customViews.scanGridLayout.ElementWiseScanGridLayout;
+import org.gskbyte.kora.customViews.scanGridLayout.ElementwiseScanGridLayout;
 import org.gskbyte.kora.customViews.scanGridLayout.RowColumnScanGridLayout;
 import org.gskbyte.kora.customViews.scanGridLayout.ScanGridLayout;
 import org.gskbyte.kora.devices.DeviceManager;
@@ -20,16 +20,18 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 
-public class DeviceSelectionActivity extends Activity
+public class DeviceSelectionActivity extends Activity implements ScanGridLayout.FocusCycleListener
 {
+    @SuppressWarnings("unused")
     private static final String TAG = "DeviceSelectionActivity";
 
     private RelativeLayout mMainLayout;
-    private ScanGridLayout mGrid;
+    private GridLayout mGrid;
     
     private int mCurrentPage;
     
@@ -40,6 +42,9 @@ public class DeviceSelectionActivity extends Activity
                 mIconNextId = R.drawable.icon_next;
     
     private boolean mShowPagingButtons;
+    private boolean mHaveScanLayout;
+    private int mScanIntervalMillis;
+    private boolean mAutoPaging;
     private DeviceViewAttributes mAttr;
     
     @Override
@@ -58,12 +63,6 @@ public class DeviceSelectionActivity extends Activity
         mNavigationButtons = (GridLayout) findViewById(R.id.navigationButtons);
         mPreviousButton = (KoraButton) findViewById(R.id.back);
         mNextButton = (KoraButton) findViewById(R.id.next);
-        
-        LayoutParams params = new LayoutParams(LayoutParams.FILL_PARENT, 
-                                               LayoutParams.FILL_PARENT);
-        params.addRule(RelativeLayout.ABOVE, R.id.navigationButtons);
-        mGrid = new ElementWiseScanGridLayout(this);
-        mMainLayout.addView(mGrid, params);
         
         mPreviousButton.setOnClickListener(previousPageListener);
         mNextButton.setOnClickListener(nextPageListener);
@@ -96,25 +95,20 @@ public class DeviceSelectionActivity extends Activity
         }
         configureView();
         viewPage(0);
-        
     }
     
     public void onResume()
     {
         super.onResume();
-        mGrid.start(1000);
-    }
-    
-    public void onPause()
-    {
-        super.onPause();
-        mGrid.stop();
+        if(mHaveScanLayout)
+            ((ScanGridLayout)mGrid).resetFocus();
     }
     
     public void onDestroy()
     {
         super.onDestroy();
-        mGrid.stop();
+        if(mHaveScanLayout)
+            ((ScanGridLayout)mGrid).pauseTimer();
     }
     
     public void setOrientation()
@@ -134,6 +128,33 @@ public class DeviceSelectionActivity extends Activity
     {
         mAttr = ViewManager.getAttributes();
         UseProfile up = ProfilesManager.getCurrentUseProfile();
+        
+        LayoutParams params = new LayoutParams(LayoutParams.FILL_PARENT, 
+                                               LayoutParams.FILL_PARENT);
+        params.addRule(RelativeLayout.ABOVE, R.id.navigationButtons);
+        
+        switch(up.mainInteraction){
+        case UseProfile.interaction.touch_mode:
+            // la selección de dispositivos es siempre igual
+            mHaveScanLayout = false;
+            mGrid = new GridLayout(this);
+            break;
+        case UseProfile.interaction.scan_mode:
+            mHaveScanLayout = true;
+            mScanIntervalMillis = up.scanTimeMillis;
+            switch(up.scanMode){
+            case UseProfile.interaction.elementwise_scan:
+                mGrid = new ElementwiseScanGridLayout(this);
+                break;
+            case UseProfile.interaction.row_column_scan:
+                mGrid = new RowColumnScanGridLayout(this);
+                break;
+            }
+            ((ScanGridLayout)mGrid).setOnFocusCycleListener(this);
+            break;
+        }
+        mMainLayout.addView(mGrid, params);
+        
         mGrid.setDimensions(up.rows, up.columns);
         switch(up.margin){
         case UseProfile.visualization.margin_large:
@@ -163,15 +184,42 @@ public class DeviceSelectionActivity extends Activity
             break;
         }
         
-        mShowPagingButtons = (up.paginationMode == UseProfile.interaction.pagination_standard);
+        mShowPagingButtons = (up.paginationMode == UseProfile.interaction.pagination_standard &&
+                              up.mainInteraction == UseProfile.interaction.touch_mode);
         int nDevices = DeviceManager.getNumberOfDevices();
+        
+        boolean spaceEnough = nDevices<=mGrid.getNRows()*mGrid.getNColumns();
+        
+        if(!spaceEnough){
+            switch(up.paginationMode){
+            case UseProfile.interaction.pagination_standard: // || automatic
+                switch(up.mainInteraction){
+                case UseProfile.interaction.touch_mode:
+                    mNavigationButtons.setVisibility(View.VISIBLE);
+                    
+                    mPreviousButton.setIcon(mIconReturnId);
+                    mPreviousButton.setAttributes(ViewManager.getAttributes(ViewManager.COLOR_INDEX_PREVIOUS, true));
+                    mNextButton.setIcon(mIconNextId);
+                    mNextButton.setAttributes(ViewManager.getAttributes(ViewManager.COLOR_INDEX_NEXT, true));
+                    break;
+                case UseProfile.interaction.scan_mode: // modo automático
+                    mNavigationButtons.setVisibility(View.GONE);
+                    mAutoPaging = true;
+                    mShowPagingButtons = false;
+                    break;
+                }
+                break;
+            case UseProfile.interaction.pagination_last_button:
+                mNavigationButtons.setVisibility(View.GONE);
+                mAutoPaging = false;
+                break;
+            }
+        } else {
+            mNavigationButtons.setVisibility(View.GONE);
+        }
+        
         if(mShowPagingButtons && nDevices>mGrid.getNRows()*mGrid.getNColumns()){
-            mNavigationButtons.setVisibility(View.VISIBLE);
             
-            mPreviousButton.setIcon(mIconReturnId);
-            mPreviousButton.setAttributes(ViewManager.getAttributes(ViewManager.COLOR_INDEX_PREVIOUS, true));
-            mNextButton.setIcon(mIconNextId);
-            mNextButton.setAttributes(ViewManager.getAttributes(ViewManager.COLOR_INDEX_NEXT, true));
         } else {
             mNavigationButtons.setVisibility(View.GONE);
         }
@@ -222,6 +270,10 @@ public class DeviceSelectionActivity extends Activity
             btns = getButtonsForDevices(0, nDevices);
         }
         
+
+        if(mHaveScanLayout)
+            ((ScanGridLayout)mGrid).pauseTimer();
+        
         // Rellenar la vista
         mGrid.removeAllViews();
         for(DeviceSelectionButton b : btns)
@@ -249,6 +301,10 @@ public class DeviceSelectionActivity extends Activity
             mNextButton.deselect();
         }
         mCurrentPage = page;
+
+        if(mHaveScanLayout){
+            ((ScanGridLayout)mGrid).start(mScanIntervalMillis);
+        }
     }
 
     View.OnClickListener previousPageListener = new View.OnClickListener()
@@ -268,4 +324,12 @@ public class DeviceSelectionActivity extends Activity
                 viewPage(mCurrentPage+1);
             }
         };
+
+    @Override
+    public void focusCycled(ScanGridLayout source)
+    {
+        if(source==mGrid && mAutoPaging){
+            viewPage(mCurrentPage+1);
+        }
+    }
 }

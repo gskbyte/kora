@@ -157,8 +157,8 @@ public class ProfilesDbAdapter
             
             UseProfile.interaction.touch_mode+","+
             UseProfile.interaction.press_and_drag+","+
-            UseProfile.interaction.simple_scan+","+
-            2500+","+
+            UseProfile.interaction.elementwise_scan+","+
+            1500+","+
             UseProfile.interaction.pagination_standard+","+
             UseProfile.interaction.no_voice+","+
             

@@ -36,7 +36,15 @@ public class KoraButton extends KoraView
     protected float mTextSize;
     
     // Variables para realimentación
-    protected CountDownTimer mBlockTimer;
+    protected final CountDownTimer mBlockTimer = new CountDownTimer(1000, 1000) {
+        public void onTick(long millisLeft) {
+        }
+
+        public void onFinish() {
+            deselect();
+        }
+    };
+    
     protected static Vibrator sVibrator = null;
     
     protected KoraButton(Context context)
@@ -106,15 +114,6 @@ public class KoraButton extends KoraView
         if(sVibrator==null)
             sVibrator = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
         
-        mBlockTimer = new CountDownTimer(1000, 1000) {
-            public void onTick(long millisLeft) {
-            }
-
-            public void onFinish() {
-                deselect();
-            }
-        };
-
         mFocused = mBlocked = false;
         setFocusable(true);
         setClickable(true);
