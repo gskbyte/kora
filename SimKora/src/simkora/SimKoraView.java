@@ -76,8 +76,10 @@ public class SimKoraView extends FrameView {
             log(ex.getMessage());
         }
 
-        org.ugr.bluerose.events.EventHandler.addEventListener(new DeviceQueryListener());
-        org.ugr.bluerose.events.EventHandler.addEventListener(new DeviceChangeListener());
+        //org.ugr.bluerose.events.EventHandler.addEventListener(new DeviceQueryListener());
+        //org.ugr.bluerose.events.EventHandler.addEventListener(new DeviceChangeListener());
+        
+        log("Escuchadores iniciados");
     }
 
     public static SimKoraView getCurrent()

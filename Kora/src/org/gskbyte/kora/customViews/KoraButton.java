@@ -36,7 +36,7 @@ public class KoraButton extends KoraView
     protected float mTextSize;
     
     // Variables para realimentación
-    protected final CountDownTimer mBlockTimer = new CountDownTimer(1000, 1000) {
+    protected final CountDownTimer mLockTimer = new CountDownTimer(1000, 1000) {
         public void onTick(long millisLeft) {
         }
 
@@ -339,7 +339,7 @@ public class KoraButton extends KoraView
                        x>0 && y>0 && mFocused){
                         mBlocked = true;
                         
-                        mBlockTimer.start();
+                        mLockTimer.start();
                         
                         if(mAttrs.vibrate)
     	                    sVibrator.vibrate(500);
@@ -367,7 +367,7 @@ public class KoraButton extends KoraView
         if(keyCode == KeyEvent.KEYCODE_DPAD_CENTER){
             mBlocked = true;
             
-            mBlockTimer.start();
+            mLockTimer.start();
             
             if(mAttrs.vibrate)
                 sVibrator.vibrate(500);

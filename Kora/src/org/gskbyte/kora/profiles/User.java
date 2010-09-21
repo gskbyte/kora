@@ -1,6 +1,5 @@
 package org.gskbyte.kora.profiles;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.Serializable;
 

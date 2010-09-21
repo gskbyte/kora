@@ -320,10 +320,10 @@ public class DeviceManager
         
         Vector<DeviceSpec> specs = new Vector<DeviceSpec>();
         specs.add(s1);
-        specs.add(s2);
+        specs.add(s5);
         specs.add(s3);
         specs.add(s4);
-        specs.add(s5);
+        specs.add(s2);
         
         return specs;
 	}

@@ -201,7 +201,7 @@
         <string name="simulationSummary">Useful to test app when real devices or simulator are not present</string>
     <string name="connectionSettings">Connection</string>
         <string name="ipConfig">IP address</string>
-        <string name="ipConfigSummary">BlueRose server's IP</string>
+        <string name="ipConfigSummary">BlueRose server\'s IP</string>
         <string name="portConfig">Port</string>
         <string name="portConfigSummary">Used port to connect to talk to server</string>
     

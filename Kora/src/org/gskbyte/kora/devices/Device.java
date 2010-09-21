@@ -60,7 +60,7 @@ public class Device extends DeviceSpec
             int max = d.mMaxValue.getInteger(),
                 min = d.mMinValue.getInteger();
             
-            int stepSize = (max - min)/nstates;
+            int stepSize = (max - min)/(nstates-1);
             ret = v.getInteger()/stepSize;
             break;
         case Value.FLOAT_TYPE:

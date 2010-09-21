@@ -23,8 +23,8 @@
 		<category name="Domotics">
 		
 			<service name="Kora">
-				<device name="TcpCompatibleDevice" address="localhost" port="10000" />
-				<device name="UdpCompatibleDevice" address="localhost" port="10001" />
+				<device name="TcpCompatibleDevice" address="localhost" port="10049" />
+				<device name="UdpCompatibleDevice" address="localhost" port="10050" />
 			</service>
 			
 		</category>

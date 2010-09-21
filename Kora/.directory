@@ -1,3 +1,6 @@
 [Dolphin]
 Sorting=2
-Timestamp=2010,4,23,15,41,13
+Timestamp=2010,6,5,19,7,26
+
+[Settings]
+ShowDotFiles=true

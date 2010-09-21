@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 public class DetailedListViewItem extends RelativeLayout
 {
-    
     public DetailedListViewItem(Context context, String mainText, String description, Drawable image)
     {
         super(context);

@@ -130,7 +130,8 @@ public class SectionedListAdapter extends ArrayAdapter<Object>
         return 2;
     }
 
-    public int getItemViewType(int position) {
+    public int getItemViewType(int position)
+    {
         if(mModels.get(position).getClass() == Header.class)
             return TYPE_SECTION_HEADER;
         else

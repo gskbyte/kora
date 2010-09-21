@@ -15,9 +15,9 @@ public class KoraView extends View
                                 VERTICAL = 2,
                                 BOTH = 3; // HORIZONTAL | VERTICAL
         
-        public static final float TEXT_LARGE = 35,
-                                  TEXT_MEDIUM = 25,
-                                  TEXT_SMALL = 15;
+        public static final float TEXT_LARGE = 60,
+                                  TEXT_MEDIUM = 75,
+                                  TEXT_SMALL = 25;
 
 
         public static final int INDEX_NORMAL = 0,
